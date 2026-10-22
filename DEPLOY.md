@@ -66,10 +66,13 @@ railway up
 2. In the app service, reference the new database's private `DATABASE_URL` variable. Do not expose
    the database through public TCP access for the app.
 3. The server verifies TLS certificates and hostnames. Railway's official PostgreSQL template
-   enables TLS with a private CA; verify the database's private hostname is covered by its server
-   certificate and set `DATABASE_SSL_CA` to the PostgreSQL service's trusted root certificate
-   (the official template stores it at `/var/lib/postgresql/data/certs/root.crt`). Never set
-   `DATABASE_SSL=disable` in production. Test a connection from the app service before importing.
+   enables TLS with a private CA; set `DATABASE_SSL_CA` to the PostgreSQL service's trusted root
+   certificate (the official template stores it at `/var/lib/postgresql/data/certs/root.crt`).
+   The default hostname check uses the host in `DATABASE_URL`. If the database certificate is
+   issued for a different DNS name, set `DATABASE_SSL_SERVER_NAME` to the exact certificate
+   hostname (for example, `localhost` only if that is the certificate's name). This keeps
+   certificate-chain and hostname verification enabled. Never set `DATABASE_SSL=disable` in
+   production. Test a connection from the app service before importing.
 4. Use separate credentials: a database administrator URL only for the one-off schema migration,
    and a non-owner runtime role for the app. The runtime role must not be a superuser, database
    owner, or schema/table owner, and must not have schema/database create privileges. Grant it
@@ -108,6 +111,7 @@ Optional (defaults in brackets):
 | Variable | Purpose |
 |---|---|
 | `DATABASE_SSL_CA` | trusted CA PEM; required for Railway's official self-signed PostgreSQL template |
+| `DATABASE_SSL_SERVER_NAME` | certificate DNS name to verify when it differs from the database URL hostname |
 | `DATABASE_MIGRATION_URL` | one-off migration environment only; never set on the running app service |
 | `ADMIN_SLUGS` | portal admins, comma-separated (faculty.json entries with `"admin": true`) |
 | `IDEAS_TO` | where suggestions are emailed (the admins' addresses) |
@@ -118,7 +122,7 @@ Optional (defaults in brackets):
 | `MAIL_DOMAINS` | domains the portal may email (`bau.edu.lb,student.bau.edu.lb`) |
 | `MAIL_PER_DAY` | messages one advisor may send per day (`200`) |
 | `TRUST_PROXY` | `false` when the server is reached directly, not behind a proxy (`true`) |
-| `ALLOW_UNVERIFIED_SIGNUP` | development only: open accounts without email (`false`) |
+| `ALLOW_UNVERIFIED_SIGNUP` | local development only; the server refuses to start in production if enabled (`false`) |
 
 For a fresh Railway deployment, provision a separate PostgreSQL service first. The existing
 app-only project and its `/data` volume are not a database. Keep the old volume intact and do not

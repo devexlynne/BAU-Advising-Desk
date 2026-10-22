@@ -1092,6 +1092,9 @@ const server = http.createServer(async (req, res) => {
 });
 
 async function startServer() {
+  if (PRODUCTION && ALLOW_UNVERIFIED_SIGNUP) {
+    throw new Error('ALLOW_UNVERIFIED_SIGNUP=true is not allowed in production');
+  }
   if (PRODUCTION && !process.env.DATABASE_URL) {
     throw new Error('DATABASE_URL is required in production; refusing to start with file storage');
   }

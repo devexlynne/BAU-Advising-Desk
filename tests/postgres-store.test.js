@@ -16,9 +16,12 @@ async function run() {
   const caPool = createPool({
     DATABASE_URL: 'postgres://localhost/advising',
     DATABASE_SSL_CA: '-----BEGIN CERTIFICATE-----\nexample\n-----END CERTIFICATE-----',
+    DATABASE_SSL_SERVER_NAME: 'localhost',
     NODE_ENV: 'production'
   });
   assert.strictEqual(caPool.options.ssl.ca, '-----BEGIN CERTIFICATE-----\nexample\n-----END CERTIFICATE-----');
+  assert.strictEqual(caPool.options.ssl.servername, 'localhost');
+  assert.strictEqual(caPool.options.ssl.rejectUnauthorized, true);
   await caPool.end();
 
   const statements = [];
@@ -88,7 +91,8 @@ async function run() {
   assert.ok(statements.some(s => s.sql.includes('INSERT INTO public.advising_app_data')));
   assert.ok(statements.some(s => s.sql.includes('DELETE FROM public.advising_app_data')));
   assert.ok(statements.some(s => s.sql.includes('INSERT INTO public.advising_audit_log')));
-  assert.ok(statements.some(s => s.sql.includes('ON CONFLICT (event_id) DO NOTHING')));
+  assert.ok(statements.some(s => s.sql.includes('INSERT INTO public.advising_audit_log')
+    && !s.sql.includes('ON CONFLICT')));
   assert.deepStrictEqual(
     statements.filter(s => s.sql === 'BEGIN' || s.sql === 'COMMIT').map(s => s.sql),
     ['BEGIN', 'COMMIT', 'BEGIN', 'COMMIT']

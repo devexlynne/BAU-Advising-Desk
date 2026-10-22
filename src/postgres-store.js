@@ -19,6 +19,7 @@ function createPool(env = process.env) {
     ? false
     : {
       rejectUnauthorized: true,
+      ...(env.DATABASE_SSL_SERVER_NAME ? { servername: env.DATABASE_SSL_SERVER_NAME } : {}),
       ...(env.DATABASE_SSL_CA ? { ca: env.DATABASE_SSL_CA } : {})
     };
 
@@ -190,8 +191,7 @@ class PostgresStore {
       for (const entry of auditEntries) {
         await client.query(
           `INSERT INTO public.advising_audit_log (event_id, occurred_at, actor, action, details)
-           VALUES ($1::uuid, $2::timestamptz, $3, $4, $5::jsonb)
-           ON CONFLICT (event_id) DO NOTHING`,
+           VALUES ($1::uuid, $2::timestamptz, $3, $4, $5::jsonb)`,
           [entry.eventId, entry.at, entry.actor, entry.action, JSON.stringify(entry.details)]
         );
       }

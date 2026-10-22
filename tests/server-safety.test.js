@@ -47,6 +47,22 @@ const post = (base, p, body, cookie) => fetch(base + p, {
   check('failed production startup does not create a local store',
     !fs.existsSync(path.join(productionDir, 'store.json')));
 
+  const unverifiedProduction = spawnSync(process.execPath, ['server.js'], {
+    cwd: ROOT,
+    env: Object.assign({}, process.env, {
+      NODE_ENV: 'production',
+      RAILWAY_ENVIRONMENT_NAME: '',
+      RAILWAY_SERVICE_ID: '',
+      DATABASE_URL: '',
+      ALLOW_UNVERIFIED_SIGNUP: 'true'
+    }),
+    timeout: 8000
+  });
+  check('production refuses unverified account activation',
+    unverifiedProduction.status === 1
+      && /ALLOW_UNVERIFIED_SIGNUP=true is not allowed in production/.test(unverifiedProduction.stderr),
+    'exit ' + unverifiedProduction.status);
+
   // Student imports stay explicitly disabled until a production operator verifies storage.
   const disabledDir = DATA + '-imports-disabled';
   fs.rmSync(disabledDir, { recursive: true, force: true });
