@@ -1,0 +1,5870 @@
+{
+ "term": "FALL 2026/2027",
+ "termCode": "202710",
+ "coverage": "partial",
+ "note": "Merged from the course offering screenshots and from the sections students are registered in. Not the full university offering.",
+ "sections": [
+  {
+   "crn": "12343",
+   "code": "ARAB001",
+   "title": "Arabic Language",
+   "section": "10",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H1113"
+    }
+   ],
+   "teacher": "Samir Mohamad Itani",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12344",
+   "code": "ARAB001",
+   "title": "Arabic Language",
+   "section": "11",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H115"
+    }
+   ],
+   "teacher": "Zeenelabdeen Metwally",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12342",
+   "code": "ARAB001",
+   "title": "Arabic Language",
+   "section": "9",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H211"
+    }
+   ],
+   "teacher": "Bashir Salem Faraj",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11175",
+   "code": "ARAB001",
+   "title": "Arabic Language",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H909"
+    }
+   ],
+   "teacher": "Bashir Salem Faraj",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11176",
+   "code": "ARAB001",
+   "title": "Arabic Language",
+   "section": "B2",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H915/916"
+    }
+   ],
+   "teacher": "Bashir Salem Faraj",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11177",
+   "code": "ARAB001",
+   "title": "Arabic Language",
+   "section": "B3",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H907-1"
+    }
+   ],
+   "teacher": "Samir Mohamad Itani",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11178",
+   "code": "ARAB001",
+   "title": "Arabic Language",
+   "section": "B4",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H1007"
+    }
+   ],
+   "teacher": "Samir Mohamad Itani",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11179",
+   "code": "ARAB001",
+   "title": "Arabic Language",
+   "section": "B5",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H915/916"
+    }
+   ],
+   "teacher": "Zeenelabdeen Metwally",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11180",
+   "code": "ARAB001",
+   "title": "Arabic Language",
+   "section": "B6",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H1007-1"
+    }
+   ],
+   "teacher": "Zeenelabdeen Metwally",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11181",
+   "code": "ARAB001",
+   "title": "Arabic Language",
+   "section": "B7",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H914"
+    }
+   ],
+   "teacher": "Khalil Abdalla Ajineh",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11182",
+   "code": "ARAB001",
+   "title": "Arabic Language",
+   "section": "B8",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H1007"
+    }
+   ],
+   "teacher": "Houda Abdallah",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11192",
+   "code": "ARAB004",
+   "title": "Arabic Language",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H907-1"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11193",
+   "code": "ARAB005",
+   "title": "Arabic Language",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "Study"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11194",
+   "code": "ARAB007",
+   "title": "Arabic Language",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H1007-1"
+    }
+   ],
+   "teacher": "Abdallah",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11195",
+   "code": "ARAB008",
+   "title": "Arabic Language",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H907-1"
+    }
+   ],
+   "teacher": "Zeenelabdeen Metwally",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11455",
+   "code": "ARCH001",
+   "title": "Photography",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "19:00",
+     "kind": "Lecture",
+     "room": "study"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11215",
+   "code": "ARTS002",
+   "title": "Arts elective (title to confirm)",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H913"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10499",
+   "code": "BACC001",
+   "title": "Introduction to Accounting",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "M438"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10501",
+   "code": "BACC201",
+   "title": "Business course (other programme)",
+   "section": "B1",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "09:31",
+     "end": "11:00",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "THU",
+     "start": "09:31",
+     "end": "11:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10504",
+   "code": "BACC201",
+   "title": "Business course (other programme)",
+   "section": "B4",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "08:01",
+     "end": "09:30",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "THU",
+     "start": "08:01",
+     "end": "09:30",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10279",
+   "code": "BCHM445",
+   "title": "Biochemistry",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Biology Elective Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "08:01",
+     "end": "09:30",
+     "kind": "Lecture",
+     "room": "EB127"
+    },
+    {
+     "day": "FRI",
+     "start": "09:31",
+     "end": "11:00",
+     "kind": "Lecture",
+     "room": "EB127"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10520",
+   "code": "BECO001",
+   "title": "INTRODUCTION TO ECONOMICS",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "M538"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10521",
+   "code": "BECO201",
+   "title": "Business course (other programme)",
+   "section": "B1",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "14:01",
+     "end": "15:30",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "TUE",
+     "start": "14:01",
+     "end": "15:30",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10524",
+   "code": "BECO201",
+   "title": "Business course (other programme)",
+   "section": "B4",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "14:01",
+     "end": "15:30",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "FRI",
+     "start": "14:01",
+     "end": "15:30",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10525",
+   "code": "BECO201",
+   "title": "Business course (other programme)",
+   "section": "B5",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "09:31",
+     "end": "11:00",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "FRI",
+     "start": "09:31",
+     "end": "11:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10286",
+   "code": "BIOL002",
+   "title": "Global Warming",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H907-1"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10289",
+   "code": "BIOL120",
+   "title": "Introduction to Biology",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Foundation Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "16:01",
+     "end": "17:30",
+     "kind": "Lecture",
+     "room": "EB139"
+    },
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "17:30",
+     "kind": "Lecture",
+     "room": "EB139"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10297",
+   "code": "BIOL441",
+   "title": "Biology elective",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Biology Elective Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "11:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "EB127"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10298",
+   "code": "BIOL443",
+   "title": "Biology elective",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Biology Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "H1011"
+    },
+    {
+     "day": "FRI",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "Study"
+    }
+   ],
+   "teacher": "Rana Ahmad EI Hajj",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11783",
+   "code": "BLAW001",
+   "title": "Human Rights",
+   "section": "",
+   "cr": 1,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "17:00",
+     "kind": "Lecture",
+     "room": "Omar Farroukh"
+    }
+   ],
+   "teacher": "Ali Anmad Mourad",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11785",
+   "code": "BLAW001",
+   "title": "Human Rights",
+   "section": "",
+   "cr": 1,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "13:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "Floor - aclaJl"
+    },
+    {
+     "day": "WED",
+     "start": "13:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "Floor - dclaJ|"
+    },
+    {
+     "day": "WED",
+     "start": "13:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "Floor - dc lal"
+    }
+   ],
+   "teacher": "Maya Wahib Mansour",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11781",
+   "code": "BLAW001",
+   "title": "Human Rights",
+   "section": "B1",
+   "cr": 1,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "M336"
+    }
+   ],
+   "teacher": "Halim Chwaikani",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11782",
+   "code": "BLAW001",
+   "title": "Human Rights",
+   "section": "B2",
+   "cr": 1,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "13:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "Omar Farroukh"
+    }
+   ],
+   "teacher": "Rola Abed EI- Halim Chwaikani",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11784",
+   "code": "BLAW001",
+   "title": "Human Rights",
+   "section": "B4",
+   "cr": 1,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "yo)l2o!"
+    },
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "yo)l2oJl"
+    },
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "yol2oJl"
+    }
+   ],
+   "teacher": "Maya Wahib Mansour",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11786",
+   "code": "BLAW001",
+   "title": "Human Rights",
+   "section": "B6",
+   "cr": 1,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "17:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Nader Abdel Aziz Shafi",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11787",
+   "code": "BLAW001",
+   "title": "Human Rights",
+   "section": "B7",
+   "cr": 1,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "17:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Nader Abdel Aziz Shafi",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11798",
+   "code": "BLAW006",
+   "title": "Principles of Labour and Social Security Law",
+   "section": "B1",
+   "cr": 1,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "17:00",
+     "kind": "Lecture",
+     "room": "H611"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10540",
+   "code": "BMGT002",
+   "title": "ENTREPRENEURSHIP",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "M536"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10570",
+   "code": "BMKT001",
+   "title": "INTRODUCTION TO MARKETING",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "Omar Farroukh"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10584",
+   "code": "BMTH201",
+   "title": "Business course (other programme)",
+   "section": "B1",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "08:01",
+     "end": "09:30",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "THU",
+     "start": "08:01",
+     "end": "09:30",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10587",
+   "code": "BMTH201",
+   "title": "Business course (other programme)",
+   "section": "B4",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "09:31",
+     "end": "11:00",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "WED",
+     "start": "09:31",
+     "end": "11:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10590",
+   "code": "BUSN201",
+   "title": "Business course (other programme)",
+   "section": "B1",
+   "cr": 2.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10592",
+   "code": "BUSN201",
+   "title": "Business course (other programme)",
+   "section": "B3",
+   "cr": 2.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10598",
+   "code": "BUSN203",
+   "title": "Business course (other programme)",
+   "section": "B4",
+   "cr": 2.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10315",
+   "code": "CHEM110",
+   "title": "Introduction to Chemistry",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Foundation Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "B210"
+    },
+    {
+     "day": "MON",
+     "start": "13:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "B210"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10316",
+   "code": "CHEM241",
+   "title": "Principles of Chemistry",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "General Science - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "15:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Nour Ibrahim Al Ghosh",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10317",
+   "code": "CHEM241",
+   "title": "Principles of Chemistry",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "General Science - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "08:01",
+     "end": "11:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Nour Ibrahim Al Ghosh",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10328",
+   "code": "CHEM241L",
+   "title": "Principles of Chemistry Laboratory",
+   "section": "D2",
+   "cr": 1.0,
+   "attribute": null,
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "11:01",
+     "end": "14:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "12333",
+   "code": "CHEM450",
+   "title": "Chemistry elective",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Chemistry - Elective Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "08:01",
+     "end": "11:00",
+     "kind": "Lecture",
+     "room": "EB130"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10336",
+   "code": "CMPS006",
+   "title": "Computer elective (title to confirm)",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H907-1"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10337",
+   "code": "CMPS006",
+   "title": "Computer elective (title to confirm)",
+   "section": "B2",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H712"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10339",
+   "code": "CMPS241",
+   "title": "Introduction to Programming",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "General Science - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10340",
+   "code": "CMPS241",
+   "title": "Introduction to Programming",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "General Science - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "13:01",
+     "end": "15:00",
+     "kind": "Lecture",
+     "room": "H1113"
+    },
+    {
+     "day": "TUE",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10341",
+   "code": "CMPS241",
+   "title": "Introduction to Programming",
+   "section": "B3",
+   "cr": 3,
+   "attribute": "General Science - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lab",
+     "room": "H1005- lab"
+    },
+    {
+     "day": "MON",
+     "start": "11:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "H1113"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10342",
+   "code": "CMPS241",
+   "title": "Introduction to Programming",
+   "section": "B4",
+   "cr": 3,
+   "attribute": "General Science - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lab",
+     "room": "H1005-1"
+    },
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lab",
+     "room": "H1005-1- Lab"
+    },
+    {
+     "day": "MON",
+     "start": "11:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "H1113"
+    }
+   ],
+   "teacher": "May Abdulhafiz Itani",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10343",
+   "code": "CMPS241",
+   "title": "Introduction to Programming",
+   "section": "B5",
+   "cr": 3,
+   "attribute": "General Science - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "11:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    },
+    {
+     "day": "TUE",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "H1005- lab"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12321",
+   "code": "CMPS241",
+   "title": "to",
+   "section": "B7",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lab",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12322",
+   "code": "CMPS241",
+   "title": "to",
+   "section": "B8",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "11:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    },
+    {
+     "day": "WED",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "H1005- lab"
+    }
+   ],
+   "teacher": "Abedelrazzak Al Saleh",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12323",
+   "code": "CMPS241",
+   "title": "to",
+   "section": "D4",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "EB318"
+    },
+    {
+     "day": "WED",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lab",
+     "room": "Computer Lab B"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10348",
+   "code": "CMPS242",
+   "title": "Oriented",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    },
+    {
+     "day": "WED",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Julie Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10349",
+   "code": "CMPS242",
+   "title": "Oriented",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    },
+    {
+     "day": "WED",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Julie Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10351",
+   "code": "CMPS242",
+   "title": "Oriented",
+   "section": "B4",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lab",
+     "room": "Computer"
+    },
+    {
+     "day": "THU",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Julie Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10357",
+   "code": "CMPS246",
+   "title": "Web Programming",
+   "section": "B0",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "11:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "FRI",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Layal Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10352",
+   "code": "CMPS246",
+   "title": "Web Programming",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "TUE",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Mahmoud Ahmad Al- Skafi",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10353",
+   "code": "CMPS246",
+   "title": "Web Programming",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "TUE",
+     "start": "17:01",
+     "end": "19:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Ahmad Al- Skafi",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10354",
+   "code": "CMPS246",
+   "title": "Web Programming",
+   "section": "B3",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "17:01",
+     "end": "19:00",
+     "kind": "Lab",
+     "room": "Computer"
+    },
+    {
+     "day": "TUE",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    }
+   ],
+   "teacher": "Ahmad Al- Skafi",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10355",
+   "code": "CMPS246",
+   "title": "Web Programming",
+   "section": "B4",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "11:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "TUE",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lab",
+     "room": "H1005- lab"
+    }
+   ],
+   "teacher": "Layal Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10356",
+   "code": "CMPS246",
+   "title": "Web Programming",
+   "section": "B5",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "11:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "TUE",
+     "start": "13:00",
+     "end": "08:01",
+     "kind": "Lab",
+     "room": "H1006 -"
+    },
+    {
+     "day": "TUE",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "Layal Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10358",
+   "code": "CMPS246",
+   "title": "Web Programming",
+   "section": "B7",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "09:01",
+     "end": "11:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "FRI",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Layal Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10359",
+   "code": "CMPS246",
+   "title": "Web Programming",
+   "section": "B8",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "17:01",
+     "end": "19:00",
+     "kind": "Lab",
+     "room": "Computer"
+    },
+    {
+     "day": "MON",
+     "start": "09:01",
+     "end": "11:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    }
+   ],
+   "teacher": "Layal Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10360",
+   "code": "CMPS246",
+   "title": "Web Programming",
+   "section": "B9",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "09:01",
+     "end": "11:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "FRI",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Layal Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10361",
+   "code": "CMPS246",
+   "title": "Web Programming",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lab",
+     "room": "Computer Lab B"
+    },
+    {
+     "day": "MON",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "B218"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10362",
+   "code": "CMPS246",
+   "title": "Web Programming",
+   "section": "D2",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lab",
+     "room": "Computer Lab A"
+    },
+    {
+     "day": "MON",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "B218"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10363",
+   "code": "CMPS246",
+   "title": "Web Programming",
+   "section": "D3",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "Computer Lab C"
+    },
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "EB127"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10365",
+   "code": "CMPS248",
+   "title": "Discrete Structures I",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "13:01",
+     "end": "15:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    },
+    {
+     "day": "TUE",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "H1005- lab"
+    }
+   ],
+   "teacher": "Layal Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10366",
+   "code": "CMPS248",
+   "title": "Discrete Structures I",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "H1005- lab"
+    },
+    {
+     "day": "MON",
+     "start": "13:01",
+     "end": "15:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Layal Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10368",
+   "code": "CMPS248",
+   "title": "Discrete Structures I",
+   "section": "B4",
+   "cr": 3,
+   "attribute": "Computer Science - First Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lab",
+     "room": "H1005- lab"
+    },
+    {
+     "day": "MON",
+     "start": "13:01",
+     "end": "15:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Layal Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10369",
+   "code": "CMPS342",
+   "title": "Database Systems",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "M352"
+    },
+    {
+     "day": "THU",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Cerine Ghazi Tafran",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10370",
+   "code": "CMPS342",
+   "title": "Database Systems",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "Computer"
+    },
+    {
+     "day": "THU",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "M352"
+    }
+   ],
+   "teacher": "Cerine Ghazi Tafran",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10373",
+   "code": "CMPS342",
+   "title": "Database Systems",
+   "section": "B5",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "THU",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Julie Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10374",
+   "code": "CMPS342",
+   "title": "Database Systems",
+   "section": "B6",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "12:00",
+     "end": "14:01",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "THU",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "Computer"
+    },
+    {
+     "day": "TUE",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "Julie Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10375",
+   "code": "CMPS342",
+   "title": "Database Systems",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "Computer Lab C"
+    },
+    {
+     "day": "MON",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "B218"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10376",
+   "code": "CMPS342",
+   "title": "Database Systems",
+   "section": "D2",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "B218"
+    },
+    {
+     "day": "WED",
+     "start": "10:00",
+     "end": "10:01",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10377",
+   "code": "CMPS345",
+   "title": "Discrete Structures II",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "10:01",
+     "end": "11:30",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "MON",
+     "start": "14:31",
+     "end": "16:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    }
+   ],
+   "teacher": "Lama Ahmed Affara",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10378",
+   "code": "CMPS345",
+   "title": "Discrete Structures II",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "13:01",
+     "end": "14:30",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "WED",
+     "start": "14:01",
+     "end": "15:30",
+     "kind": "Lecture",
+     "room": "H811/812"
+    }
+   ],
+   "teacher": "Lama Ahmed Affara",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10379",
+   "code": "CMPS345",
+   "title": "Discrete Structures II",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "09:31",
+     "end": "11:00",
+     "kind": "Lecture",
+     "room": "B218"
+    },
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "13:30",
+     "kind": "Lecture",
+     "room": "B218"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10380",
+   "code": "CMPS347",
+   "title": "Data Structures",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "M322"
+    },
+    {
+     "day": "THU",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "H1005- lab"
+    }
+   ],
+   "teacher": "Khaled Rawas",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10382",
+   "code": "CMPS347",
+   "title": "Data Structures",
+   "section": "B3",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lab",
+     "room": "Computer"
+    },
+    {
+     "day": "THU",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "M322"
+    }
+   ],
+   "teacher": "Khaled Rawas",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10383",
+   "code": "CMPS347",
+   "title": "Data Structures",
+   "section": "B4",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "WED",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Ali Yassine El-Zaart",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10384",
+   "code": "CMPS347",
+   "title": "Data Structures",
+   "section": "B5",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lab",
+     "room": "Computer"
+    },
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    }
+   ],
+   "teacher": "Tba Tha",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10386",
+   "code": "CMPS347",
+   "title": "Data Structures",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "B218"
+    },
+    {
+     "day": "TUE",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "Computer Lab B"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10387",
+   "code": "CMPS347",
+   "title": "Data Structures",
+   "section": "D2",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "Computer Lab C"
+    },
+    {
+     "day": "WED",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "B218"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10393",
+   "code": "CMPS441",
+   "title": "Fundamentals of Algorithms",
+   "section": "B0",
+   "cr": 3,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "THU",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Julie Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10389",
+   "code": "CMPS441",
+   "title": "Fundamentals of Algorithms",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "H1005- lab"
+    },
+    {
+     "day": "THU",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Julie Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10390",
+   "code": "CMPS441",
+   "title": "Fundamentals of Algorithms",
+   "section": "B3",
+   "cr": 3,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "14:00",
+     "end": "10:01",
+     "kind": "Lab",
+     "room": "H1005-1-"
+    },
+    {
+     "day": "THU",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "H1005-1"
+    },
+    {
+     "day": "THU",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Julie Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10391",
+   "code": "CMPS441",
+   "title": "Fundamentals of Algorithms",
+   "section": "B4",
+   "cr": 3,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "THU",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Julie Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10392",
+   "code": "CMPS441",
+   "title": "Fundamentals of Algorithms",
+   "section": "B5",
+   "cr": 3,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "THU",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Julie Imad Abou Daher",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10394",
+   "code": "CMPS441",
+   "title": "Fundamentals of Algorithms",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lab",
+     "room": "Computer Lab B"
+    },
+    {
+     "day": "WED",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "B211"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10395",
+   "code": "CMPS441",
+   "title": "Fundamentals of Algorithms",
+   "section": "D2",
+   "cr": 3,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lab",
+     "room": "Computer Lab C"
+    },
+    {
+     "day": "WED",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "B211"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12310",
+   "code": "CMPS443",
+   "title": "Senior Project I",
+   "section": "",
+   "cr": 1,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Bekaa",
+   "meetings": [
+    {
+     "day": "SAT",
+     "start": "08:01",
+     "end": "09:00",
+     "kind": "Lecture",
+     "room": "TBA"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10396",
+   "code": "CMPS443",
+   "title": "Senior Project I",
+   "section": "B1",
+   "cr": 1.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "SAT",
+     "start": "08:01",
+     "end": "09:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10397",
+   "code": "CMPS443",
+   "title": "Senior Project I",
+   "section": "D1",
+   "cr": 1,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "SAT",
+     "start": "08:01",
+     "end": "09:00",
+     "kind": "Lecture",
+     "room": "EB129"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10399",
+   "code": "CMPS445",
+   "title": "Concepts of Programming Languages",
+   "section": "B1",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "11:01",
+     "end": "13:00",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "TUE",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10400",
+   "code": "CMPS445",
+   "title": "Concepts of Programming Languages",
+   "section": "B2",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "11:01",
+     "end": "13:00",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "THU",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10401",
+   "code": "CMPS445",
+   "title": "Concepts of Programming Languages",
+   "section": "B3",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "11:01",
+     "end": "13:00",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "THU",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10405",
+   "code": "CMPS445",
+   "title": "Concepts of Programming Languages",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lab",
+     "room": "Computer Lab C"
+    },
+    {
+     "day": "TUE",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "EB129"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10406",
+   "code": "CMPS445",
+   "title": "Concepts of Programming Languages",
+   "section": "D2",
+   "cr": 3,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "EB129"
+    },
+    {
+     "day": "THU",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "Computer Lab B"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10409",
+   "code": "CMPS453",
+   "title": "Artificial Intelligence",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Computer Science - Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lab",
+     "room": "H1005- lab"
+    },
+    {
+     "day": "TUE",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "H813"
+    }
+   ],
+   "teacher": "Ali Yassine El-Zaart",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10410",
+   "code": "CMPS453",
+   "title": "Artificial Intelligence",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "Computer Science - Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lecture",
+     "room": "H813"
+    },
+    {
+     "day": "FRI",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "Computer"
+    }
+   ],
+   "teacher": "Ali Yassine El-Zaart",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10412",
+   "code": "CMPS453",
+   "title": "Artificial Intelligence",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Computer Science - Elective Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "EB129"
+    },
+    {
+     "day": "FRI",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "Lab",
+     "room": "Computer Lab B"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10413",
+   "code": "CMPS455",
+   "title": "Computer Security",
+   "section": "B1",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "WED",
+     "start": "08:01",
+     "end": "10:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10414",
+   "code": "CMPS455",
+   "title": "Computer Security",
+   "section": "B2",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "WED",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10415",
+   "code": "CMPS455",
+   "title": "Computer Security",
+   "section": "B3",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10416",
+   "code": "CMPS455",
+   "title": "Computer Security",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "B211"
+    },
+    {
+     "day": "TUE",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "Computer Lab B"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12082",
+   "code": "CMPS455",
+   "title": "Computer Security",
+   "section": "D2",
+   "cr": 3,
+   "attribute": "Computer Science - Third Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "16:00",
+     "end": "10:01",
+     "kind": "Lecture",
+     "room": "B211"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10417",
+   "code": "CMPS462",
+   "title": "DISTRIBUTED SYSTEMS",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Computer Science - Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lab",
+     "room": "H1005-1- Lab"
+    },
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H1113"
+    },
+    {
+     "day": "TUE",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lab",
+     "room": "H1005-1"
+    }
+   ],
+   "teacher": "Tba Tha",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10418",
+   "code": "CMPS467",
+   "title": "INTERNET OF THINGS",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Computer Science - Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "H1005- lab"
+    },
+    {
+     "day": "WED",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lecture",
+     "room": "H1113"
+    },
+    {
+     "day": "FRI",
+     "start": "16:00",
+     "end": "14:01",
+     "kind": "Lab",
+     "room": "H1005-"
+    }
+   ],
+   "teacher": "Mohammed Abedelrazzak Al Saleh",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10419",
+   "code": "CMPS467",
+   "title": "INTERNET OF THINGS",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "Computer Science - Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "H1005-1"
+    },
+    {
+     "day": "WED",
+     "start": "16:00",
+     "end": "14:01",
+     "kind": "Lecture",
+     "room": "H1113"
+    },
+    {
+     "day": "FRI",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "H1005-1- Lab"
+    },
+    {
+     "day": "WED",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lecture",
+     "room": "H1113"
+    }
+   ],
+   "teacher": "Mohammed Abedelrazzak",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10420",
+   "code": "CMPS467",
+   "title": "INTERNET OF THINGS",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Computer Science - Elective Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lab",
+     "room": "Computer Lab B"
+    },
+    {
+     "day": "THU",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "EB129"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10955",
+   "code": "CVLE007",
+   "title": "Traffic Safety",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H715/716"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12330",
+   "code": "DENT002",
+   "title": "Dentistry elective (title to confirm)",
+   "section": "B1",
+   "cr": 1,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "13:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "M356"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12329",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": null,
+   "meetings": [
+    {
+     "day": "SAT",
+     "start": "08:01",
+     "end": "09:01",
+     "kind": "Lecture",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12336",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "11",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "WED",
+     "start": "17:00",
+     "end": "16:01",
+     "kind": "Lecture",
+     "room": "H811/812"
+    }
+   ],
+   "teacher": "Suzan Ahmad Khalifeh",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12337",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "12",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H909"
+    }
+   ],
+   "teacher": "Buna Khalid Baasiri",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12338",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "13",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H907-1"
+    }
+   ],
+   "teacher": "Suzan Ahmad Khalifeh",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11241",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H1007-1"
+    }
+   ],
+   "teacher": "Maisaa Walid Koleilat",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11260",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "B10",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H911"
+    }
+   ],
+   "teacher": "Tala Kamal Atchan",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11242",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "B2",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H1012"
+    }
+   ],
+   "teacher": "Suzan Ahmad Khalifeh",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11243",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "B3",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H1012"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11244",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "B4",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H1013"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11245",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "B5",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H1013"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11246",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "B6",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "Study"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11247",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "B7",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H1012"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11248",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "B8",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H1013"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11249",
+   "code": "ENGL001",
+   "title": "English Language",
+   "section": "B9",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H1007"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11454",
+   "code": "ENGL006",
+   "title": "English elective (title to confirm)",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H1011"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11264",
+   "code": "ENGL008",
+   "title": "English elective (title to confirm)",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H913"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10428",
+   "code": "ENVI004",
+   "title": "Environment elective (title to confirm)",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H607"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "12142",
+   "code": "FREN001",
+   "title": "Langue Francaise",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "Study"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12144",
+   "code": "FREN001",
+   "title": "Langue Francaise",
+   "section": "B2",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H914"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "12143",
+   "code": "FREN002",
+   "title": "Langue Francaise 2",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H914"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11628",
+   "code": "HESC001",
+   "title": "Topics in Addiction",
+   "section": "1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H211"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11421",
+   "code": "HESC002",
+   "title": "Professional Ethics",
+   "section": "1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "study"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11425",
+   "code": "HESC003",
+   "title": "Introduction to Public Health",
+   "section": "2",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H607"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11420",
+   "code": "HESC004",
+   "title": "Introduction to Personal Health",
+   "section": "1",
+   "cr": 1,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "13:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "y2)l20J|"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11436",
+   "code": "HESC005",
+   "title": "Infection Control and Management",
+   "section": "2",
+   "cr": 1,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "Floor - dclaJl"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11437",
+   "code": "HESC007",
+   "title": "Cancer Prevention & Community Health",
+   "section": "1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "y2)lroJ|"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11278",
+   "code": "HIST002",
+   "title": "History of Lebanon",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "TBA"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11282",
+   "code": "HIST003",
+   "title": "Major Issues in the Arab World",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12154",
+   "code": "HIST003",
+   "title": "Major Issues in the Arab World",
+   "section": "B2",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "16:01",
+     "end": "19:00",
+     "kind": "Lecture",
+     "room": "H1005- lab"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12332",
+   "code": "HIST003",
+   "title": "Major Issues in the Arab World",
+   "section": "B3",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:01",
+     "kind": "Lecture",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12152",
+   "code": "HIST007",
+   "title": "Historical Archives and Manuscripts",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "16:01",
+     "end": "19:00",
+     "kind": "Lecture",
+     "room": "H1007-1"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10431",
+   "code": "HSSC001",
+   "title": "History of Science in the Arab World",
+   "section": "B2",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lecture",
+     "room": "H715/716"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11304",
+   "code": "INTE001",
+   "title": "Intensive English 1",
+   "section": "D1",
+   "cr": 0,
+   "attribute": "Intensive English Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "09:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "A203"
+    },
+    {
+     "day": "MON",
+     "start": "09:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "A203"
+    },
+    {
+     "day": "THU",
+     "start": "09:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "A203"
+    },
+    {
+     "day": "TUE",
+     "start": "09:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "A203"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11307",
+   "code": "INTE002A",
+   "title": "Intensive English 2A",
+   "section": "B1",
+   "cr": null,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "19:00",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "FRI",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11310",
+   "code": "INTE002A",
+   "title": "Intensive English 2A",
+   "section": "D1",
+   "cr": 0,
+   "attribute": "Intensive English Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:30",
+     "kind": "Lecture",
+     "room": "EG126"
+    },
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:30",
+     "kind": "Lecture",
+     "room": "EG126"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11311",
+   "code": "INTE002A",
+   "title": "Intensive English 2A",
+   "section": "D2",
+   "cr": 0,
+   "attribute": "Intensive English Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "EB200-2"
+    },
+    {
+     "day": "FRI",
+     "start": "16:01",
+     "end": "19:00",
+     "kind": "Lecture",
+     "room": "EG125"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11316",
+   "code": "INTE002B",
+   "title": "Intensive English 2B",
+   "section": "B1",
+   "cr": null,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "19:00",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "FRI",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11318",
+   "code": "INTE002B",
+   "title": "Intensive English 2B",
+   "section": "B3",
+   "cr": null,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:30",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "FRI",
+     "start": "16:01",
+     "end": "18:30",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11319",
+   "code": "INTE002B",
+   "title": "Intensive English 2B",
+   "section": "D1",
+   "cr": 0,
+   "attribute": "Intensive English Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:30",
+     "kind": "Lecture",
+     "room": "EG127"
+    },
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:30",
+     "kind": "Lecture",
+     "room": "EG127"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11320",
+   "code": "INTE002B",
+   "title": "Intensive English 2B",
+   "section": "D2",
+   "cr": 0,
+   "attribute": "Intensive English Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "16:01",
+     "end": "19:00",
+     "kind": "Lecture",
+     "room": "EG128"
+    },
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "EG128"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11321",
+   "code": "INTE002B",
+   "title": "Intensive English 2B",
+   "section": "D3",
+   "cr": 0,
+   "attribute": "Intensive English Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:30",
+     "kind": "Lecture",
+     "room": "EG130"
+    },
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:30",
+     "kind": "Lecture",
+     "room": "EG130"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11326",
+   "code": "ITAL001",
+   "title": "Italian Language",
+   "section": "B1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H1013"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11327",
+   "code": "ITAL001",
+   "title": "Italian Language",
+   "section": "B2",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H1011"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10433",
+   "code": "MATH111",
+   "title": "Introduction to Calculus and Analytical Geometry II",
+   "section": "B1",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "17:30",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "FRI",
+     "start": "16:01",
+     "end": "17:30",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10435",
+   "code": "MATH111",
+   "title": "Introduction to Calculus and Analytical Geometry II",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Foundation Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "16:01",
+     "end": "17:30",
+     "kind": "Lecture",
+     "room": "EB318"
+    },
+    {
+     "day": "THU",
+     "start": "16:01",
+     "end": "17:30",
+     "kind": "Lecture",
+     "room": "EB318"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10436",
+   "code": "MATH111",
+   "title": "Introduction to Calculus and Analytical Geometry II",
+   "section": "D2",
+   "cr": 3,
+   "attribute": "Foundation Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "17:31",
+     "end": "19:00",
+     "kind": "Lecture",
+     "room": "EB318"
+    },
+    {
+     "day": "WED",
+     "start": "17:31",
+     "end": "19:00",
+     "kind": "Lecture",
+     "room": "EB318"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10437",
+   "code": "MATH112",
+   "title": "Introduction to Algebra",
+   "section": "B1",
+   "cr": 3.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "17:31",
+     "end": "19:00",
+     "kind": "",
+     "room": ""
+    },
+    {
+     "day": "FRI",
+     "start": "17:31",
+     "end": "19:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10440",
+   "code": "MATH112",
+   "title": "Introduction to Algebra",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Foundation Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "17:30",
+     "kind": "Lecture",
+     "room": "EB318"
+    },
+    {
+     "day": "FRI",
+     "start": "16:01",
+     "end": "17:30",
+     "kind": "Lecture",
+     "room": "EB318"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10442",
+   "code": "MATH241",
+   "title": "Analytical",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "General Science - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "08:01",
+     "end": "09:30",
+     "kind": "Lecture",
+     "room": "H815/816"
+    },
+    {
+     "day": "WED",
+     "start": "08:01",
+     "end": "09:30",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Tba Tha",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10443",
+   "code": "MATH241",
+   "title": "Analytical",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "General Science - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "14:01",
+     "end": "15:30",
+     "kind": "Lecture",
+     "room": "Floor - dclaJ|"
+    },
+    {
+     "day": "TUE",
+     "start": "08:01",
+     "end": "09:30",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Hamza Mohsen",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10444",
+   "code": "MATH241",
+   "title": "Analytical",
+   "section": "B3",
+   "cr": 3,
+   "attribute": "General Science - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "15:00",
+     "kind": "Lecture",
+     "room": "H813"
+    }
+   ],
+   "teacher": "Tba Tha",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10446",
+   "code": "MATH341",
+   "title": "Linear Algebra",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "13:01",
+     "end": "16:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    }
+   ],
+   "teacher": "Mohamad",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10447",
+   "code": "MATH341",
+   "title": "Linear Algebra",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "16:01",
+     "end": "17:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    },
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H813"
+    }
+   ],
+   "teacher": "Maya Abed Al-Ghani Shatila",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10448",
+   "code": "MATH341",
+   "title": "Linear Algebra",
+   "section": "B3",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "16:01",
+     "end": "17:00",
+     "kind": "Lecture",
+     "room": "H813"
+    },
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H811/812"
+    }
+   ],
+   "teacher": "Mohamad Nabil Nasser",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10449",
+   "code": "MATH341",
+   "title": "Linear Algebra",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Computer Science - Second Year - Core Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "14:01",
+     "end": "15:30",
+     "kind": "Lecture",
+     "room": "B218"
+    },
+    {
+     "day": "THU",
+     "start": "14:01",
+     "end": "15:30",
+     "kind": "Lecture",
+     "room": "B218"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12083",
+   "code": "MATH352",
+   "title": "Numerical Analysis",
+   "section": "D2",
+   "cr": 3,
+   "attribute": "Mathematics - Elective Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "11:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "H813"
+    },
+    {
+     "day": "TUE",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Mohamad Nabil Nasser",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10451",
+   "code": "MATH456",
+   "title": "Mathematics elective",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Mathematics - Third Year - Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "14:01",
+     "end": "16:00",
+     "kind": "Lecture",
+     "room": "H1113"
+    },
+    {
+     "day": "MON",
+     "start": "13:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H813"
+    }
+   ],
+   "teacher": "Mohamad Nabil Nasser",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11329",
+   "code": "MCOM003",
+   "title": "Communication Skills",
+   "section": "BA1",
+   "cr": 2.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11331",
+   "code": "MCOM003",
+   "title": "Communication Skills",
+   "section": "BA2",
+   "cr": 2.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11334",
+   "code": "MCOM003",
+   "title": "Communication Skills",
+   "section": "BE2",
+   "cr": 2.0,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11424",
+   "code": "NURS001",
+   "title": "First Aid",
+   "section": "2",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H607"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11430",
+   "code": "NURS001",
+   "title": "First Aid",
+   "section": "3",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H515/516"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11427",
+   "code": "NUTR001",
+   "title": "Principles of Nutrition",
+   "section": "1",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "Floor - daclal|"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11429",
+   "code": "NUTR001",
+   "title": "Principles of Nutrition",
+   "section": "2",
+   "cr": 2,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "Study"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11418",
+   "code": "NUTR002",
+   "title": "Principles of Food Safety",
+   "section": "1",
+   "cr": 1,
+   "attribute": "University Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "14:00",
+     "end": "12:01",
+     "kind": "Lecture",
+     "room": "H515/516"
+    },
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "13:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11419",
+   "code": "NUTR002",
+   "title": "Principles of Food Safety",
+   "section": "2",
+   "cr": 1,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "13:00",
+     "kind": "Lecture",
+     "room": "H515/516"
+    }
+   ],
+   "teacher": "Mohamad Nazir El",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10466",
+   "code": "PHYS002",
+   "title": "Physics for Everyday Life",
+   "section": "B1",
+   "cr": 2,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H911"
+    }
+   ],
+   "teacher": "Wael Ali Chmaissani",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10468",
+   "code": "PHYS006",
+   "title": "Introduction to Astronomy",
+   "section": "B1",
+   "cr": 2,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H911"
+    }
+   ],
+   "teacher": "Ahmad AIl-",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10471",
+   "code": "PHYS120",
+   "title": "Introduction To Physics 2",
+   "section": "D1",
+   "cr": 3,
+   "attribute": "Foundation Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "19:00",
+     "kind": "Lecture",
+     "room": "EB318"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10472",
+   "code": "PHYS120",
+   "title": "Introduction To Physics 2",
+   "section": "D2",
+   "cr": 3,
+   "attribute": "Foundation Courses",
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "17:31",
+     "end": "19:00",
+     "kind": "Lecture",
+     "room": "EB318"
+    },
+    {
+     "day": "TUE",
+     "start": "17:31",
+     "end": "19:00",
+     "kind": "Lecture",
+     "room": "EB318"
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10473",
+   "code": "PHYS243",
+   "title": "General Physics",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "General Science - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "TUE",
+     "start": "15:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "H815/816"
+    }
+   ],
+   "teacher": "Wassila Sami El Kanawati",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10474",
+   "code": "PHYS243",
+   "title": "General Physics",
+   "section": "B2",
+   "cr": 3,
+   "attribute": "General Science - Core Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "13:01",
+     "end": "15:00",
+     "kind": "Lecture",
+     "room": "y2)l2oJ!"
+    },
+    {
+     "day": "WED",
+     "start": "14:01",
+     "end": "15:00",
+     "kind": "Lecture",
+     "room": "yo)l2oJl"
+    },
+    {
+     "day": "MON",
+     "start": "13:01",
+     "end": "15:00",
+     "kind": "Lecture",
+     "room": "yo)lrol"
+    },
+    {
+     "day": "WED",
+     "start": "14:01",
+     "end": "15:00",
+     "kind": "Lecture",
+     "room": "yo)lroJl"
+    }
+   ],
+   "teacher": "Wassila Sami El Kanawati",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10489",
+   "code": "PHYS243L",
+   "title": "General Physics Laboratory",
+   "section": "D3",
+   "cr": 1.0,
+   "attribute": null,
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "14:01",
+     "end": "17:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10490",
+   "code": "PHYS243L",
+   "title": "General Physics Laboratory",
+   "section": "D4",
+   "cr": 1.0,
+   "attribute": null,
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "08:01",
+     "end": "11:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10491",
+   "code": "PHYS243L",
+   "title": "General Physics Laboratory",
+   "section": "D5",
+   "cr": 1.0,
+   "attribute": null,
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "14:01",
+     "end": "17:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10492",
+   "code": "PHYS243L",
+   "title": "General Physics Laboratory",
+   "section": "D6",
+   "cr": 1.0,
+   "attribute": null,
+   "campus": "Debbieh",
+   "meetings": [
+    {
+     "day": "THU",
+     "start": "08:01",
+     "end": "11:00",
+     "kind": "",
+     "room": ""
+    }
+   ],
+   "teacher": "",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "registrations"
+   ]
+  },
+  {
+   "crn": "10478",
+   "code": "PHYS350",
+   "title": "Physics elective",
+   "section": "B1",
+   "cr": 3,
+   "attribute": "Physics - Elective Courses",
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "10:01",
+     "end": "12:00",
+     "kind": "Lecture",
+     "room": "H1113"
+    },
+    {
+     "day": "MON",
+     "start": "10:01",
+     "end": "11:00",
+     "kind": "Lecture",
+     "room": "H813"
+    }
+   ],
+   "teacher": "Wassila Sami El Kanawati",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11361",
+   "code": "PSYC007",
+   "title": "Stress Management",
+   "section": "B1",
+   "cr": 2,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "M324"
+    }
+   ],
+   "teacher": "Dania Mounir Al Ariss",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11390",
+   "code": "SOCI001",
+   "title": "Principles in Psychology and Sociology",
+   "section": "B1",
+   "cr": 2,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H911"
+    }
+   ],
+   "teacher": "Mostafa Asmar",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11393",
+   "code": "SOCI010",
+   "title": "Sociology of Sport",
+   "section": "B2",
+   "cr": 2,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H1011"
+    }
+   ],
+   "teacher": "Abeer Mostafa Asmar",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf",
+    "registrations"
+   ]
+  },
+  {
+   "crn": "11407",
+   "code": "SPAN001",
+   "title": "Spanish Language",
+   "section": "B1",
+   "cr": 2,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "18:00",
+     "kind": "Lecture",
+     "room": "study"
+    }
+   ],
+   "teacher": "Ahmad Kamal Al Zahabi",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "11408",
+   "code": "TURK001",
+   "title": "Turkish Language",
+   "section": "B1",
+   "cr": 2,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "study"
+    }
+   ],
+   "teacher": "Khadija Mohammad Kasab",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "10609",
+   "code": "WRNL200",
+   "title": "Work Ready Now",
+   "section": "B1",
+   "cr": 3,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "13:30",
+     "kind": "Lecture",
+     "room": "M437"
+    },
+    {
+     "day": "WED",
+     "start": "12:01",
+     "end": "13:30",
+     "kind": "Lecture",
+     "room": "M436"
+    }
+   ],
+   "teacher": "Rachel Refaat Saad",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12101",
+   "code": "WRNL200",
+   "title": "Work Ready Now",
+   "section": "B2",
+   "cr": 3,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "MON",
+     "start": "16:01",
+     "end": "17:00",
+     "kind": "Lecture",
+     "room": "H712"
+    },
+    {
+     "day": "MON",
+     "start": "12:01",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "H206"
+    }
+   ],
+   "teacher": "Afif",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12102",
+   "code": "WRNL200",
+   "title": "Work Ready Now",
+   "section": "B3",
+   "cr": 3,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [
+    {
+     "day": "FRI",
+     "start": "12:31",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "Floor - dclaJ|"
+    },
+    {
+     "day": "MON",
+     "start": "12:31",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "M537"
+    },
+    {
+     "day": "FRI",
+     "start": "12:31",
+     "end": "14:00",
+     "kind": "Lecture",
+     "room": "Floor - aclaJl"
+    }
+   ],
+   "teacher": "Ghada Antoine",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  },
+  {
+   "crn": "12103",
+   "code": "WRNL200",
+   "title": "Work Ready Now",
+   "section": "B4",
+   "cr": 3,
+   "attribute": null,
+   "campus": "Beirut",
+   "meetings": [],
+   "teacher": "Ghada Antoine",
+   "term": "FALL 2026/2027",
+   "termCode": "202710",
+   "sources": [
+    "offering-pdf"
+   ]
+  }
+ ]
+}

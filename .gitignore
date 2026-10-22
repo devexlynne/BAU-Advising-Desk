@@ -1,0 +1,26 @@
+node_modules/
+data-store/
+build/
+shots/
+.test-data/
+data/students*.json
+tests/fx_transcript.json
+tests/fx_schedule.json
+report/screenshots/
+report/*.pdf
+report/*.docx
+report/*.mp4
+output/pdf/
+Claude outputs/
+
+# local scratch
+_latest*.tgz
+tmp/
+.tmp/
+.tools/
+.publish/
+*.log
+
+# secrets and local data
+.env
+*.env

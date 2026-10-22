@@ -1,0 +1,505 @@
+{
+ "catalogYear": 2026,
+ "source": "BAU Rules and Regulations for Undergraduate Programs + Faculty of Science / Mathematics and Computer Science practice",
+ "gradeScale": {
+  "A+": 4.0,
+  "A": 4.0,
+  "A-": 3.67,
+  "B+": 3.33,
+  "B": 3.0,
+  "B-": 2.67,
+  "C+": 2.33,
+  "C": 2.0,
+  "C-": 1.67,
+  "D": 1.33,
+  "D-": 1.0,
+  "F": 0.0
+ },
+ "passingGrades": [
+  "A+",
+  "A",
+  "A-",
+  "B+",
+  "B",
+  "B-",
+  "C+",
+  "C",
+  "C-",
+  "D"
+ ],
+ "transferGrades": [
+  "P",
+  "TR",
+  "T"
+ ],
+ "nonGpaCodes": [
+  "I",
+  "W",
+  "AW",
+  "INTF",
+  "INTP",
+  "AUD",
+  "INP"
+ ],
+ "mustRepeatGrades": [
+  "D-",
+  "F"
+ ],
+ "remedialGrades": [
+  "F",
+  "D-",
+  "D"
+ ],
+ "remedialCitation": "BAU Academic Probation rules (bau.edu.lb/Undergraduate/Academic-Probation)",
+ "remedialNote": "Two consecutive academic warnings put a student in the remedial stage. An academic warning requires both the semester GPA and CGPA to be below 2.00. The load is capped, and the advisor selects failed, low-grade or university courses that can improve the GPA.",
+ "withdrawalGrades": [
+  "W",
+  "AW"
+ ],
+ "withdrawalNote": "A withdrawal is not a grade and not a failure: the course was simply never finished. If the degree still needs it, the student still has to take it, which is why it is listed with the repeats rather than passed over in silence.",
+ "transcriptCreditGrades": [
+  "D-"
+ ],
+ "transcriptCreditNote": "A D- is not a pass and the course must be taken again, but the registrar still counts its credits in the term's earned credits and in Tot. Cr. Compl. Confirmed against printed transcript totals, which only match with the D- credits counted.",
+ "load": {
+  "REG-LOAD-01": {
+   "min": 12,
+   "max": 18,
+   "terms": [
+    "FALL",
+    "SPRING"
+   ],
+   "citation": "R&R V.5",
+   "text": "Scientific faculties: minimum 12, maximum 18 credit hours per fall/spring semester."
+  },
+  "REG-LOAD-02": {
+   "max": 21,
+   "requiresCgpa": 3.33,
+   "requiresEarned": 34,
+   "citation": "R&R XI.2-4",
+   "text": "CGPA >= 3.33 and >= 34 earned credits allows up to 21 credits with advisor approval."
+  },
+  "REG-LOAD-03": {
+   "max": 21,
+   "seniorGraduationYear": true,
+   "requiresCgpa": 2.0,
+   "requiresSgpa": 2.0,
+   "citation": "R&R XI.2-6",
+   "text": "Senior in graduation year may register 21 credits if CGPA and SGPA are both >= 2.00 (advisor + Dean)."
+  },
+  "REG-LOAD-04": {
+   "max": 12,
+   "whenLastSgpaBelow": 2.0,
+   "citation": "R&R XI.2-5",
+   "text": "SGPA below 2.00 caps the following fall/spring semester at 12 credits, but only when the CGPA is below 2.00 too. A student whose CGPA is 2.00 or above keeps the normal load after a low semester.",
+   "onlyWhenCgpaBelow": 2.0,
+   "departmentNote": "Department instruction: a CGPA of 2.00 or above allows more than 12 credits."
+  },
+  "REG-LOAD-05": {
+   "max": 9,
+   "terms": [
+    "SUMMER"
+   ],
+   "citation": "R&R XI.3-3",
+   "text": "Maximum 9 credit hours in the summer semester."
+  },
+  "REG-LOAD-06": {
+   "cancelBelow": 12,
+   "afterWeek": 2,
+   "exceptions": [
+    "EXPECTED_GRADUATE",
+    "LACK_OF_OFFERED_COURSES",
+    "INCOMPATIBLE_OFFERINGS",
+    "HEALTH_OR_SOCIAL"
+   ],
+   "citation": "R&R XI.2-7",
+   "text": "Registration below 12 credits is cancelled after week 2 unless an approved exception applies."
+  },
+  "REG-LOAD-07": {
+   "citation": "R&R XI.2-2",
+   "text": "Courses at another university require advisor + Dean + Faculty Affairs approval; their GPA is excluded from the CGPA."
+  }
+ },
+ "registration": {
+  "citation": "Registration notice for Fall 2026/2027, BAU",
+  "min": 12,
+  "max": 18,
+  "summerMax": 9,
+  "belowTwoCgpaMax": 12,
+  "graduatingMayGoBelowMin": true,
+  "graduatingExtraCoursesMax": 2,
+  "graduatingMaxCredits": 21,
+  "graduatingExtraNeedsCgpa": 2.0,
+  "graduatingExtraNeedsApproval": "the academic advisor and the dean of the faculty",
+  "text": "Fall and spring normally allow 12 to 18 credits; summer allows 9. Eligible students may take up to 21 with the required approval. A graduating student may go below 12. Prerequisites must be passed before the next course is registered.",
+  "holds": "A financial hold is settled with the registrar (dbregistrar@bau.edu.lb) before online registration opens. Other holds go to admission or registration. A student with no timeticket on iConnect is under academic review and must see their advisor."
+ },
+ "foundation": {
+  "citation": "Registration notice for Fall 2026/2027, BAU",
+  "text": "Foundation courses are compulsory for students entering with a BT, socio-economics or humanities certificate. They must be completed during the first academic year and cannot be postponed.",
+  "mustFinishInFirstYear": true
+ },
+ "intensiveEnglish": {
+  "citation": "Intensive English Program, BAU",
+  "text": "Placement by the English entrance exam. A student in Intensive English 1 may carry 6 credits: ARAB001, foundation courses and university requirement courses in Arabic. In 2A or 2B they may carry up to 14 credits of core courses and university courses, but not ENGL001, which 2B is the prerequisite for. The levels are taken in order, no level may be skipped, and the programme must be finished by the end of the summer of the first academic year.",
+  "levels": {
+   "INTE001": {
+    "name": "Intensive English 1",
+    "score": "30-44",
+    "hoursPerWeek": 12,
+    "creditCap": 6,
+    "allowed": "ARAB001, foundation courses and university requirement courses in Arabic",
+    "nextLevel": "INTE002A"
+   },
+   "INTE002A": {
+    "name": "Intensive English 2A",
+    "score": "45-51",
+    "hoursPerWeek": 5,
+    "creditCap": 14,
+    "allowed": "core courses and university courses, except ENGL001",
+    "nextLevel": "INTE002B"
+   },
+   "INTE002B": {
+    "name": "Intensive English 2B",
+    "score": "52-59",
+    "hoursPerWeek": 5,
+    "creditCap": 14,
+    "allowed": "core courses and university courses, except ENGL001",
+    "nextLevel": null
+   }
+  },
+  "gates": {
+   "ENGL001": "INTE002B"
+  },
+  "finishBy": "the summer of the first academic year",
+  "mayNotBePostponed": true,
+  "coRequisiteAllowed": false,
+  "intensiveOneAllowedText": "ARAB001, foundation courses, and university elective courses taught in Arabic only"
+ },
+ "probation": {
+  "startsFromSemester": 2,
+  "warningThresholdSgpa": 2.0,
+  "warningThresholdCgpa": 2.0,
+  "warningLoadCap": 12,
+  "dismissCgpaBelow": 1.6,
+  "remedialFallSpringCap": 12,
+  "remedialSummerCap": 6,
+  "remedialOneChanceOnly": true,
+  "citation": "R&R VII",
+  "source": "https://www.bau.edu.lb/Undergraduate/Academic-Probation",
+  "text": "From semester 2, an SGPA and CGPA both below 2.00 bring academic probation and a 12-credit limit. Two consecutive academic warnings lead to the one-time remedial stage: 12 credits in fall or spring and 6 in summer, chosen from failed, low-grade or university courses."
+ },
+ "universityElectives": {
+  "totalCredits": 8,
+  "REG-UE-01": {
+   "requireCategory": "HUMANITIES",
+   "minCourses": 1,
+   "citation": "Contract sheet + R&R 3.2",
+   "text": "At least one Humanities university elective."
+  },
+  "REG-UE-02": {
+   "requireCategory": "SOCIAL",
+   "minCourses": 1,
+   "citation": "Contract sheet + R&R 3.2",
+   "text": "At least one Social Science university elective."
+  },
+  "REG-UE-04": {
+   "blockOwnFacultyElectivesScope": "major",
+   "_options": [
+    "major",
+    "faculty"
+   ],
+   "citation": "R&R 3.2",
+   "text": "CS students may take Faculty of Science university electives unless the current offering excludes Computer Science students. Own-major electives CMPS003, CMPS004, CMPS005 and CMPS006 do not count.",
+   "confirmed": "Confirmed by advisor clarification; PHYS002 is allowed unless the offering excludes CS students."
+  },
+  "REG-UE-05": {
+   "code": "WRNL200",
+   "credits": 3,
+   "block": "UNIV_MANDATORY",
+   "appliesFromAdmissionYear": 2024,
+   "requiredAboveEarnedCredits": 50,
+   "warnAtEarnedCredits": 45,
+   "citation": "Department decision, September 2026",
+   "confirmed": "Required for students admitted from 2024/2025 on, by admission term (not ID: transfers keep an older ID). Admitted 2023/2024 and earlier: not required, not suggested.",
+   "text": "Work Ready Now (WRNL200) is a 3-credit University Core course. Required for students admitted from 2024/2025 on."
+  },
+  "psycCountsAsSocial": true,
+  "_psycNote": "Confirmed: PSYC courses count toward the Social Science university-elective requirement, together with SOCI.",
+  "totalCreditsByCatalogYear": {
+   "before2026": 11,
+   "from2026": 8
+  },
+  "REG-UE-03": {
+   "appliesFromCatalogYear": 2026,
+   "totalCredits": 8,
+   "minHumanitiesCourses": 1,
+   "minSocialCourses": 1,
+   "socialPrefixes": [
+    "SOCI",
+    "PSYC"
+   ],
+   "remainingCreditsFromAnyEligibleUniversityElective": true,
+   "citation": "Advisor clarification 2026-09-16",
+   "confirmed": "Confirmed: the 8 University Elective credits include at least one Humanities course and one Social Science course (SOCI or PSYC). After those are satisfied, the remaining credits needed to reach 8 may come from any otherwise eligible University Elective.",
+   "text": "For 2026+ students, complete 8 University Elective credits in total. This total must include at least one Humanities course and at least one Social Science course (SOCI or PSYC); the remaining credits needed to reach 8 may be chosen from any eligible University Elective category."
+  }
+ },
+ "nonCredit": {
+  "REG-UE-06": {
+   "code": "IC3",
+   "alias": "ICDL",
+   "dueBySemester": 4,
+   "citation": "R&R VIII.2",
+   "text": "Students must obtain the ICDL/IC3 certificate within the first four semesters."
+  }
+ },
+ "genScience": {
+  "REG-GSE-01": {
+   "totalCredits": 5,
+   "shape": [
+    3,
+    2
+   ],
+   "citation": "Study plan",
+   "text": "General Science Electives come from the current Faculty of Science offering. The normal combination is one 3-credit and one 2-credit course; two 3-credit courses may be used when no suitable 2-credit option is offered or fits.",
+   "eligibility": {
+    "source": "CURRENT_FACULTY_OF_SCIENCE_OFFERING",
+    "excludePrefixes": [
+     "CMPS"
+    ],
+    "excludeCsCurriculum": true,
+    "confirmedExamples": [
+     "MATH",
+     "PHYS",
+     "CHEM"
+    ],
+    "fallbackSciencePrefixes": [
+     "MATH",
+     "PHYS",
+     "CHEM"
+    ],
+    "respectOfferingProgramExclusions": true
+   },
+   "confirmed": "Confirmed by advisor clarification."
+  },
+  "REG-GSE-02": {
+   "inLastNSemesters": 2,
+   "citation": "Study plan",
+   "text": "Taken in the final two semesters (3 cr then 2 cr)."
+  }
+ },
+ "sequencing": {
+  "REG-PREQ-01": {
+   "severity": "BLOCK",
+   "overridable": true,
+   "citation": "R&R XI.2-3",
+   "text": "A course may not be registered before its prerequisite is successfully passed."
+  },
+  "REG-PREQ-02": {
+   "severity": "BLOCK",
+   "citation": "Study plan",
+   "text": "Co-requisite must be registered in the same semester unless already passed."
+  },
+  "REG-PREQ-03": {
+   "severity": "INFO",
+   "text": "Prerequisite-bearing courses take priority over electives for a contested slot."
+  },
+  "REG-PREQ-04": {
+   "severity": "INFO",
+   "text": "Rank recommendations by total downstream credits unlocked."
+  },
+  "REG-PREQ-05": {
+   "severity": "WARN",
+   "text": "A Spring-entry student must not be advised into CMPS241 alone; pair it with offered no-prerequisite courses such as CMPS244."
+  },
+  "REG-PREQ-06": {
+   "severity": "WARN",
+   "minEligibleCoreNextTerm": 12,
+   "text": "Plan must not starve the following semester."
+  },
+  "REG-PREQ-07": {
+   "severity": "INFO",
+   "afterCompletedSemesters": 3,
+   "text": "Track selection starts from Semester 4. Use the chosen track to guide departmental-elective planning.",
+   "startsFromSemester": 4,
+   "switchingHardBlock": false,
+   "_switchingNote": "No hard lock is applied in the portal. If a student changes track, off-track departmental electives are shown for review rather than automatically rejected."
+  },
+  "REG-PREQ-08": {
+   "severity": "WARN",
+   "text": "General science electives are due in the final two semesters."
+  },
+  "REG-PREQ-09": {
+   "severity": "BLOCK",
+   "text": "Two sections overlapping in day and time cannot both be registered."
+  },
+  "REG-PREQ-10": {
+   "severity": "INFO",
+   "text": "Course not present in the synced offering for this term."
+  },
+  "REG-PREQ-11": {
+   "severity": "WARN",
+   "minimumCampusTravelMinutes": 60,
+   "off": true,
+   "citation": "Department advising practice",
+   "text": "Leave at least one hour between consecutive classes on different campuses."
+  }
+ },
+ "specialCases": {
+  "REG-INTE-01": {
+   "severity": "BLOCK",
+   "maxAcademicCoursesAlongsideIntensive": 1,
+   "text": "A student still in Intensive English may register only one academic course alongside it."
+  },
+  "REG-INTE-02": {
+   "severity": "INFO",
+   "preferredCompanion": "CMPS241",
+   "text": "The single companion course should be the highest unlock-value no-prerequisite course offered."
+  },
+  "REG-INTE-03": {
+   "text": "Intensive English credits do not count toward the 100."
+  },
+  "REG-FND-01": {
+   "text": "Remedial/foundation courses are prerequisites to their faculty-core counterparts and do not count toward the 100."
+  },
+  "REG-FND-02": {
+   "severity": "WARN",
+   "text": "Intensive English plus Foundation: the one-course cap still applies. Project the timeline against the 12-semester ceiling."
+  },
+  "REG-INTE-00": {
+   "levels": [
+    "INTE001",
+    "INTE002A",
+    "INTE002B"
+   ],
+   "text": "The Intensive English sequence has exactly three levels: INTE001, INTE002A, INTE002B.",
+   "confirmed": true
+  }
+ },
+ "minor": {
+  "citation": "Department of Mathematics and Computer Science",
+  "mathematics": {
+   "extraCredits": 6,
+   "totalWithMinor": 106,
+   "countsText": "Linear algebra, probability and discrete mathematics already count. Calculus usually opens a mathematics elective; complex analysis counts, and so does any further mathematics elective the student has taken."
+  }
+ },
+ "graduation": {
+  "totalCredits": 100,
+  "minCgpa": 2.0,
+  "requiresIC3": true,
+  "maxSemesters": 12,
+  "honorsCgpa": 3.67,
+  "honorsNoGradeBelow": "C",
+  "presidentHonorSgpa": 3.8,
+  "deanHonorSgpa": 3.5,
+  "citation": "R&R VIII"
+ },
+ "transfer": {
+  "maxTransferShareOfDegree": 0.5,
+  "maxGeneralKnowledgeShareOfUnivElectives": 0.5,
+  "minGrade": "C",
+  "maxAgeYears": 5,
+  "citation": "R&R X",
+  "equivalenceDecisionAuthority": "UNIVERSITY",
+  "advisorDecidesEquivalence": false,
+  "studentRecordsApprovedEquivalencesOnContractSheet": true,
+  "portalWorkflow": "Student enters only university-approved equivalences on the contract sheet. Advisor records/reviews the entry in the portal but does not decide academic equivalence.",
+  "recordGradeCodes": [
+   "TR",
+   "P"
+  ]
+ },
+ "calendar": {
+  "fallSpringWeeks": 16,
+  "summerWeeks": 8,
+  "dropAddEndsWeek": 1,
+  "attendanceWarn1Pct": 10,
+  "attendanceWarn2Pct": 15,
+  "attendanceAwPct": 20,
+  "summerFoldsIntoSpring": true,
+  "citation": "R&R XI.4-9"
+ },
+ "openQuestions": [
+  "Departmental electives are marked ** on the real sheet - what does the footnote say?",
+  "Track and Minor now have header fields on the sheet - are they recorded anywhere else?",
+  "If a student changes track after taking an off-track departmental elective, does that elective still count toward the 9-credit departmental-elective degree requirement and/or the final track designation?"
+ ],
+ "cataloguePolicy": {
+  "preserveEntryCatalogue": true,
+  "fromCatalogYear": 2026,
+  "from2026": {
+   "UNIV_MANDATORY": 8,
+   "UNIV_ELECTIVE": 8
+  },
+  "before2026": {
+   "UNIV_MANDATORY": 5,
+   "UNIV_ELECTIVE": 11
+  },
+  "text": "Students keep the degree structure of the catalogue under which they entered; they do not switch to a newer catalogue automatically.",
+  "confirmed": true
+ },
+ "repeats": {
+  "REG-REP-01": {
+   "citation": "Transcript R column",
+   "text": "The transcript marks each attempt: I is the attempt that counts, A is the annulled attempt, N is a transfer record. Where a flag is present the engine follows it instead of guessing which attempt was better."
+  },
+  "REG-REP-02": {
+   "citation": "R&R VI",
+   "text": "A course graded F must be repeated. A passed course may be repeated to raise the grade; only the counted attempt enters the CGPA."
+  },
+  "REG-REP-03": {
+   "citation": "R&R VI, read with the study plan. Confirm the exact wording with the department.",
+   "text": "A failed course has to be repeated when it is a required course: university requirement, faculty core, major core, a foundation course that gates one of them, or an intensive English level, which has to be passed before the student can go on. A failed elective does not have to be repeated, because the block it belongs to can be filled by any other course from the same pool. Repeating the same course is still the only way to replace the grade in the CGPA; taking a different elective fills the requirement but leaves the failed attempt in the average.",
+   "mustRepeatBuckets": [
+    "UNIV_MANDATORY",
+    "FACULTY_CORE",
+    "MAJOR_CORE",
+    "REMEDIAL",
+    "INTENSIVE"
+   ],
+   "mayReplaceBuckets": [
+    "UNIV_ELECTIVE",
+    "DEPT_ELECTIVE",
+    "GEN_SCI_ELECTIVE"
+   ],
+   "notRequiredBuckets": [
+    "OTHER",
+    "FRESHMAN",
+    "NON_CREDIT"
+   ]
+  },
+  "REG-REP-04": {
+   "citation": "Advising practice",
+   "text": "A course that fills nothing still missing does not need to be taken again at all. Sending a student back for a course the degree no longer needs can add a semester for nothing."
+  }
+ },
+ "terms": [
+  {
+   "term": "FALL 2026/2027",
+   "regOpens": "2026-09-14",
+   "classesStart": "2026-09-28",
+   "addDropEnds": "2026-10-03",
+   "withdrawBy": "2026-12-11",
+   "ends": "2027-01-29"
+  },
+  {
+   "term": "SPRING 2026/2027",
+   "regOpens": "2027-02-01",
+   "classesStart": "2027-02-15",
+   "addDropEnds": "2027-02-20",
+   "withdrawBy": "2027-05-14",
+   "ends": "2027-06-25"
+  },
+  {
+   "term": "SUMMER 2026/2027",
+   "regOpens": "2027-07-01",
+   "classesStart": "2027-07-05",
+   "addDropEnds": "2027-07-07",
+   "withdrawBy": "2027-08-06",
+   "ends": "2027-08-27"
+  }
+ ],
+ "termsNote": "Estimated dates. The department admin sets the official ones in Rules › Calendar."
+}

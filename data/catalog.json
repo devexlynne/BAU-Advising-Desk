@@ -1,0 +1,2372 @@
+{
+  "catalogYear": 2026,
+  "program": "BSc Computer Science",
+  "faculty": "Science",
+  "department": "Computer Science",
+  "totalCredits": 100,
+  "standardSemesters": 6,
+  "maxSemesters": 12,
+  "buckets": {
+    "UNIV_MANDATORY": {
+      "label": "University Requirements",
+      "credits": 8
+    },
+    "UNIV_ELECTIVE": {
+      "label": "University Electives",
+      "credits": 8
+    },
+    "FACULTY_CORE": {
+      "label": "Faculty Core",
+      "credits": 17
+    },
+    "MAJOR_CORE": {
+      "label": "Major Core",
+      "credits": 53
+    },
+    "DEPT_ELECTIVE": {
+      "label": "Departmental Electives",
+      "credits": 9
+    },
+    "GEN_SCI_ELECTIVE": {
+      "label": "General Science Electives",
+      "credits": 5
+    },
+    "FRESHMAN": {
+      "label": "Freshman equivalency",
+      "credits": 0,
+      "note": "Transfer block for students admitted without the Lebanese Baccalaureate. Counts as earned credits, not toward the degree blocks."
+    },
+    "OTHER": {
+      "label": "Other faculty courses",
+      "credits": 0
+    }
+  },
+  "tracks": {
+    "SWE": {
+      "label": "Software Development",
+      "courses": [
+        "CMPS326",
+        "CMPS352",
+        "CMPS461",
+        "CMPS463",
+        "CMPS464"
+      ],
+      "coursesRequired": 3,
+      "note": "Three departmental electives from this list earn the track designation."
+    },
+    "SEC": {
+      "label": "Cybersecurity",
+      "courses": [
+        "CMPS325",
+        "CMPS354",
+        "CMPS465",
+        "CMPS467",
+        "CMPS466",
+        "CMPS468"
+      ],
+      "coursesRequired": 3,
+      "note": "Three departmental electives from this list earn the track designation."
+    },
+    "AIDS": {
+      "label": "AI & Data Science",
+      "courses": [
+        "CMPS452",
+        "CMPS453",
+        "CMPS356",
+        "CMPS469",
+        "CMPS470",
+        "CMPS472"
+      ],
+      "coursesRequired": 3,
+      "note": "Three departmental electives from this list earn the track designation."
+    }
+  },
+  "courses": [
+    {
+      "code": "CHEM241",
+      "title": "Principles of Chemistry",
+      "cr": 3,
+      "bucket": "FACULTY_CORE",
+      "pre": [],
+      "co": [],
+      "planSem": 1,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "CHEM241L",
+      "title": "Principles of Chemistry Laboratory",
+      "cr": 1,
+      "bucket": "FACULTY_CORE",
+      "pre": [],
+      "co": [
+        "CHEM241"
+      ],
+      "planSem": 1,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "PHYS243",
+      "title": "General Physics",
+      "cr": 3,
+      "bucket": "FACULTY_CORE",
+      "pre": [],
+      "co": [],
+      "planSem": 1,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "PHYS243L",
+      "title": "General Physics Laboratory",
+      "cr": 1,
+      "bucket": "FACULTY_CORE",
+      "pre": [],
+      "co": [
+        "PHYS243"
+      ],
+      "planSem": 1,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "MATH241",
+      "title": "Calculus and Analytical Geometry",
+      "cr": 3,
+      "bucket": "FACULTY_CORE",
+      "pre": [],
+      "co": [],
+      "planSem": 1,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS241",
+      "title": "Introduction to Programming",
+      "cr": 3,
+      "bucket": "FACULTY_CORE",
+      "pre": [],
+      "co": [],
+      "planSem": 1,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "MATH242",
+      "title": "Probability and Statistics",
+      "cr": 3,
+      "bucket": "FACULTY_CORE",
+      "pre": [],
+      "co": [],
+      "planSem": 2,
+      "studyPlanSeason": "SPRING",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS242",
+      "title": "Object Oriented Programming",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS241"
+      ],
+      "co": [],
+      "planSem": 2,
+      "studyPlanSeason": "SPRING",
+      "alsoRunsIn": "FALL",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS244",
+      "title": "Digital Circuits",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [],
+      "co": [],
+      "planSem": 2,
+      "studyPlanSeason": "SPRING",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS248",
+      "title": "Discrete Structures I",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS241"
+      ],
+      "co": [],
+      "planSem": 2,
+      "studyPlanSeason": "SPRING",
+      "alsoRunsIn": "FALL",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS246",
+      "title": "Web Programming",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS241"
+      ],
+      "co": [],
+      "planSem": 3,
+      "planSemAlt": 2,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "MATH341",
+      "title": "Linear Algebra",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [],
+      "co": [],
+      "planSem": 3,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "CMPS342",
+      "title": "Database Systems",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS242"
+      ],
+      "co": [],
+      "planSem": 3,
+      "planSemAlt": 4,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "CMPS345",
+      "title": "Discrete Structures II",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS248"
+      ],
+      "co": [],
+      "planSem": 3,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "CMPS347",
+      "title": "Data Structures",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS242"
+      ],
+      "co": [],
+      "planSem": 3,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS344",
+      "title": "Software Engineering",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS242"
+      ],
+      "co": [],
+      "planSem": 4,
+      "studyPlanSeason": "SPRING",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS346",
+      "title": "Theory of Computation",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS248"
+      ],
+      "co": [],
+      "planSem": 4,
+      "studyPlanSeason": "SPRING",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS447",
+      "title": "Computer Networks",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS347"
+      ],
+      "co": [],
+      "planSem": 4,
+      "planSemAlt": 5,
+      "studyPlanSeason": "SPRING",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "MATH348",
+      "title": "Numerical Methods",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "MATH241"
+      ],
+      "co": [],
+      "planSem": 4,
+      "studyPlanSeason": "SPRING",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS441",
+      "title": "Fundamentals of Algorithms",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS347",
+        "CMPS345"
+      ],
+      "co": [],
+      "planSem": 5,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "CMPS443",
+      "title": "Senior Project I",
+      "cr": 1,
+      "bucket": "MAJOR_CORE",
+      "pre": [],
+      "co": [],
+      "planSem": 5,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ],
+      "note": "Senior Project I. No published credit threshold and no course prerequisite: the department decides when a student takes it."
+    },
+    {
+      "code": "CMPS445",
+      "title": "Concepts of Programming Languages",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS347"
+      ],
+      "co": [],
+      "planSem": 5,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "CMPS455",
+      "title": "Computer Security",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS447"
+      ],
+      "co": [],
+      "planSem": 5,
+      "studyPlanSeason": "FALL",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS343",
+      "title": "Computer Organization and Architecture",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS244"
+      ],
+      "co": [],
+      "planSem": 6,
+      "planSemAlt": 3,
+      "studyPlanSeason": "SPRING",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS442",
+      "title": "Operating Systems",
+      "cr": 3,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS347"
+      ],
+      "co": [],
+      "planSem": 6,
+      "studyPlanSeason": "SPRING",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS444",
+      "title": "Senior Project II",
+      "cr": 1,
+      "bucket": "MAJOR_CORE",
+      "pre": [
+        "CMPS443"
+      ],
+      "co": [],
+      "planSem": 6,
+      "studyPlanSeason": "SPRING",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS325",
+      "title": "Computer and Society",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "CMPS326",
+      "title": "Introduction to Human-Computer Interaction",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS242"
+      ],
+      "co": [],
+      "preSource": "BAU Faculty of Science catalogue 2020-2021"
+    },
+    {
+      "code": "CMPS327",
+      "title": "Image Processing",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS242"
+      ],
+      "co": [],
+      "preSource": "BAU Faculty of Science catalogue 2020-2021"
+    },
+    {
+      "code": "CMPS348",
+      "title": "Compiler Construction",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS347"
+      ],
+      "co": [],
+      "preSource": "BAU Faculty of Science catalogue 2020-2021"
+    },
+    {
+      "code": "CMPS349",
+      "title": "File Structures",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS347"
+      ],
+      "co": [],
+      "preSource": "BAU Faculty of Science catalogue 2020-2021"
+    },
+    {
+      "code": "CMPS352",
+      "title": "Mobile App Development",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS342"
+      ],
+      "co": [],
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS354",
+      "title": "Applied Machine Learning for Cybersecurity",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "MATH242",
+        "CMPS347"
+      ],
+      "co": [],
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS356",
+      "title": "Introduction to Data Science",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "MATH242"
+      ],
+      "co": []
+    },
+    {
+      "code": "CMPS450",
+      "title": "Computer Graphics",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS347"
+      ],
+      "co": [],
+      "preSource": "BAU Faculty of Science catalogue 2020-2021"
+    },
+    {
+      "code": "CMPS451",
+      "title": "Software Design and Quality",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS344"
+      ],
+      "co": [],
+      "preSource": "BAU Faculty of Science catalogue 2020-2021"
+    },
+    {
+      "code": "CMPS452",
+      "title": "Introduction to Data Mining",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS342",
+        "MATH242"
+      ],
+      "co": [],
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS453",
+      "title": "Artificial Intelligence",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS347",
+        "CMPS345"
+      ],
+      "co": [],
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "CMPS454",
+      "title": "Logic and Automated Reasoning",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS445",
+        "CMPS248"
+      ],
+      "co": [],
+      "preSource": "BAU Faculty of Science catalogue 2020-2021"
+    },
+    {
+      "code": "CMPS456",
+      "title": "Topics in Computer Science",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "CMPS461",
+      "title": "Advanced Web Development",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS246",
+        "CMPS342"
+      ],
+      "co": []
+    },
+    {
+      "code": "CMPS462",
+      "title": "Distributed Systems",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS447"
+      ],
+      "co": [],
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "CMPS463",
+      "title": "Game Design and Development",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS347"
+      ],
+      "co": []
+    },
+    {
+      "code": "CMPS464",
+      "title": "Competitive Programming",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS441"
+      ],
+      "co": []
+    },
+    {
+      "code": "CMPS465",
+      "title": "Cloud and Edge Computing",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS447"
+      ],
+      "co": [],
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS466",
+      "title": "Blockchain",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS455"
+      ],
+      "co": []
+    },
+    {
+      "code": "CMPS467",
+      "title": "Internet of Things",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS447"
+      ],
+      "co": [],
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "CMPS468",
+      "title": "Malware Analysis and Reverse Engineering",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS343",
+        "CMPS455"
+      ],
+      "co": []
+    },
+    {
+      "code": "CMPS469",
+      "title": "Big Data and Data Analytics",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "MATH242",
+        "CMPS342"
+      ],
+      "co": []
+    },
+    {
+      "code": "CMPS470",
+      "title": "Deep Learning",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS347"
+      ],
+      "co": [],
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CMPS472",
+      "title": "Applied Artificial Intelligence",
+      "cr": 3,
+      "bucket": "DEPT_ELECTIVE",
+      "pre": [
+        "CMPS347",
+        "CMPS342"
+      ],
+      "co": [],
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "ENGL001",
+      "title": "English Language",
+      "cr": 2,
+      "bucket": "UNIV_MANDATORY",
+      "pre": [],
+      "co": [],
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "ARAB001",
+      "title": "Arabic Language",
+      "cr": 2,
+      "bucket": "UNIV_MANDATORY",
+      "pre": [],
+      "co": [],
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "BLAW001",
+      "title": "Human Rights",
+      "cr": 1,
+      "bucket": "UNIV_MANDATORY",
+      "pre": [],
+      "co": [],
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "FREN111",
+      "title": "French Language (alternative)",
+      "cr": 2,
+      "bucket": "UNIV_MANDATORY",
+      "pre": [],
+      "co": [],
+      "needsConfirmation": "Which mandatory course does FREN111 substitute?",
+      "alternateFor": "ENGL001",
+      "note": "French option for students who take French rather than English."
+    },
+    {
+      "code": "IC3",
+      "title": "IC3 / ICDL Computer Certificate",
+      "cr": 0,
+      "bucket": "NON_CREDIT",
+      "pre": [],
+      "co": [],
+      "passFail": true
+    },
+    {
+      "code": "CHEM110",
+      "title": "Introduction to Chemistry I",
+      "cr": 3,
+      "bucket": "REMEDIAL",
+      "pre": [],
+      "co": [],
+      "unlocksRemedial": "CHEM241",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "MATH111",
+      "title": "Introduction to Calculus and Analytical Geometry II",
+      "cr": 3,
+      "bucket": "REMEDIAL",
+      "pre": [],
+      "co": [],
+      "unlocksRemedial": "MATH241",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "MATH112",
+      "title": "Introduction to Algebra",
+      "cr": 3,
+      "bucket": "REMEDIAL",
+      "pre": [],
+      "co": [],
+      "unlocksRemedial": "MATH341",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "PHYS120",
+      "title": "Introduction to Physics II",
+      "cr": 3,
+      "bucket": "REMEDIAL",
+      "pre": [],
+      "co": [],
+      "unlocksRemedial": "PHYS243",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "WRNL200",
+      "title": "Work Ready Now",
+      "cr": 3,
+      "bucket": "UNIV_MANDATORY",
+      "pre": [],
+      "co": [],
+      "appliesFromCatalogYear": 2026,
+      "requiredAboveEarnedCredits": 50,
+      "note": "Confirmed from a real 2026 contract sheet: 3 credits, inside the 8-credit Core block.",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "INTE001",
+      "title": "Intensive English 1",
+      "cr": 0,
+      "bucket": "INTENSIVE",
+      "pre": [],
+      "co": [],
+      "level": 0,
+      "needsConfirmation": "Three levels appear on the real sheet. Confirm whether more exist.",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "INTE002A",
+      "title": "Intensive English 2A",
+      "cr": 0,
+      "bucket": "INTENSIVE",
+      "pre": [],
+      "co": [],
+      "level": 1,
+      "needsConfirmation": "Three levels appear on the real sheet. Confirm whether more exist.",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "INTE002B",
+      "title": "Intensive English 2B",
+      "cr": 0,
+      "bucket": "INTENSIVE",
+      "pre": [],
+      "co": [],
+      "level": 2,
+      "needsConfirmation": "Three levels appear on the real sheet. Confirm whether more exist.",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "ARAB110",
+      "title": "Introd.To Arabic Literature",
+      "cr": 3,
+      "bucket": "FRESHMAN",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "ECON110",
+      "title": "Fundamentals Of Economics",
+      "cr": 3,
+      "bucket": "FRESHMAN",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "ENGL110",
+      "title": "Freshman English I",
+      "cr": 3,
+      "bucket": "FRESHMAN",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "ENGL112",
+      "title": "Freshman English Ii",
+      "cr": 3,
+      "bucket": "FRESHMAN",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "HIST110",
+      "title": "History Of Modern Lebanon",
+      "cr": 3,
+      "bucket": "FRESHMAN",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "MATH110",
+      "title": "Intr.Calc.&Analyt.Geom.I",
+      "cr": 3,
+      "bucket": "FRESHMAN",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "MGMT110",
+      "title": "Intro. To Business & Entrerpr.",
+      "cr": 3,
+      "bucket": "FRESHMAN",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "PHIL110",
+      "title": "Introduction To Philosophy",
+      "cr": 3,
+      "bucket": "FRESHMAN",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "PHYS110",
+      "title": "Introduction To Physics I",
+      "cr": 3,
+      "bucket": "FRESHMAN",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "SOCI110",
+      "title": "Introduction To Sociology I",
+      "cr": 3,
+      "bucket": "FRESHMAN",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "ENGL010",
+      "title": "Freshman English",
+      "cr": 3,
+      "bucket": "REMEDIAL",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "MATH010",
+      "title": "Calculus&Analytic Geometry I",
+      "cr": 3,
+      "bucket": "REMEDIAL",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "MATH011",
+      "title": "Calculus&Analytic Geometry Ii",
+      "cr": 3,
+      "bucket": "REMEDIAL",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "PHYS010",
+      "title": "Introduction To Physics",
+      "cr": 3,
+      "bucket": "REMEDIAL",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "BIOL120",
+      "title": "Introduction To Biology",
+      "cr": 3,
+      "bucket": "REMEDIAL",
+      "pre": [],
+      "co": [],
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BIOL121",
+      "title": "General Biology I",
+      "cr": 3,
+      "bucket": "REMEDIAL",
+      "pre": [],
+      "co": []
+    },
+    {
+      "code": "INTE102",
+      "title": "Intensive English 2",
+      "cr": 0,
+      "bucket": "INTENSIVE",
+      "pre": [],
+      "co": [],
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "INTE103",
+      "title": "Intensive English 3",
+      "cr": 0,
+      "bucket": "INTENSIVE",
+      "pre": [],
+      "co": [],
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BACC201",
+      "title": "Business course (other programme)",
+      "cr": 3,
+      "bucket": "OTHER",
+      "pre": [],
+      "co": [],
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BECO201",
+      "title": "Business course (other programme)",
+      "cr": 3,
+      "bucket": "OTHER",
+      "pre": [],
+      "co": [],
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BMTH201",
+      "title": "Business course (other programme)",
+      "cr": 3,
+      "bucket": "OTHER",
+      "pre": [],
+      "co": [],
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BUSN201",
+      "title": "Business course (other programme)",
+      "cr": 3,
+      "bucket": "OTHER",
+      "pre": [],
+      "co": [],
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BUSN203",
+      "title": "Business course (other programme)",
+      "cr": 3,
+      "bucket": "OTHER",
+      "pre": [],
+      "co": [],
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "ARAB007",
+      "title": "Arabic Language",
+      "cr": 2,
+      "bucket": "UNIV_MANDATORY",
+      "pre": [],
+      "co": [],
+      "alternateFor": "ARAB001",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "ARAB008",
+      "title": "Arabic Language",
+      "cr": 2,
+      "bucket": "UNIV_MANDATORY",
+      "pre": [],
+      "co": [],
+      "alternateFor": "ARAB001",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "ENGL006",
+      "title": "English elective (title to confirm)",
+      "cr": 2,
+      "bucket": "UNIV_MANDATORY",
+      "pre": [],
+      "co": [],
+      "alternateFor": "ENGL001",
+      "runsIn": [
+        "FALL"
+      ]
+    }
+  ],
+  "universityElectives": [
+    {
+      "code": "FREN001",
+      "title": "Langue Francaise",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "FREN002",
+      "title": "Langue Francaise 2",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "SPAN001",
+      "title": "Spanish Language",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "ITAL001",
+      "title": "Italian Language",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "ARBA002",
+      "title": "Creative Writing",
+      "cr": 2,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "ARAB003",
+      "title": "Essay Writing",
+      "cr": 2,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "HIST002",
+      "title": "History of Lebanon",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "HIST004",
+      "title": "Modern and Contemporary Arab History",
+      "cr": 2,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "HIST005",
+      "title": "Contemporary Historical Issues",
+      "cr": 2,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "HIST007",
+      "title": "Historical Archives and Manuscripts",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "HIST008",
+      "title": "Islamic Civilization",
+      "cr": 2,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "HIST013",
+      "title": "Arab State History",
+      "cr": 2,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "HIST017",
+      "title": "History of Science and Technology Among Arabs",
+      "cr": 2,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "HIST018",
+      "title": "History of Civilizations",
+      "cr": 2,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "ARCH001",
+      "title": "Photography",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "ARCH002",
+      "title": "History of Arts",
+      "cr": 1,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "ARCH003",
+      "title": "Introduction to Music",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "ARCH005",
+      "title": "Basics of Theory of Colours",
+      "cr": 2,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "FASD001",
+      "title": "Fashion Illustration",
+      "cr": 2,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "PSYC001",
+      "title": "Psychology of Learning",
+      "cr": 2,
+      "cat": "SOCIAL"
+    },
+    {
+      "code": "PSYC002",
+      "title": "Social Psychology",
+      "cr": 2,
+      "cat": "SOCIAL"
+    },
+    {
+      "code": "PSYC003",
+      "title": "Educational Psychology",
+      "cr": 2,
+      "cat": "SOCIAL"
+    },
+    {
+      "code": "PSYC004",
+      "title": "Positive Psychology",
+      "cr": 2,
+      "cat": "SOCIAL"
+    },
+    {
+      "code": "PSYC005",
+      "title": "Psychology of Management",
+      "cr": 2,
+      "cat": "SOCIAL"
+    },
+    {
+      "code": "PSYC006",
+      "title": "Psychology of Special Needs",
+      "cr": 2,
+      "cat": "SOCIAL"
+    },
+    {
+      "code": "SOCI001",
+      "title": "Principles in Psychology and Sociology",
+      "cr": 2,
+      "cat": "SOCIAL",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "SOCI003",
+      "title": "Medical Sociology",
+      "cr": 2,
+      "cat": "SOCIAL",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "SOCI004",
+      "title": "Sociology of Women",
+      "cr": 2,
+      "cat": "SOCIAL"
+    },
+    {
+      "code": "SOCI005",
+      "title": "Urban & Rural Sociology",
+      "cr": 2,
+      "cat": "SOCIAL"
+    },
+    {
+      "code": "SOCI006",
+      "title": "Sociology of New Communities",
+      "cr": 2,
+      "cat": "SOCIAL"
+    },
+    {
+      "code": "SOCI007",
+      "title": "Sociology of Development",
+      "cr": 2,
+      "cat": "SOCIAL"
+    },
+    {
+      "code": "SOCI008",
+      "title": "Family Sociology",
+      "cr": 2,
+      "cat": "SOCIAL"
+    },
+    {
+      "code": "SOCI009",
+      "title": "Society and Political Issues",
+      "cr": 2,
+      "cat": "SOCIAL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "SOCI010",
+      "title": "Sociology of Sport",
+      "cr": 2,
+      "cat": "SOCIAL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "MCOM002",
+      "title": "Public Relations",
+      "cr": 2,
+      "cat": "MASSCOM"
+    },
+    {
+      "code": "MCOM003",
+      "title": "Communication Skills",
+      "cr": 2,
+      "cat": "MASSCOM",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "MCOM004",
+      "title": "Public Opinion",
+      "cr": 2,
+      "cat": "MASSCOM"
+    },
+    {
+      "code": "BLAW003",
+      "title": "Introduction to Law",
+      "cr": 2,
+      "cat": "LAW"
+    },
+    {
+      "code": "BLAW004",
+      "title": "Principles of Commercial Law",
+      "cr": 2,
+      "cat": "LAW"
+    },
+    {
+      "code": "BLAW005",
+      "title": "Principles of Maritime Law",
+      "cr": 1,
+      "cat": "LAW"
+    },
+    {
+      "code": "BLAW006",
+      "title": "Principles of Labour and Social Security Law",
+      "cr": 1,
+      "cat": "LAW",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BLAW007",
+      "title": "Law of Professional Practices",
+      "cr": 1,
+      "cat": "LAW"
+    },
+    {
+      "code": "BLAW008",
+      "title": "Intellectual Property Rights",
+      "cr": 1,
+      "cat": "LAW",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "BLAW009",
+      "title": "Citizenship and Foreigners Status",
+      "cr": 1,
+      "cat": "LAW"
+    },
+    {
+      "code": "PLSC001",
+      "title": "Principles of Political Science",
+      "cr": 1,
+      "cat": "LAW",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "BACC001",
+      "title": "Introduction to Accounting",
+      "cr": 2,
+      "cat": "BUSINESS",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BACC003",
+      "title": "Accounting for Small and Medium Enterprises",
+      "cr": 2,
+      "cat": "BUSINESS"
+    },
+    {
+      "code": "BMGT001",
+      "title": "Introduction to Management",
+      "cr": 2,
+      "cat": "BUSINESS",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BMGT002",
+      "title": "Entrepreneurship",
+      "cr": 2,
+      "cat": "BUSINESS",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BMGT004",
+      "title": "Hotel Management",
+      "cr": 2,
+      "cat": "BUSINESS"
+    },
+    {
+      "code": "BECO001",
+      "title": "Introduction to Economics",
+      "cr": 2,
+      "cat": "BUSINESS",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BFSC001",
+      "title": "Introduction to Feasibility Study",
+      "cr": 2,
+      "cat": "BUSINESS"
+    },
+    {
+      "code": "BMKT001",
+      "title": "Introduction to Marketing",
+      "cr": 2,
+      "cat": "BUSINESS",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "HSSC001",
+      "title": "History of Science in the Arab World",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownFaculty": true,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "SCTH001",
+      "title": "Scientific Thinking",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownFaculty": true
+    },
+    {
+      "code": "PHYS002",
+      "title": "Physics for Everyday Life",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownFaculty": true,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "PHYS003",
+      "title": "Radiation Safety & Awareness",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownFaculty": true
+    },
+    {
+      "code": "PHYS006",
+      "title": "Introduction to Astronomy",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownFaculty": true,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BIOL002",
+      "title": "Global Warming",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownFaculty": true,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BIOL004",
+      "title": "Principles of Sustainable Development",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownFaculty": true
+    },
+    {
+      "code": "ENVI004",
+      "title": "Environment elective (title to confirm)",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownFaculty": true,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "ENVI005",
+      "title": "Environment elective (title to confirm)",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownFaculty": true
+    },
+    {
+      "code": "CHEM001",
+      "title": "Chemistry and Society",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownFaculty": true
+    },
+    {
+      "code": "MATH005",
+      "title": "Introduction to Statistics",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownFaculty": true
+    },
+    {
+      "code": "CMPS003",
+      "title": "Technology Life Skills",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownMajor": true
+    },
+    {
+      "code": "CMPS004",
+      "title": "Introduction to Data Science",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownMajor": true
+    },
+    {
+      "code": "CMPS005",
+      "title": "Building Basic Android Apps",
+      "cr": 2,
+      "cat": "SCIENCE",
+      "ownMajor": true,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "COME001",
+      "title": "Control of Acoustical Noise Pollution",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "POWE001",
+      "title": "Electric Safety",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "MCHE005",
+      "title": "Introduction to Renewable Energy",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "MCHE007",
+      "title": "Principles of Automotive Technology",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "CVLE005",
+      "title": "Introduction to Environmental Studies",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "CVLE006",
+      "title": "Sustainable Environmental Engineering Practices",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "CVLE007",
+      "title": "Traffic Safety",
+      "cr": 2,
+      "cat": "ENGINEERING",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "CVLE009",
+      "title": "Disaster Engineering",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "CVLE010",
+      "title": "Community Based Engineering",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "CVLE011",
+      "title": "Introduction to Road Safety Management",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "COMP005",
+      "title": "Introduction to Health Informatics",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "COMP008",
+      "title": "Programming",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "INME001",
+      "title": "Introduction to System Simulation",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "INME002",
+      "title": "Material Recycling Process",
+      "cr": 2,
+      "cat": "ENGINEERING"
+    },
+    {
+      "code": "PHAR001",
+      "title": "Medicinal Herbs",
+      "cr": 1,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "PHAR002",
+      "title": "Hormones and Their Actions",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "PHAR003",
+      "title": "Microbial Diseases",
+      "cr": 1,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "PHAR004",
+      "title": "Drugs and Treatment",
+      "cr": 1,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "PHAR005",
+      "title": "Cosmetics",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "PHAR007",
+      "title": "Forms of Drugs",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "PHAR008",
+      "title": "Drugs and Abuse",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "PHAR009",
+      "title": "Water Secrets and Life",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "PHAR010",
+      "title": "Concept, Principles and Tools of Leadership",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "PHAR011",
+      "title": "Introduction to Interprofessional Collaborative Practice",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "NURS001",
+      "title": "First Aid",
+      "cr": 2,
+      "cat": "MEDICAL",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "NURS002",
+      "title": "Disaster Management",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "NURS003",
+      "title": "Culture and Health",
+      "cr": 1,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "NURS004",
+      "title": "Time Management",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "NURS005",
+      "title": "Health Promotion",
+      "cr": 1,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "NUTR001",
+      "title": "Principles of Nutrition",
+      "cr": 2,
+      "cat": "MEDICAL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "NUTR002",
+      "title": "Principles of Food Safety",
+      "cr": 1,
+      "cat": "MEDICAL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "NUTR003",
+      "title": "Nutrition of the Youth",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "NUTR321",
+      "title": "Breastfeeding Basics",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "NUTR333",
+      "title": "Principles of Healthy Cooking",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "PHTH001",
+      "title": "Stretching",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "PHTH002",
+      "title": "Body Ergonomics",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "HESC001",
+      "title": "Topics in Addiction",
+      "cr": 2,
+      "cat": "MEDICAL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "HESC002",
+      "title": "Professional Ethics",
+      "cr": 2,
+      "cat": "MEDICAL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "HESC003",
+      "title": "Introduction to Public Health",
+      "cr": 2,
+      "cat": "MEDICAL",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "HESC005",
+      "title": "Infection Control and Management",
+      "cr": 1,
+      "cat": "MEDICAL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "PHED001",
+      "title": "Physical Education (Basketball / Volleyball / Handball / Badminton)",
+      "cr": 2,
+      "cat": "SPORTS"
+    },
+    {
+      "code": "EXTR401",
+      "title": "Modern Arab",
+      "cr": 2,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "HESC004",
+      "title": "Introduction to Personal Health",
+      "cr": 1,
+      "cat": "MEDICAL",
+      "runsIn": [
+        "FALL",
+        "SPRING"
+      ]
+    },
+    {
+      "code": "HESC006",
+      "title": "Fundamentals of Human Health",
+      "cr": 2,
+      "cat": "MEDICAL",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "HIST001",
+      "title": "History Of Lebanon",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "HIST003",
+      "title": "Major Issues in the Arab World",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "HIST006",
+      "title": "History Of The Ottoman State",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "MCOM007",
+      "title": "Digital Content Creation",
+      "cr": 2,
+      "cat": "HUMANITIES"
+    },
+    {
+      "code": "PHAR027",
+      "title": "Addicting Drugs",
+      "cr": 2,
+      "cat": "MEDICAL"
+    },
+    {
+      "code": "PSYC007",
+      "title": "Stress Management",
+      "cr": 2,
+      "cat": "SOCIAL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "ARAB004",
+      "title": "Arabic Language",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "ARAB005",
+      "title": "Arabic Language",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "ENGL008",
+      "title": "English elective (title to confirm)",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "HESC007",
+      "title": "Cancer Prevention & Community Health",
+      "cr": 2,
+      "cat": "MEDICAL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "TURK001",
+      "title": "Turkish Language",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "DENT002",
+      "title": "Dentistry elective (title to confirm)",
+      "cr": 2,
+      "cat": "MEDICAL",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "ARTS002",
+      "title": "Arts elective (title to confirm)",
+      "cr": 2,
+      "cat": "HUMANITIES",
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "CMPS006",
+      "title": "AI for All",
+      "cr": 2,
+      "cat": "OTHER",
+      "ownMajor": true,
+      "runsIn": [
+        "FALL"
+      ]
+    }
+  ],
+  "genScienceElectives": [
+    {
+      "code": "MATH343",
+      "title": "Ordinary Differential Equations",
+      "cr": 3,
+      "demoExample": true
+    },
+    {
+      "code": "MATH345",
+      "title": "Mathematical Logic",
+      "cr": 3,
+      "demoExample": true
+    },
+    {
+      "code": "MATH351",
+      "title": "Operations Research",
+      "cr": 3,
+      "demoExample": true
+    },
+    {
+      "code": "PHYS245",
+      "title": "Modern Physics",
+      "cr": 3,
+      "demoExample": true
+    },
+    {
+      "code": "CHEM245",
+      "title": "Organic Chemistry",
+      "cr": 3,
+      "demoExample": true
+    },
+    {
+      "code": "BIOL241",
+      "title": "General Biology",
+      "cr": 3,
+      "demoExample": true
+    },
+    {
+      "code": "MATH252",
+      "title": "Mathematical Software Tools",
+      "cr": 2,
+      "demoExample": true
+    },
+    {
+      "code": "PHYS252",
+      "title": "Physics of Electronics",
+      "cr": 2,
+      "demoExample": true
+    },
+    {
+      "code": "BIOL252",
+      "title": "Bioinformatics Basics",
+      "cr": 2,
+      "demoExample": true
+    },
+    {
+      "code": "CHEM252",
+      "title": "Environmental Chemistry",
+      "cr": 2,
+      "demoExample": true
+    },
+    {
+      "code": "MATH246",
+      "title": "Real Analysis I",
+      "cr": 3,
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "MATH250",
+      "title": "Biostatistics",
+      "cr": 3
+    },
+    {
+      "code": "MATH352",
+      "title": "Numerical Analysis",
+      "cr": 3,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "MATH353",
+      "title": "Set Theory",
+      "cr": 3
+    },
+    {
+      "code": "MATH454",
+      "title": "Mathematical Computation",
+      "cr": 2,
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "MATH456",
+      "title": "Mathematics elective",
+      "cr": 3,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "PHYS242",
+      "title": "Thermal Physics",
+      "cr": 3
+    },
+    {
+      "code": "PHYS244",
+      "title": "Physical Optics",
+      "cr": 3,
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "PHYS341",
+      "title": "Classical Mechanics And Waves",
+      "cr": 3
+    },
+    {
+      "code": "PHYS350",
+      "title": "Physics elective",
+      "cr": 3,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "PHYS352",
+      "title": "Biophysics",
+      "cr": 3,
+      "runsIn": [
+        "SPRING"
+      ]
+    },
+    {
+      "code": "CHEM234",
+      "title": "Organic Chemistry",
+      "cr": 3
+    },
+    {
+      "code": "BCHM331",
+      "title": "Biochemistry",
+      "cr": 3
+    },
+    {
+      "code": "BIOL231",
+      "title": "Biology I",
+      "cr": 3,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BIOL231L",
+      "title": "Biology I Laboratory",
+      "cr": 1,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BIOL443",
+      "title": "Biology elective",
+      "cr": 3,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BCHM445",
+      "title": "Biochemistry",
+      "cr": 3,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "BIOL441",
+      "title": "Biology elective",
+      "cr": 3,
+      "runsIn": [
+        "FALL"
+      ]
+    },
+    {
+      "code": "CHEM450",
+      "title": "Chemistry elective",
+      "cr": 3,
+      "runsIn": [
+        "FALL"
+      ]
+    }
+  ],
+  "mathMinor": {
+    "label": "Minor in Mathematics",
+    "minCredits": 18,
+    "maxCredits": 18,
+    "requiredOneOf": [
+      "MATH246",
+      "MATH346"
+    ],
+    "requiredCourseNames": {
+      "MATH246": "Real Analysis I",
+      "MATH346": "Abstract Algebra I"
+    },
+    "eligiblePrefixes": [
+      "MATH"
+    ],
+    "note": "Department rule: 18 MATH credits, including MATH246 Real Analysis I or MATH346 Abstract Algebra I (codes from the BAU Mathematics programme page). MATH courses used as departmental electives or general science electives are not counted. Foundation courses (MATH111, MATH112) and freshman-year credit (MATH110) do not count."
+  },
+  "bucketsByCatalogYear": {
+    "before2026": {
+      "UNIV_MANDATORY": 5,
+      "UNIV_ELECTIVE": 11
+    },
+    "from2026": {
+      "UNIV_MANDATORY": 8,
+      "UNIV_ELECTIVE": 8
+    }
+  },
+  "electiveCategories": {
+    "HUMANITIES": "Humanities — languages, history, arts (satisfies REG-UE-01)",
+    "SOCIAL": "Social Sciences — SOCI and PSYC (satisfies REG-UE-02)",
+    "MASSCOM": "Mass Communication",
+    "LAW": "Law and Political Science",
+    "BUSINESS": "Business Administration",
+    "SCIENCE": "Sciences and Environment",
+    "ENGINEERING": "Engineering",
+    "MEDICAL": "Medical and Health Sciences",
+    "SPORTS": "Physical Education"
+  },
+  "genSciencePolicy": {
+    "source": "CURRENT_FACULTY_OF_SCIENCE_OFFERING",
+    "requiredCredits": 5,
+    "shape": [
+      3,
+      2
+    ],
+    "excludePrefixes": [
+      "CMPS"
+    ],
+    "excludeCsCurriculum": true,
+    "confirmedExamples": [
+      "MATH",
+      "PHYS",
+      "CHEM"
+    ],
+    "fallbackSciencePrefixes": [
+      "MATH",
+      "PHYS",
+      "CHEM"
+    ],
+    "respectOfferingProgramExclusions": true,
+    "note": "Do not maintain a fixed production list. Eligible courses are derived from the live/current Faculty of Science offering."
+  },
+  "nonDegreeBuckets": [
+    "REMEDIAL",
+    "INTENSIVE",
+    "NON_CREDIT",
+    "FRESHMAN",
+    "OTHER"
+  ],
+  "campuses": [
+    "Beirut",
+    "Debbieh",
+    "Tripoli",
+    "Bekaa"
+  ],
+  "seasonPolicy": {
+    "rule": "The study plan alternates: semesters 1, 3 and 5 are Fall, semesters 2, 4 and 6 are Spring.",
+    "useWhen": "A course offering for the term being planned has not been uploaded yet."
+  },
+  "deptElectiveSlots": [
+    4,
+    5,
+    6
+  ]
+}
