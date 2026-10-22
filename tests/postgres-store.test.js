@@ -14,14 +14,26 @@ async function run() {
   await securePool.end();
 
   const caPool = createPool({
-    DATABASE_URL: 'postgres://localhost/advising',
+    DATABASE_URL: 'postgres://postgres.railway.internal/advising',
     DATABASE_SSL_CA: '-----BEGIN CERTIFICATE-----\nexample\n-----END CERTIFICATE-----',
     DATABASE_SSL_SERVER_NAME: 'localhost',
     NODE_ENV: 'production'
   });
   assert.strictEqual(caPool.options.ssl.ca, '-----BEGIN CERTIFICATE-----\nexample\n-----END CERTIFICATE-----');
-  assert.strictEqual(caPool.options.ssl.servername, 'localhost');
   assert.strictEqual(caPool.options.ssl.rejectUnauthorized, true);
+  assert.strictEqual(typeof caPool.options.ssl.checkServerIdentity, 'function');
+  const localhostCertificate = {
+    subject: { CN: 'localhost' },
+    subjectaltname: 'DNS:localhost'
+  };
+  assert.ifError(caPool.options.ssl.checkServerIdentity(
+    'postgres.railway.internal',
+    localhostCertificate
+  ));
+  assert.ok(caPool.options.ssl.checkServerIdentity(
+    'postgres.railway.internal',
+    { subject: { CN: 'other.invalid' }, subjectaltname: 'DNS:other.invalid' }
+  ) instanceof Error);
   await caPool.end();
 
   const statements = [];

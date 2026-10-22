@@ -70,9 +70,10 @@ railway up
    certificate (the official template stores it at `/var/lib/postgresql/data/certs/root.crt`).
    The default hostname check uses the host in `DATABASE_URL`. If the database certificate is
    issued for a different DNS name, set `DATABASE_SSL_SERVER_NAME` to the exact certificate
-   hostname (for example, `localhost` only if that is the certificate's name). This keeps
-   certificate-chain and hostname verification enabled. Never set `DATABASE_SSL=disable` in
-   production. Test a connection from the app service before importing.
+   hostname (for example, `localhost` only if that is the certificate's name). The app explicitly
+   verifies the certificate against that name while still validating its chain against the trusted
+   CA; it does not disable TLS verification. Never set `DATABASE_SSL=disable` in production.
+   Test a connection from the app service before importing.
 4. Use separate credentials: a database administrator URL only for the one-off schema migration,
    and a non-owner runtime role for the app. The runtime role must not be a superuser, database
    owner, or schema/table owner, and must not have schema/database create privileges. Grant it

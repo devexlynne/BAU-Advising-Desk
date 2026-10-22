@@ -1,6 +1,7 @@
 'use strict';
 
 const { Pool } = require('pg');
+const tls = require('tls');
 
 function createPool(env = process.env) {
   if (!env.DATABASE_URL) throw new Error('DATABASE_URL is required for PostgreSQL storage');
@@ -19,7 +20,10 @@ function createPool(env = process.env) {
     ? false
     : {
       rejectUnauthorized: true,
-      ...(env.DATABASE_SSL_SERVER_NAME ? { servername: env.DATABASE_SSL_SERVER_NAME } : {}),
+      ...(env.DATABASE_SSL_SERVER_NAME ? {
+        checkServerIdentity: (_connectionHost, certificate) =>
+          tls.checkServerIdentity(env.DATABASE_SSL_SERVER_NAME, certificate)
+      } : {}),
       ...(env.DATABASE_SSL_CA ? { ca: env.DATABASE_SSL_CA } : {})
     };
 
