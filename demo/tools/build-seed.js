@@ -74,6 +74,7 @@ function fail(msg) { console.error('FAIL ' + msg); process.exitCode = 1; }
   merged.forEach(s => {
     const src = spec.find(x => x.id === s.id);
     s.arabName = src.arabName;
+    s.admissionTerm = src.admissionTerm;   // the printout shows the year, not the season
     s.demo = true;
     s.demoCase = src.note;
   });

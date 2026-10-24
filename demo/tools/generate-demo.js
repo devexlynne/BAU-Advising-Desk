@@ -68,13 +68,15 @@ const STUDENTS = [
   { id: '202499104', name: 'Lea Georges Mansour', arab: 'ليا جورج منصور', nat: 'Lebanese', start: ['FALL', 2024], done: 4, level: 1, failRetake: 'CMPS242', note: 'Failed CMPS242 and passed it on the retake' },
   { id: '202399105', name: 'Omar Bilal Fares', arab: 'عمر بلال فارس', nat: 'Syrian', start: ['FALL', 2023], done: 5, level: 1, withdraw: ['CMPS347', 'CMPS344'], noRetake: true, note: 'Withdrew from two core courses, now behind on prerequisites' },
   { id: '202499106', name: 'Maya Samir Azar', arab: 'مايا سمير عازار', nat: 'Lebanese', start: ['FALL', 2024], done: 4, level: 2, fail: ['CMPS248', 'MATH242'], note: 'Low GPA, academic warning, failed courses to repeat' },
-  { id: '202599107', name: 'Hadi Mahmoud Nasser', arab: 'هادي محمود ناصر', nat: 'Lebanese', start: ['SPRING', 2025], done: 3, level: 1, note: 'Spring intake, a term behind the standard plan' },
+  { id: '202499107', name: 'Hadi Mahmoud Nasser', arab: 'هادي محمود ناصر', nat: 'Lebanese', start: ['SPRING', 2024], done: 3, level: 1, note: 'Spring intake, a term behind the standard plan' },
   { id: '202499108', name: 'Yara Nabil Chami', arab: 'يارا نبيل شامي', nat: 'Jordanian', start: ['FALL', 2024], done: 4, level: 1, dminus: 'CMPS346', transfer: ['MATH241', 'CHEM241'], note: 'Transfer credits, and a D- that must be repeated' },
   { id: '202399109', name: 'Ziad Antoine Rahal', arab: 'زياد أنطوان رحال', nat: 'Lebanese', start: ['FALL', 2023], done: 6, level: 0, summers: [2025], track: 'SEC', note: 'Final semester, Cybersecurity track' },
   { id: '202599110', name: 'Sara Elie Tannous', arab: 'سارة إيلي طنوس', nat: 'Lebanese', start: ['FALL', 2025], done: 2, level: 1, campus: 'Debbieh', note: 'Studies at the Debbieh campus' },
   { id: '202499111', name: 'Jana Khaled Moussa', arab: 'جنى خالد موسى', nat: 'Lebanese', start: ['FALL', 2024], done: 4, level: 0, noWrnl: true, note: 'Good standing, WRNL200 still missing' },
   { id: '202599112', name: 'Ali Hussein Hamdan', arab: 'علي حسين حمدان', nat: 'Lebanese', start: ['FALL', 2025], done: 2, level: 2, withdraw: ['MATH242'], note: 'First-year student who withdrew from a course' }
 ];
+
+const BACC = ['ARAB110', 'BIOL120', 'BIOL121', 'CHEM110', 'ENGL110', 'HIST110', 'MATH110', 'MATH111', 'PHIL110', 'PHYS110'];
 
 const TRACK_ELECTIVES = {
   SWE: ['CMPS326', 'CMPS352', 'CMPS463'],
@@ -91,10 +93,16 @@ function build(spec, seed) {
   const carry = [];   // failed or withdrawn courses taken again later
   const pending = []; // withdrawn and not taken again yet
 
-  // transfer block first (courses credited from another university)
+  // Lebanese Baccalaureate (or equivalent) block: the freshman courses every
+  // student is credited with on admission, printed first with TR and flag N
+  BACC.forEach(code => {
+    const c = byCode[code];
+    history.push({ code, title: c.title, cr: c.cr, grade: 'TR', earned: c.cr, term: 'TRANSFER', flag: 'N', block: 'bacc' });
+  });
+  // courses credited from another university
   (spec.transfer || []).forEach(code => {
     const c = byCode[code];
-    history.push({ code, title: c.title, cr: c.cr, grade: 'TR', earned: c.cr, term: 'TRANSFER', flag: '' });
+    history.push({ code, title: c.title, cr: c.cr, grade: 'TR', earned: c.cr, term: 'TRANSFER', flag: 'N', block: 'transfer' });
   });
   const transferred = new Set(spec.transfer || []);
 
@@ -133,6 +141,7 @@ function build(spec, seed) {
   const seen = {};
   history.forEach(h => { (seen[h.code] = seen[h.code] || []).push(h); });
   Object.values(seen).forEach(rows => {
+    rows = rows.filter(h => h.term !== 'TRANSFER');
     if (rows.length < 2) return;
     rows.forEach((h, i) => { h.flag = i === rows.length - 1 ? 'I' : 'A'; });
   });

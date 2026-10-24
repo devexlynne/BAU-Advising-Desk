@@ -13,12 +13,10 @@ npm run demo
 The browser opens at http://127.0.0.1:3005, signed in as the demo advisor.
 Press Ctrl+C in the terminal to stop it.
 
-To send someone the demo as a single file instead, run
-`npm run demo -- --file`. It writes `build/advising-demo.html`, which opens
-with a double-click in any browser, without Node or a server.
-
 To show an import, open Import and drop in `demo/demo-transcripts.pdf`, then
-`demo/demo-schedules.pdf`. Every page of both files is marked DEMO DATA.
+`demo/demo-schedules.pdf`. They follow the registrar's advisee printouts
+(same page size, columns, grey total bars and schedule table), and every page
+is marked DEMO DATA with a footer saying the student is fictional.
 
 ## The students
 
@@ -33,7 +31,7 @@ All names are invented and every ID uses the 99xxx block (for example
 | 202499104 | Lea Georges Mansour | failed CMPS242 and passed it on the retake |
 | 202399105 | Omar Bilal Fares | withdrew from two core courses, behind on prerequisites |
 | 202499106 | Maya Samir Azar | low GPA, failed courses to repeat |
-| 202599107 | Hadi Mahmoud Nasser | spring intake, a term behind the standard plan |
+| 202499107 | Hadi Mahmoud Nasser | spring intake, a term behind the standard plan |
 | 202499108 | Yara Nabil Chami | transfer credits and a D- that must be repeated |
 | 202399109 | Ziad Antoine Rahal | final semester, Cybersecurity track |
 | 202599110 | Sara Elie Tannous | Debbieh campus |
@@ -46,7 +44,7 @@ Only needed if the students are changed.
 
 ```
 node demo/tools/generate-demo.js        # students-spec.json
-python3 demo/tools/make-pdfs.py         # the two PDFs (needs reportlab)
+python3 demo/tools/make-pdfs.py         # the two PDFs (pip install reportlab arabic-reshaper python-bidi)
 npm i --no-save pdfjs-dist@3.11.174
 node demo/tools/build-seed.js           # demo/students.json, read back from the PDFs
 ```

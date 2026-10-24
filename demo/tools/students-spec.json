@@ -10,6 +10,106 @@
     "note": "Second-year student, on track",
     "history": [
       {
+        "code": "ARAB110",
+        "title": "Introd.To Arabic Literature",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL120",
+        "title": "Introduction To Biology",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL121",
+        "title": "General Biology I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "CHEM110",
+        "title": "Introduction to Chemistry I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "ENGL110",
+        "title": "Freshman English I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "HIST110",
+        "title": "History Of Modern Lebanon",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH110",
+        "title": "Intr.Calc.&Analyt.Geom.I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH111",
+        "title": "Introduction to Calculus and Analytical Geometry II",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHIL110",
+        "title": "Introduction To Philosophy",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHYS110",
+        "title": "Introduction To Physics I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
         "code": "CHEM241",
         "title": "Principles of Chemistry",
         "cr": 3,
@@ -142,7 +242,7 @@
       }
     ],
     "cgpa": 3.98,
-    "totalCredits": 32,
+    "totalCredits": 62,
     "schedule": {
       "termCode": "202710",
       "term": "FALL 2026/2027",
@@ -245,6 +345,106 @@
     "campus": "Beirut",
     "note": "Strong student, WRNL200 required (admitted 2024/2025)",
     "history": [
+      {
+        "code": "ARAB110",
+        "title": "Introd.To Arabic Literature",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL120",
+        "title": "Introduction To Biology",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL121",
+        "title": "General Biology I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "CHEM110",
+        "title": "Introduction to Chemistry I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "ENGL110",
+        "title": "Freshman English I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "HIST110",
+        "title": "History Of Modern Lebanon",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH110",
+        "title": "Intr.Calc.&Analyt.Geom.I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH111",
+        "title": "Introduction to Calculus and Analytical Geometry II",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHIL110",
+        "title": "Introduction To Philosophy",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHYS110",
+        "title": "Introduction To Physics I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
       {
         "code": "CHEM241",
         "title": "Principles of Chemistry",
@@ -516,7 +716,7 @@
       }
     ],
     "cgpa": 3.95,
-    "totalCredits": 69,
+    "totalCredits": 99,
     "schedule": {
       "termCode": "202710",
       "term": "FALL 2026/2027",
@@ -601,6 +801,106 @@
     "campus": "Beirut",
     "note": "Final year, close to graduation, departmental electives counted by credits",
     "history": [
+      {
+        "code": "ARAB110",
+        "title": "Introd.To Arabic Literature",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL120",
+        "title": "Introduction To Biology",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL121",
+        "title": "General Biology I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "CHEM110",
+        "title": "Introduction to Chemistry I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "ENGL110",
+        "title": "Freshman English I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "HIST110",
+        "title": "History Of Modern Lebanon",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH110",
+        "title": "Intr.Calc.&Analyt.Geom.I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH111",
+        "title": "Introduction to Calculus and Analytical Geometry II",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHIL110",
+        "title": "Introduction To Philosophy",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHYS110",
+        "title": "Introduction To Physics I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
       {
         "code": "CHEM241",
         "title": "Principles of Chemistry",
@@ -938,7 +1238,7 @@
       }
     ],
     "cgpa": 3.12,
-    "totalCredits": 84,
+    "totalCredits": 114,
     "schedule": {
       "termCode": "202710",
       "term": "FALL 2026/2027",
@@ -1008,6 +1308,106 @@
     "campus": "Beirut",
     "note": "Failed CMPS242 and passed it on the retake",
     "history": [
+      {
+        "code": "ARAB110",
+        "title": "Introd.To Arabic Literature",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL120",
+        "title": "Introduction To Biology",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL121",
+        "title": "General Biology I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "CHEM110",
+        "title": "Introduction to Chemistry I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "ENGL110",
+        "title": "Freshman English I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "HIST110",
+        "title": "History Of Modern Lebanon",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH110",
+        "title": "Intr.Calc.&Analyt.Geom.I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH111",
+        "title": "Introduction to Calculus and Analytical Geometry II",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHIL110",
+        "title": "Introduction To Philosophy",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHYS110",
+        "title": "Introduction To Physics I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
       {
         "code": "CHEM241",
         "title": "Principles of Chemistry",
@@ -1288,7 +1688,7 @@
       }
     ],
     "cgpa": 3.16,
-    "totalCredits": 69,
+    "totalCredits": 99,
     "schedule": {
       "termCode": "202710",
       "term": "FALL 2026/2027",
@@ -1373,6 +1773,106 @@
     "campus": "Beirut",
     "note": "Withdrew from two core courses, now behind on prerequisites",
     "history": [
+      {
+        "code": "ARAB110",
+        "title": "Introd.To Arabic Literature",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL120",
+        "title": "Introduction To Biology",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL121",
+        "title": "General Biology I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "CHEM110",
+        "title": "Introduction to Chemistry I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "ENGL110",
+        "title": "Freshman English I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "HIST110",
+        "title": "History Of Modern Lebanon",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH110",
+        "title": "Intr.Calc.&Analyt.Geom.I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH111",
+        "title": "Introduction to Calculus and Analytical Geometry II",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHIL110",
+        "title": "Introduction To Philosophy",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHYS110",
+        "title": "Introduction To Physics I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
       {
         "code": "CHEM241",
         "title": "Principles of Chemistry",
@@ -1695,7 +2195,7 @@
       }
     ],
     "cgpa": 3.14,
-    "totalCredits": 75,
+    "totalCredits": 105,
     "schedule": {
       "termCode": "202710",
       "term": "FALL 2026/2027",
@@ -1801,6 +2301,106 @@
     "campus": "Beirut",
     "note": "Low GPA, academic warning, failed courses to repeat",
     "history": [
+      {
+        "code": "ARAB110",
+        "title": "Introd.To Arabic Literature",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL120",
+        "title": "Introduction To Biology",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL121",
+        "title": "General Biology I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "CHEM110",
+        "title": "Introduction to Chemistry I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "ENGL110",
+        "title": "Freshman English I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "HIST110",
+        "title": "History Of Modern Lebanon",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH110",
+        "title": "Intr.Calc.&Analyt.Geom.I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH111",
+        "title": "Introduction to Calculus and Analytical Geometry II",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHIL110",
+        "title": "Introduction To Philosophy",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHYS110",
+        "title": "Introduction To Physics I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
       {
         "code": "CHEM241",
         "title": "Principles of Chemistry",
@@ -2072,7 +2672,7 @@
       }
     ],
     "cgpa": 1.88,
-    "totalCredits": 63,
+    "totalCredits": 93,
     "schedule": {
       "termCode": "202710",
       "term": "FALL 2026/2027",
@@ -2179,22 +2779,122 @@
     }
   },
   {
-    "id": "202599107",
+    "id": "202499107",
     "name": "Hadi Mahmoud Nasser",
     "arabName": "هادي محمود ناصر",
     "nationality": "Lebanese",
-    "admission": "2025/2026",
-    "admissionTerm": "SPRING 2025/2026",
+    "admission": "2024/2025",
+    "admissionTerm": "SPRING 2024/2025",
     "campus": "Beirut",
     "note": "Spring intake, a term behind the standard plan",
     "history": [
+      {
+        "code": "ARAB110",
+        "title": "Introd.To Arabic Literature",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL120",
+        "title": "Introduction To Biology",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL121",
+        "title": "General Biology I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "CHEM110",
+        "title": "Introduction to Chemistry I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "ENGL110",
+        "title": "Freshman English I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "HIST110",
+        "title": "History Of Modern Lebanon",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH110",
+        "title": "Intr.Calc.&Analyt.Geom.I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH111",
+        "title": "Introduction to Calculus and Analytical Geometry II",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHIL110",
+        "title": "Introduction To Philosophy",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHYS110",
+        "title": "Introduction To Physics I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
       {
         "code": "CHEM241",
         "title": "Principles of Chemistry",
         "cr": 3,
         "grade": "B+",
         "earned": 3,
-        "term": "SPRING 2025/2026",
+        "term": "SPRING 2024/2025",
         "flag": ""
       },
       {
@@ -2203,7 +2903,7 @@
         "cr": 1,
         "grade": "B-",
         "earned": 1,
-        "term": "SPRING 2025/2026",
+        "term": "SPRING 2024/2025",
         "flag": ""
       },
       {
@@ -2212,7 +2912,7 @@
         "cr": 3,
         "grade": "B",
         "earned": 3,
-        "term": "SPRING 2025/2026",
+        "term": "SPRING 2024/2025",
         "flag": ""
       },
       {
@@ -2221,7 +2921,7 @@
         "cr": 1,
         "grade": "B-",
         "earned": 1,
-        "term": "SPRING 2025/2026",
+        "term": "SPRING 2024/2025",
         "flag": ""
       },
       {
@@ -2230,7 +2930,7 @@
         "cr": 3,
         "grade": "A-",
         "earned": 3,
-        "term": "SPRING 2025/2026",
+        "term": "SPRING 2024/2025",
         "flag": ""
       },
       {
@@ -2239,7 +2939,7 @@
         "cr": 3,
         "grade": "B-",
         "earned": 3,
-        "term": "SPRING 2025/2026",
+        "term": "SPRING 2024/2025",
         "flag": ""
       },
       {
@@ -2248,7 +2948,7 @@
         "cr": 2,
         "grade": "B+",
         "earned": 2,
-        "term": "SPRING 2025/2026",
+        "term": "SPRING 2024/2025",
         "flag": ""
       },
       {
@@ -2257,7 +2957,7 @@
         "cr": 3,
         "grade": "A-",
         "earned": 3,
-        "term": "FALL 2026/2027",
+        "term": "FALL 2025/2026",
         "flag": ""
       },
       {
@@ -2266,7 +2966,7 @@
         "cr": 3,
         "grade": "A-",
         "earned": 3,
-        "term": "FALL 2026/2027",
+        "term": "FALL 2025/2026",
         "flag": ""
       },
       {
@@ -2275,7 +2975,7 @@
         "cr": 3,
         "grade": "B-",
         "earned": 3,
-        "term": "FALL 2026/2027",
+        "term": "FALL 2025/2026",
         "flag": ""
       },
       {
@@ -2284,7 +2984,7 @@
         "cr": 3,
         "grade": "B-",
         "earned": 3,
-        "term": "FALL 2026/2027",
+        "term": "FALL 2025/2026",
         "flag": ""
       },
       {
@@ -2293,7 +2993,7 @@
         "cr": 2,
         "grade": "B",
         "earned": 2,
-        "term": "FALL 2026/2027",
+        "term": "FALL 2025/2026",
         "flag": ""
       },
       {
@@ -2302,7 +3002,7 @@
         "cr": 2,
         "grade": "B+",
         "earned": 2,
-        "term": "FALL 2026/2027",
+        "term": "FALL 2025/2026",
         "flag": ""
       },
       {
@@ -2311,7 +3011,7 @@
         "cr": 3,
         "grade": "B",
         "earned": 3,
-        "term": "SPRING 2026/2027",
+        "term": "SPRING 2025/2026",
         "flag": ""
       },
       {
@@ -2320,7 +3020,7 @@
         "cr": 3,
         "grade": "B",
         "earned": 3,
-        "term": "SPRING 2026/2027",
+        "term": "SPRING 2025/2026",
         "flag": ""
       },
       {
@@ -2329,7 +3029,7 @@
         "cr": 3,
         "grade": "B",
         "earned": 3,
-        "term": "SPRING 2026/2027",
+        "term": "SPRING 2025/2026",
         "flag": ""
       },
       {
@@ -2338,7 +3038,7 @@
         "cr": 3,
         "grade": "B",
         "earned": 3,
-        "term": "SPRING 2026/2027",
+        "term": "SPRING 2025/2026",
         "flag": ""
       },
       {
@@ -2347,7 +3047,7 @@
         "cr": 3,
         "grade": "B+",
         "earned": 3,
-        "term": "SPRING 2026/2027",
+        "term": "SPRING 2025/2026",
         "flag": ""
       },
       {
@@ -2356,7 +3056,7 @@
         "cr": 1,
         "grade": "B",
         "earned": 1,
-        "term": "SPRING 2026/2027",
+        "term": "SPRING 2025/2026",
         "flag": ""
       },
       {
@@ -2365,32 +3065,32 @@
         "cr": 2,
         "grade": "B-",
         "earned": 2,
-        "term": "SPRING 2026/2027",
+        "term": "SPRING 2025/2026",
         "flag": ""
       }
     ],
     "termTotals": [
       {
-        "term": "SPRING 2025/2026",
+        "term": "SPRING 2024/2025",
         "attempted": 16,
         "earned": 16,
         "sgpa": 3.13
       },
       {
-        "term": "FALL 2026/2027",
+        "term": "FALL 2025/2026",
         "attempted": 16,
         "earned": 16,
         "sgpa": 3.17
       },
       {
-        "term": "SPRING 2026/2027",
+        "term": "SPRING 2025/2026",
         "attempted": 18,
         "earned": 18,
         "sgpa": 3.02
       }
     ],
     "cgpa": 3.1,
-    "totalCredits": 50,
+    "totalCredits": 80,
     "schedule": {
       "termCode": "202710",
       "term": "FALL 2026/2027",
@@ -2461,13 +3161,114 @@
     "note": "Transfer credits, and a D- that must be repeated",
     "history": [
       {
+        "code": "ARAB110",
+        "title": "Introd.To Arabic Literature",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL120",
+        "title": "Introduction To Biology",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL121",
+        "title": "General Biology I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "CHEM110",
+        "title": "Introduction to Chemistry I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "ENGL110",
+        "title": "Freshman English I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "HIST110",
+        "title": "History Of Modern Lebanon",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH110",
+        "title": "Intr.Calc.&Analyt.Geom.I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH111",
+        "title": "Introduction to Calculus and Analytical Geometry II",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHIL110",
+        "title": "Introduction To Philosophy",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHYS110",
+        "title": "Introduction To Physics I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
         "code": "MATH241",
         "title": "Calculus and Analytical Geometry",
         "cr": 3,
         "grade": "TR",
         "earned": 3,
         "term": "TRANSFER",
-        "flag": ""
+        "flag": "N",
+        "block": "transfer"
       },
       {
         "code": "CHEM241",
@@ -2476,7 +3277,8 @@
         "grade": "TR",
         "earned": 3,
         "term": "TRANSFER",
-        "flag": ""
+        "flag": "N",
+        "block": "transfer"
       },
       {
         "code": "CHEM241L",
@@ -2731,7 +3533,7 @@
       }
     ],
     "cgpa": 3.02,
-    "totalCredits": 69,
+    "totalCredits": 99,
     "schedule": {
       "termCode": "202710",
       "term": "FALL 2026/2027",
@@ -2816,6 +3618,106 @@
     "campus": "Beirut",
     "note": "Final semester, Cybersecurity track",
     "history": [
+      {
+        "code": "ARAB110",
+        "title": "Introd.To Arabic Literature",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL120",
+        "title": "Introduction To Biology",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL121",
+        "title": "General Biology I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "CHEM110",
+        "title": "Introduction to Chemistry I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "ENGL110",
+        "title": "Freshman English I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "HIST110",
+        "title": "History Of Modern Lebanon",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH110",
+        "title": "Intr.Calc.&Analyt.Geom.I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH111",
+        "title": "Introduction to Calculus and Analytical Geometry II",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHIL110",
+        "title": "Introduction To Philosophy",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHYS110",
+        "title": "Introduction To Physics I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
       {
         "code": "CHEM241",
         "title": "Principles of Chemistry",
@@ -3153,7 +4055,7 @@
       }
     ],
     "cgpa": 3.92,
-    "totalCredits": 84,
+    "totalCredits": 114,
     "schedule": {
       "termCode": "202710",
       "term": "FALL 2026/2027",
@@ -3233,6 +4135,106 @@
     "campus": "Debbieh",
     "note": "Studies at the Debbieh campus",
     "history": [
+      {
+        "code": "ARAB110",
+        "title": "Introd.To Arabic Literature",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL120",
+        "title": "Introduction To Biology",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL121",
+        "title": "General Biology I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "CHEM110",
+        "title": "Introduction to Chemistry I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "ENGL110",
+        "title": "Freshman English I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "HIST110",
+        "title": "History Of Modern Lebanon",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH110",
+        "title": "Intr.Calc.&Analyt.Geom.I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH111",
+        "title": "Introduction to Calculus and Analytical Geometry II",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHIL110",
+        "title": "Introduction To Philosophy",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHYS110",
+        "title": "Introduction To Physics I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
       {
         "code": "CHEM241",
         "title": "Principles of Chemistry",
@@ -3366,7 +4368,7 @@
       }
     ],
     "cgpa": 3.24,
-    "totalCredits": 32,
+    "totalCredits": 62,
     "schedule": {
       "termCode": "202710",
       "term": "FALL 2026/2027",
@@ -3474,6 +4476,106 @@
     "campus": "Beirut",
     "note": "Good standing, WRNL200 still missing",
     "history": [
+      {
+        "code": "ARAB110",
+        "title": "Introd.To Arabic Literature",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL120",
+        "title": "Introduction To Biology",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL121",
+        "title": "General Biology I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "CHEM110",
+        "title": "Introduction to Chemistry I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "ENGL110",
+        "title": "Freshman English I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "HIST110",
+        "title": "History Of Modern Lebanon",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH110",
+        "title": "Intr.Calc.&Analyt.Geom.I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH111",
+        "title": "Introduction to Calculus and Analytical Geometry II",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHIL110",
+        "title": "Introduction To Philosophy",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHYS110",
+        "title": "Introduction To Physics I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
       {
         "code": "CHEM241",
         "title": "Principles of Chemistry",
@@ -3736,7 +4838,7 @@
       }
     ],
     "cgpa": 3.95,
-    "totalCredits": 66,
+    "totalCredits": 96,
     "schedule": {
       "termCode": "202710",
       "term": "FALL 2026/2027",
@@ -3839,6 +4941,106 @@
     "campus": "Beirut",
     "note": "First-year student who withdrew from a course",
     "history": [
+      {
+        "code": "ARAB110",
+        "title": "Introd.To Arabic Literature",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL120",
+        "title": "Introduction To Biology",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "BIOL121",
+        "title": "General Biology I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "CHEM110",
+        "title": "Introduction to Chemistry I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "ENGL110",
+        "title": "Freshman English I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "HIST110",
+        "title": "History Of Modern Lebanon",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH110",
+        "title": "Intr.Calc.&Analyt.Geom.I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "MATH111",
+        "title": "Introduction to Calculus and Analytical Geometry II",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHIL110",
+        "title": "Introduction To Philosophy",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
+      {
+        "code": "PHYS110",
+        "title": "Introduction To Physics I",
+        "cr": 3,
+        "grade": "TR",
+        "earned": 3,
+        "term": "TRANSFER",
+        "flag": "N",
+        "block": "bacc"
+      },
       {
         "code": "CHEM241",
         "title": "Principles of Chemistry",
@@ -3972,7 +5174,7 @@
       }
     ],
     "cgpa": 2.26,
-    "totalCredits": 29,
+    "totalCredits": 59,
     "schedule": {
       "termCode": "202710",
       "term": "FALL 2026/2027",

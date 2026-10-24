@@ -14,7 +14,7 @@
       "crn": "10357",
       "code": "CMPS246",
       "section": "B0",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -32,7 +32,7 @@
       "crn": "10446",
       "code": "MATH341",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "FRI",
@@ -45,7 +45,7 @@
       "crn": "10369",
       "code": "CMPS342",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "THU",
@@ -63,7 +63,7 @@
       "crn": "10377",
       "code": "CMPS345",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -81,7 +81,7 @@
       "crn": "10380",
       "code": "CMPS347",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "THU",
@@ -100,17 +100,107 @@
    "id": "202599101",
    "name": "Karim Fouad Haddad",
    "arabName": "كريم فؤاد حداد",
-   "nationality": "Lebanese",
-   "program": "Science",
+   "nationality": "LEBANESE",
+   "program": "Science / Computer Science",
    "admission": "2025/2026",
    "admissionTerm": "FALL 2025/2026",
    "catalogYear": 2025,
-   "officialCredits": 32,
+   "officialCredits": 62,
    "officialCgpa": 3.98,
    "history": [
     {
+     "code": "ARAB110",
+     "title": "INTROD.TO ARABIC LITERATURE",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL120",
+     "title": "INTRODUCTION TO BIOLOGY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL121",
+     "title": "GENERAL BIOLOGY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "CHEM110",
+     "title": "INTRODUCTION TO CHEMISTRY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "ENGL110",
+     "title": "FRESHMAN ENGLISH I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "HIST110",
+     "title": "HISTORY OF MODERN LEBANON",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH110",
+     "title": "INTR.CALC.&ANALYT.GEOM.I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH111",
+     "title": "INTRODUCTION TO CALCULUS AND ANA",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHIL110",
+     "title": "INTRODUCTION TO PHILOSOPHY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHYS110",
+     "title": "INTRODUCTION TO PHYSICS I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
      "code": "CHEM241",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -119,7 +209,7 @@
     },
     {
      "code": "CHEM241L",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY LABORATO",
      "cr": 1,
      "grade": "A+",
      "earned": 1,
@@ -128,7 +218,7 @@
     },
     {
      "code": "PHYS243",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -137,7 +227,7 @@
     },
     {
      "code": "PHYS243L",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS LABORATORY",
      "cr": 1,
      "grade": "A",
      "earned": 1,
@@ -146,7 +236,7 @@
     },
     {
      "code": "MATH241",
-     "title": "Calculus and",
+     "title": "CALCULUS AND ANALYTICAL GEOMETR",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -155,7 +245,7 @@
     },
     {
      "code": "CMPS241",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO PROGRAMMING",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -164,7 +254,7 @@
     },
     {
      "code": "ENGL001",
-     "title": "English Language",
+     "title": "ENGLISH LANGUAGE",
      "cr": 2,
      "grade": "A-",
      "earned": 2,
@@ -173,7 +263,7 @@
     },
     {
      "code": "MATH242",
-     "title": "Probability and",
+     "title": "PROBABILITY AND STATISTICS",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -182,7 +272,7 @@
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -191,7 +281,7 @@
     },
     {
      "code": "CMPS244",
-     "title": "Digital Circuits",
+     "title": "DIGITAL CIRCUITS",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -200,7 +290,7 @@
     },
     {
      "code": "CMPS248",
-     "title": "Discrete Structures I",
+     "title": "DISCRETE STRUCTURES I",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -209,7 +299,7 @@
     },
     {
      "code": "ARAB001",
-     "title": "Arabic Language",
+     "title": "ARABIC LANGUAGE",
      "cr": 2,
      "grade": "A",
      "earned": 2,
@@ -218,7 +308,7 @@
     },
     {
      "code": "FREN001",
-     "title": "Langue Francaise",
+     "title": "LANGUE FRANCAISE",
      "cr": 2,
      "grade": "A",
      "earned": 2,
@@ -262,7 +352,7 @@
       "crn": "10393",
       "code": "CMPS441",
       "section": "B0",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -280,7 +370,7 @@
       "crn": "10396",
       "code": "CMPS443",
       "section": "B1",
-      "cr": 1,
+      "cr": 0,
       "meetings": [
        {
         "day": "SAT",
@@ -293,7 +383,7 @@
       "crn": "10399",
       "code": "CMPS445",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -311,7 +401,7 @@
       "crn": "10413",
       "code": "CMPS455",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -330,17 +420,107 @@
    "id": "202499102",
    "name": "Nour Hassan Khalil",
    "arabName": "نور حسن خليل",
-   "nationality": "Lebanese",
-   "program": "Science",
+   "nationality": "LEBANESE",
+   "program": "Science / Computer Science",
    "admission": "2024/2025",
    "admissionTerm": "FALL 2024/2025",
    "catalogYear": 2024,
-   "officialCredits": 69,
+   "officialCredits": 99,
    "officialCgpa": 3.95,
    "history": [
     {
+     "code": "ARAB110",
+     "title": "INTROD.TO ARABIC LITERATURE",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL120",
+     "title": "INTRODUCTION TO BIOLOGY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL121",
+     "title": "GENERAL BIOLOGY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "CHEM110",
+     "title": "INTRODUCTION TO CHEMISTRY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "ENGL110",
+     "title": "FRESHMAN ENGLISH I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "HIST110",
+     "title": "HISTORY OF MODERN LEBANON",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH110",
+     "title": "INTR.CALC.&ANALYT.GEOM.I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH111",
+     "title": "INTRODUCTION TO CALCULUS AND ANA",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHIL110",
+     "title": "INTRODUCTION TO PHILOSOPHY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHYS110",
+     "title": "INTRODUCTION TO PHYSICS I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
      "code": "CHEM241",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -349,7 +529,7 @@
     },
     {
      "code": "CHEM241L",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY LABORATO",
      "cr": 1,
      "grade": "A",
      "earned": 1,
@@ -358,7 +538,7 @@
     },
     {
      "code": "PHYS243",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -367,7 +547,7 @@
     },
     {
      "code": "PHYS243L",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS LABORATORY",
      "cr": 1,
      "grade": "A-",
      "earned": 1,
@@ -376,7 +556,7 @@
     },
     {
      "code": "MATH241",
-     "title": "Calculus and",
+     "title": "CALCULUS AND ANALYTICAL GEOMETR",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -385,7 +565,7 @@
     },
     {
      "code": "CMPS241",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO PROGRAMMING",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -394,7 +574,7 @@
     },
     {
      "code": "ENGL001",
-     "title": "English Language",
+     "title": "ENGLISH LANGUAGE",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -403,7 +583,7 @@
     },
     {
      "code": "MATH242",
-     "title": "Probability and",
+     "title": "PROBABILITY AND STATISTICS",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -412,7 +592,7 @@
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -421,7 +601,7 @@
     },
     {
      "code": "CMPS244",
-     "title": "Digital Circuits",
+     "title": "DIGITAL CIRCUITS",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -430,7 +610,7 @@
     },
     {
      "code": "CMPS248",
-     "title": "Discrete Structures I",
+     "title": "DISCRETE STRUCTURES I",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -439,7 +619,7 @@
     },
     {
      "code": "ARAB001",
-     "title": "Arabic Language",
+     "title": "ARABIC LANGUAGE",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -448,7 +628,7 @@
     },
     {
      "code": "FREN001",
-     "title": "Langue Francaise",
+     "title": "LANGUE FRANCAISE",
      "cr": 2,
      "grade": "A",
      "earned": 2,
@@ -457,7 +637,7 @@
     },
     {
      "code": "CMPS246",
-     "title": "Web Programming",
+     "title": "WEB PROGRAMMING",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -466,7 +646,7 @@
     },
     {
      "code": "MATH341",
-     "title": "Linear Algebra",
+     "title": "LINEAR ALGEBRA",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -475,7 +655,7 @@
     },
     {
      "code": "CMPS342",
-     "title": "Database Systems",
+     "title": "DATABASE SYSTEMS",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -484,7 +664,7 @@
     },
     {
      "code": "CMPS345",
-     "title": "Discrete Structures II",
+     "title": "DISCRETE STRUCTURES II",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -493,7 +673,7 @@
     },
     {
      "code": "CMPS347",
-     "title": "Data Structures",
+     "title": "DATA STRUCTURES",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -502,7 +682,7 @@
     },
     {
      "code": "BLAW001",
-     "title": "Human Rights",
+     "title": "HUMAN RIGHTS",
      "cr": 1,
      "grade": "A-",
      "earned": 1,
@@ -511,7 +691,7 @@
     },
     {
      "code": "HIST002",
-     "title": "History of Lebanon",
+     "title": "HISTORY OF LEBANON",
      "cr": 2,
      "grade": "A",
      "earned": 2,
@@ -520,7 +700,7 @@
     },
     {
      "code": "CMPS344",
-     "title": "Software Engineering",
+     "title": "SOFTWARE ENGINEERING",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -529,7 +709,7 @@
     },
     {
      "code": "CMPS346",
-     "title": "Theory of Computation",
+     "title": "THEORY OF COMPUTATION",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -538,7 +718,7 @@
     },
     {
      "code": "CMPS447",
-     "title": "Computer Networks",
+     "title": "COMPUTER NETWORKS",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -547,7 +727,7 @@
     },
     {
      "code": "MATH348",
-     "title": "Numerical Methods",
+     "title": "NUMERICAL METHODS",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -556,7 +736,7 @@
     },
     {
      "code": "MATH252",
-     "title": "Mathematical Software",
+     "title": "MATHEMATICAL SOFTWARE TOOLS",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -565,7 +745,7 @@
     },
     {
      "code": "SPAN001",
-     "title": "Spanish Language",
+     "title": "SPANISH LANGUAGE",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -574,7 +754,7 @@
     },
     {
      "code": "WRNL200",
-     "title": "Work Ready Now",
+     "title": "WORK READY NOW",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -630,7 +810,7 @@
       "crn": "90131",
       "code": "CMPS343",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -643,7 +823,7 @@
       "crn": "90132",
       "code": "CMPS442",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "WED",
@@ -656,7 +836,7 @@
       "crn": "90133",
       "code": "CMPS444",
       "section": "B1",
-      "cr": 1,
+      "cr": 0,
       "meetings": [
        {
         "day": "THU",
@@ -669,7 +849,7 @@
       "crn": "90134",
       "code": "CMPS470",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "FRI",
@@ -683,17 +863,107 @@
    "id": "202399103",
    "name": "Rami Walid Saad",
    "arabName": "رامي وليد سعد",
-   "nationality": "Lebanese",
-   "program": "Science",
+   "nationality": "LEBANESE",
+   "program": "Science / Computer Science",
    "admission": "2023/2024",
    "admissionTerm": "FALL 2023/2024",
    "catalogYear": 2023,
-   "officialCredits": 84,
+   "officialCredits": 114,
    "officialCgpa": 3.12,
    "history": [
     {
+     "code": "ARAB110",
+     "title": "INTROD.TO ARABIC LITERATURE",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL120",
+     "title": "INTRODUCTION TO BIOLOGY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL121",
+     "title": "GENERAL BIOLOGY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "CHEM110",
+     "title": "INTRODUCTION TO CHEMISTRY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "ENGL110",
+     "title": "FRESHMAN ENGLISH I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "HIST110",
+     "title": "HISTORY OF MODERN LEBANON",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH110",
+     "title": "INTR.CALC.&ANALYT.GEOM.I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH111",
+     "title": "INTRODUCTION TO CALCULUS AND ANA",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHIL110",
+     "title": "INTRODUCTION TO PHILOSOPHY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHYS110",
+     "title": "INTRODUCTION TO PHYSICS I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
      "code": "CHEM241",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -702,7 +972,7 @@
     },
     {
      "code": "CHEM241L",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY LABORATO",
      "cr": 1,
      "grade": "B",
      "earned": 1,
@@ -711,7 +981,7 @@
     },
     {
      "code": "PHYS243",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -720,7 +990,7 @@
     },
     {
      "code": "PHYS243L",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS LABORATORY",
      "cr": 1,
      "grade": "B",
      "earned": 1,
@@ -729,7 +999,7 @@
     },
     {
      "code": "MATH241",
-     "title": "Calculus and",
+     "title": "CALCULUS AND ANALYTICAL GEOMETR",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -738,7 +1008,7 @@
     },
     {
      "code": "CMPS241",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO PROGRAMMING",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -747,7 +1017,7 @@
     },
     {
      "code": "ENGL001",
-     "title": "English Language",
+     "title": "ENGLISH LANGUAGE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -756,7 +1026,7 @@
     },
     {
      "code": "MATH242",
-     "title": "Probability and",
+     "title": "PROBABILITY AND STATISTICS",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -765,7 +1035,7 @@
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -774,7 +1044,7 @@
     },
     {
      "code": "CMPS244",
-     "title": "Digital Circuits",
+     "title": "DIGITAL CIRCUITS",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -783,7 +1053,7 @@
     },
     {
      "code": "CMPS248",
-     "title": "Discrete Structures I",
+     "title": "DISCRETE STRUCTURES I",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -792,7 +1062,7 @@
     },
     {
      "code": "ARAB001",
-     "title": "Arabic Language",
+     "title": "ARABIC LANGUAGE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -801,7 +1071,7 @@
     },
     {
      "code": "FREN001",
-     "title": "Langue Francaise",
+     "title": "LANGUE FRANCAISE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -810,7 +1080,7 @@
     },
     {
      "code": "CMPS246",
-     "title": "Web Programming",
+     "title": "WEB PROGRAMMING",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -819,7 +1089,7 @@
     },
     {
      "code": "MATH341",
-     "title": "Linear Algebra",
+     "title": "LINEAR ALGEBRA",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -828,7 +1098,7 @@
     },
     {
      "code": "CMPS342",
-     "title": "Database Systems",
+     "title": "DATABASE SYSTEMS",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -837,7 +1107,7 @@
     },
     {
      "code": "CMPS345",
-     "title": "Discrete Structures II",
+     "title": "DISCRETE STRUCTURES II",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -846,7 +1116,7 @@
     },
     {
      "code": "CMPS347",
-     "title": "Data Structures",
+     "title": "DATA STRUCTURES",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -855,7 +1125,7 @@
     },
     {
      "code": "BLAW001",
-     "title": "Human Rights",
+     "title": "HUMAN RIGHTS",
      "cr": 1,
      "grade": "B+",
      "earned": 1,
@@ -864,7 +1134,7 @@
     },
     {
      "code": "HIST002",
-     "title": "History of Lebanon",
+     "title": "HISTORY OF LEBANON",
      "cr": 2,
      "grade": "B+",
      "earned": 2,
@@ -873,7 +1143,7 @@
     },
     {
      "code": "CMPS344",
-     "title": "Software Engineering",
+     "title": "SOFTWARE ENGINEERING",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -882,7 +1152,7 @@
     },
     {
      "code": "CMPS346",
-     "title": "Theory of Computation",
+     "title": "THEORY OF COMPUTATION",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -891,7 +1161,7 @@
     },
     {
      "code": "CMPS447",
-     "title": "Computer Networks",
+     "title": "COMPUTER NETWORKS",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -900,7 +1170,7 @@
     },
     {
      "code": "MATH348",
-     "title": "Numerical Methods",
+     "title": "NUMERICAL METHODS",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -909,7 +1179,7 @@
     },
     {
      "code": "MATH252",
-     "title": "Mathematical Software",
+     "title": "MATHEMATICAL SOFTWARE TOOLS",
      "cr": 2,
      "grade": "B+",
      "earned": 2,
@@ -918,7 +1188,7 @@
     },
     {
      "code": "SPAN001",
-     "title": "Spanish Language",
+     "title": "SPANISH LANGUAGE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -927,7 +1197,7 @@
     },
     {
      "code": "CMPS441",
-     "title": "Fundamentals of",
+     "title": "FUNDAMENTALS OF ALGORITHMS",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -936,7 +1206,7 @@
     },
     {
      "code": "CMPS443",
-     "title": "Senior Project I",
+     "title": "SENIOR PROJECT I",
      "cr": 1,
      "grade": "B-",
      "earned": 1,
@@ -945,7 +1215,7 @@
     },
     {
      "code": "CMPS445",
-     "title": "Concepts of",
+     "title": "CONCEPTS OF PROGRAMMING LANGUA",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -954,7 +1224,7 @@
     },
     {
      "code": "CMPS455",
-     "title": "Computer Security",
+     "title": "COMPUTER SECURITY",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -963,7 +1233,7 @@
     },
     {
      "code": "CMPS326",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO HUMAN-COMPUTER I",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -972,7 +1242,7 @@
     },
     {
      "code": "ITAL001",
-     "title": "Italian Language",
+     "title": "ITALIAN LANGUAGE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -981,7 +1251,7 @@
     },
     {
      "code": "CMPS453",
-     "title": "Artificial",
+     "title": "ARTIFICIAL INTELLIGENCE",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1049,7 +1319,7 @@
       "crn": "10393",
       "code": "CMPS441",
       "section": "B0",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -1067,7 +1337,7 @@
       "crn": "10396",
       "code": "CMPS443",
       "section": "B1",
-      "cr": 1,
+      "cr": 0,
       "meetings": [
        {
         "day": "SAT",
@@ -1080,7 +1350,7 @@
       "crn": "10399",
       "code": "CMPS445",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -1098,7 +1368,7 @@
       "crn": "10413",
       "code": "CMPS455",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -1117,17 +1387,107 @@
    "id": "202499104",
    "name": "Lea Georges Mansour",
    "arabName": "ليا جورج منصور",
-   "nationality": "Lebanese",
-   "program": "Science",
+   "nationality": "LEBANESE",
+   "program": "Science / Computer Science",
    "admission": "2024/2025",
    "admissionTerm": "FALL 2024/2025",
    "catalogYear": 2024,
-   "officialCredits": 69,
+   "officialCredits": 99,
    "officialCgpa": 3.16,
    "history": [
     {
+     "code": "ARAB110",
+     "title": "INTROD.TO ARABIC LITERATURE",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL120",
+     "title": "INTRODUCTION TO BIOLOGY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL121",
+     "title": "GENERAL BIOLOGY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "CHEM110",
+     "title": "INTRODUCTION TO CHEMISTRY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "ENGL110",
+     "title": "FRESHMAN ENGLISH I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "HIST110",
+     "title": "HISTORY OF MODERN LEBANON",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH110",
+     "title": "INTR.CALC.&ANALYT.GEOM.I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH111",
+     "title": "INTRODUCTION TO CALCULUS AND ANA",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHIL110",
+     "title": "INTRODUCTION TO PHILOSOPHY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHYS110",
+     "title": "INTRODUCTION TO PHYSICS I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
      "code": "CHEM241",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1136,7 +1496,7 @@
     },
     {
      "code": "CHEM241L",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY LABORATO",
      "cr": 1,
      "grade": "B",
      "earned": 1,
@@ -1145,7 +1505,7 @@
     },
     {
      "code": "PHYS243",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1154,7 +1514,7 @@
     },
     {
      "code": "PHYS243L",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS LABORATORY",
      "cr": 1,
      "grade": "B-",
      "earned": 1,
@@ -1163,7 +1523,7 @@
     },
     {
      "code": "MATH241",
-     "title": "Calculus and",
+     "title": "CALCULUS AND ANALYTICAL GEOMETR",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -1172,7 +1532,7 @@
     },
     {
      "code": "CMPS241",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO PROGRAMMING",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1181,7 +1541,7 @@
     },
     {
      "code": "ENGL001",
-     "title": "English Language",
+     "title": "ENGLISH LANGUAGE",
      "cr": 2,
      "grade": "A-",
      "earned": 2,
@@ -1190,7 +1550,7 @@
     },
     {
      "code": "MATH242",
-     "title": "Probability and",
+     "title": "PROBABILITY AND STATISTICS",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1199,7 +1559,7 @@
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "F",
      "earned": 0,
@@ -1208,7 +1568,7 @@
     },
     {
      "code": "CMPS244",
-     "title": "Digital Circuits",
+     "title": "DIGITAL CIRCUITS",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -1217,7 +1577,7 @@
     },
     {
      "code": "CMPS248",
-     "title": "Discrete Structures I",
+     "title": "DISCRETE STRUCTURES I",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1226,7 +1586,7 @@
     },
     {
      "code": "ARAB001",
-     "title": "Arabic Language",
+     "title": "ARABIC LANGUAGE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -1235,7 +1595,7 @@
     },
     {
      "code": "FREN001",
-     "title": "Langue Francaise",
+     "title": "LANGUE FRANCAISE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -1244,7 +1604,7 @@
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1253,7 +1613,7 @@
     },
     {
      "code": "CMPS246",
-     "title": "Web Programming",
+     "title": "WEB PROGRAMMING",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -1262,7 +1622,7 @@
     },
     {
      "code": "MATH341",
-     "title": "Linear Algebra",
+     "title": "LINEAR ALGEBRA",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1271,7 +1631,7 @@
     },
     {
      "code": "CMPS342",
-     "title": "Database Systems",
+     "title": "DATABASE SYSTEMS",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1280,7 +1640,7 @@
     },
     {
      "code": "CMPS345",
-     "title": "Discrete Structures II",
+     "title": "DISCRETE STRUCTURES II",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1289,7 +1649,7 @@
     },
     {
      "code": "CMPS347",
-     "title": "Data Structures",
+     "title": "DATA STRUCTURES",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1298,7 +1658,7 @@
     },
     {
      "code": "BLAW001",
-     "title": "Human Rights",
+     "title": "HUMAN RIGHTS",
      "cr": 1,
      "grade": "B+",
      "earned": 1,
@@ -1307,7 +1667,7 @@
     },
     {
      "code": "HIST002",
-     "title": "History of Lebanon",
+     "title": "HISTORY OF LEBANON",
      "cr": 2,
      "grade": "B+",
      "earned": 2,
@@ -1316,7 +1676,7 @@
     },
     {
      "code": "CMPS344",
-     "title": "Software Engineering",
+     "title": "SOFTWARE ENGINEERING",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1325,7 +1685,7 @@
     },
     {
      "code": "CMPS346",
-     "title": "Theory of Computation",
+     "title": "THEORY OF COMPUTATION",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -1334,7 +1694,7 @@
     },
     {
      "code": "CMPS447",
-     "title": "Computer Networks",
+     "title": "COMPUTER NETWORKS",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1343,7 +1703,7 @@
     },
     {
      "code": "MATH348",
-     "title": "Numerical Methods",
+     "title": "NUMERICAL METHODS",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1352,7 +1712,7 @@
     },
     {
      "code": "MATH252",
-     "title": "Mathematical Software",
+     "title": "MATHEMATICAL SOFTWARE TOOLS",
      "cr": 2,
      "grade": "A-",
      "earned": 2,
@@ -1361,7 +1721,7 @@
     },
     {
      "code": "SPAN001",
-     "title": "Spanish Language",
+     "title": "SPANISH LANGUAGE",
      "cr": 2,
      "grade": "B+",
      "earned": 2,
@@ -1370,7 +1730,7 @@
     },
     {
      "code": "WRNL200",
-     "title": "Work Ready Now",
+     "title": "WORK READY NOW",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1426,7 +1786,7 @@
       "crn": "10380",
       "code": "CMPS347",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "THU",
@@ -1444,7 +1804,7 @@
       "crn": "90151",
       "code": "CMPS344",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -1457,7 +1817,7 @@
       "crn": "90152",
       "code": "CMPS343",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "WED",
@@ -1470,7 +1830,7 @@
       "crn": "90153",
       "code": "CMPS442",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "THU",
@@ -1483,7 +1843,7 @@
       "crn": "90154",
       "code": "CMPS444",
       "section": "B1",
-      "cr": 1,
+      "cr": 0,
       "meetings": [
        {
         "day": "FRI",
@@ -1496,7 +1856,7 @@
       "crn": "10409",
       "code": "CMPS453",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -1515,17 +1875,107 @@
    "id": "202399105",
    "name": "Omar Bilal Fares",
    "arabName": "عمر بلال فارس",
-   "nationality": "Syrian",
-   "program": "Science",
+   "nationality": "SYRIAN",
+   "program": "Science / Computer Science",
    "admission": "2023/2024",
    "admissionTerm": "FALL 2023/2024",
    "catalogYear": 2023,
-   "officialCredits": 75,
+   "officialCredits": 105,
    "officialCgpa": 3.14,
    "history": [
     {
+     "code": "ARAB110",
+     "title": "INTROD.TO ARABIC LITERATURE",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL120",
+     "title": "INTRODUCTION TO BIOLOGY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL121",
+     "title": "GENERAL BIOLOGY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "CHEM110",
+     "title": "INTRODUCTION TO CHEMISTRY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "ENGL110",
+     "title": "FRESHMAN ENGLISH I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "HIST110",
+     "title": "HISTORY OF MODERN LEBANON",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH110",
+     "title": "INTR.CALC.&ANALYT.GEOM.I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH111",
+     "title": "INTRODUCTION TO CALCULUS AND ANA",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHIL110",
+     "title": "INTRODUCTION TO PHILOSOPHY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHYS110",
+     "title": "INTRODUCTION TO PHYSICS I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
      "code": "CHEM241",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1534,7 +1984,7 @@
     },
     {
      "code": "CHEM241L",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY LABORATO",
      "cr": 1,
      "grade": "B",
      "earned": 1,
@@ -1543,7 +1993,7 @@
     },
     {
      "code": "PHYS243",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1552,7 +2002,7 @@
     },
     {
      "code": "PHYS243L",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS LABORATORY",
      "cr": 1,
      "grade": "B-",
      "earned": 1,
@@ -1561,7 +2011,7 @@
     },
     {
      "code": "MATH241",
-     "title": "Calculus and",
+     "title": "CALCULUS AND ANALYTICAL GEOMETR",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1570,7 +2020,7 @@
     },
     {
      "code": "CMPS241",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO PROGRAMMING",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1579,7 +2029,7 @@
     },
     {
      "code": "ENGL001",
-     "title": "English Language",
+     "title": "ENGLISH LANGUAGE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -1588,7 +2038,7 @@
     },
     {
      "code": "MATH242",
-     "title": "Probability and",
+     "title": "PROBABILITY AND STATISTICS",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1597,7 +2047,7 @@
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -1606,7 +2056,7 @@
     },
     {
      "code": "CMPS244",
-     "title": "Digital Circuits",
+     "title": "DIGITAL CIRCUITS",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -1615,7 +2065,7 @@
     },
     {
      "code": "CMPS248",
-     "title": "Discrete Structures I",
+     "title": "DISCRETE STRUCTURES I",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -1624,7 +2074,7 @@
     },
     {
      "code": "ARAB001",
-     "title": "Arabic Language",
+     "title": "ARABIC LANGUAGE",
      "cr": 2,
      "grade": "B+",
      "earned": 2,
@@ -1633,7 +2083,7 @@
     },
     {
      "code": "FREN001",
-     "title": "Langue Francaise",
+     "title": "LANGUE FRANCAISE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -1642,7 +2092,7 @@
     },
     {
      "code": "CMPS246",
-     "title": "Web Programming",
+     "title": "WEB PROGRAMMING",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1651,7 +2101,7 @@
     },
     {
      "code": "MATH341",
-     "title": "Linear Algebra",
+     "title": "LINEAR ALGEBRA",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1660,7 +2110,7 @@
     },
     {
      "code": "CMPS342",
-     "title": "Database Systems",
+     "title": "DATABASE SYSTEMS",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -1669,7 +2119,7 @@
     },
     {
      "code": "CMPS345",
-     "title": "Discrete Structures II",
+     "title": "DISCRETE STRUCTURES II",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1678,7 +2128,7 @@
     },
     {
      "code": "CMPS347",
-     "title": "Data Structures",
+     "title": "DATA STRUCTURES",
      "cr": 3,
      "grade": "W",
      "earned": 0,
@@ -1687,7 +2137,7 @@
     },
     {
      "code": "BLAW001",
-     "title": "Human Rights",
+     "title": "HUMAN RIGHTS",
      "cr": 1,
      "grade": "B-",
      "earned": 1,
@@ -1696,7 +2146,7 @@
     },
     {
      "code": "HIST002",
-     "title": "History of Lebanon",
+     "title": "HISTORY OF LEBANON",
      "cr": 2,
      "grade": "A-",
      "earned": 2,
@@ -1705,7 +2155,7 @@
     },
     {
      "code": "CMPS344",
-     "title": "Software Engineering",
+     "title": "SOFTWARE ENGINEERING",
      "cr": 3,
      "grade": "W",
      "earned": 0,
@@ -1714,7 +2164,7 @@
     },
     {
      "code": "CMPS346",
-     "title": "Theory of Computation",
+     "title": "THEORY OF COMPUTATION",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1723,7 +2173,7 @@
     },
     {
      "code": "CMPS447",
-     "title": "Computer Networks",
+     "title": "COMPUTER NETWORKS",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1732,7 +2182,7 @@
     },
     {
      "code": "MATH348",
-     "title": "Numerical Methods",
+     "title": "NUMERICAL METHODS",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1741,7 +2191,7 @@
     },
     {
      "code": "MATH252",
-     "title": "Mathematical Software",
+     "title": "MATHEMATICAL SOFTWARE TOOLS",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -1750,7 +2200,7 @@
     },
     {
      "code": "SPAN001",
-     "title": "Spanish Language",
+     "title": "SPANISH LANGUAGE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -1759,7 +2209,7 @@
     },
     {
      "code": "CMPS441",
-     "title": "Fundamentals of",
+     "title": "FUNDAMENTALS OF ALGORITHMS",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -1768,7 +2218,7 @@
     },
     {
      "code": "CMPS443",
-     "title": "Senior Project I",
+     "title": "SENIOR PROJECT I",
      "cr": 1,
      "grade": "B+",
      "earned": 1,
@@ -1777,7 +2227,7 @@
     },
     {
      "code": "CMPS445",
-     "title": "Concepts of",
+     "title": "CONCEPTS OF PROGRAMMING LANGUA",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -1786,7 +2236,7 @@
     },
     {
      "code": "CMPS455",
-     "title": "Computer Security",
+     "title": "COMPUTER SECURITY",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1795,7 +2245,7 @@
     },
     {
      "code": "CMPS326",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO HUMAN-COMPUTER I",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -1804,7 +2254,7 @@
     },
     {
      "code": "ITAL001",
-     "title": "Italian Language",
+     "title": "ITALIAN LANGUAGE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -1866,7 +2316,7 @@
       "crn": "90161",
       "code": "MATH242",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -1879,7 +2329,7 @@
       "crn": "10365",
       "code": "CMPS248",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -1897,7 +2347,7 @@
       "crn": "10393",
       "code": "CMPS441",
       "section": "B0",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -1915,7 +2365,7 @@
       "crn": "10396",
       "code": "CMPS443",
       "section": "B1",
-      "cr": 1,
+      "cr": 0,
       "meetings": [
        {
         "day": "SAT",
@@ -1928,7 +2378,7 @@
       "crn": "10399",
       "code": "CMPS445",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -1946,7 +2396,7 @@
       "crn": "10413",
       "code": "CMPS455",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -1965,17 +2415,107 @@
    "id": "202499106",
    "name": "Maya Samir Azar",
    "arabName": "مايا سمير عازار",
-   "nationality": "Lebanese",
-   "program": "Science",
+   "nationality": "LEBANESE",
+   "program": "Science / Computer Science",
    "admission": "2024/2025",
    "admissionTerm": "FALL 2024/2025",
    "catalogYear": 2024,
-   "officialCredits": 63,
+   "officialCredits": 93,
    "officialCgpa": 1.88,
    "history": [
     {
+     "code": "ARAB110",
+     "title": "INTROD.TO ARABIC LITERATURE",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL120",
+     "title": "INTRODUCTION TO BIOLOGY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL121",
+     "title": "GENERAL BIOLOGY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "CHEM110",
+     "title": "INTRODUCTION TO CHEMISTRY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "ENGL110",
+     "title": "FRESHMAN ENGLISH I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "HIST110",
+     "title": "HISTORY OF MODERN LEBANON",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH110",
+     "title": "INTR.CALC.&ANALYT.GEOM.I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH111",
+     "title": "INTRODUCTION TO CALCULUS AND ANA",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHIL110",
+     "title": "INTRODUCTION TO PHILOSOPHY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHYS110",
+     "title": "INTRODUCTION TO PHYSICS I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
      "code": "CHEM241",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY",
      "cr": 3,
      "grade": "C+",
      "earned": 3,
@@ -1984,7 +2524,7 @@
     },
     {
      "code": "CHEM241L",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY LABORATO",
      "cr": 1,
      "grade": "C",
      "earned": 1,
@@ -1993,7 +2533,7 @@
     },
     {
      "code": "PHYS243",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS",
      "cr": 3,
      "grade": "C-",
      "earned": 3,
@@ -2002,7 +2542,7 @@
     },
     {
      "code": "PHYS243L",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS LABORATORY",
      "cr": 1,
      "grade": "C-",
      "earned": 1,
@@ -2011,7 +2551,7 @@
     },
     {
      "code": "MATH241",
-     "title": "Calculus and",
+     "title": "CALCULUS AND ANALYTICAL GEOMETR",
      "cr": 3,
      "grade": "C+",
      "earned": 3,
@@ -2020,7 +2560,7 @@
     },
     {
      "code": "CMPS241",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO PROGRAMMING",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -2029,7 +2569,7 @@
     },
     {
      "code": "ENGL001",
-     "title": "English Language",
+     "title": "ENGLISH LANGUAGE",
      "cr": 2,
      "grade": "C-",
      "earned": 2,
@@ -2038,7 +2578,7 @@
     },
     {
      "code": "MATH242",
-     "title": "Probability and",
+     "title": "PROBABILITY AND STATISTICS",
      "cr": 3,
      "grade": "F",
      "earned": 0,
@@ -2047,7 +2587,7 @@
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "C",
      "earned": 3,
@@ -2056,7 +2596,7 @@
     },
     {
      "code": "CMPS244",
-     "title": "Digital Circuits",
+     "title": "DIGITAL CIRCUITS",
      "cr": 3,
      "grade": "C-",
      "earned": 3,
@@ -2065,7 +2605,7 @@
     },
     {
      "code": "CMPS248",
-     "title": "Discrete Structures I",
+     "title": "DISCRETE STRUCTURES I",
      "cr": 3,
      "grade": "F",
      "earned": 0,
@@ -2074,7 +2614,7 @@
     },
     {
      "code": "ARAB001",
-     "title": "Arabic Language",
+     "title": "ARABIC LANGUAGE",
      "cr": 2,
      "grade": "C",
      "earned": 2,
@@ -2083,7 +2623,7 @@
     },
     {
      "code": "FREN001",
-     "title": "Langue Francaise",
+     "title": "LANGUE FRANCAISE",
      "cr": 2,
      "grade": "C+",
      "earned": 2,
@@ -2092,7 +2632,7 @@
     },
     {
      "code": "CMPS246",
-     "title": "Web Programming",
+     "title": "WEB PROGRAMMING",
      "cr": 3,
      "grade": "C",
      "earned": 3,
@@ -2101,7 +2641,7 @@
     },
     {
      "code": "MATH341",
-     "title": "Linear Algebra",
+     "title": "LINEAR ALGEBRA",
      "cr": 3,
      "grade": "C+",
      "earned": 3,
@@ -2110,7 +2650,7 @@
     },
     {
      "code": "CMPS342",
-     "title": "Database Systems",
+     "title": "DATABASE SYSTEMS",
      "cr": 3,
      "grade": "C+",
      "earned": 3,
@@ -2119,7 +2659,7 @@
     },
     {
      "code": "CMPS345",
-     "title": "Discrete Structures II",
+     "title": "DISCRETE STRUCTURES II",
      "cr": 3,
      "grade": "C",
      "earned": 3,
@@ -2128,7 +2668,7 @@
     },
     {
      "code": "CMPS347",
-     "title": "Data Structures",
+     "title": "DATA STRUCTURES",
      "cr": 3,
      "grade": "C+",
      "earned": 3,
@@ -2137,7 +2677,7 @@
     },
     {
      "code": "BLAW001",
-     "title": "Human Rights",
+     "title": "HUMAN RIGHTS",
      "cr": 1,
      "grade": "B-",
      "earned": 1,
@@ -2146,7 +2686,7 @@
     },
     {
      "code": "HIST002",
-     "title": "History of Lebanon",
+     "title": "HISTORY OF LEBANON",
      "cr": 2,
      "grade": "C-",
      "earned": 2,
@@ -2155,7 +2695,7 @@
     },
     {
      "code": "CMPS344",
-     "title": "Software Engineering",
+     "title": "SOFTWARE ENGINEERING",
      "cr": 3,
      "grade": "C",
      "earned": 3,
@@ -2164,7 +2704,7 @@
     },
     {
      "code": "CMPS346",
-     "title": "Theory of Computation",
+     "title": "THEORY OF COMPUTATION",
      "cr": 3,
      "grade": "C-",
      "earned": 3,
@@ -2173,7 +2713,7 @@
     },
     {
      "code": "CMPS447",
-     "title": "Computer Networks",
+     "title": "COMPUTER NETWORKS",
      "cr": 3,
      "grade": "C+",
      "earned": 3,
@@ -2182,7 +2722,7 @@
     },
     {
      "code": "MATH348",
-     "title": "Numerical Methods",
+     "title": "NUMERICAL METHODS",
      "cr": 3,
      "grade": "C",
      "earned": 3,
@@ -2191,7 +2731,7 @@
     },
     {
      "code": "MATH252",
-     "title": "Mathematical Software",
+     "title": "MATHEMATICAL SOFTWARE TOOLS",
      "cr": 2,
      "grade": "C",
      "earned": 2,
@@ -2200,7 +2740,7 @@
     },
     {
      "code": "SPAN001",
-     "title": "Spanish Language",
+     "title": "SPANISH LANGUAGE",
      "cr": 2,
      "grade": "C-",
      "earned": 2,
@@ -2209,7 +2749,7 @@
     },
     {
      "code": "WRNL200",
-     "title": "Work Ready Now",
+     "title": "WORK READY NOW",
      "cr": 3,
      "grade": "C",
      "earned": 3,
@@ -2265,7 +2805,7 @@
       "crn": "90171",
       "code": "CMPS344",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -2278,7 +2818,7 @@
       "crn": "90172",
       "code": "CMPS346",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "WED",
@@ -2291,7 +2831,7 @@
       "crn": "90173",
       "code": "CMPS447",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "THU",
@@ -2304,7 +2844,7 @@
       "crn": "90174",
       "code": "MATH348",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "FRI",
@@ -2315,213 +2855,303 @@
      }
     ]
    },
-   "id": "202599107",
+   "id": "202499107",
    "name": "Hadi Mahmoud Nasser",
    "arabName": "هادي محمود ناصر",
-   "nationality": "Lebanese",
-   "program": "Science",
-   "admission": "2025/2026",
-   "admissionTerm": "SPRING 2025/2026",
-   "catalogYear": 2025,
-   "officialCredits": 50,
+   "nationality": "LEBANESE",
+   "program": "Science / Computer Science",
+   "admission": "2024/2025",
+   "admissionTerm": "SPRING 2024/2025",
+   "catalogYear": 2024,
+   "officialCredits": 80,
    "officialCgpa": 3.1,
    "history": [
     {
+     "code": "ARAB110",
+     "title": "INTROD.TO ARABIC LITERATURE",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL120",
+     "title": "INTRODUCTION TO BIOLOGY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL121",
+     "title": "GENERAL BIOLOGY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "CHEM110",
+     "title": "INTRODUCTION TO CHEMISTRY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "ENGL110",
+     "title": "FRESHMAN ENGLISH I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "HIST110",
+     "title": "HISTORY OF MODERN LEBANON",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH110",
+     "title": "INTR.CALC.&ANALYT.GEOM.I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH111",
+     "title": "INTRODUCTION TO CALCULUS AND ANA",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHIL110",
+     "title": "INTRODUCTION TO PHILOSOPHY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHYS110",
+     "title": "INTRODUCTION TO PHYSICS I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
      "code": "CHEM241",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
-     "term": "SPRING 2025/2026",
+     "term": "SPRING 2024/2025",
      "flag": ""
     },
     {
      "code": "CHEM241L",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY LABORATO",
      "cr": 1,
      "grade": "B-",
      "earned": 1,
-     "term": "SPRING 2025/2026",
+     "term": "SPRING 2024/2025",
      "flag": ""
     },
     {
      "code": "PHYS243",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS",
      "cr": 3,
      "grade": "B",
      "earned": 3,
-     "term": "SPRING 2025/2026",
+     "term": "SPRING 2024/2025",
      "flag": ""
     },
     {
      "code": "PHYS243L",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS LABORATORY",
      "cr": 1,
      "grade": "B-",
      "earned": 1,
-     "term": "SPRING 2025/2026",
+     "term": "SPRING 2024/2025",
      "flag": ""
     },
     {
      "code": "MATH241",
-     "title": "Calculus and",
+     "title": "CALCULUS AND ANALYTICAL GEOMETR",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
-     "term": "SPRING 2025/2026",
+     "term": "SPRING 2024/2025",
      "flag": ""
     },
     {
      "code": "CMPS241",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO PROGRAMMING",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
-     "term": "SPRING 2025/2026",
+     "term": "SPRING 2024/2025",
      "flag": ""
     },
     {
      "code": "ENGL001",
-     "title": "English Language",
+     "title": "ENGLISH LANGUAGE",
      "cr": 2,
      "grade": "B+",
      "earned": 2,
-     "term": "SPRING 2025/2026",
+     "term": "SPRING 2024/2025",
      "flag": ""
     },
     {
      "code": "MATH242",
-     "title": "Probability and",
+     "title": "PROBABILITY AND STATISTICS",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
-     "term": "FALL 2026/2027",
+     "term": "FALL 2025/2026",
      "flag": ""
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
-     "term": "FALL 2026/2027",
+     "term": "FALL 2025/2026",
      "flag": ""
     },
     {
      "code": "CMPS244",
-     "title": "Digital Circuits",
+     "title": "DIGITAL CIRCUITS",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
-     "term": "FALL 2026/2027",
+     "term": "FALL 2025/2026",
      "flag": ""
     },
     {
      "code": "CMPS248",
-     "title": "Discrete Structures I",
+     "title": "DISCRETE STRUCTURES I",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
-     "term": "FALL 2026/2027",
+     "term": "FALL 2025/2026",
      "flag": ""
     },
     {
      "code": "ARAB001",
-     "title": "Arabic Language",
+     "title": "ARABIC LANGUAGE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
-     "term": "FALL 2026/2027",
+     "term": "FALL 2025/2026",
      "flag": ""
     },
     {
      "code": "FREN001",
-     "title": "Langue Francaise",
+     "title": "LANGUE FRANCAISE",
      "cr": 2,
      "grade": "B+",
      "earned": 2,
-     "term": "FALL 2026/2027",
+     "term": "FALL 2025/2026",
      "flag": ""
     },
     {
      "code": "CMPS246",
-     "title": "Web Programming",
+     "title": "WEB PROGRAMMING",
      "cr": 3,
      "grade": "B",
      "earned": 3,
-     "term": "SPRING 2026/2027",
+     "term": "SPRING 2025/2026",
      "flag": ""
     },
     {
      "code": "MATH341",
-     "title": "Linear Algebra",
+     "title": "LINEAR ALGEBRA",
      "cr": 3,
      "grade": "B",
      "earned": 3,
-     "term": "SPRING 2026/2027",
+     "term": "SPRING 2025/2026",
      "flag": ""
     },
     {
      "code": "CMPS342",
-     "title": "Database Systems",
+     "title": "DATABASE SYSTEMS",
      "cr": 3,
      "grade": "B",
      "earned": 3,
-     "term": "SPRING 2026/2027",
+     "term": "SPRING 2025/2026",
      "flag": ""
     },
     {
      "code": "CMPS345",
-     "title": "Discrete Structures II",
+     "title": "DISCRETE STRUCTURES II",
      "cr": 3,
      "grade": "B",
      "earned": 3,
-     "term": "SPRING 2026/2027",
+     "term": "SPRING 2025/2026",
      "flag": ""
     },
     {
      "code": "CMPS347",
-     "title": "Data Structures",
+     "title": "DATA STRUCTURES",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
-     "term": "SPRING 2026/2027",
+     "term": "SPRING 2025/2026",
      "flag": ""
     },
     {
      "code": "BLAW001",
-     "title": "Human Rights",
+     "title": "HUMAN RIGHTS",
      "cr": 1,
      "grade": "B",
      "earned": 1,
-     "term": "SPRING 2026/2027",
+     "term": "SPRING 2025/2026",
      "flag": ""
     },
     {
      "code": "HIST002",
-     "title": "History of Lebanon",
+     "title": "HISTORY OF LEBANON",
      "cr": 2,
      "grade": "B-",
      "earned": 2,
-     "term": "SPRING 2026/2027",
+     "term": "SPRING 2025/2026",
      "flag": ""
     }
    ],
    "termSummary": [
     {
-     "term": "SPRING 2025/2026",
+     "term": "SPRING 2024/2025",
      "attempted": 16,
      "earned": 16,
      "sgpa": 3.13
     },
     {
-     "term": "FALL 2026/2027",
+     "term": "FALL 2025/2026",
      "attempted": 16,
      "earned": 16,
      "sgpa": 3.17
     },
     {
-     "term": "SPRING 2026/2027",
+     "term": "SPRING 2025/2026",
      "attempted": 18,
      "earned": 18,
      "sgpa": 3.02
@@ -2549,7 +3179,7 @@
       "crn": "10393",
       "code": "CMPS441",
       "section": "B0",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -2567,7 +3197,7 @@
       "crn": "10396",
       "code": "CMPS443",
       "section": "B1",
-      "cr": 1,
+      "cr": 0,
       "meetings": [
        {
         "day": "SAT",
@@ -2580,7 +3210,7 @@
       "crn": "10399",
       "code": "CMPS445",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -2598,7 +3228,7 @@
       "crn": "10413",
       "code": "CMPS455",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -2617,35 +3247,125 @@
    "id": "202499108",
    "name": "Yara Nabil Chami",
    "arabName": "يارا نبيل شامي",
-   "nationality": "Jordanian",
-   "program": "Science",
+   "nationality": "JORDANIAN",
+   "program": "Science / Computer Science",
    "admission": "2024/2025",
    "admissionTerm": "FALL 2024/2025",
    "catalogYear": 2024,
-   "officialCredits": 69,
+   "officialCredits": 99,
    "officialCgpa": 3.02,
    "history": [
     {
-     "code": "MATH241",
-     "title": "Calculus and",
+     "code": "ARAB110",
+     "title": "INTROD.TO ARABIC LITERATURE",
      "cr": 3,
      "grade": "TR",
      "earned": 3,
      "term": "TRANSFER",
-     "flag": ""
+     "flag": "N"
+    },
+    {
+     "code": "BIOL120",
+     "title": "INTRODUCTION TO BIOLOGY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL121",
+     "title": "GENERAL BIOLOGY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "CHEM110",
+     "title": "INTRODUCTION TO CHEMISTRY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "ENGL110",
+     "title": "FRESHMAN ENGLISH I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "HIST110",
+     "title": "HISTORY OF MODERN LEBANON",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH110",
+     "title": "INTR.CALC.&ANALYT.GEOM.I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH111",
+     "title": "INTRODUCTION TO CALCULUS AND ANA",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHIL110",
+     "title": "INTRODUCTION TO PHILOSOPHY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHYS110",
+     "title": "INTRODUCTION TO PHYSICS I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH241",
+     "title": "CALCULUS AND ANALYTICAL GEOMETR",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
     },
     {
      "code": "CHEM241",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY",
      "cr": 3,
      "grade": "TR",
      "earned": 3,
      "term": "TRANSFER",
-     "flag": ""
+     "flag": "N"
     },
     {
      "code": "CHEM241L",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY LABORATO",
      "cr": 1,
      "grade": "B+",
      "earned": 1,
@@ -2654,7 +3374,7 @@
     },
     {
      "code": "PHYS243",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -2663,7 +3383,7 @@
     },
     {
      "code": "PHYS243L",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS LABORATORY",
      "cr": 1,
      "grade": "B+",
      "earned": 1,
@@ -2672,7 +3392,7 @@
     },
     {
      "code": "CMPS241",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO PROGRAMMING",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -2681,7 +3401,7 @@
     },
     {
      "code": "ENGL001",
-     "title": "English Language",
+     "title": "ENGLISH LANGUAGE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -2690,7 +3410,7 @@
     },
     {
      "code": "MATH242",
-     "title": "Probability and",
+     "title": "PROBABILITY AND STATISTICS",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -2699,7 +3419,7 @@
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -2708,7 +3428,7 @@
     },
     {
      "code": "CMPS244",
-     "title": "Digital Circuits",
+     "title": "DIGITAL CIRCUITS",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -2717,7 +3437,7 @@
     },
     {
      "code": "CMPS248",
-     "title": "Discrete Structures I",
+     "title": "DISCRETE STRUCTURES I",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -2726,7 +3446,7 @@
     },
     {
      "code": "ARAB001",
-     "title": "Arabic Language",
+     "title": "ARABIC LANGUAGE",
      "cr": 2,
      "grade": "A-",
      "earned": 2,
@@ -2735,7 +3455,7 @@
     },
     {
      "code": "FREN001",
-     "title": "Langue Francaise",
+     "title": "LANGUE FRANCAISE",
      "cr": 2,
      "grade": "B+",
      "earned": 2,
@@ -2744,7 +3464,7 @@
     },
     {
      "code": "CMPS246",
-     "title": "Web Programming",
+     "title": "WEB PROGRAMMING",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -2753,7 +3473,7 @@
     },
     {
      "code": "MATH341",
-     "title": "Linear Algebra",
+     "title": "LINEAR ALGEBRA",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -2762,7 +3482,7 @@
     },
     {
      "code": "CMPS342",
-     "title": "Database Systems",
+     "title": "DATABASE SYSTEMS",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -2771,7 +3491,7 @@
     },
     {
      "code": "CMPS345",
-     "title": "Discrete Structures II",
+     "title": "DISCRETE STRUCTURES II",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -2780,7 +3500,7 @@
     },
     {
      "code": "CMPS347",
-     "title": "Data Structures",
+     "title": "DATA STRUCTURES",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -2789,7 +3509,7 @@
     },
     {
      "code": "BLAW001",
-     "title": "Human Rights",
+     "title": "HUMAN RIGHTS",
      "cr": 1,
      "grade": "B-",
      "earned": 1,
@@ -2798,7 +3518,7 @@
     },
     {
      "code": "HIST002",
-     "title": "History of Lebanon",
+     "title": "HISTORY OF LEBANON",
      "cr": 2,
      "grade": "B+",
      "earned": 2,
@@ -2807,7 +3527,7 @@
     },
     {
      "code": "CMPS344",
-     "title": "Software Engineering",
+     "title": "SOFTWARE ENGINEERING",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -2816,7 +3536,7 @@
     },
     {
      "code": "CMPS346",
-     "title": "Theory of Computation",
+     "title": "THEORY OF COMPUTATION",
      "cr": 3,
      "grade": "D-",
      "earned": 3,
@@ -2825,7 +3545,7 @@
     },
     {
      "code": "CMPS447",
-     "title": "Computer Networks",
+     "title": "COMPUTER NETWORKS",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -2834,7 +3554,7 @@
     },
     {
      "code": "MATH348",
-     "title": "Numerical Methods",
+     "title": "NUMERICAL METHODS",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -2843,7 +3563,7 @@
     },
     {
      "code": "MATH252",
-     "title": "Mathematical Software",
+     "title": "MATHEMATICAL SOFTWARE TOOLS",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -2852,7 +3572,7 @@
     },
     {
      "code": "SPAN001",
-     "title": "Spanish Language",
+     "title": "SPANISH LANGUAGE",
      "cr": 2,
      "grade": "B-",
      "earned": 2,
@@ -2861,7 +3581,7 @@
     },
     {
      "code": "WRNL200",
-     "title": "Work Ready Now",
+     "title": "WORK READY NOW",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -2917,7 +3637,7 @@
       "crn": "90191",
       "code": "CMPS343",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -2930,7 +3650,7 @@
       "crn": "90192",
       "code": "CMPS442",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "WED",
@@ -2943,7 +3663,7 @@
       "crn": "90193",
       "code": "CMPS444",
       "section": "B1",
-      "cr": 1,
+      "cr": 0,
       "meetings": [
        {
         "day": "THU",
@@ -2956,7 +3676,7 @@
       "crn": "10418",
       "code": "CMPS467",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "WED",
@@ -2980,17 +3700,107 @@
    "id": "202399109",
    "name": "Ziad Antoine Rahal",
    "arabName": "زياد أنطوان رحال",
-   "nationality": "Lebanese",
-   "program": "Science",
+   "nationality": "LEBANESE",
+   "program": "Science / Computer Science",
    "admission": "2023/2024",
    "admissionTerm": "FALL 2023/2024",
    "catalogYear": 2023,
-   "officialCredits": 84,
+   "officialCredits": 114,
    "officialCgpa": 3.92,
    "history": [
     {
+     "code": "ARAB110",
+     "title": "INTROD.TO ARABIC LITERATURE",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL120",
+     "title": "INTRODUCTION TO BIOLOGY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL121",
+     "title": "GENERAL BIOLOGY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "CHEM110",
+     "title": "INTRODUCTION TO CHEMISTRY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "ENGL110",
+     "title": "FRESHMAN ENGLISH I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "HIST110",
+     "title": "HISTORY OF MODERN LEBANON",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH110",
+     "title": "INTR.CALC.&ANALYT.GEOM.I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH111",
+     "title": "INTRODUCTION TO CALCULUS AND ANA",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHIL110",
+     "title": "INTRODUCTION TO PHILOSOPHY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHYS110",
+     "title": "INTRODUCTION TO PHYSICS I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
      "code": "CHEM241",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -2999,7 +3809,7 @@
     },
     {
      "code": "CHEM241L",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY LABORATO",
      "cr": 1,
      "grade": "A+",
      "earned": 1,
@@ -3008,7 +3818,7 @@
     },
     {
      "code": "PHYS243",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -3017,7 +3827,7 @@
     },
     {
      "code": "PHYS243L",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS LABORATORY",
      "cr": 1,
      "grade": "A+",
      "earned": 1,
@@ -3026,7 +3836,7 @@
     },
     {
      "code": "MATH241",
-     "title": "Calculus and",
+     "title": "CALCULUS AND ANALYTICAL GEOMETR",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3035,7 +3845,7 @@
     },
     {
      "code": "CMPS241",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO PROGRAMMING",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3044,7 +3854,7 @@
     },
     {
      "code": "ENGL001",
-     "title": "English Language",
+     "title": "ENGLISH LANGUAGE",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -3053,7 +3863,7 @@
     },
     {
      "code": "MATH242",
-     "title": "Probability and",
+     "title": "PROBABILITY AND STATISTICS",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -3062,7 +3872,7 @@
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3071,7 +3881,7 @@
     },
     {
      "code": "CMPS244",
-     "title": "Digital Circuits",
+     "title": "DIGITAL CIRCUITS",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3080,7 +3890,7 @@
     },
     {
      "code": "CMPS248",
-     "title": "Discrete Structures I",
+     "title": "DISCRETE STRUCTURES I",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -3089,7 +3899,7 @@
     },
     {
      "code": "ARAB001",
-     "title": "Arabic Language",
+     "title": "ARABIC LANGUAGE",
      "cr": 2,
      "grade": "A-",
      "earned": 2,
@@ -3098,7 +3908,7 @@
     },
     {
      "code": "FREN001",
-     "title": "Langue Francaise",
+     "title": "LANGUE FRANCAISE",
      "cr": 2,
      "grade": "A",
      "earned": 2,
@@ -3107,7 +3917,7 @@
     },
     {
      "code": "CMPS246",
-     "title": "Web Programming",
+     "title": "WEB PROGRAMMING",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3116,7 +3926,7 @@
     },
     {
      "code": "MATH341",
-     "title": "Linear Algebra",
+     "title": "LINEAR ALGEBRA",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3125,7 +3935,7 @@
     },
     {
      "code": "CMPS342",
-     "title": "Database Systems",
+     "title": "DATABASE SYSTEMS",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3134,7 +3944,7 @@
     },
     {
      "code": "CMPS345",
-     "title": "Discrete Structures II",
+     "title": "DISCRETE STRUCTURES II",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3143,7 +3953,7 @@
     },
     {
      "code": "CMPS347",
-     "title": "Data Structures",
+     "title": "DATA STRUCTURES",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3152,7 +3962,7 @@
     },
     {
      "code": "BLAW001",
-     "title": "Human Rights",
+     "title": "HUMAN RIGHTS",
      "cr": 1,
      "grade": "A+",
      "earned": 1,
@@ -3161,7 +3971,7 @@
     },
     {
      "code": "HIST002",
-     "title": "History of Lebanon",
+     "title": "HISTORY OF LEBANON",
      "cr": 2,
      "grade": "A",
      "earned": 2,
@@ -3170,7 +3980,7 @@
     },
     {
      "code": "CMPS344",
-     "title": "Software Engineering",
+     "title": "SOFTWARE ENGINEERING",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -3179,7 +3989,7 @@
     },
     {
      "code": "CMPS346",
-     "title": "Theory of Computation",
+     "title": "THEORY OF COMPUTATION",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3188,7 +3998,7 @@
     },
     {
      "code": "CMPS447",
-     "title": "Computer Networks",
+     "title": "COMPUTER NETWORKS",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3197,7 +4007,7 @@
     },
     {
      "code": "MATH348",
-     "title": "Numerical Methods",
+     "title": "NUMERICAL METHODS",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -3206,7 +4016,7 @@
     },
     {
      "code": "MATH252",
-     "title": "Mathematical Software",
+     "title": "MATHEMATICAL SOFTWARE TOOLS",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -3215,7 +4025,7 @@
     },
     {
      "code": "SPAN001",
-     "title": "Spanish Language",
+     "title": "SPANISH LANGUAGE",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -3224,7 +4034,7 @@
     },
     {
      "code": "CMPS441",
-     "title": "Fundamentals of",
+     "title": "FUNDAMENTALS OF ALGORITHMS",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3233,7 +4043,7 @@
     },
     {
      "code": "CMPS443",
-     "title": "Senior Project I",
+     "title": "SENIOR PROJECT I",
      "cr": 1,
      "grade": "A",
      "earned": 1,
@@ -3242,7 +4052,7 @@
     },
     {
      "code": "CMPS445",
-     "title": "Concepts of",
+     "title": "CONCEPTS OF PROGRAMMING LANGUA",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -3251,7 +4061,7 @@
     },
     {
      "code": "CMPS455",
-     "title": "Computer Security",
+     "title": "COMPUTER SECURITY",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3260,7 +4070,7 @@
     },
     {
      "code": "CMPS325",
-     "title": "Computer and Society",
+     "title": "COMPUTER AND SOCIETY",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3269,7 +4079,7 @@
     },
     {
      "code": "ITAL001",
-     "title": "Italian Language",
+     "title": "ITALIAN LANGUAGE",
      "cr": 2,
      "grade": "A",
      "earned": 2,
@@ -3278,7 +4088,7 @@
     },
     {
      "code": "CMPS354",
-     "title": "Applied Machine",
+     "title": "APPLIED MACHINE LEARNING FOR CYBE",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3346,7 +4156,7 @@
       "crn": "10361",
       "code": "CMPS246",
       "section": "D1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -3364,7 +4174,7 @@
       "crn": "10449",
       "code": "MATH341",
       "section": "D1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -3382,7 +4192,7 @@
       "crn": "10375",
       "code": "CMPS342",
       "section": "D1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -3400,7 +4210,7 @@
       "crn": "10379",
       "code": "CMPS345",
       "section": "D1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -3418,7 +4228,7 @@
       "crn": "10386",
       "code": "CMPS347",
       "section": "D1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -3437,17 +4247,107 @@
    "id": "202599110",
    "name": "Sara Elie Tannous",
    "arabName": "سارة إيلي طنوس",
-   "nationality": "Lebanese",
-   "program": "Science",
+   "nationality": "LEBANESE",
+   "program": "Science / Computer Science",
    "admission": "2025/2026",
    "admissionTerm": "FALL 2025/2026",
    "catalogYear": 2025,
-   "officialCredits": 32,
+   "officialCredits": 62,
    "officialCgpa": 3.24,
    "history": [
     {
+     "code": "ARAB110",
+     "title": "INTROD.TO ARABIC LITERATURE",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL120",
+     "title": "INTRODUCTION TO BIOLOGY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL121",
+     "title": "GENERAL BIOLOGY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "CHEM110",
+     "title": "INTRODUCTION TO CHEMISTRY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "ENGL110",
+     "title": "FRESHMAN ENGLISH I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "HIST110",
+     "title": "HISTORY OF MODERN LEBANON",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH110",
+     "title": "INTR.CALC.&ANALYT.GEOM.I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH111",
+     "title": "INTRODUCTION TO CALCULUS AND ANA",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHIL110",
+     "title": "INTRODUCTION TO PHILOSOPHY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHYS110",
+     "title": "INTRODUCTION TO PHYSICS I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
      "code": "CHEM241",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -3456,7 +4356,7 @@
     },
     {
      "code": "CHEM241L",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY LABORATO",
      "cr": 1,
      "grade": "B+",
      "earned": 1,
@@ -3465,7 +4365,7 @@
     },
     {
      "code": "PHYS243",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -3474,7 +4374,7 @@
     },
     {
      "code": "PHYS243L",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS LABORATORY",
      "cr": 1,
      "grade": "A-",
      "earned": 1,
@@ -3483,7 +4383,7 @@
     },
     {
      "code": "MATH241",
-     "title": "Calculus and",
+     "title": "CALCULUS AND ANALYTICAL GEOMETR",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -3492,7 +4392,7 @@
     },
     {
      "code": "CMPS241",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO PROGRAMMING",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -3501,7 +4401,7 @@
     },
     {
      "code": "ENGL001",
-     "title": "English Language",
+     "title": "ENGLISH LANGUAGE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -3510,7 +4410,7 @@
     },
     {
      "code": "MATH242",
-     "title": "Probability and",
+     "title": "PROBABILITY AND STATISTICS",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -3519,7 +4419,7 @@
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "B",
      "earned": 3,
@@ -3528,7 +4428,7 @@
     },
     {
      "code": "CMPS244",
-     "title": "Digital Circuits",
+     "title": "DIGITAL CIRCUITS",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -3537,7 +4437,7 @@
     },
     {
      "code": "CMPS248",
-     "title": "Discrete Structures I",
+     "title": "DISCRETE STRUCTURES I",
      "cr": 3,
      "grade": "B+",
      "earned": 3,
@@ -3546,7 +4446,7 @@
     },
     {
      "code": "ARAB001",
-     "title": "Arabic Language",
+     "title": "ARABIC LANGUAGE",
      "cr": 2,
      "grade": "B",
      "earned": 2,
@@ -3555,7 +4455,7 @@
     },
     {
      "code": "FREN001",
-     "title": "Langue Francaise",
+     "title": "LANGUE FRANCAISE",
      "cr": 2,
      "grade": "B+",
      "earned": 2,
@@ -3599,7 +4499,7 @@
       "crn": "10393",
       "code": "CMPS441",
       "section": "B0",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -3617,7 +4517,7 @@
       "crn": "10396",
       "code": "CMPS443",
       "section": "B1",
-      "cr": 1,
+      "cr": 0,
       "meetings": [
        {
         "day": "SAT",
@@ -3630,7 +4530,7 @@
       "crn": "10399",
       "code": "CMPS445",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -3648,7 +4548,7 @@
       "crn": "10413",
       "code": "CMPS455",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -3666,7 +4566,7 @@
       "crn": "10609",
       "code": "WRNL200",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -3685,17 +4585,107 @@
    "id": "202499111",
    "name": "Jana Khaled Moussa",
    "arabName": "جنى خالد موسى",
-   "nationality": "Lebanese",
-   "program": "Science",
+   "nationality": "LEBANESE",
+   "program": "Science / Computer Science",
    "admission": "2024/2025",
    "admissionTerm": "FALL 2024/2025",
    "catalogYear": 2024,
-   "officialCredits": 66,
+   "officialCredits": 96,
    "officialCgpa": 3.95,
    "history": [
     {
+     "code": "ARAB110",
+     "title": "INTROD.TO ARABIC LITERATURE",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL120",
+     "title": "INTRODUCTION TO BIOLOGY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL121",
+     "title": "GENERAL BIOLOGY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "CHEM110",
+     "title": "INTRODUCTION TO CHEMISTRY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "ENGL110",
+     "title": "FRESHMAN ENGLISH I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "HIST110",
+     "title": "HISTORY OF MODERN LEBANON",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH110",
+     "title": "INTR.CALC.&ANALYT.GEOM.I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH111",
+     "title": "INTRODUCTION TO CALCULUS AND ANA",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHIL110",
+     "title": "INTRODUCTION TO PHILOSOPHY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHYS110",
+     "title": "INTRODUCTION TO PHYSICS I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
      "code": "CHEM241",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3704,7 +4694,7 @@
     },
     {
      "code": "CHEM241L",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY LABORATO",
      "cr": 1,
      "grade": "A+",
      "earned": 1,
@@ -3713,7 +4703,7 @@
     },
     {
      "code": "PHYS243",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3722,7 +4712,7 @@
     },
     {
      "code": "PHYS243L",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS LABORATORY",
      "cr": 1,
      "grade": "A+",
      "earned": 1,
@@ -3731,7 +4721,7 @@
     },
     {
      "code": "MATH241",
-     "title": "Calculus and",
+     "title": "CALCULUS AND ANALYTICAL GEOMETR",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3740,7 +4730,7 @@
     },
     {
      "code": "CMPS241",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO PROGRAMMING",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -3749,7 +4739,7 @@
     },
     {
      "code": "ENGL001",
-     "title": "English Language",
+     "title": "ENGLISH LANGUAGE",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -3758,7 +4748,7 @@
     },
     {
      "code": "MATH242",
-     "title": "Probability and",
+     "title": "PROBABILITY AND STATISTICS",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3767,7 +4757,7 @@
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3776,7 +4766,7 @@
     },
     {
      "code": "CMPS244",
-     "title": "Digital Circuits",
+     "title": "DIGITAL CIRCUITS",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3785,7 +4775,7 @@
     },
     {
      "code": "CMPS248",
-     "title": "Discrete Structures I",
+     "title": "DISCRETE STRUCTURES I",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -3794,7 +4784,7 @@
     },
     {
      "code": "ARAB001",
-     "title": "Arabic Language",
+     "title": "ARABIC LANGUAGE",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -3803,7 +4793,7 @@
     },
     {
      "code": "FREN001",
-     "title": "Langue Francaise",
+     "title": "LANGUE FRANCAISE",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -3812,7 +4802,7 @@
     },
     {
      "code": "CMPS246",
-     "title": "Web Programming",
+     "title": "WEB PROGRAMMING",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3821,7 +4811,7 @@
     },
     {
      "code": "MATH341",
-     "title": "Linear Algebra",
+     "title": "LINEAR ALGEBRA",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3830,7 +4820,7 @@
     },
     {
      "code": "CMPS342",
-     "title": "Database Systems",
+     "title": "DATABASE SYSTEMS",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3839,7 +4829,7 @@
     },
     {
      "code": "CMPS345",
-     "title": "Discrete Structures II",
+     "title": "DISCRETE STRUCTURES II",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3848,7 +4838,7 @@
     },
     {
      "code": "CMPS347",
-     "title": "Data Structures",
+     "title": "DATA STRUCTURES",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3857,7 +4847,7 @@
     },
     {
      "code": "BLAW001",
-     "title": "Human Rights",
+     "title": "HUMAN RIGHTS",
      "cr": 1,
      "grade": "A",
      "earned": 1,
@@ -3866,7 +4856,7 @@
     },
     {
      "code": "HIST002",
-     "title": "History of Lebanon",
+     "title": "HISTORY OF LEBANON",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -3875,7 +4865,7 @@
     },
     {
      "code": "CMPS344",
-     "title": "Software Engineering",
+     "title": "SOFTWARE ENGINEERING",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3884,7 +4874,7 @@
     },
     {
      "code": "CMPS346",
-     "title": "Theory of Computation",
+     "title": "THEORY OF COMPUTATION",
      "cr": 3,
      "grade": "A",
      "earned": 3,
@@ -3893,7 +4883,7 @@
     },
     {
      "code": "CMPS447",
-     "title": "Computer Networks",
+     "title": "COMPUTER NETWORKS",
      "cr": 3,
      "grade": "A-",
      "earned": 3,
@@ -3902,7 +4892,7 @@
     },
     {
      "code": "MATH348",
-     "title": "Numerical Methods",
+     "title": "NUMERICAL METHODS",
      "cr": 3,
      "grade": "A+",
      "earned": 3,
@@ -3911,7 +4901,7 @@
     },
     {
      "code": "MATH252",
-     "title": "Mathematical Software",
+     "title": "MATHEMATICAL SOFTWARE TOOLS",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -3920,7 +4910,7 @@
     },
     {
      "code": "SPAN001",
-     "title": "Spanish Language",
+     "title": "SPANISH LANGUAGE",
      "cr": 2,
      "grade": "A+",
      "earned": 2,
@@ -3976,7 +4966,7 @@
       "crn": "90221",
       "code": "MATH242",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "TUE",
@@ -3989,7 +4979,7 @@
       "crn": "10357",
       "code": "CMPS246",
       "section": "B0",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -4007,7 +4997,7 @@
       "crn": "10446",
       "code": "MATH341",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "FRI",
@@ -4020,7 +5010,7 @@
       "crn": "10369",
       "code": "CMPS342",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "THU",
@@ -4038,7 +5028,7 @@
       "crn": "10377",
       "code": "CMPS345",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "MON",
@@ -4056,7 +5046,7 @@
       "crn": "10380",
       "code": "CMPS347",
       "section": "B1",
-      "cr": 3,
+      "cr": 0,
       "meetings": [
        {
         "day": "THU",
@@ -4075,17 +5065,107 @@
    "id": "202599112",
    "name": "Ali Hussein Hamdan",
    "arabName": "علي حسين حمدان",
-   "nationality": "Lebanese",
-   "program": "Science",
+   "nationality": "LEBANESE",
+   "program": "Science / Computer Science",
    "admission": "2025/2026",
    "admissionTerm": "FALL 2025/2026",
    "catalogYear": 2025,
-   "officialCredits": 29,
+   "officialCredits": 59,
    "officialCgpa": 2.26,
    "history": [
     {
+     "code": "ARAB110",
+     "title": "INTROD.TO ARABIC LITERATURE",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL120",
+     "title": "INTRODUCTION TO BIOLOGY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "BIOL121",
+     "title": "GENERAL BIOLOGY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "CHEM110",
+     "title": "INTRODUCTION TO CHEMISTRY I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "ENGL110",
+     "title": "FRESHMAN ENGLISH I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "HIST110",
+     "title": "HISTORY OF MODERN LEBANON",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH110",
+     "title": "INTR.CALC.&ANALYT.GEOM.I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "MATH111",
+     "title": "INTRODUCTION TO CALCULUS AND ANA",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHIL110",
+     "title": "INTRODUCTION TO PHILOSOPHY",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
+     "code": "PHYS110",
+     "title": "INTRODUCTION TO PHYSICS I",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": "N"
+    },
+    {
      "code": "CHEM241",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY",
      "cr": 3,
      "grade": "C+",
      "earned": 3,
@@ -4094,7 +5174,7 @@
     },
     {
      "code": "CHEM241L",
-     "title": "Principles of",
+     "title": "PRINCIPLES OF CHEMISTRY LABORATO",
      "cr": 1,
      "grade": "C+",
      "earned": 1,
@@ -4103,7 +5183,7 @@
     },
     {
      "code": "PHYS243",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS",
      "cr": 3,
      "grade": "B-",
      "earned": 3,
@@ -4112,7 +5192,7 @@
     },
     {
      "code": "PHYS243L",
-     "title": "General Physics",
+     "title": "GENERAL PHYSICS LABORATORY",
      "cr": 1,
      "grade": "B-",
      "earned": 1,
@@ -4121,7 +5201,7 @@
     },
     {
      "code": "MATH241",
-     "title": "Calculus and",
+     "title": "CALCULUS AND ANALYTICAL GEOMETR",
      "cr": 3,
      "grade": "C+",
      "earned": 3,
@@ -4130,7 +5210,7 @@
     },
     {
      "code": "CMPS241",
-     "title": "Introduction to",
+     "title": "INTRODUCTION TO PROGRAMMING",
      "cr": 3,
      "grade": "C",
      "earned": 3,
@@ -4139,7 +5219,7 @@
     },
     {
      "code": "ENGL001",
-     "title": "English Language",
+     "title": "ENGLISH LANGUAGE",
      "cr": 2,
      "grade": "C+",
      "earned": 2,
@@ -4148,7 +5228,7 @@
     },
     {
      "code": "MATH242",
-     "title": "Probability and",
+     "title": "PROBABILITY AND STATISTICS",
      "cr": 3,
      "grade": "W",
      "earned": 0,
@@ -4157,7 +5237,7 @@
     },
     {
      "code": "CMPS242",
-     "title": "Object Oriented",
+     "title": "OBJECT ORIENTED PROGRAMMING",
      "cr": 3,
      "grade": "C",
      "earned": 3,
@@ -4166,7 +5246,7 @@
     },
     {
      "code": "CMPS244",
-     "title": "Digital Circuits",
+     "title": "DIGITAL CIRCUITS",
      "cr": 3,
      "grade": "C+",
      "earned": 3,
@@ -4175,7 +5255,7 @@
     },
     {
      "code": "CMPS248",
-     "title": "Discrete Structures I",
+     "title": "DISCRETE STRUCTURES I",
      "cr": 3,
      "grade": "C+",
      "earned": 3,
@@ -4184,7 +5264,7 @@
     },
     {
      "code": "ARAB001",
-     "title": "Arabic Language",
+     "title": "ARABIC LANGUAGE",
      "cr": 2,
      "grade": "C-",
      "earned": 2,
@@ -4193,7 +5273,7 @@
     },
     {
      "code": "FREN001",
-     "title": "Langue Francaise",
+     "title": "LANGUE FRANCAISE",
      "cr": 2,
      "grade": "C+",
      "earned": 2,
