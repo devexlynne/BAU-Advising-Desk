@@ -7,6 +7,9 @@
  * memory and resets when the page is reloaded. The demo PDFs in demo/ can be
  * dragged into the import screen to show an import.
  *
+ * npm run demo -- --file writes the same demo as one HTML file
+ * (build/advising-demo.html) that opens with a double-click, no Node needed.
+ *
  * Refuses to run in production or on Railway.
  */
 const http = require('http');
@@ -40,6 +43,13 @@ const head = '<script>window.OFFLINE_DEMO=true;window.DEMO_DATA=' + data + ';' +
   'background:#A8842C;color:#fff;font:600 12px/1.2 system-ui,sans-serif;padding:6px 14px;border-radius:999px;' +
   'box-shadow:0 2px 8px rgba(0,0,0,.2);pointer-events:none}</style>';
 const page = built.replace('<head>', '<head>' + head);
+
+if (process.argv.includes('--file')) {
+  const out = path.join(ROOT, 'build', 'advising-demo.html');
+  fs.writeFileSync(out, page);
+  console.log('\nWrote ' + out + ' (' + Math.round(page.length / 1024) + ' KB). Double-click it to open the demo.');
+  process.exit(0);
+}
 
 const files = {
   '/demo-transcripts.pdf': path.join(ROOT, 'demo', 'demo-transcripts.pdf'),

@@ -13,6 +13,10 @@ npm run demo
 The browser opens at http://127.0.0.1:3005, signed in as the demo advisor.
 Press Ctrl+C in the terminal to stop it.
 
+To send someone the demo as a single file instead, run
+`npm run demo -- --file`. It writes `build/advising-demo.html`, which opens
+with a double-click in any browser, without Node or a server.
+
 To show an import, open Import and drop in `demo/demo-transcripts.pdf`, then
 `demo/demo-schedules.pdf`. Every page of both files is marked DEMO DATA.
 
