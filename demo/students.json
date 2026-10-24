@@ -1,0 +1,4229 @@
+{
+ "note": "Fictional students for the offline demo. No real student data.",
+ "advisor": "julie-bu-daher",
+ "students": [
+  {
+   "email": "kfh910@student.bau.edu.lb",
+   "phone": "",
+   "campus": "Beirut",
+   "registration": {
+    "termCode": "202710",
+    "term": "FALL 2026/2027",
+    "courses": [
+     {
+      "crn": "10357",
+      "code": "CMPS246",
+      "section": "B0",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "FRI",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
+      "crn": "10446",
+      "code": "MATH341",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "FRI",
+        "start": "13:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "10369",
+      "code": "CMPS342",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "12:01",
+        "end": "14:00"
+       },
+       {
+        "day": "THU",
+        "start": "10:01",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "10377",
+      "code": "CMPS345",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:31",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "10:01",
+        "end": "11:30"
+       }
+      ]
+     },
+     {
+      "crn": "10380",
+      "code": "CMPS347",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "08:01",
+        "end": "10:00"
+       },
+       {
+        "day": "THU",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "202599101",
+   "name": "Karim Fouad Haddad",
+   "arabName": "كريم فؤاد حداد",
+   "nationality": "Lebanese",
+   "program": "Science",
+   "admission": "2025/2026",
+   "admissionTerm": "FALL 2025/2026",
+   "catalogYear": 2025,
+   "officialCredits": 32,
+   "officialCgpa": 3.98,
+   "history": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of",
+     "cr": 1,
+     "grade": "A+",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics",
+     "cr": 1,
+     "grade": "A",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "grade": "A-",
+     "earned": 2,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS244",
+     "title": "Digital Circuits",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS248",
+     "title": "Discrete Structures I",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "grade": "A",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "FREN001",
+     "title": "Langue Francaise",
+     "cr": 2,
+     "grade": "A",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    }
+   ],
+   "termSummary": [
+    {
+     "term": "FALL 2025/2026",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.96
+    },
+    {
+     "term": "SPRING 2025/2026",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 4
+    }
+   ],
+   "source": "transcript-import",
+   "advisor": "Julie Bu Daher",
+   "emailGuessed": true,
+   "campusesThisTerm": [
+    "Beirut"
+   ],
+   "campusMixed": false,
+   "demo": true,
+   "demoCase": "Second-year student, on track"
+  },
+  {
+   "email": "nhk910@student.bau.edu.lb",
+   "phone": "",
+   "campus": "Beirut",
+   "registration": {
+    "termCode": "202710",
+    "term": "FALL 2026/2027",
+    "courses": [
+     {
+      "crn": "10393",
+      "code": "CMPS441",
+      "section": "B0",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "10:01",
+        "end": "12:00"
+       },
+       {
+        "day": "THU",
+        "start": "12:01",
+        "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10396",
+      "code": "CMPS443",
+      "section": "B1",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "SAT",
+        "start": "08:01",
+        "end": "09:00"
+       }
+      ]
+     },
+     {
+      "crn": "10399",
+      "code": "CMPS445",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "TUE",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "10413",
+      "code": "CMPS455",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "202499102",
+   "name": "Nour Hassan Khalil",
+   "arabName": "نور حسن خليل",
+   "nationality": "Lebanese",
+   "program": "Science",
+   "admission": "2024/2025",
+   "admissionTerm": "FALL 2024/2025",
+   "catalogYear": 2024,
+   "officialCredits": 69,
+   "officialCgpa": 3.95,
+   "history": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of",
+     "cr": 1,
+     "grade": "A",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics",
+     "cr": 1,
+     "grade": "A-",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS244",
+     "title": "Digital Circuits",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS248",
+     "title": "Discrete Structures I",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "FREN001",
+     "title": "Langue Francaise",
+     "cr": 2,
+     "grade": "A",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS246",
+     "title": "Web Programming",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH341",
+     "title": "Linear Algebra",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS342",
+     "title": "Database Systems",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS345",
+     "title": "Discrete Structures II",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS347",
+     "title": "Data Structures",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "grade": "A-",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "HIST002",
+     "title": "History of Lebanon",
+     "cr": 2,
+     "grade": "A",
+     "earned": 2,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS344",
+     "title": "Software Engineering",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS346",
+     "title": "Theory of Computation",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS447",
+     "title": "Computer Networks",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH348",
+     "title": "Numerical Methods",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH252",
+     "title": "Mathematical Software",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "SPAN001",
+     "title": "Spanish Language",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "WRNL200",
+     "title": "Work Ready Now",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    }
+   ],
+   "termSummary": [
+    {
+     "term": "FALL 2024/2025",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.98
+    },
+    {
+     "term": "SPRING 2024/2025",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 4
+    },
+    {
+     "term": "FALL 2025/2026",
+     "attempted": 18,
+     "earned": 18,
+     "sgpa": 3.93
+    },
+    {
+     "term": "SPRING 2025/2026",
+     "attempted": 19,
+     "earned": 19,
+     "sgpa": 3.9
+    }
+   ],
+   "source": "transcript-import",
+   "advisor": "Julie Bu Daher",
+   "emailGuessed": true,
+   "campusesThisTerm": [
+    "Beirut"
+   ],
+   "campusMixed": false,
+   "demo": true,
+   "demoCase": "Strong student, WRNL200 required (admitted 2024/2025)"
+  },
+  {
+   "email": "rws910@student.bau.edu.lb",
+   "phone": "",
+   "campus": "Beirut",
+   "registration": {
+    "termCode": "202710",
+    "term": "FALL 2026/2027",
+    "courses": [
+     {
+      "crn": "90131",
+      "code": "CMPS343",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "14:00",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "90132",
+      "code": "CMPS442",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "08:00",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
+      "crn": "90133",
+      "code": "CMPS444",
+      "section": "B1",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "10:00",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "90134",
+      "code": "CMPS470",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "FRI",
+        "start": "12:00",
+        "end": "14:00"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "202399103",
+   "name": "Rami Walid Saad",
+   "arabName": "رامي وليد سعد",
+   "nationality": "Lebanese",
+   "program": "Science",
+   "admission": "2023/2024",
+   "admissionTerm": "FALL 2023/2024",
+   "catalogYear": 2023,
+   "officialCredits": 84,
+   "officialCgpa": 3.12,
+   "history": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of",
+     "cr": 1,
+     "grade": "B",
+     "earned": 1,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics",
+     "cr": 1,
+     "grade": "B",
+     "earned": 1,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS244",
+     "title": "Digital Circuits",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS248",
+     "title": "Discrete Structures I",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "FREN001",
+     "title": "Langue Francaise",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS246",
+     "title": "Web Programming",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH341",
+     "title": "Linear Algebra",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS342",
+     "title": "Database Systems",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS345",
+     "title": "Discrete Structures II",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS347",
+     "title": "Data Structures",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "grade": "B+",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "HIST002",
+     "title": "History of Lebanon",
+     "cr": 2,
+     "grade": "B+",
+     "earned": 2,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS344",
+     "title": "Software Engineering",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS346",
+     "title": "Theory of Computation",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS447",
+     "title": "Computer Networks",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH348",
+     "title": "Numerical Methods",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH252",
+     "title": "Mathematical Software",
+     "cr": 2,
+     "grade": "B+",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "SPAN001",
+     "title": "Spanish Language",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS441",
+     "title": "Fundamentals of",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS443",
+     "title": "Senior Project I",
+     "cr": 1,
+     "grade": "B-",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS445",
+     "title": "Concepts of",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS455",
+     "title": "Computer Security",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS326",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "ITAL001",
+     "title": "Italian Language",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS453",
+     "title": "Artificial",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SUMMER 2024/2025",
+     "flag": ""
+    }
+   ],
+   "termSummary": [
+    {
+     "term": "FALL 2023/2024",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3
+    },
+    {
+     "term": "SPRING 2023/2024",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.25
+    },
+    {
+     "term": "FALL 2024/2025",
+     "attempted": 18,
+     "earned": 18,
+     "sgpa": 3.11
+    },
+    {
+     "term": "SPRING 2024/2025",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.23
+    },
+    {
+     "term": "FALL 2025/2026",
+     "attempted": 15,
+     "earned": 15,
+     "sgpa": 2.98
+    },
+    {
+     "term": "SUMMER 2024/2025",
+     "attempted": 3,
+     "earned": 3,
+     "sgpa": 3.33
+    }
+   ],
+   "source": "transcript-import",
+   "advisor": "Julie Bu Daher",
+   "emailGuessed": true,
+   "campusesThisTerm": [
+    "Beirut"
+   ],
+   "campusMixed": false,
+   "demo": true,
+   "demoCase": "Final year, close to graduation, departmental electives counted by credits"
+  },
+  {
+   "email": "lgm910@student.bau.edu.lb",
+   "phone": "",
+   "campus": "Beirut",
+   "registration": {
+    "termCode": "202710",
+    "term": "FALL 2026/2027",
+    "courses": [
+     {
+      "crn": "10393",
+      "code": "CMPS441",
+      "section": "B0",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "10:01",
+        "end": "12:00"
+       },
+       {
+        "day": "THU",
+        "start": "12:01",
+        "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10396",
+      "code": "CMPS443",
+      "section": "B1",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "SAT",
+        "start": "08:01",
+        "end": "09:00"
+       }
+      ]
+     },
+     {
+      "crn": "10399",
+      "code": "CMPS445",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "TUE",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "10413",
+      "code": "CMPS455",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "202499104",
+   "name": "Lea Georges Mansour",
+   "arabName": "ليا جورج منصور",
+   "nationality": "Lebanese",
+   "program": "Science",
+   "admission": "2024/2025",
+   "admissionTerm": "FALL 2024/2025",
+   "catalogYear": 2024,
+   "officialCredits": 69,
+   "officialCgpa": 3.16,
+   "history": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of",
+     "cr": 1,
+     "grade": "B",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics",
+     "cr": 1,
+     "grade": "B-",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "grade": "A-",
+     "earned": 2,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "F",
+     "earned": 0,
+     "term": "SPRING 2024/2025",
+     "flag": "A"
+    },
+    {
+     "code": "CMPS244",
+     "title": "Digital Circuits",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS248",
+     "title": "Discrete Structures I",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "FREN001",
+     "title": "Langue Francaise",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": "I"
+    },
+    {
+     "code": "CMPS246",
+     "title": "Web Programming",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH341",
+     "title": "Linear Algebra",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS342",
+     "title": "Database Systems",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS345",
+     "title": "Discrete Structures II",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS347",
+     "title": "Data Structures",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "grade": "B+",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "HIST002",
+     "title": "History of Lebanon",
+     "cr": 2,
+     "grade": "B+",
+     "earned": 2,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS344",
+     "title": "Software Engineering",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS346",
+     "title": "Theory of Computation",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS447",
+     "title": "Computer Networks",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH348",
+     "title": "Numerical Methods",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH252",
+     "title": "Mathematical Software",
+     "cr": 2,
+     "grade": "A-",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "SPAN001",
+     "title": "Spanish Language",
+     "cr": 2,
+     "grade": "B+",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "WRNL200",
+     "title": "Work Ready Now",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    }
+   ],
+   "termSummary": [
+    {
+     "term": "FALL 2024/2025",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.25
+    },
+    {
+     "term": "SPRING 2024/2025",
+     "attempted": 16,
+     "earned": 13,
+     "sgpa": 2.44
+    },
+    {
+     "term": "FALL 2025/2026",
+     "attempted": 21,
+     "earned": 21,
+     "sgpa": 3.14
+    },
+    {
+     "term": "SPRING 2025/2026",
+     "attempted": 19,
+     "earned": 19,
+     "sgpa": 3.21
+    }
+   ],
+   "source": "transcript-import",
+   "advisor": "Julie Bu Daher",
+   "emailGuessed": true,
+   "campusesThisTerm": [
+    "Beirut"
+   ],
+   "campusMixed": false,
+   "demo": true,
+   "demoCase": "Failed CMPS242 and passed it on the retake"
+  },
+  {
+   "email": "obf910@student.bau.edu.lb",
+   "phone": "",
+   "campus": "Beirut",
+   "registration": {
+    "termCode": "202710",
+    "term": "FALL 2026/2027",
+    "courses": [
+     {
+      "crn": "10380",
+      "code": "CMPS347",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "08:01",
+        "end": "10:00"
+       },
+       {
+        "day": "THU",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "90151",
+      "code": "CMPS344",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "14:00",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "90152",
+      "code": "CMPS343",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "08:00",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
+      "crn": "90153",
+      "code": "CMPS442",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "10:00",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "90154",
+      "code": "CMPS444",
+      "section": "B1",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "FRI",
+        "start": "12:00",
+        "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10409",
+      "code": "CMPS453",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
+       },
+       {
+        "day": "TUE",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "202399105",
+   "name": "Omar Bilal Fares",
+   "arabName": "عمر بلال فارس",
+   "nationality": "Syrian",
+   "program": "Science",
+   "admission": "2023/2024",
+   "admissionTerm": "FALL 2023/2024",
+   "catalogYear": 2023,
+   "officialCredits": 75,
+   "officialCgpa": 3.14,
+   "history": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of",
+     "cr": 1,
+     "grade": "B",
+     "earned": 1,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics",
+     "cr": 1,
+     "grade": "B-",
+     "earned": 1,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS244",
+     "title": "Digital Circuits",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS248",
+     "title": "Discrete Structures I",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "grade": "B+",
+     "earned": 2,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "FREN001",
+     "title": "Langue Francaise",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS246",
+     "title": "Web Programming",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH341",
+     "title": "Linear Algebra",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS342",
+     "title": "Database Systems",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS345",
+     "title": "Discrete Structures II",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS347",
+     "title": "Data Structures",
+     "cr": 3,
+     "grade": "W",
+     "earned": 0,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "grade": "B-",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "HIST002",
+     "title": "History of Lebanon",
+     "cr": 2,
+     "grade": "A-",
+     "earned": 2,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS344",
+     "title": "Software Engineering",
+     "cr": 3,
+     "grade": "W",
+     "earned": 0,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS346",
+     "title": "Theory of Computation",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS447",
+     "title": "Computer Networks",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH348",
+     "title": "Numerical Methods",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH252",
+     "title": "Mathematical Software",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "SPAN001",
+     "title": "Spanish Language",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS441",
+     "title": "Fundamentals of",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS443",
+     "title": "Senior Project I",
+     "cr": 1,
+     "grade": "B+",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS445",
+     "title": "Concepts of",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS455",
+     "title": "Computer Security",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS326",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "ITAL001",
+     "title": "Italian Language",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    }
+   ],
+   "termSummary": [
+    {
+     "term": "FALL 2023/2024",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.17
+    },
+    {
+     "term": "SPRING 2023/2024",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.29
+    },
+    {
+     "term": "FALL 2024/2025",
+     "attempted": 15,
+     "earned": 15,
+     "sgpa": 3.07
+    },
+    {
+     "term": "SPRING 2024/2025",
+     "attempted": 13,
+     "earned": 13,
+     "sgpa": 3.08
+    },
+    {
+     "term": "FALL 2025/2026",
+     "attempted": 15,
+     "earned": 15,
+     "sgpa": 3.09
+    }
+   ],
+   "source": "transcript-import",
+   "advisor": "Julie Bu Daher",
+   "emailGuessed": true,
+   "campusesThisTerm": [
+    "Beirut"
+   ],
+   "campusMixed": false,
+   "demo": true,
+   "demoCase": "Withdrew from two core courses, now behind on prerequisites"
+  },
+  {
+   "email": "msa910@student.bau.edu.lb",
+   "phone": "",
+   "campus": "Beirut",
+   "registration": {
+    "termCode": "202710",
+    "term": "FALL 2026/2027",
+    "courses": [
+     {
+      "crn": "90161",
+      "code": "MATH242",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "10:00",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "10365",
+      "code": "CMPS248",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "13:01",
+        "end": "15:00"
+       },
+       {
+        "day": "TUE",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "10393",
+      "code": "CMPS441",
+      "section": "B0",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "10:01",
+        "end": "12:00"
+       },
+       {
+        "day": "THU",
+        "start": "12:01",
+        "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10396",
+      "code": "CMPS443",
+      "section": "B1",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "SAT",
+        "start": "08:01",
+        "end": "09:00"
+       }
+      ]
+     },
+     {
+      "crn": "10399",
+      "code": "CMPS445",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "TUE",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "10413",
+      "code": "CMPS455",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "202499106",
+   "name": "Maya Samir Azar",
+   "arabName": "مايا سمير عازار",
+   "nationality": "Lebanese",
+   "program": "Science",
+   "admission": "2024/2025",
+   "admissionTerm": "FALL 2024/2025",
+   "catalogYear": 2024,
+   "officialCredits": 63,
+   "officialCgpa": 1.88,
+   "history": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of",
+     "cr": 3,
+     "grade": "C+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of",
+     "cr": 1,
+     "grade": "C",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "grade": "C-",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics",
+     "cr": 1,
+     "grade": "C-",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and",
+     "cr": 3,
+     "grade": "C+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "grade": "C-",
+     "earned": 2,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and",
+     "cr": 3,
+     "grade": "F",
+     "earned": 0,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "C",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS244",
+     "title": "Digital Circuits",
+     "cr": 3,
+     "grade": "C-",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS248",
+     "title": "Discrete Structures I",
+     "cr": 3,
+     "grade": "F",
+     "earned": 0,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "grade": "C",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "FREN001",
+     "title": "Langue Francaise",
+     "cr": 2,
+     "grade": "C+",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS246",
+     "title": "Web Programming",
+     "cr": 3,
+     "grade": "C",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH341",
+     "title": "Linear Algebra",
+     "cr": 3,
+     "grade": "C+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS342",
+     "title": "Database Systems",
+     "cr": 3,
+     "grade": "C+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS345",
+     "title": "Discrete Structures II",
+     "cr": 3,
+     "grade": "C",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS347",
+     "title": "Data Structures",
+     "cr": 3,
+     "grade": "C+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "grade": "B-",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "HIST002",
+     "title": "History of Lebanon",
+     "cr": 2,
+     "grade": "C-",
+     "earned": 2,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS344",
+     "title": "Software Engineering",
+     "cr": 3,
+     "grade": "C",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS346",
+     "title": "Theory of Computation",
+     "cr": 3,
+     "grade": "C-",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS447",
+     "title": "Computer Networks",
+     "cr": 3,
+     "grade": "C+",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH348",
+     "title": "Numerical Methods",
+     "cr": 3,
+     "grade": "C",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH252",
+     "title": "Mathematical Software",
+     "cr": 2,
+     "grade": "C",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "SPAN001",
+     "title": "Spanish Language",
+     "cr": 2,
+     "grade": "C-",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "WRNL200",
+     "title": "Work Ready Now",
+     "cr": 3,
+     "grade": "C",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    }
+   ],
+   "termSummary": [
+    {
+     "term": "FALL 2024/2025",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 2.13
+    },
+    {
+     "term": "SPRING 2024/2025",
+     "attempted": 16,
+     "earned": 10,
+     "sgpa": 1.23
+    },
+    {
+     "term": "FALL 2025/2026",
+     "attempted": 18,
+     "earned": 18,
+     "sgpa": 2.17
+    },
+    {
+     "term": "SPRING 2025/2026",
+     "attempted": 19,
+     "earned": 19,
+     "sgpa": 1.97
+    }
+   ],
+   "source": "transcript-import",
+   "advisor": "Julie Bu Daher",
+   "emailGuessed": true,
+   "campusesThisTerm": [
+    "Beirut"
+   ],
+   "campusMixed": false,
+   "demo": true,
+   "demoCase": "Low GPA, academic warning, failed courses to repeat"
+  },
+  {
+   "email": "hmn910@student.bau.edu.lb",
+   "phone": "",
+   "campus": "Beirut",
+   "registration": {
+    "termCode": "202710",
+    "term": "FALL 2026/2027",
+    "courses": [
+     {
+      "crn": "90171",
+      "code": "CMPS344",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "14:00",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "90172",
+      "code": "CMPS346",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "08:00",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
+      "crn": "90173",
+      "code": "CMPS447",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "10:00",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "90174",
+      "code": "MATH348",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "FRI",
+        "start": "12:00",
+        "end": "14:00"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "202599107",
+   "name": "Hadi Mahmoud Nasser",
+   "arabName": "هادي محمود ناصر",
+   "nationality": "Lebanese",
+   "program": "Science",
+   "admission": "2025/2026",
+   "admissionTerm": "SPRING 2025/2026",
+   "catalogYear": 2025,
+   "officialCredits": 50,
+   "officialCgpa": 3.1,
+   "history": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of",
+     "cr": 1,
+     "grade": "B-",
+     "earned": 1,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics",
+     "cr": 1,
+     "grade": "B-",
+     "earned": 1,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "grade": "B+",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "FALL 2026/2027",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "FALL 2026/2027",
+     "flag": ""
+    },
+    {
+     "code": "CMPS244",
+     "title": "Digital Circuits",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2026/2027",
+     "flag": ""
+    },
+    {
+     "code": "CMPS248",
+     "title": "Discrete Structures I",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2026/2027",
+     "flag": ""
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "FALL 2026/2027",
+     "flag": ""
+    },
+    {
+     "code": "FREN001",
+     "title": "Langue Francaise",
+     "cr": 2,
+     "grade": "B+",
+     "earned": 2,
+     "term": "FALL 2026/2027",
+     "flag": ""
+    },
+    {
+     "code": "CMPS246",
+     "title": "Web Programming",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2026/2027",
+     "flag": ""
+    },
+    {
+     "code": "MATH341",
+     "title": "Linear Algebra",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2026/2027",
+     "flag": ""
+    },
+    {
+     "code": "CMPS342",
+     "title": "Database Systems",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2026/2027",
+     "flag": ""
+    },
+    {
+     "code": "CMPS345",
+     "title": "Discrete Structures II",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2026/2027",
+     "flag": ""
+    },
+    {
+     "code": "CMPS347",
+     "title": "Data Structures",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SPRING 2026/2027",
+     "flag": ""
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "grade": "B",
+     "earned": 1,
+     "term": "SPRING 2026/2027",
+     "flag": ""
+    },
+    {
+     "code": "HIST002",
+     "title": "History of Lebanon",
+     "cr": 2,
+     "grade": "B-",
+     "earned": 2,
+     "term": "SPRING 2026/2027",
+     "flag": ""
+    }
+   ],
+   "termSummary": [
+    {
+     "term": "SPRING 2025/2026",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.13
+    },
+    {
+     "term": "FALL 2026/2027",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.17
+    },
+    {
+     "term": "SPRING 2026/2027",
+     "attempted": 18,
+     "earned": 18,
+     "sgpa": 3.02
+    }
+   ],
+   "source": "transcript-import",
+   "advisor": "Julie Bu Daher",
+   "emailGuessed": true,
+   "campusesThisTerm": [
+    "Beirut"
+   ],
+   "campusMixed": false,
+   "demo": true,
+   "demoCase": "Spring intake, a term behind the standard plan"
+  },
+  {
+   "email": "ync910@student.bau.edu.lb",
+   "phone": "",
+   "campus": "Beirut",
+   "registration": {
+    "termCode": "202710",
+    "term": "FALL 2026/2027",
+    "courses": [
+     {
+      "crn": "10393",
+      "code": "CMPS441",
+      "section": "B0",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "10:01",
+        "end": "12:00"
+       },
+       {
+        "day": "THU",
+        "start": "12:01",
+        "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10396",
+      "code": "CMPS443",
+      "section": "B1",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "SAT",
+        "start": "08:01",
+        "end": "09:00"
+       }
+      ]
+     },
+     {
+      "crn": "10399",
+      "code": "CMPS445",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "TUE",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "10413",
+      "code": "CMPS455",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "202499108",
+   "name": "Yara Nabil Chami",
+   "arabName": "يارا نبيل شامي",
+   "nationality": "Jordanian",
+   "program": "Science",
+   "admission": "2024/2025",
+   "admissionTerm": "FALL 2024/2025",
+   "catalogYear": 2024,
+   "officialCredits": 69,
+   "officialCgpa": 3.02,
+   "history": [
+    {
+     "code": "MATH241",
+     "title": "Calculus and",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241",
+     "title": "Principles of",
+     "cr": 3,
+     "grade": "TR",
+     "earned": 3,
+     "term": "TRANSFER",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of",
+     "cr": 1,
+     "grade": "B+",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics",
+     "cr": 1,
+     "grade": "B+",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS244",
+     "title": "Digital Circuits",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS248",
+     "title": "Discrete Structures I",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "grade": "A-",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "FREN001",
+     "title": "Langue Francaise",
+     "cr": 2,
+     "grade": "B+",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS246",
+     "title": "Web Programming",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH341",
+     "title": "Linear Algebra",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS342",
+     "title": "Database Systems",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS345",
+     "title": "Discrete Structures II",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS347",
+     "title": "Data Structures",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "grade": "B-",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "HIST002",
+     "title": "History of Lebanon",
+     "cr": 2,
+     "grade": "B+",
+     "earned": 2,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS344",
+     "title": "Software Engineering",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS346",
+     "title": "Theory of Computation",
+     "cr": 3,
+     "grade": "D-",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS447",
+     "title": "Computer Networks",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH348",
+     "title": "Numerical Methods",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH252",
+     "title": "Mathematical Software",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "SPAN001",
+     "title": "Spanish Language",
+     "cr": 2,
+     "grade": "B-",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "WRNL200",
+     "title": "Work Ready Now",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    }
+   ],
+   "termSummary": [
+    {
+     "term": "FALL 2024/2025",
+     "attempted": 10,
+     "earned": 10,
+     "sgpa": 3.17
+    },
+    {
+     "term": "SPRING 2024/2025",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.06
+    },
+    {
+     "term": "FALL 2025/2026",
+     "attempted": 18,
+     "earned": 18,
+     "sgpa": 3.13
+    },
+    {
+     "term": "SPRING 2025/2026",
+     "attempted": 19,
+     "earned": 19,
+     "sgpa": 2.81
+    }
+   ],
+   "source": "transcript-import",
+   "advisor": "Julie Bu Daher",
+   "emailGuessed": true,
+   "campusesThisTerm": [
+    "Beirut"
+   ],
+   "campusMixed": false,
+   "demo": true,
+   "demoCase": "Transfer credits, and a D- that must be repeated"
+  },
+  {
+   "email": "zar910@student.bau.edu.lb",
+   "phone": "",
+   "campus": "Beirut",
+   "registration": {
+    "termCode": "202710",
+    "term": "FALL 2026/2027",
+    "courses": [
+     {
+      "crn": "90191",
+      "code": "CMPS343",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "14:00",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "90192",
+      "code": "CMPS442",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "08:00",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
+      "crn": "90193",
+      "code": "CMPS444",
+      "section": "B1",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "10:00",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "10418",
+      "code": "CMPS467",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "FRI",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "FRI",
+        "start": "16:00",
+        "end": "14:01"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "202399109",
+   "name": "Ziad Antoine Rahal",
+   "arabName": "زياد أنطوان رحال",
+   "nationality": "Lebanese",
+   "program": "Science",
+   "admission": "2023/2024",
+   "admissionTerm": "FALL 2023/2024",
+   "catalogYear": 2023,
+   "officialCredits": 84,
+   "officialCgpa": 3.92,
+   "history": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of",
+     "cr": 1,
+     "grade": "A+",
+     "earned": 1,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics",
+     "cr": 1,
+     "grade": "A+",
+     "earned": 1,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "FALL 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS244",
+     "title": "Digital Circuits",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS248",
+     "title": "Discrete Structures I",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "grade": "A-",
+     "earned": 2,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "FREN001",
+     "title": "Langue Francaise",
+     "cr": 2,
+     "grade": "A",
+     "earned": 2,
+     "term": "SPRING 2023/2024",
+     "flag": ""
+    },
+    {
+     "code": "CMPS246",
+     "title": "Web Programming",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH341",
+     "title": "Linear Algebra",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS342",
+     "title": "Database Systems",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS345",
+     "title": "Discrete Structures II",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS347",
+     "title": "Data Structures",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "grade": "A+",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "HIST002",
+     "title": "History of Lebanon",
+     "cr": 2,
+     "grade": "A",
+     "earned": 2,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS344",
+     "title": "Software Engineering",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS346",
+     "title": "Theory of Computation",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS447",
+     "title": "Computer Networks",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH348",
+     "title": "Numerical Methods",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH252",
+     "title": "Mathematical Software",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "SPAN001",
+     "title": "Spanish Language",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS441",
+     "title": "Fundamentals of",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS443",
+     "title": "Senior Project I",
+     "cr": 1,
+     "grade": "A",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS445",
+     "title": "Concepts of",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS455",
+     "title": "Computer Security",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS325",
+     "title": "Computer and Society",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "ITAL001",
+     "title": "Italian Language",
+     "cr": 2,
+     "grade": "A",
+     "earned": 2,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS354",
+     "title": "Applied Machine",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "SUMMER 2024/2025",
+     "flag": ""
+    }
+   ],
+   "termSummary": [
+    {
+     "term": "FALL 2023/2024",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.94
+    },
+    {
+     "term": "SPRING 2023/2024",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.84
+    },
+    {
+     "term": "FALL 2024/2025",
+     "attempted": 18,
+     "earned": 18,
+     "sgpa": 4
+    },
+    {
+     "term": "SPRING 2024/2025",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.88
+    },
+    {
+     "term": "FALL 2025/2026",
+     "attempted": 15,
+     "earned": 15,
+     "sgpa": 3.93
+    },
+    {
+     "term": "SUMMER 2024/2025",
+     "attempted": 3,
+     "earned": 3,
+     "sgpa": 4
+    }
+   ],
+   "source": "transcript-import",
+   "advisor": "Julie Bu Daher",
+   "emailGuessed": true,
+   "campusesThisTerm": [
+    "Beirut"
+   ],
+   "campusMixed": false,
+   "demo": true,
+   "demoCase": "Final semester, Cybersecurity track"
+  },
+  {
+   "email": "set911@student.bau.edu.lb",
+   "phone": "",
+   "campus": "Debbieh",
+   "registration": {
+    "termCode": "202710",
+    "term": "FALL 2026/2027",
+    "courses": [
+     {
+      "crn": "10361",
+      "code": "CMPS246",
+      "section": "D1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "12:01",
+        "end": "14:00"
+       },
+       {
+        "day": "MON",
+        "start": "10:01",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "10449",
+      "code": "MATH341",
+      "section": "D1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "14:01",
+        "end": "15:30"
+       },
+       {
+        "day": "THU",
+        "start": "14:01",
+        "end": "15:30"
+       }
+      ]
+     },
+     {
+      "crn": "10375",
+      "code": "CMPS342",
+      "section": "D1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "MON",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
+      "crn": "10379",
+      "code": "CMPS345",
+      "section": "D1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "12:01",
+        "end": "13:30"
+       },
+       {
+        "day": "THU",
+        "start": "09:31",
+        "end": "11:00"
+       }
+      ]
+     },
+     {
+      "crn": "10386",
+      "code": "CMPS347",
+      "section": "D1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "10:01",
+        "end": "12:00"
+       },
+       {
+        "day": "WED",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "202599110",
+   "name": "Sara Elie Tannous",
+   "arabName": "سارة إيلي طنوس",
+   "nationality": "Lebanese",
+   "program": "Science",
+   "admission": "2025/2026",
+   "admissionTerm": "FALL 2025/2026",
+   "catalogYear": 2025,
+   "officialCredits": 32,
+   "officialCgpa": 3.24,
+   "history": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of",
+     "cr": 1,
+     "grade": "B+",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics",
+     "cr": 1,
+     "grade": "A-",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "B",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS244",
+     "title": "Digital Circuits",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS248",
+     "title": "Discrete Structures I",
+     "cr": 3,
+     "grade": "B+",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "grade": "B",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "FREN001",
+     "title": "Langue Francaise",
+     "cr": 2,
+     "grade": "B+",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    }
+   ],
+   "termSummary": [
+    {
+     "term": "FALL 2025/2026",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.38
+    },
+    {
+     "term": "SPRING 2025/2026",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.1
+    }
+   ],
+   "source": "transcript-import",
+   "advisor": "Julie Bu Daher",
+   "emailGuessed": true,
+   "campusesThisTerm": [
+    "Debbieh"
+   ],
+   "campusMixed": false,
+   "demo": true,
+   "demoCase": "Studies at the Debbieh campus"
+  },
+  {
+   "email": "jkm911@student.bau.edu.lb",
+   "phone": "",
+   "campus": "Beirut",
+   "registration": {
+    "termCode": "202710",
+    "term": "FALL 2026/2027",
+    "courses": [
+     {
+      "crn": "10393",
+      "code": "CMPS441",
+      "section": "B0",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "10:01",
+        "end": "12:00"
+       },
+       {
+        "day": "THU",
+        "start": "12:01",
+        "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10396",
+      "code": "CMPS443",
+      "section": "B1",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "SAT",
+        "start": "08:01",
+        "end": "09:00"
+       }
+      ]
+     },
+     {
+      "crn": "10399",
+      "code": "CMPS445",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "TUE",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "10413",
+      "code": "CMPS455",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
+      "crn": "10609",
+      "code": "WRNL200",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "12:01",
+        "end": "13:30"
+       },
+       {
+        "day": "WED",
+        "start": "12:01",
+        "end": "13:30"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "202499111",
+   "name": "Jana Khaled Moussa",
+   "arabName": "جنى خالد موسى",
+   "nationality": "Lebanese",
+   "program": "Science",
+   "admission": "2024/2025",
+   "admissionTerm": "FALL 2024/2025",
+   "catalogYear": 2024,
+   "officialCredits": 66,
+   "officialCgpa": 3.95,
+   "history": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of",
+     "cr": 1,
+     "grade": "A+",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics",
+     "cr": 1,
+     "grade": "A+",
+     "earned": 1,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "FALL 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS244",
+     "title": "Digital Circuits",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS248",
+     "title": "Discrete Structures I",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "FREN001",
+     "title": "Langue Francaise",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "SPRING 2024/2025",
+     "flag": ""
+    },
+    {
+     "code": "CMPS246",
+     "title": "Web Programming",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH341",
+     "title": "Linear Algebra",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS342",
+     "title": "Database Systems",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS345",
+     "title": "Discrete Structures II",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS347",
+     "title": "Data Structures",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "grade": "A",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "HIST002",
+     "title": "History of Lebanon",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS344",
+     "title": "Software Engineering",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS346",
+     "title": "Theory of Computation",
+     "cr": 3,
+     "grade": "A",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS447",
+     "title": "Computer Networks",
+     "cr": 3,
+     "grade": "A-",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH348",
+     "title": "Numerical Methods",
+     "cr": 3,
+     "grade": "A+",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH252",
+     "title": "Mathematical Software",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "SPAN001",
+     "title": "Spanish Language",
+     "cr": 2,
+     "grade": "A+",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    }
+   ],
+   "termSummary": [
+    {
+     "term": "FALL 2024/2025",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.94
+    },
+    {
+     "term": "SPRING 2024/2025",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.94
+    },
+    {
+     "term": "FALL 2025/2026",
+     "attempted": 18,
+     "earned": 18,
+     "sgpa": 4
+    },
+    {
+     "term": "SPRING 2025/2026",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 3.94
+    }
+   ],
+   "source": "transcript-import",
+   "advisor": "Julie Bu Daher",
+   "emailGuessed": true,
+   "campusesThisTerm": [
+    "Beirut"
+   ],
+   "campusMixed": false,
+   "demo": true,
+   "demoCase": "Good standing, WRNL200 still missing"
+  },
+  {
+   "email": "ahh911@student.bau.edu.lb",
+   "phone": "",
+   "campus": "Beirut",
+   "registration": {
+    "termCode": "202710",
+    "term": "FALL 2026/2027",
+    "courses": [
+     {
+      "crn": "90221",
+      "code": "MATH242",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "10:00",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "10357",
+      "code": "CMPS246",
+      "section": "B0",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "FRI",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
+      "crn": "10446",
+      "code": "MATH341",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "FRI",
+        "start": "13:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "10369",
+      "code": "CMPS342",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "12:01",
+        "end": "14:00"
+       },
+       {
+        "day": "THU",
+        "start": "10:01",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "10377",
+      "code": "CMPS345",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:31",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "10:01",
+        "end": "11:30"
+       }
+      ]
+     },
+     {
+      "crn": "10380",
+      "code": "CMPS347",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "08:01",
+        "end": "10:00"
+       },
+       {
+        "day": "THU",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "202599112",
+   "name": "Ali Hussein Hamdan",
+   "arabName": "علي حسين حمدان",
+   "nationality": "Lebanese",
+   "program": "Science",
+   "admission": "2025/2026",
+   "admissionTerm": "FALL 2025/2026",
+   "catalogYear": 2025,
+   "officialCredits": 29,
+   "officialCgpa": 2.26,
+   "history": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of",
+     "cr": 3,
+     "grade": "C+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of",
+     "cr": 1,
+     "grade": "C+",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "grade": "B-",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics",
+     "cr": 1,
+     "grade": "B-",
+     "earned": 1,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and",
+     "cr": 3,
+     "grade": "C+",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to",
+     "cr": 3,
+     "grade": "C",
+     "earned": 3,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "grade": "C+",
+     "earned": 2,
+     "term": "FALL 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and",
+     "cr": 3,
+     "grade": "W",
+     "earned": 0,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS242",
+     "title": "Object Oriented",
+     "cr": 3,
+     "grade": "C",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS244",
+     "title": "Digital Circuits",
+     "cr": 3,
+     "grade": "C+",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "CMPS248",
+     "title": "Discrete Structures I",
+     "cr": 3,
+     "grade": "C+",
+     "earned": 3,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "grade": "C-",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    },
+    {
+     "code": "FREN001",
+     "title": "Langue Francaise",
+     "cr": 2,
+     "grade": "C+",
+     "earned": 2,
+     "term": "SPRING 2025/2026",
+     "flag": ""
+    }
+   ],
+   "termSummary": [
+    {
+     "term": "FALL 2025/2026",
+     "attempted": 16,
+     "earned": 16,
+     "sgpa": 2.35
+    },
+    {
+     "term": "SPRING 2025/2026",
+     "attempted": 13,
+     "earned": 13,
+     "sgpa": 2.15
+    }
+   ],
+   "source": "transcript-import",
+   "advisor": "Julie Bu Daher",
+   "emailGuessed": true,
+   "campusesThisTerm": [
+    "Beirut"
+   ],
+   "campusMixed": false,
+   "demo": true,
+   "demoCase": "First-year student who withdrew from a course"
+  }
+ ]
+}

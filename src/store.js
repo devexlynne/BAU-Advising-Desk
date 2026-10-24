@@ -43,6 +43,14 @@
     if (!api && !offlineDemo) {
       throw new Error('Offline storage is disabled. Open the official advising portal to continue.');
     }
+    // Offline demo only: start from the fictional students in demo/students.json.
+    // They live in memory like everything else in the demo and vanish on reload.
+    const demo = !api && offlineDemo && typeof window !== 'undefined' ? window.DEMO_DATA : null;
+    if (demo && demo.advisor && Array.isArray(demo.students) && !demoStorage.size) {
+      const list = {};
+      demo.students.forEach(s => { if (s && s.id && s.demo === true) list[s.id] = s; });
+      lsSet('bau.col.advisors/' + demo.advisor + '/students', list);
+    }
     ready = true;
     return db;
   }
