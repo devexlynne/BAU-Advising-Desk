@@ -202,5 +202,15 @@ function build(spec, seed) {
 // test PDFs) come after the twelve students above
 const out = STUDENTS.map((s, i) => build(s, i + 1))
   .concat(JSON.parse(fs.readFileSync(path.join(__dirname, 'test-cases.json'), 'utf8')));
+
+// every registration is rebuilt the way an advisor would (plan-schedules.js),
+// so no student has clashing, repeated, already-passed or over-limit courses
+const planRegistration = require('./plan-schedules').plan;
+out.forEach((s, i) => {
+  const p = planRegistration(s, i);
+  if (p.errors.length) throw new Error(s.id + ': ' + p.errors.map(e => e.message).join('; '));
+  if (!p.courses.length) throw new Error(s.id + ': no courses could be planned');
+  s.schedule = { termCode: '202710', term: 'FALL 2026/2027', courses: p.courses };
+});
 fs.writeFileSync(path.join(__dirname, 'students-spec.json'), JSON.stringify(out, null, 2));
 out.forEach(s => console.log(s.id, s.name.padEnd(22), 'terms', String(s.termTotals.length).padStart(2), 'credits', String(s.totalCredits).padStart(3), 'CGPA', s.cgpa, 'schedule', s.schedule.courses.map(c => c.code).join(' ')));

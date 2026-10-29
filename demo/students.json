@@ -11,6 +11,60 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
+      "crn": "10380",
+      "code": "CMPS347",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "08:01",
+        "end": "10:00"
+       },
+       {
+        "day": "THU",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "10369",
+      "code": "CMPS342",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "10:01",
+        "end": "12:00"
+       },
+       {
+        "day": "THU",
+        "start": "12:01",
+        "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10377",
+      "code": "CMPS345",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:31",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "10:01",
+        "end": "11:30"
+       }
+      ]
+     },
+     {
       "crn": "10357",
       "code": "CMPS246",
       "section": "B0",
@@ -42,56 +96,15 @@
       ]
      },
      {
-      "crn": "10369",
-      "code": "CMPS342",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "12:01",
-        "end": "14:00"
-       },
-       {
-        "day": "THU",
-        "start": "10:01",
-        "end": "12:00"
-       }
-      ]
-     },
-     {
-      "crn": "10377",
-      "code": "CMPS345",
-      "section": "B1",
-      "cr": 3,
+      "crn": "11782",
+      "code": "BLAW001",
+      "section": "B2",
+      "cr": 1,
       "meetings": [
        {
         "day": "MON",
-        "start": "14:31",
-        "end": "16:00"
-       },
-       {
-        "day": "WED",
-        "start": "10:01",
-        "end": "11:30"
-       }
-      ]
-     },
-     {
-      "crn": "10380",
-      "code": "CMPS347",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "08:01",
-        "end": "10:00"
-       },
-       {
-        "day": "THU",
-        "start": "14:01",
-        "end": "16:00"
+        "start": "13:01",
+        "end": "14:00"
        }
       ]
      }
@@ -349,13 +362,31 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10393",
-      "code": "CMPS441",
-      "section": "B0",
+      "crn": "10414",
+      "code": "CMPS455",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
-        "day": "TUE",
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "10:01",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "10389",
+      "code": "CMPS441",
+      "section": "B2",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
         "start": "10:01",
         "end": "12:00"
        },
@@ -363,6 +394,24 @@
         "day": "THU",
         "start": "12:01",
         "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10400",
+      "code": "CMPS445",
+      "section": "B2",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "THU",
+        "start": "14:01",
+        "end": "16:00"
        }
       ]
      },
@@ -380,38 +429,38 @@
       ]
      },
      {
-      "crn": "10399",
-      "code": "CMPS445",
-      "section": "B1",
+      "crn": "10410",
+      "code": "CMPS453",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
-        "day": "MON",
-        "start": "11:01",
-        "end": "13:00"
+        "day": "TUE",
+        "start": "08:01",
+        "end": "10:00"
        },
        {
-        "day": "TUE",
+        "day": "FRI",
         "start": "14:01",
         "end": "16:00"
        }
       ]
      },
      {
-      "crn": "10413",
-      "code": "CMPS455",
+      "crn": "10417",
+      "code": "CMPS462",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "MON",
-        "start": "14:01",
-        "end": "16:00"
+        "day": "TUE",
+        "start": "12:01",
+        "end": "14:00"
        },
        {
-        "day": "WED",
-        "start": "08:01",
-        "end": "10:00"
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -807,54 +856,51 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "90131",
-      "code": "CMPS343",
+      "crn": "10417",
+      "code": "CMPS462",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
         "day": "TUE",
-        "start": "14:00",
-        "end": "16:00"
+        "start": "12:01",
+        "end": "14:00"
+       },
+       {
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      },
      {
-      "crn": "90132",
-      "code": "CMPS442",
+      "crn": "10418",
+      "code": "CMPS467",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
         "day": "WED",
-        "start": "08:00",
-        "end": "10:00"
-       }
-      ]
-     },
-     {
-      "crn": "90133",
-      "code": "CMPS444",
-      "section": "B1",
-      "cr": 1,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "10:00",
-        "end": "12:00"
-       }
-      ]
-     },
-     {
-      "crn": "90134",
-      "code": "CMPS470",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
+        "start": "14:01",
+        "end": "16:00"
+       },
        {
         "day": "FRI",
-        "start": "12:00",
-        "end": "14:00"
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "11361",
+      "code": "PSYC007",
+      "section": "B1",
+      "cr": 2,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -1316,9 +1362,27 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10393",
+      "crn": "10413",
+      "code": "CMPS455",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
+      "crn": "10391",
       "code": "CMPS441",
-      "section": "B0",
+      "section": "B4",
       "cr": 3,
       "meetings": [
        {
@@ -1328,21 +1392,8 @@
        },
        {
         "day": "THU",
-        "start": "12:01",
-        "end": "14:00"
-       }
-      ]
-     },
-     {
-      "crn": "10396",
-      "code": "CMPS443",
-      "section": "B1",
-      "cr": 1,
-      "meetings": [
-       {
-        "day": "SAT",
         "start": "08:01",
-        "end": "09:00"
+        "end": "10:00"
        }
       ]
      },
@@ -1365,20 +1416,51 @@
       ]
      },
      {
-      "crn": "10413",
-      "code": "CMPS455",
+      "crn": "10396",
+      "code": "CMPS443",
+      "section": "B1",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "SAT",
+        "start": "08:01",
+        "end": "09:00"
+       }
+      ]
+     },
+     {
+      "crn": "10410",
+      "code": "CMPS453",
+      "section": "B2",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "08:01",
+        "end": "10:00"
+       },
+       {
+        "day": "FRI",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "10417",
+      "code": "CMPS462",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "MON",
-        "start": "14:01",
-        "end": "16:00"
+        "day": "TUE",
+        "start": "12:01",
+        "end": "14:00"
        },
        {
-        "day": "WED",
-        "start": "08:01",
-        "end": "10:00"
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -1801,72 +1883,51 @@
       ]
      },
      {
-      "crn": "90151",
-      "code": "CMPS344",
+      "crn": "10417",
+      "code": "CMPS462",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
         "day": "TUE",
-        "start": "14:00",
-        "end": "16:00"
+        "start": "12:01",
+        "end": "14:00"
+       },
+       {
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      },
      {
-      "crn": "90152",
-      "code": "CMPS343",
+      "crn": "10418",
+      "code": "CMPS467",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
         "day": "WED",
-        "start": "08:00",
-        "end": "10:00"
-       }
-      ]
-     },
-     {
-      "crn": "90153",
-      "code": "CMPS442",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "10:00",
-        "end": "12:00"
-       }
-      ]
-     },
-     {
-      "crn": "90154",
-      "code": "CMPS444",
-      "section": "B1",
-      "cr": 1,
-      "meetings": [
-       {
-        "day": "FRI",
-        "start": "12:00",
-        "end": "14:00"
-       }
-      ]
-     },
-     {
-      "crn": "10409",
-      "code": "CMPS453",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "TUE",
-        "start": "16:01",
-        "end": "18:00"
+        "start": "14:01",
+        "end": "16:00"
        },
        {
-        "day": "TUE",
-        "start": "08:01",
-        "end": "10:00"
+        "day": "FRI",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "11361",
+      "code": "PSYC007",
+      "section": "B1",
+      "cr": 2,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -2313,22 +2374,9 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "90161",
-      "code": "MATH242",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "TUE",
-        "start": "10:00",
-        "end": "12:00"
-       }
-      ]
-     },
-     {
-      "crn": "10365",
+      "crn": "10368",
       "code": "CMPS248",
-      "section": "B1",
+      "section": "B4",
       "cr": 3,
       "meetings": [
        {
@@ -2337,9 +2385,9 @@
         "end": "15:00"
        },
        {
-        "day": "TUE",
-        "start": "14:01",
-        "end": "16:00"
+        "day": "FRI",
+        "start": "08:01",
+        "end": "10:00"
        }
       ]
      },
@@ -2362,6 +2410,24 @@
       ]
      },
      {
+      "crn": "10401",
+      "code": "CMPS445",
+      "section": "B3",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "THU",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
       "crn": "10396",
       "code": "CMPS443",
       "section": "B1",
@@ -2375,38 +2441,15 @@
       ]
      },
      {
-      "crn": "10399",
-      "code": "CMPS445",
+      "crn": "11361",
+      "code": "PSYC007",
       "section": "B1",
-      "cr": 3,
+      "cr": 2,
       "meetings": [
-       {
-        "day": "MON",
-        "start": "11:01",
-        "end": "13:00"
-       },
-       {
-        "day": "TUE",
-        "start": "14:01",
-        "end": "16:00"
-       }
-      ]
-     },
-     {
-      "crn": "10413",
-      "code": "CMPS455",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "14:01",
-        "end": "16:00"
-       },
        {
         "day": "WED",
-        "start": "08:01",
-        "end": "10:00"
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -2802,54 +2845,82 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "90171",
-      "code": "CMPS344",
+      "crn": "10409",
+      "code": "CMPS453",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
         "day": "TUE",
-        "start": "14:00",
+        "start": "08:01",
+        "end": "10:00"
+       },
+       {
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
+       }
+      ]
+     },
+     {
+      "crn": "10389",
+      "code": "CMPS441",
+      "section": "B2",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "10:01",
+        "end": "12:00"
+       },
+       {
+        "day": "THU",
+        "start": "12:01",
+        "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10399",
+      "code": "CMPS445",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "TUE",
+        "start": "14:01",
         "end": "16:00"
        }
       ]
      },
      {
-      "crn": "90172",
-      "code": "CMPS346",
+      "crn": "10396",
+      "code": "CMPS443",
       "section": "B1",
-      "cr": 3,
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "SAT",
+        "start": "08:01",
+        "end": "09:00"
+       }
+      ]
+     },
+     {
+      "crn": "11361",
+      "code": "PSYC007",
+      "section": "B1",
+      "cr": 2,
       "meetings": [
        {
         "day": "WED",
-        "start": "08:00",
-        "end": "10:00"
-       }
-      ]
-     },
-     {
-      "crn": "90173",
-      "code": "CMPS447",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "10:00",
-        "end": "12:00"
-       }
-      ]
-     },
-     {
-      "crn": "90174",
-      "code": "MATH348",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "FRI",
-        "start": "12:00",
-        "end": "14:00"
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -3176,13 +3247,36 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10393",
-      "code": "CMPS441",
-      "section": "B0",
+      "crn": "10414",
+      "code": "CMPS455",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
-        "day": "TUE",
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "10:01",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "10390",
+      "code": "CMPS441",
+      "section": "B3",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
+        "start": "10:01",
+        "end": "14:00"
+       },
+       {
+        "day": "THU",
         "start": "10:01",
         "end": "12:00"
        },
@@ -3190,6 +3284,24 @@
         "day": "THU",
         "start": "12:01",
         "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10400",
+      "code": "CMPS445",
+      "section": "B2",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "THU",
+        "start": "14:01",
+        "end": "16:00"
        }
       ]
      },
@@ -3207,38 +3319,38 @@
       ]
      },
      {
-      "crn": "10399",
-      "code": "CMPS445",
-      "section": "B1",
+      "crn": "10410",
+      "code": "CMPS453",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
-        "day": "MON",
-        "start": "11:01",
-        "end": "13:00"
+        "day": "TUE",
+        "start": "08:01",
+        "end": "10:00"
        },
        {
-        "day": "TUE",
+        "day": "FRI",
         "start": "14:01",
         "end": "16:00"
        }
       ]
      },
      {
-      "crn": "10413",
-      "code": "CMPS455",
+      "crn": "10417",
+      "code": "CMPS462",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "MON",
-        "start": "14:01",
-        "end": "16:00"
+        "day": "TUE",
+        "start": "12:01",
+        "end": "14:00"
        },
        {
-        "day": "WED",
-        "start": "08:01",
-        "end": "10:00"
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -3634,41 +3746,20 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "90191",
-      "code": "CMPS343",
+      "crn": "10409",
+      "code": "CMPS453",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
         "day": "TUE",
-        "start": "14:00",
-        "end": "16:00"
-       }
-      ]
-     },
-     {
-      "crn": "90192",
-      "code": "CMPS442",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "WED",
-        "start": "08:00",
+        "start": "08:01",
         "end": "10:00"
-       }
-      ]
-     },
-     {
-      "crn": "90193",
-      "code": "CMPS444",
-      "section": "B1",
-      "cr": 1,
-      "meetings": [
+       },
        {
-        "day": "THU",
-        "start": "10:00",
-        "end": "12:00"
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      },
@@ -3687,11 +3778,19 @@
         "day": "FRI",
         "start": "14:01",
         "end": "16:00"
-       },
+       }
+      ]
+     },
+     {
+      "crn": "11361",
+      "code": "PSYC007",
+      "section": "B1",
+      "cr": 2,
+      "meetings": [
        {
-        "day": "FRI",
-        "start": "16:00",
-        "end": "14:01"
+        "day": "WED",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -4153,56 +4252,38 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10361",
-      "code": "CMPS246",
-      "section": "D1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "12:01",
-        "end": "14:00"
-       },
-       {
-        "day": "MON",
-        "start": "10:01",
-        "end": "12:00"
-       }
-      ]
-     },
-     {
-      "crn": "10449",
-      "code": "MATH341",
-      "section": "D1",
+      "crn": "10387",
+      "code": "CMPS347",
+      "section": "D2",
       "cr": 3,
       "meetings": [
        {
         "day": "TUE",
-        "start": "14:01",
-        "end": "15:30"
+        "start": "10:01",
+        "end": "12:00"
        },
        {
-        "day": "THU",
-        "start": "14:01",
-        "end": "15:30"
+        "day": "WED",
+        "start": "08:01",
+        "end": "10:00"
        }
       ]
      },
      {
-      "crn": "10375",
+      "crn": "10376",
       "code": "CMPS342",
-      "section": "D1",
+      "section": "D2",
       "cr": 3,
       "meetings": [
        {
         "day": "MON",
-        "start": "14:01",
-        "end": "16:00"
-       },
-       {
-        "day": "MON",
         "start": "08:01",
         "end": "10:00"
+       },
+       {
+        "day": "WED",
+        "start": "10:00",
+        "end": "10:01"
        }
       ]
      },
@@ -4225,20 +4306,38 @@
       ]
      },
      {
-      "crn": "10386",
-      "code": "CMPS347",
+      "crn": "10361",
+      "code": "CMPS246",
+      "section": "D1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "10:01",
+        "end": "12:00"
+       },
+       {
+        "day": "MON",
+        "start": "12:01",
+        "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10449",
+      "code": "MATH341",
       "section": "D1",
       "cr": 3,
       "meetings": [
        {
         "day": "TUE",
-        "start": "10:01",
-        "end": "12:00"
+        "start": "14:01",
+        "end": "15:30"
        },
        {
-        "day": "WED",
-        "start": "08:01",
-        "end": "10:00"
+        "day": "THU",
+        "start": "14:01",
+        "end": "15:30"
        }
       ]
      }
@@ -4496,6 +4595,24 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
+      "crn": "10414",
+      "code": "CMPS455",
+      "section": "B2",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "10:01",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
       "crn": "10393",
       "code": "CMPS441",
       "section": "B0",
@@ -4514,6 +4631,24 @@
       ]
      },
      {
+      "crn": "10400",
+      "code": "CMPS445",
+      "section": "B2",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "THU",
+        "start": "14:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
       "crn": "10396",
       "code": "CMPS443",
       "section": "B1",
@@ -4527,56 +4662,38 @@
       ]
      },
      {
-      "crn": "10399",
-      "code": "CMPS445",
+      "crn": "10409",
+      "code": "CMPS453",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "MON",
-        "start": "11:01",
-        "end": "13:00"
+        "day": "TUE",
+        "start": "08:01",
+        "end": "10:00"
        },
        {
         "day": "TUE",
-        "start": "14:01",
-        "end": "16:00"
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      },
      {
-      "crn": "10413",
-      "code": "CMPS455",
+      "crn": "10418",
+      "code": "CMPS467",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "MON",
+        "day": "WED",
         "start": "14:01",
         "end": "16:00"
        },
        {
-        "day": "WED",
-        "start": "08:01",
-        "end": "10:00"
-       }
-      ]
-     },
-     {
-      "crn": "10609",
-      "code": "WRNL200",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "12:01",
-        "end": "13:30"
-       },
-       {
-        "day": "WED",
-        "start": "12:01",
-        "end": "13:30"
+        "day": "FRI",
+        "start": "14:01",
+        "end": "16:00"
        }
       ]
      }
@@ -4963,46 +5080,20 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "90221",
-      "code": "MATH242",
-      "section": "B1",
+      "crn": "10384",
+      "code": "CMPS347",
+      "section": "B5",
       "cr": 3,
       "meetings": [
        {
         "day": "TUE",
-        "start": "10:00",
-        "end": "12:00"
-       }
-      ]
-     },
-     {
-      "crn": "10357",
-      "code": "CMPS246",
-      "section": "B0",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "11:01",
-        "end": "13:00"
+        "start": "12:01",
+        "end": "14:00"
        },
        {
-        "day": "FRI",
+        "day": "WED",
         "start": "08:01",
         "end": "10:00"
-       }
-      ]
-     },
-     {
-      "crn": "10446",
-      "code": "MATH341",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "FRI",
-        "start": "13:01",
-        "end": "16:00"
        }
       ]
      },
@@ -5014,49 +5105,80 @@
       "meetings": [
        {
         "day": "THU",
-        "start": "12:01",
-        "end": "14:00"
+        "start": "10:01",
+        "end": "12:00"
        },
        {
         "day": "THU",
-        "start": "10:01",
-        "end": "12:00"
+        "start": "12:01",
+        "end": "14:00"
        }
       ]
      },
      {
-      "crn": "10377",
+      "crn": "10378",
       "code": "CMPS345",
-      "section": "B1",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
         "day": "MON",
-        "start": "14:31",
-        "end": "16:00"
+        "start": "13:01",
+        "end": "14:30"
        },
        {
         "day": "WED",
-        "start": "10:01",
-        "end": "11:30"
+        "start": "14:01",
+        "end": "15:30"
        }
       ]
      },
      {
-      "crn": "10380",
-      "code": "CMPS347",
-      "section": "B1",
+      "crn": "10353",
+      "code": "CMPS246",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
-        "day": "THU",
+        "day": "TUE",
         "start": "08:01",
         "end": "10:00"
        },
        {
-        "day": "THU",
-        "start": "14:01",
-        "end": "16:00"
+        "day": "TUE",
+        "start": "17:01",
+        "end": "19:00"
+       }
+      ]
+     },
+     {
+      "crn": "10448",
+      "code": "MATH341",
+      "section": "B3",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "16:01",
+        "end": "18:00"
+       },
+       {
+        "day": "TUE",
+        "start": "16:01",
+        "end": "17:00"
+       }
+      ]
+     },
+     {
+      "crn": "11784",
+      "code": "BLAW001",
+      "section": "B4",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "12:01",
+        "end": "13:00"
        }
       ]
      }
@@ -5314,11 +5436,16 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10389",
+      "crn": "10390",
       "code": "CMPS441",
-      "section": "B2",
+      "section": "B3",
       "cr": 3,
       "meetings": [
+       {
+        "day": "THU",
+        "start": "10:01",
+        "end": "14:00"
+       },
        {
         "day": "THU",
         "start": "10:01",
@@ -5332,16 +5459,9 @@
       ]
      },
      {
-      "crn": "10398",
-      "code": "CMPS444",
-      "section": "B1",
-      "cr": 1,
-      "meetings": []
-     },
-     {
-      "crn": "10410",
+      "crn": "10409",
       "code": "CMPS453",
-      "section": "B2",
+      "section": "B1",
       "cr": 3,
       "meetings": [
        {
@@ -5350,40 +5470,27 @@
         "end": "10:00"
        },
        {
-        "day": "FRI",
-        "start": "14:01",
-        "end": "16:00"
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      },
      {
-      "crn": "10478",
-      "code": "PHYS350",
+      "crn": "10298",
+      "code": "BIOL443",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
         "day": "MON",
         "start": "10:01",
-        "end": "11:00"
+        "end": "12:00"
        },
        {
-        "day": "WED",
-        "start": "10:01",
-        "end": "12:00"
-       }
-      ]
-     },
-     {
-      "crn": "11424",
-      "code": "NURS001",
-      "section": "2",
-      "cr": 2,
-      "meetings": [
-       {
-        "day": "WED",
-        "start": "12:01",
-        "end": "14:00"
+        "day": "FRI",
+        "start": "14:01",
+        "end": "16:00"
        }
       ]
      }
@@ -5977,9 +6084,27 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10392",
+      "crn": "10414",
+      "code": "CMPS455",
+      "section": "B2",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "10:01",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "10391",
       "code": "CMPS441",
-      "section": "B5",
+      "section": "B4",
       "cr": 3,
       "meetings": [
        {
@@ -5989,22 +6114,15 @@
        },
        {
         "day": "THU",
-        "start": "12:01",
-        "end": "14:00"
+        "start": "08:01",
+        "end": "10:00"
        }
       ]
      },
      {
-      "crn": "10396",
-      "code": "CMPS443",
-      "section": "B1",
-      "cr": 1,
-      "meetings": []
-     },
-     {
-      "crn": "10399",
+      "crn": "10400",
       "code": "CMPS445",
-      "section": "B1",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
@@ -6013,40 +6131,35 @@
         "end": "13:00"
        },
        {
-        "day": "TUE",
+        "day": "THU",
         "start": "14:01",
         "end": "16:00"
        }
       ]
      },
      {
-      "crn": "10413",
-      "code": "CMPS455",
+      "crn": "10396",
+      "code": "CMPS443",
       "section": "B1",
-      "cr": 3,
+      "cr": 1,
       "meetings": [
        {
-        "day": "MON",
-        "start": "14:01",
-        "end": "16:00"
-       },
-       {
-        "day": "WED",
+        "day": "SAT",
         "start": "08:01",
-        "end": "10:00"
+        "end": "09:00"
        }
       ]
      },
      {
-      "crn": "10419",
-      "code": "CMPS467",
+      "crn": "10410",
+      "code": "CMPS453",
       "section": "B2",
       "cr": 3,
       "meetings": [
        {
-        "day": "WED",
-        "start": "14:01",
-        "end": "16:00"
+        "day": "TUE",
+        "start": "08:01",
+        "end": "10:00"
        },
        {
         "day": "FRI",
@@ -6056,22 +6169,9 @@
       ]
      },
      {
-      "crn": "10492",
-      "code": "PHYS243L",
-      "section": "D6",
-      "cr": 1,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "08:01",
-        "end": "11:00"
-       }
-      ]
-     },
-     {
-      "crn": "12083",
-      "code": "MATH352",
-      "section": "D2",
+      "crn": "10417",
+      "code": "CMPS462",
+      "section": "B1",
       "cr": 3,
       "meetings": [
        {
@@ -6080,9 +6180,9 @@
         "end": "14:00"
        },
        {
-        "day": "WED",
-        "start": "11:01",
-        "end": "12:00"
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -6547,10 +6647,9 @@
    "advisor": "Julie Bu Daher",
    "emailGuessed": true,
    "campusesThisTerm": [
-    "Beirut",
-    "Debbieh"
+    "Beirut"
    ],
-   "campusMixed": true,
+   "campusMixed": false,
    "demo": true,
    "demoCase": "test case: failed courses, retakes, withdrawals"
   },
@@ -6562,73 +6661,6 @@
     "termCode": "202710",
     "term": "FALL 2026/2027",
     "courses": [
-     {
-      "crn": "10504",
-      "code": "BACC201",
-      "section": "B4",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "TUE",
-        "start": "08:01",
-        "end": "09:30"
-       },
-       {
-        "day": "THU",
-        "start": "08:01",
-        "end": "09:30"
-       }
-      ]
-     },
-     {
-      "crn": "10521",
-      "code": "BECO201",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "14:01",
-        "end": "15:30"
-       },
-       {
-        "day": "TUE",
-        "start": "14:01",
-        "end": "15:30"
-       }
-      ]
-     },
-     {
-      "crn": "10587",
-      "code": "BMTH201",
-      "section": "B4",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "09:31",
-        "end": "11:00"
-       },
-       {
-        "day": "WED",
-        "start": "09:31",
-        "end": "11:00"
-       }
-      ]
-     },
-     {
-      "crn": "10598",
-      "code": "BUSN203",
-      "section": "B4",
-      "cr": 2,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "10:01",
-        "end": "12:00"
-       }
-      ]
-     },
      {
       "crn": "11307",
       "code": "INTE002A",
@@ -6644,6 +6676,58 @@
         "day": "FRI",
         "start": "12:01",
         "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10339",
+      "code": "CMPS241",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "10:01",
+        "end": "12:00"
+       }
+      ]
+     },
+     {
+      "crn": "10444",
+      "code": "MATH241",
+      "section": "B3",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "12:01",
+        "end": "15:00"
+       }
+      ]
+     },
+     {
+      "crn": "11175",
+      "code": "ARAB001",
+      "section": "B1",
+      "cr": 2,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "12:01",
+        "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "11192",
+      "code": "ARAB004",
+      "section": "B1",
+      "cr": 2,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -6874,9 +6958,27 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10392",
+      "crn": "10413",
+      "code": "CMPS455",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
+      "crn": "10393",
       "code": "CMPS441",
-      "section": "B5",
+      "section": "B0",
       "cr": 3,
       "meetings": [
        {
@@ -6890,13 +6992,6 @@
         "end": "14:00"
        }
       ]
-     },
-     {
-      "crn": "10396",
-      "code": "CMPS443",
-      "section": "B1",
-      "cr": 1,
-      "meetings": []
      },
      {
       "crn": "10399",
@@ -6913,6 +7008,19 @@
         "day": "TUE",
         "start": "14:01",
         "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "10396",
+      "code": "CMPS443",
+      "section": "B1",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "SAT",
+        "start": "08:01",
+        "end": "09:00"
        }
       ]
      },
@@ -6935,40 +7043,9 @@
       ]
      },
      {
-      "crn": "10413",
-      "code": "CMPS455",
+      "crn": "10417",
+      "code": "CMPS462",
       "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "14:01",
-        "end": "16:00"
-       },
-       {
-        "day": "WED",
-        "start": "08:01",
-        "end": "10:00"
-       }
-      ]
-     },
-     {
-      "crn": "11390",
-      "code": "SOCI001",
-      "section": "B1",
-      "cr": 2,
-      "meetings": [
-       {
-        "day": "WED",
-        "start": "12:01",
-        "end": "14:00"
-       }
-      ]
-     },
-     {
-      "crn": "12083",
-      "code": "MATH352",
-      "section": "D2",
       "cr": 3,
       "meetings": [
        {
@@ -6977,9 +7054,9 @@
         "end": "14:00"
        },
        {
-        "day": "WED",
-        "start": "11:01",
-        "end": "12:00"
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -7366,10 +7443,9 @@
    "advisor": "Julie Bu Daher",
    "emailGuessed": true,
    "campusesThisTerm": [
-    "Beirut",
-    "Debbieh"
+    "Beirut"
    ],
-   "campusMixed": true,
+   "campusMixed": false,
    "demo": true,
    "demoCase": "test case: withdrawals"
   },
@@ -7382,38 +7458,38 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10352",
-      "code": "CMPS246",
+      "crn": "10380",
+      "code": "CMPS347",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "TUE",
+        "day": "THU",
         "start": "08:01",
         "end": "10:00"
        },
        {
-        "day": "TUE",
-        "start": "10:01",
-        "end": "12:00"
+        "day": "THU",
+        "start": "14:01",
+        "end": "16:00"
        }
       ]
      },
      {
-      "crn": "10373",
+      "crn": "10369",
       "code": "CMPS342",
-      "section": "B5",
+      "section": "B1",
       "cr": 3,
       "meetings": [
-       {
-        "day": "TUE",
-        "start": "14:01",
-        "end": "16:00"
-       },
        {
         "day": "THU",
         "start": "10:01",
         "end": "12:00"
+       },
+       {
+        "day": "THU",
+        "start": "12:01",
+        "end": "14:00"
        }
       ]
      },
@@ -7436,27 +7512,27 @@
       ]
      },
      {
-      "crn": "10383",
-      "code": "CMPS347",
-      "section": "B4",
+      "crn": "10359",
+      "code": "CMPS246",
+      "section": "B8",
       "cr": 3,
       "meetings": [
        {
-        "day": "TUE",
-        "start": "12:01",
-        "end": "14:00"
+        "day": "MON",
+        "start": "09:01",
+        "end": "11:00"
        },
        {
-        "day": "WED",
-        "start": "08:01",
-        "end": "10:00"
+        "day": "TUE",
+        "start": "17:01",
+        "end": "19:00"
        }
       ]
      },
      {
-      "crn": "10448",
+      "crn": "10447",
       "code": "MATH341",
-      "section": "B3",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
@@ -7472,13 +7548,13 @@
       ]
      },
      {
-      "crn": "11179",
+      "crn": "11178",
       "code": "ARAB001",
-      "section": "B5",
+      "section": "B4",
       "cr": 2,
       "meetings": [
        {
-        "day": "MON",
+        "day": "WED",
         "start": "12:01",
         "end": "14:00"
        }
@@ -7747,88 +7823,9 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10357",
-      "code": "CMPS246",
-      "section": "B6",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "11:01",
-        "end": "13:00"
-       },
-       {
-        "day": "FRI",
-        "start": "08:01",
-        "end": "10:00"
-       }
-      ]
-     },
-     {
-      "crn": "10396",
-      "code": "CMPS443",
-      "section": "B1",
-      "cr": 1,
-      "meetings": []
-     },
-     {
-      "crn": "10369",
-      "code": "CMPS342",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "10:01",
-        "end": "12:00"
-       },
-       {
-        "day": "THU",
-        "start": "12:01",
-        "end": "14:00"
-       }
-      ]
-     },
-     {
-      "crn": "10391",
-      "code": "CMPS441",
-      "section": "B4",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "TUE",
-        "start": "10:01",
-        "end": "12:00"
-       },
-       {
-        "day": "THU",
-        "start": "08:01",
-        "end": "10:00"
-       }
-      ]
-     },
-     {
-      "crn": "10409",
-      "code": "CMPS453",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "TUE",
-        "start": "08:01",
-        "end": "10:00"
-       },
-       {
-        "day": "TUE",
-        "start": "16:01",
-        "end": "18:00"
-       }
-      ]
-     },
-     {
-      "crn": "10413",
+      "crn": "10415",
       "code": "CMPS455",
-      "section": "B1",
+      "section": "B3",
       "cr": 3,
       "meetings": [
        {
@@ -7837,29 +7834,70 @@
         "end": "16:00"
        },
        {
-        "day": "WED",
-        "start": "08:01",
-        "end": "10:00"
+        "day": "MON",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      },
      {
-      "crn": "10446",
-      "code": "MATH341",
-      "section": "B1",
+      "crn": "10390",
+      "code": "CMPS441",
+      "section": "B3",
       "cr": 3,
       "meetings": [
        {
+        "day": "THU",
+        "start": "10:01",
+        "end": "14:00"
+       },
+       {
+        "day": "THU",
+        "start": "10:01",
+        "end": "12:00"
+       },
+       {
+        "day": "THU",
+        "start": "12:01",
+        "end": "14:00"
+       }
+      ]
+     },
+     {
+      "crn": "10396",
+      "code": "CMPS443",
+      "section": "B1",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "SAT",
+        "start": "08:01",
+        "end": "09:00"
+       }
+      ]
+     },
+     {
+      "crn": "10410",
+      "code": "CMPS453",
+      "section": "B2",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "08:01",
+        "end": "10:00"
+       },
+       {
         "day": "FRI",
-        "start": "13:01",
+        "start": "14:01",
         "end": "16:00"
        }
       ]
      },
      {
-      "crn": "12083",
-      "code": "MATH352",
-      "section": "D2",
+      "crn": "10417",
+      "code": "CMPS462",
+      "section": "B1",
       "cr": 3,
       "meetings": [
        {
@@ -7868,9 +7906,9 @@
         "end": "14:00"
        },
        {
-        "day": "WED",
-        "start": "11:01",
-        "end": "12:00"
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -8347,10 +8385,9 @@
    "advisor": "Julie Bu Daher",
    "emailGuessed": true,
    "campusesThisTerm": [
-    "Beirut",
-    "Debbieh"
+    "Beirut"
    ],
-   "campusMixed": true,
+   "campusMixed": false,
    "demo": true,
    "demoCase": "test case: retakes, close to graduation"
   },
@@ -8363,29 +8400,40 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10389",
-      "code": "CMPS441",
-      "section": "B2",
+      "crn": "10413",
+      "code": "CMPS455",
+      "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "THU",
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "WED",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
+      "crn": "10391",
+      "code": "CMPS441",
+      "section": "B4",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
         "start": "10:01",
         "end": "12:00"
        },
        {
         "day": "THU",
-        "start": "12:01",
-        "end": "14:00"
+        "start": "08:01",
+        "end": "10:00"
        }
       ]
-     },
-     {
-      "crn": "10396",
-      "code": "CMPS443",
-      "section": "B1",
-      "cr": 1,
-      "meetings": []
      },
      {
       "crn": "10399",
@@ -8406,20 +8454,33 @@
       ]
      },
      {
-      "crn": "10414",
-      "code": "CMPS455",
-      "section": "B2",
+      "crn": "10396",
+      "code": "CMPS443",
+      "section": "B1",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "SAT",
+        "start": "08:01",
+        "end": "09:00"
+       }
+      ]
+     },
+     {
+      "crn": "10409",
+      "code": "CMPS453",
+      "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "MON",
-        "start": "14:01",
-        "end": "16:00"
+        "day": "TUE",
+        "start": "08:01",
+        "end": "10:00"
        },
        {
-        "day": "WED",
-        "start": "10:01",
-        "end": "12:00"
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      },
@@ -8438,19 +8499,6 @@
         "day": "FRI",
         "start": "14:01",
         "end": "16:00"
-       }
-      ]
-     },
-     {
-      "crn": "11177",
-      "code": "ARAB001",
-      "section": "B3",
-      "cr": 2,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "16:01",
-        "end": "18:00"
        }
       ]
      }
@@ -8855,79 +8903,17 @@
   {
    "email": "rwa930@student.bau.edu.lb",
    "phone": "",
-   "campus": "Debbieh",
+   "campus": "Beirut",
    "registration": {
     "termCode": "202710",
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10327",
-      "code": "CHEM241L",
-      "section": "D1",
-      "cr": 1,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "08:01",
-        "end": "11:00"
-       }
-      ]
-     },
-     {
-      "crn": "10493",
-      "code": "PHYS243L",
-      "section": "D7",
-      "cr": 1,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "11:01",
-        "end": "14:00"
-       }
-      ]
-     },
-     {
-      "crn": "11318",
-      "code": "INTE002B",
-      "section": "B3",
-      "cr": 0,
-      "meetings": [
-       {
-        "day": "WED",
-        "start": "16:01",
-        "end": "18:30"
-       },
-       {
-        "day": "FRI",
-        "start": "16:01",
-        "end": "18:30"
-       }
-      ]
-     },
-     {
-      "crn": "10316",
-      "code": "CHEM241",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "15:01",
-        "end": "18:00"
-       }
-      ]
-     },
-     {
-      "crn": "10342",
+      "crn": "12321",
       "code": "CMPS241",
-      "section": "B4",
+      "section": "B7",
       "cr": 3,
       "meetings": [
-       {
-        "day": "MON",
-        "start": "11:01",
-        "end": "13:00"
-       },
        {
         "day": "TUE",
         "start": "12:01",
@@ -8954,15 +8940,46 @@
       ]
      },
      {
-      "crn": "11784",
+      "crn": "10447",
+      "code": "MATH341",
+      "section": "B2",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "16:01",
+        "end": "18:00"
+       },
+       {
+        "day": "TUE",
+        "start": "16:01",
+        "end": "17:00"
+       }
+      ]
+     },
+     {
+      "crn": "11787",
       "code": "BLAW001",
-      "section": "B4",
+      "section": "B7",
       "cr": 1,
       "meetings": [
        {
         "day": "WED",
-        "start": "12:01",
-        "end": "13:00"
+        "start": "17:01",
+        "end": "18:00"
+       }
+      ]
+     },
+     {
+      "crn": "11243",
+      "code": "ENGL001",
+      "section": "B3",
+      "cr": 2,
+      "meetings": [
+       {
+        "day": "FRI",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -9160,10 +9177,9 @@
    "advisor": "Julie Bu Daher",
    "emailGuessed": true,
    "campusesThisTerm": [
-    "Debbieh",
     "Beirut"
    ],
-   "campusMixed": true,
+   "campusMixed": false,
    "demo": true,
    "demoCase": "test case: failed courses, CGPA below 2, intensive English"
   },
@@ -9176,13 +9192,13 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10390",
+      "crn": "10393",
       "code": "CMPS441",
-      "section": "B3",
+      "section": "B0",
       "cr": 3,
       "meetings": [
        {
-        "day": "THU",
+        "day": "TUE",
         "start": "10:01",
         "end": "12:00"
        },
@@ -9194,9 +9210,27 @@
       ]
      },
      {
-      "crn": "10419",
+      "crn": "10409",
+      "code": "CMPS453",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "08:01",
+        "end": "10:00"
+       },
+       {
+        "day": "TUE",
+        "start": "16:01",
+        "end": "18:00"
+       }
+      ]
+     },
+     {
+      "crn": "10418",
       "code": "CMPS467",
-      "section": "B2",
+      "section": "B1",
       "cr": 3,
       "meetings": [
        {
@@ -9212,46 +9246,28 @@
       ]
      },
      {
-      "crn": "10478",
-      "code": "PHYS350",
-      "section": "B1",
-      "cr": 3,
+      "crn": "11244",
+      "code": "ENGL001",
+      "section": "B4",
+      "cr": 2,
       "meetings": [
        {
         "day": "MON",
-        "start": "10:01",
-        "end": "11:00"
-       },
-       {
-        "day": "WED",
-        "start": "10:01",
-        "end": "12:00"
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      },
      {
-      "crn": "11246",
-      "code": "ENGL001",
-      "section": "B6",
+      "crn": "11192",
+      "code": "ARAB004",
+      "section": "B1",
       "cr": 2,
       "meetings": [
        {
         "day": "WED",
-        "start": "12:01",
-        "end": "14:00"
-       }
-      ]
-     },
-     {
-      "crn": "11798",
-      "code": "BLAW006",
-      "section": "B1",
-      "cr": 1,
-      "meetings": [
-       {
-        "day": "WED",
         "start": "16:01",
-        "end": "17:00"
+        "end": "18:00"
        }
       ]
      }
@@ -9749,38 +9765,38 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10355",
-      "code": "CMPS246",
-      "section": "B4",
+      "crn": "10382",
+      "code": "CMPS347",
+      "section": "B3",
       "cr": 3,
       "meetings": [
        {
-        "day": "MON",
-        "start": "11:01",
-        "end": "13:00"
+        "day": "WED",
+        "start": "08:01",
+        "end": "10:00"
        },
        {
-        "day": "TUE",
+        "day": "THU",
         "start": "08:01",
         "end": "10:00"
        }
       ]
      },
      {
-      "crn": "10373",
+      "crn": "10370",
       "code": "CMPS342",
-      "section": "B5",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
-        "day": "TUE",
+        "day": "WED",
         "start": "14:01",
         "end": "16:00"
        },
        {
         "day": "THU",
-        "start": "10:01",
-        "end": "12:00"
+        "start": "12:01",
+        "end": "14:00"
        }
       ]
      },
@@ -9803,49 +9819,44 @@
       ]
      },
      {
-      "crn": "10383",
-      "code": "CMPS347",
-      "section": "B4",
+      "crn": "10354",
+      "code": "CMPS246",
+      "section": "B3",
       "cr": 3,
       "meetings": [
        {
         "day": "TUE",
-        "start": "12:01",
-        "end": "14:00"
-       },
-       {
-        "day": "WED",
         "start": "08:01",
         "end": "10:00"
-       }
-      ]
-     },
-     {
-      "crn": "10447",
-      "code": "MATH341",
-      "section": "B2",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "16:01",
-        "end": "18:00"
        },
        {
         "day": "TUE",
-        "start": "16:01",
-        "end": "17:00"
+        "start": "17:01",
+        "end": "19:00"
        }
       ]
      },
      {
-      "crn": "11180",
+      "crn": "10446",
+      "code": "MATH341",
+      "section": "B1",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "FRI",
+        "start": "13:01",
+        "end": "16:00"
+       }
+      ]
+     },
+     {
+      "crn": "11182",
       "code": "ARAB001",
-      "section": "B6",
+      "section": "B8",
       "cr": 2,
       "meetings": [
        {
-        "day": "WED",
+        "day": "MON",
         "start": "12:01",
         "end": "14:00"
        }
@@ -10105,15 +10116,15 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10351",
+      "crn": "10349",
       "code": "CMPS242",
-      "section": "B4",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
-        "day": "TUE",
-        "start": "12:01",
-        "end": "14:00"
+        "day": "WED",
+        "start": "10:01",
+        "end": "12:00"
        },
        {
         "day": "THU",
@@ -10123,45 +10134,27 @@
       ]
      },
      {
-      "crn": "10356",
-      "code": "CMPS246",
-      "section": "B5",
+      "crn": "10443",
+      "code": "MATH241",
+      "section": "B2",
       "cr": 3,
       "meetings": [
-       {
-        "day": "MON",
-        "start": "11:01",
-        "end": "13:00"
-       },
        {
         "day": "TUE",
         "start": "08:01",
-        "end": "10:00"
-       }
-      ]
-     },
-     {
-      "crn": "10437",
-      "code": "MATH112",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "WED",
-        "start": "17:31",
-        "end": "19:00"
+        "end": "09:30"
        },
        {
-        "day": "FRI",
-        "start": "17:31",
-        "end": "19:00"
+        "day": "WED",
+        "start": "14:01",
+        "end": "15:30"
        }
       ]
      },
      {
-      "crn": "10474",
-      "code": "PHYS243",
-      "section": "B2",
+      "crn": "10368",
+      "code": "CMPS248",
+      "section": "B4",
       "cr": 3,
       "meetings": [
        {
@@ -10170,9 +10163,35 @@
         "end": "15:00"
        },
        {
+        "day": "FRI",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
+      "crn": "12343",
+      "code": "ARAB001",
+      "section": "10",
+      "cr": 2,
+      "meetings": [
+       {
         "day": "WED",
-        "start": "14:01",
-        "end": "15:00"
+        "start": "16:01",
+        "end": "18:00"
+       }
+      ]
+     },
+     {
+      "crn": "11193",
+      "code": "ARAB005",
+      "section": "B1",
+      "cr": 2,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -10255,46 +10274,33 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10474",
-      "code": "PHYS243",
-      "section": "B2",
+      "crn": "10444",
+      "code": "MATH241",
+      "section": "B3",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "12:01",
+        "end": "15:00"
+       }
+      ]
+     },
+     {
+      "crn": "10401",
+      "code": "CMPS445",
+      "section": "B3",
       "cr": 3,
       "meetings": [
        {
         "day": "MON",
-        "start": "13:01",
-        "end": "15:00"
+        "start": "11:01",
+        "end": "13:00"
        },
        {
-        "day": "WED",
+        "day": "THU",
         "start": "14:01",
-        "end": "15:00"
-       }
-      ]
-     },
-     {
-      "crn": "10493",
-      "code": "PHYS243L",
-      "section": "D7",
-      "cr": 1,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "11:01",
-        "end": "14:00"
-       }
-      ]
-     },
-     {
-      "crn": "10327",
-      "code": "CHEM241L",
-      "section": "D1",
-      "cr": 1,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "08:01",
-        "end": "11:00"
+        "end": "16:00"
        }
       ]
      },
@@ -10312,27 +10318,9 @@
       ]
      },
      {
-      "crn": "10399",
-      "code": "CMPS445",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "11:01",
-        "end": "13:00"
-       },
-       {
-        "day": "TUE",
-        "start": "14:01",
-        "end": "16:00"
-       }
-      ]
-     },
-     {
-      "crn": "10409",
+      "crn": "10410",
       "code": "CMPS453",
-      "section": "B1",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
@@ -10341,27 +10329,9 @@
         "end": "10:00"
        },
        {
-        "day": "TUE",
-        "start": "16:01",
-        "end": "18:00"
-       }
-      ]
-     },
-     {
-      "crn": "10442",
-      "code": "MATH241",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "08:01",
-        "end": "09:30"
-       },
-       {
-        "day": "WED",
-        "start": "08:01",
-        "end": "09:30"
+        "day": "FRI",
+        "start": "14:01",
+        "end": "16:00"
        }
       ]
      }
@@ -10976,10 +10946,9 @@
    "advisor": "Julie Bu Daher",
    "emailGuessed": true,
    "campusesThisTerm": [
-    "Beirut",
-    "Debbieh"
+    "Beirut"
    ],
-   "campusMixed": true,
+   "campusMixed": false,
    "demo": true,
    "demoCase": "test case: failed courses, retakes, withdrawals"
   },
@@ -10992,38 +10961,77 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10433",
-      "code": "MATH111",
-      "section": "B1",
+      "crn": "10342",
+      "code": "CMPS241",
+      "section": "B4",
       "cr": 3,
       "meetings": [
        {
-        "day": "WED",
-        "start": "16:01",
-        "end": "17:30"
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
        },
        {
-        "day": "FRI",
-        "start": "16:01",
-        "end": "17:30"
+        "day": "TUE",
+        "start": "12:01",
+        "end": "14:00"
        }
       ]
      },
      {
-      "crn": "10437",
-      "code": "MATH112",
+      "crn": "10442",
+      "code": "MATH241",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "WED",
-        "start": "17:31",
-        "end": "19:00"
+        "day": "MON",
+        "start": "08:01",
+        "end": "09:30"
        },
        {
+        "day": "WED",
+        "start": "08:01",
+        "end": "09:30"
+       }
+      ]
+     },
+     {
+      "crn": "12342",
+      "code": "ARAB001",
+      "section": "9",
+      "cr": 2,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "16:01",
+        "end": "18:00"
+       }
+      ]
+     },
+     {
+      "crn": "11787",
+      "code": "BLAW001",
+      "section": "B7",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "17:01",
+        "end": "18:00"
+       }
+      ]
+     },
+     {
+      "crn": "12337",
+      "code": "ENGL001",
+      "section": "12",
+      "cr": 2,
+      "meetings": [
+       {
         "day": "FRI",
-        "start": "17:31",
-        "end": "19:00"
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -11194,35 +11202,27 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10317",
-      "code": "CHEM241",
+      "crn": "10414",
+      "code": "CMPS455",
       "section": "B2",
       "cr": 3,
       "meetings": [
        {
-        "day": "FRI",
-        "start": "08:01",
-        "end": "11:00"
-       }
-      ]
-     },
-     {
-      "crn": "10328",
-      "code": "CHEM241L",
-      "section": "D2",
-      "cr": 1,
-      "meetings": [
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
        {
-        "day": "THU",
-        "start": "11:01",
-        "end": "14:00"
+        "day": "WED",
+        "start": "10:01",
+        "end": "12:00"
        }
       ]
      },
      {
-      "crn": "10391",
+      "crn": "10393",
       "code": "CMPS441",
-      "section": "B4",
+      "section": "B0",
       "cr": 3,
       "meetings": [
        {
@@ -11232,70 +11232,26 @@
        },
        {
         "day": "THU",
-        "start": "08:01",
-        "end": "10:00"
+        "start": "12:01",
+        "end": "14:00"
        }
       ]
      },
      {
-      "crn": "10415",
-      "code": "CMPS455",
-      "section": "B3",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "14:01",
-        "end": "16:00"
-       },
-       {
-        "day": "MON",
-        "start": "16:01",
-        "end": "18:00"
-       }
-      ]
-     },
-     {
-      "crn": "10473",
-      "code": "PHYS243",
+      "crn": "10298",
+      "code": "BIOL443",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "TUE",
-        "start": "15:01",
-        "end": "18:00"
-       }
-      ]
-     },
-     {
-      "crn": "10489",
-      "code": "PHYS243L",
-      "section": "D3",
-      "cr": 1,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "14:01",
-        "end": "17:00"
-       }
-      ]
-     },
-     {
-      "crn": "12083",
-      "code": "MATH352",
-      "section": "D2",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "TUE",
-        "start": "12:01",
-        "end": "14:00"
+        "day": "MON",
+        "start": "10:01",
+        "end": "12:00"
        },
        {
-        "day": "WED",
-        "start": "11:01",
-        "end": "12:00"
+        "day": "FRI",
+        "start": "14:01",
+        "end": "16:00"
        }
       ]
      }
@@ -11733,10 +11689,9 @@
    "advisor": "Julie Bu Daher",
    "emailGuessed": true,
    "campusesThisTerm": [
-    "Beirut",
-    "Debbieh"
+    "Beirut"
    ],
-   "campusMixed": true,
+   "campusMixed": false,
    "demo": true,
    "demoCase": "test case: retakes, close to graduation"
   },
@@ -11767,20 +11722,38 @@
       ]
      },
      {
-      "crn": "10391",
-      "code": "CMPS441",
-      "section": "B4",
+      "crn": "10415",
+      "code": "CMPS455",
+      "section": "B3",
       "cr": 3,
       "meetings": [
        {
-        "day": "TUE",
+        "day": "MON",
+        "start": "14:01",
+        "end": "16:00"
+       },
+       {
+        "day": "MON",
+        "start": "16:01",
+        "end": "18:00"
+       }
+      ]
+     },
+     {
+      "crn": "10389",
+      "code": "CMPS441",
+      "section": "B2",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "THU",
         "start": "10:01",
         "end": "12:00"
        },
        {
         "day": "THU",
-        "start": "08:01",
-        "end": "10:00"
+        "start": "12:01",
+        "end": "14:00"
        }
       ]
      },
@@ -11789,7 +11762,13 @@
       "code": "CMPS443",
       "section": "B1",
       "cr": 1,
-      "meetings": []
+      "meetings": [
+       {
+        "day": "SAT",
+        "start": "08:01",
+        "end": "09:00"
+       }
+      ]
      },
      {
       "crn": "10409",
@@ -11810,51 +11789,20 @@
       ]
      },
      {
-      "crn": "10415",
-      "code": "CMPS455",
-      "section": "B3",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "14:01",
-        "end": "16:00"
-       },
-       {
-        "day": "MON",
-        "start": "16:01",
-        "end": "18:00"
-       }
-      ]
-     },
-     {
-      "crn": "10451",
-      "code": "MATH456",
+      "crn": "10418",
+      "code": "CMPS467",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "MON",
-        "start": "13:01",
-        "end": "14:00"
-       },
-       {
-        "day": "TUE",
+        "day": "WED",
         "start": "14:01",
         "end": "16:00"
-       }
-      ]
-     },
-     {
-      "crn": "10490",
-      "code": "PHYS243L",
-      "section": "D4",
-      "cr": 1,
-      "meetings": [
+       },
        {
-        "day": "MON",
-        "start": "08:01",
-        "end": "11:00"
+        "day": "FRI",
+        "start": "14:01",
+        "end": "16:00"
        }
       ]
      }
@@ -12280,10 +12228,9 @@
    "advisor": "Julie Bu Daher",
    "emailGuessed": true,
    "campusesThisTerm": [
-    "Beirut",
-    "Debbieh"
+    "Beirut"
    ],
-   "campusMixed": true,
+   "campusMixed": false,
    "demo": true,
    "demoCase": "test case: failed courses, retakes, withdrawals, intensive English"
   },
@@ -12296,35 +12243,27 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10316",
-      "code": "CHEM241",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "15:01",
-        "end": "18:00"
-       }
-      ]
-     },
-     {
-      "crn": "10329",
-      "code": "CHEM241L",
-      "section": "D3",
-      "cr": 1,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "14:01",
-        "end": "17:00"
-       }
-      ]
-     },
-     {
-      "crn": "10341",
-      "code": "CMPS241",
+      "crn": "11318",
+      "code": "INTE002B",
       "section": "B3",
+      "cr": 0,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "16:01",
+        "end": "18:30"
+       },
+       {
+        "day": "FRI",
+        "start": "16:01",
+        "end": "18:30"
+       }
+      ]
+     },
+     {
+      "crn": "12322",
+      "code": "CMPS241",
+      "section": "B8",
       "cr": 3,
       "meetings": [
        {
@@ -12333,66 +12272,53 @@
         "end": "13:00"
        },
        {
-        "day": "TUE",
-        "start": "12:01",
-        "end": "14:00"
+        "day": "WED",
+        "start": "10:01",
+        "end": "12:00"
        }
       ]
      },
      {
-      "crn": "10473",
-      "code": "PHYS243",
+      "crn": "10442",
+      "code": "MATH241",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "TUE",
-        "start": "15:01",
-        "end": "18:00"
-       }
-      ]
-     },
-     {
-      "crn": "10488",
-      "code": "PHYS243L",
-      "section": "D2",
-      "cr": 1,
-      "meetings": [
-       {
-        "day": "THU",
-        "start": "11:01",
-        "end": "14:00"
-       }
-      ]
-     },
-     {
-      "crn": "11316",
-      "code": "INTE002B",
-      "section": "B1",
-      "cr": 0,
-      "meetings": [
-       {
-        "day": "WED",
-        "start": "16:01",
-        "end": "19:00"
+        "day": "MON",
+        "start": "08:01",
+        "end": "09:30"
        },
        {
-        "day": "FRI",
+        "day": "WED",
+        "start": "08:01",
+        "end": "09:30"
+       }
+      ]
+     },
+     {
+      "crn": "11177",
+      "code": "ARAB001",
+      "section": "B3",
+      "cr": 2,
+      "meetings": [
+       {
+        "day": "MON",
         "start": "16:01",
         "end": "18:00"
        }
       ]
      },
      {
-      "crn": "11331",
-      "code": "MCOM003",
-      "section": "BA2",
-      "cr": 2,
+      "crn": "11784",
+      "code": "BLAW001",
+      "section": "B4",
+      "cr": 1,
       "meetings": [
        {
         "day": "WED",
         "start": "12:01",
-        "end": "14:00"
+        "end": "13:00"
        }
       ]
      }
@@ -12414,10 +12340,9 @@
    "advisor": "Julie Bu Daher",
    "emailGuessed": true,
    "campusesThisTerm": [
-    "Beirut",
-    "Debbieh"
+    "Beirut"
    ],
-   "campusMixed": true,
+   "campusMixed": false,
    "demo": true,
    "demoCase": "test case: new student, no transcript yet, intensive English"
   },
@@ -12430,15 +12355,15 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10370",
+      "crn": "10369",
       "code": "CMPS342",
-      "section": "B2",
+      "section": "B1",
       "cr": 3,
       "meetings": [
        {
-        "day": "WED",
-        "start": "14:01",
-        "end": "16:00"
+        "day": "THU",
+        "start": "10:01",
+        "end": "12:00"
        },
        {
         "day": "THU",
@@ -12466,20 +12391,20 @@
       ]
      },
      {
-      "crn": "10476",
-      "code": "PHYS341",
+      "crn": "10298",
+      "code": "BIOL443",
       "section": "B1",
       "cr": 3,
       "meetings": [
        {
         "day": "MON",
-        "start": "08:01",
-        "end": "09:30"
+        "start": "10:01",
+        "end": "12:00"
        },
        {
-        "day": "WED",
-        "start": "08:01",
-        "end": "09:30"
+        "day": "FRI",
+        "start": "14:01",
+        "end": "16:00"
        }
       ]
      }
@@ -13148,6 +13073,24 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
+      "crn": "10382",
+      "code": "CMPS347",
+      "section": "B3",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "08:01",
+        "end": "10:00"
+       },
+       {
+        "day": "THU",
+        "start": "08:01",
+        "end": "10:00"
+       }
+      ]
+     },
+     {
       "crn": "10370",
       "code": "CMPS342",
       "section": "B2",
@@ -13166,42 +13109,6 @@
       ]
      },
      {
-      "crn": "10437",
-      "code": "MATH112",
-      "section": "B1",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "WED",
-        "start": "17:31",
-        "end": "19:00"
-       },
-       {
-        "day": "FRI",
-        "start": "17:31",
-        "end": "19:00"
-       }
-      ]
-     },
-     {
-      "crn": "10356",
-      "code": "CMPS246",
-      "section": "B5",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "11:01",
-        "end": "13:00"
-       },
-       {
-        "day": "TUE",
-        "start": "08:01",
-        "end": "10:00"
-       }
-      ]
-     },
-     {
       "crn": "10377",
       "code": "CMPS345",
       "section": "B1",
@@ -13216,6 +13123,24 @@
         "day": "WED",
         "start": "10:01",
         "end": "11:30"
+       }
+      ]
+     },
+     {
+      "crn": "10353",
+      "code": "CMPS246",
+      "section": "B2",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "TUE",
+        "start": "08:01",
+        "end": "10:00"
+       },
+       {
+        "day": "TUE",
+        "start": "17:01",
+        "end": "19:00"
        }
       ]
      }
@@ -13479,74 +13404,74 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10355",
-      "code": "CMPS246",
+      "crn": "10383",
+      "code": "CMPS347",
       "section": "B4",
       "cr": 3,
       "meetings": [
        {
-        "day": "MON",
-        "start": "11:01",
-        "end": "13:00"
+        "day": "TUE",
+        "start": "12:01",
+        "end": "14:00"
        },
        {
-        "day": "TUE",
+        "day": "WED",
         "start": "08:01",
         "end": "10:00"
        }
       ]
      },
      {
-      "crn": "10369",
+      "crn": "10373",
       "code": "CMPS342",
-      "section": "B1",
+      "section": "B5",
       "cr": 3,
       "meetings": [
+       {
+        "day": "TUE",
+        "start": "14:01",
+        "end": "16:00"
+       },
        {
         "day": "THU",
         "start": "10:01",
         "end": "12:00"
-       },
-       {
-        "day": "THU",
-        "start": "12:01",
-        "end": "14:00"
        }
       ]
      },
      {
-      "crn": "10378",
+      "crn": "10377",
       "code": "CMPS345",
-      "section": "B2",
+      "section": "B1",
       "cr": 3,
       "meetings": [
        {
         "day": "MON",
-        "start": "13:01",
-        "end": "14:30"
+        "start": "14:31",
+        "end": "16:00"
        },
        {
         "day": "WED",
-        "start": "14:01",
-        "end": "15:30"
+        "start": "10:01",
+        "end": "11:30"
        }
       ]
      },
      {
-      "crn": "10382",
-      "code": "CMPS347",
+      "crn": "10354",
+      "code": "CMPS246",
       "section": "B3",
       "cr": 3,
       "meetings": [
        {
-        "day": "WED",
+        "day": "TUE",
         "start": "08:01",
         "end": "10:00"
        },
        {
-        "day": "THU",
-        "start": "08:01",
-        "end": "10:00"
+        "day": "TUE",
+        "start": "17:01",
+        "end": "19:00"
        }
       ]
      },
@@ -13564,20 +13489,15 @@
       ]
      },
      {
-      "crn": "10478",
-      "code": "PHYS350",
+      "crn": "11192",
+      "code": "ARAB004",
       "section": "B1",
-      "cr": 3,
+      "cr": 2,
       "meetings": [
        {
-        "day": "MON",
-        "start": "10:01",
-        "end": "11:00"
-       },
-       {
         "day": "WED",
-        "start": "10:01",
-        "end": "12:00"
+        "start": "16:01",
+        "end": "18:00"
        }
       ]
      }
@@ -13877,9 +13797,9 @@
     "term": "FALL 2026/2027",
     "courses": [
      {
-      "crn": "10348",
+      "crn": "10349",
       "code": "CMPS242",
-      "section": "B1",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
@@ -13895,27 +13815,9 @@
       ]
      },
      {
-      "crn": "10353",
-      "code": "CMPS246",
-      "section": "B2",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "TUE",
-        "start": "08:01",
-        "end": "10:00"
-       },
-       {
-        "day": "TUE",
-        "start": "17:01",
-        "end": "19:00"
-       }
-      ]
-     },
-     {
-      "crn": "10365",
+      "crn": "10366",
       "code": "CMPS248",
-      "section": "B1",
+      "section": "B2",
       "cr": 3,
       "meetings": [
        {
@@ -13924,40 +13826,66 @@
         "end": "15:00"
        },
        {
-        "day": "TUE",
+        "day": "WED",
         "start": "14:01",
         "end": "16:00"
        }
       ]
      },
      {
-      "crn": "10448",
-      "code": "MATH341",
-      "section": "B3",
-      "cr": 3,
-      "meetings": [
-       {
-        "day": "MON",
-        "start": "16:01",
-        "end": "18:00"
-       },
-       {
-        "day": "TUE",
-        "start": "16:01",
-        "end": "17:00"
-       }
-      ]
-     },
-     {
-      "crn": "11260",
-      "code": "ENGL001",
-      "section": "B10",
+      "crn": "12343",
+      "code": "ARAB001",
+      "section": "10",
       "cr": 2,
       "meetings": [
        {
         "day": "WED",
         "start": "16:01",
         "end": "18:00"
+       }
+      ]
+     },
+     {
+      "crn": "11784",
+      "code": "BLAW001",
+      "section": "B4",
+      "cr": 1,
+      "meetings": [
+       {
+        "day": "WED",
+        "start": "12:01",
+        "end": "13:00"
+       }
+      ]
+     },
+     {
+      "crn": "11243",
+      "code": "ENGL001",
+      "section": "B3",
+      "cr": 2,
+      "meetings": [
+       {
+        "day": "FRI",
+        "start": "16:01",
+        "end": "18:00"
+       }
+      ]
+     },
+     {
+      "crn": "10355",
+      "code": "CMPS246",
+      "section": "B4",
+      "cr": 3,
+      "meetings": [
+       {
+        "day": "MON",
+        "start": "11:01",
+        "end": "13:00"
+       },
+       {
+        "day": "TUE",
+        "start": "08:01",
+        "end": "10:00"
        }
       ]
      }

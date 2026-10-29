@@ -77,6 +77,13 @@ npm i --no-save pdfjs-dist@3.11.174
 node demo/tools/build-seed.js           # demo/students.json, read back from the PDFs
 ```
 
+Each student's Fall 2026/2027 registration is built by `plan-schedules.js`
+the way an advisor would: the portal's own recommendations, one real section
+per course from the course offering, no time clashes, labs with their
+lecture, nothing already passed, and no more credits than the student's load
+limit. The portal's registration check runs on every schedule and the build
+stops if it finds an error.
+
 `build-seed.js` reads the PDFs with the portal's own importer and stops if
 anything read back differs from what was printed, so the demo records are
 exactly what a real import of these PDFs produces.
