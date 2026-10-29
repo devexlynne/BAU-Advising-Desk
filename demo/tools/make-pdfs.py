@@ -192,7 +192,10 @@ def draw_line(c, x, top, kind, data, d=0):
         c.drawString(x + 45, base, fit(data['title'].upper(), SANS, 8, 160 + d))
         c.drawString(x + 211.5 + d, base, num(data['cr']))
         c.drawString(x + 225 + d, base, data['grade'])
-        c.drawString(x + 238.5 + d, base, num(data['earned']))
+        # a wide grade such as AW would touch the earned credits and be read
+        # as one word, so keep a small gap after it
+        gx = x + 225 + d + c.stringWidth(data['grade'], SANS, 8) + 2.5
+        c.drawString(max(x + 238.5 + d, gx), base, num(data['earned']))
         if data['flag']:
             c.drawString(x + 252 + d, base, data['flag'])
     else:

@@ -1,7 +1,7 @@
 # Offline demo
 
-A demo of the portal that runs on your own computer, with twelve fictional
-students. No real student data is used, nothing is sent anywhere, and nothing
+A demo of the portal that runs on your own computer, with 32 fictional
+students (twelve examples and twenty test cases). No real student data is used, nothing is sent anywhere, and nothing
 is saved: reload the page and it starts over.
 
 ## Run it
@@ -38,12 +38,40 @@ All names are invented and every ID uses the 99xxx block (for example
 | 202499111 | Jana Khaled Moussa | good standing, WRNL200 still missing |
 | 202599112 | Ali Hussein Hamdan | first-year student who withdrew from a course |
 
+### Test cases
+
+Twenty more fictional students, made from synthetic test PDFs, cover the
+harder situations side by side. They live in `demo/tools/test-cases.json`.
+
+| ID | Student | What the case covers |
+|---|---|---|
+| 202299301 | Maya Rami Karam | failed courses, retakes, withdrawals, CGPA below 2, close to graduation |
+| 202299302 | Jad Fadi Khoury | failed courses, retakes, withdrawals |
+| 202599303 | Lara Samir Haddad | failed courses, CGPA below 2, intensive English |
+| 202399304 | Tarek Nabil Saad | withdrawals |
+| 202599305 | Rana Elias Nassar | high CGPA |
+| 202399306 | Karim Ziad Mourad | retakes, close to graduation |
+| 202499307 | Nour Hadi Salameh | on track |
+| 202599308 | Rami Walid Azar | failed courses, CGPA below 2, intensive English |
+| 202299309 | Lea Georges Habib | failed courses, retakes, withdrawals, intensive English |
+| 202599310 | Omar Bassam Najjar | high CGPA |
+| 202699311 | Yara Michel Farah | transfer student, first term at BAU, CGPA below 2 |
+| 202199312 | Hassan Riad Hamdan | failed courses, retakes, withdrawals |
+| 202599313 | Celine Fouad Daher | failed courses, CGPA below 2 |
+| 202399314 | Ali Marwan Saba | retakes, close to graduation |
+| 202399315 | Dalia Wissam Rached | failed courses, retakes, withdrawals, intensive English |
+| 202699316 | Fadi Ghassan Mansour | new student, no transcript yet, intensive English |
+| 202299317 | Hiba Rayan Zoghbi | failed courses, retakes, withdrawals, D- to repeat, CGPA below 2, close to graduation |
+| 202599318 | Nadim Joseph Ghanem | failed courses, withdrawals, CGPA below 2 |
+| 202599319 | Sarah Kamal Ayoub | high CGPA |
+| 202599320 | Bilal Tamer Harb | high CGPA |
+
 ## Rebuilding the data
 
 Only needed if the students are changed.
 
 ```
-node demo/tools/generate-demo.js        # students-spec.json
+node demo/tools/generate-demo.js        # students-spec.json (the 12 plus test-cases.json)
 python3 demo/tools/make-pdfs.py         # the two PDFs (pip install reportlab arabic-reshaper python-bidi)
 npm i --no-save pdfjs-dist@3.11.174
 node demo/tools/build-seed.js           # demo/students.json, read back from the PDFs

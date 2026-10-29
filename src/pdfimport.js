@@ -344,14 +344,21 @@
         headerIdx = i;
         daycols = r.words.filter(w => DAYS.indexOf(w.text) >= 0).map(w => [w.text, w.x]);
         colx = {};
-        r.words.forEach(w => { colx[w.text] = w.x; });
+        r.words.forEach(w => {
+          colx[w.text] = w.x;
+          // pdf.js can join the "Sec" and "Credit" headings into one word
+          if (w.text === 'SecCredit') { colx.Sec = w.x; colx.Credit = w.x + w.w * 3 / 9; }
+        });
       }
       const m = /Total\s+Number\s+of\s+Credits:\s*([\d.]+)/.exec(line);
       if (m) total = +m[1];
     });
     const regs = [];
     if (headerIdx >= 0) {
-      const firstDayX = daycols.length ? Math.min.apply(null, daycols.map(d => d[1])) : 1e6;
+      // a heading's x is estimated when pdf.js joins it with its neighbour, so
+      // allow some slack before the first day column (times are 3-4 digits,
+      // so the 1-2 digit credit column is never mistaken for one)
+      const firstDayX = daycols.length ? Math.min.apply(null, daycols.map(d => d[1])) - 8 : 1e6;
       const secX = colx.Sec || 0, credX = colx.Credit || firstDayX;
       rs.slice(headerIdx + 1).forEach(r => {
         const ws = r.words;

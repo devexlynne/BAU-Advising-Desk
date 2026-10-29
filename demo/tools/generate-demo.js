@@ -2,7 +2,8 @@
  * Builds the fictional demo students (demo/tools/students-spec.json).
  * Every name and ID here is invented. IDs follow the BAU shape
  * (admission year + 5 digits) but always use the 99xxx block, which is
- * kept for demo records only.
+ * kept for demo records only. The test cases in test-cases.json are added
+ * after the twelve students below.
  *
  *   node demo/tools/generate-demo.js
  *
@@ -197,6 +198,9 @@ function build(spec, seed) {
   };
 }
 
-const out = STUDENTS.map((s, i) => build(s, i + 1));
+// the test cases in test-cases.json (fictional people, built from synthetic
+// test PDFs) come after the twelve students above
+const out = STUDENTS.map((s, i) => build(s, i + 1))
+  .concat(JSON.parse(fs.readFileSync(path.join(__dirname, 'test-cases.json'), 'utf8')));
 fs.writeFileSync(path.join(__dirname, 'students-spec.json'), JSON.stringify(out, null, 2));
 out.forEach(s => console.log(s.id, s.name.padEnd(22), 'terms', String(s.termTotals.length).padStart(2), 'credits', String(s.totalCredits).padStart(3), 'CGPA', s.cgpa, 'schedule', s.schedule.courses.map(c => c.code).join(' ')));

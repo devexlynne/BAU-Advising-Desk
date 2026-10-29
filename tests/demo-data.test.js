@@ -30,7 +30,9 @@ ok('the demo records are exactly the fictional students in the spec', () => {
 ok('printed credits and CGPA agree with the course rows for every demo student', () => {
   const check = Merge.verifyTranscripts(E, rules, seed.students);
   assert.strictEqual(check.off.length, 0, JSON.stringify(check.off.map(o => o.s.id)));
-  assert.strictEqual(check.ok.length, seed.students.length);
+  // a new student with no transcript yet has nothing to check
+  assert.strictEqual(check.ok.length + check.empty.length, seed.students.length);
+  check.empty.forEach(s => assert.strictEqual(spec.find(x => x.id === s.id).history.length, 0, s.id));
 });
 
 ok('every demo student has a registration for the demo term', () => {
