@@ -16,6 +16,10 @@
  * private-demo/ is ignored by git, so nothing here can be committed. The output
  * still describes real students (their courses and grades), so it must stay on
  * this computer: do not upload, email or share it, and delete it when done.
+ * --cases also nudges every passing grade up or down one step (a pass stays a
+ * pass; F, D-, W and transfers stay) and recomputes the totals, so the
+ * situation is kept but the exact record is not. Use it for anything that
+ * leaves this computer, such as uploading to the trial on Railway.
  * Optional: --ids 202301234,202401234 to choose the students instead of the
  * first few, and --advisor <slug> for the advisor shown as signed in.
  */
@@ -47,6 +51,33 @@ try { pdfjsLib = require('pdfjs-dist/legacy/build/pdf.js'); }
 catch (e) { console.error('Run "npm i --no-save pdfjs-dist@3.11.174" first.'); process.exit(1); }
 const PdfImport = require(path.join(ROOT, 'src', 'pdfimport.js'));
 const Merge = require(path.join(ROOT, 'src', 'merge.js'));
+const E = require(path.join(ROOT, 'src', 'engine.js'));
+const rules = require(path.join(ROOT, 'data', 'rules.json'));
+
+/* Turn a copy into a case: passing grades are moved up or down one step at
+   random (a pass stays a pass), F, D-, W, AW, P and TR stay as they are, and
+   every total is recomputed so the record still adds up. The situation is
+   kept, the exact record is not. */
+const PASS = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D'];
+function toCase(s, seed) {
+  let x = seed >>> 0;
+  const rnd = () => { x = (x * 1664525 + 1013904223) >>> 0; return x / 4294967296; };
+  const history = (s.history || []).map(r => {
+    const i = PASS.indexOf(r.grade);
+    if (i < 0) return Object.assign({}, r);
+    const j = Math.max(0, Math.min(PASS.length - 1, i + Math.floor(rnd() * 3) - 1));
+    return Object.assign({}, r, { grade: PASS[j] });
+  });
+  const live = history.filter(r => r.flag !== 'A');
+  const g = E.computeGpa(rules, live);
+  const dminus = live.reduce((n, r) => n + ((rules.transcriptCreditGrades || []).includes(r.grade) && !E.isPassing(rules, r.grade) ? (Number(r.cr) || 0) : 0), 0);
+  const termSummary = (s.termSummary || []).map(t => {
+    const rows = history.filter(r => r.term === t.term);
+    const tg = E.computeGpa(rules, rows);
+    return Object.assign({}, t, { sgpa: tg.gpa });
+  });
+  return Object.assign({}, s, { history, termSummary, officialCgpa: g.gpa, officialCredits: g.earned + dminus });
+}
 
 // invented names, used in order
 const NAMES = [
@@ -126,7 +157,8 @@ async function pages(file) {
     const [name, arabName] = NAMES[i % NAMES.length];
     const year = /^\d{4}/.test(s.id) ? s.id.slice(0, 4) : '2024';
     const newId = year + '99' + String(201 + i).padStart(3, '0');
-    renamed.push(Object.assign({}, s, { id: newId, name, arabName, nationality: '', email: '', phone: '', pages: undefined }));
+    const copy = Object.assign({}, s, { id: newId, name, arabName, nationality: '', email: '', phone: '', pages: undefined });
+    renamed.push(process.argv.includes('--cases') ? toCase(copy, i + 7) : copy);
     const reg = regs.find(r => r.id === s.id);
     if (reg) renamedRegs.push(Object.assign({}, reg, { id: newId, name }));
   });

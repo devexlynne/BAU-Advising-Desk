@@ -38,12 +38,13 @@ const post = (base, p, body, cookie) => fetch(base + p, {
       RAILWAY_ENVIRONMENT_NAME: '',
       RAILWAY_SERVICE_ID: '',
       DATABASE_URL: '',
+      STORE_KEY: '',
       DATA_DIR: productionDir
     }),
     timeout: 8000
   });
-  check('production refuses to start without PostgreSQL',
-    production.status === 1 && /DATABASE_URL is required/.test(production.stderr), 'exit ' + production.status);
+  check('production refuses to start without PostgreSQL or encrypted storage',
+    production.status === 1 && /DATABASE_URL or STORE_KEY is required/.test(production.stderr), 'exit ' + production.status);
   check('failed production startup does not create a local store',
     !fs.existsSync(path.join(productionDir, 'store.json')));
 

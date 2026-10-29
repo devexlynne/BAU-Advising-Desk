@@ -66,3 +66,11 @@ builds `private-demo/private-demo.html` from a few real students with their
 names, IDs and nationality replaced. Their courses and grades are still real,
 so the `private-demo/` folder is ignored by git and must stay on this
 computer: never upload, deploy or share it, and delete it when done.
+
+## Trial with sign-in on Railway (encrypted file storage)
+
+Set `STORE_KEY` (32 random bytes as 64 hex characters) and attach a volume at
+`/data`; the server then keeps its store, backups and activity log encrypted
+with AES-256-GCM instead of using PostgreSQL. Case students go in with
+`node scripts/private-demo.js ... --cases` (on this computer) followed by
+`node scripts/upload-cases.js --url <trial link> --as <admin> --advisor <slug>`.

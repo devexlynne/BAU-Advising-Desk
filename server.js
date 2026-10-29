@@ -16,6 +16,7 @@ const path = require('path');
 const crypto = require('crypto');
 const mail = require('./mail');
 const { PostgresStore, createPool } = require('./src/postgres-store');
+const sealed = require('./src/encrypted-file');
 
 // ---- configuration -----------------------------------------------------------
 const RAILWAY_DEPLOYMENT = !!(process.env.RAILWAY_ENVIRONMENT_NAME || process.env.RAILWAY_SERVICE_ID);
@@ -43,6 +44,9 @@ const DATA_DIR = process.env.DATA_DIR || (RAILWAY_DEPLOYMENT ? '/data' : path.jo
 const DATA_FILE = path.join(DATA_DIR, 'store.json');
 const BACKUP_DIR = path.join(DATA_DIR, 'backups');
 const AUDIT_FILE = path.join(DATA_DIR, 'audit.log');
+// STORE_KEY switches on encrypted file storage (store, backups and audit log
+// written with AES-256-GCM). It is the only file storage allowed in production.
+const STORE_KEY = process.env.STORE_KEY ? sealed.parseKey(process.env.STORE_KEY) : null;
 const PAGE = path.join(__dirname, 'build', 'index.html');
 const SESSION_HOURS = numberEnv('SESSION_HOURS', 12, 1, 168);
 const SESSION_IDLE_MINUTES = numberEnv('SESSION_IDLE_MINUTES', 120, 5, 10080);
@@ -78,17 +82,25 @@ const IDEAS_TO = process.env.IDEAS_TO
 // ---- storage --------------------------------------------------------------
 function loadStore() {
   if (!fs.existsSync(DATA_FILE)) {
-    console.warn('No local development store found; starting with an empty one.');
+    console.warn(STORE_KEY ? 'No store yet; starting with an empty encrypted one.' : 'No local development store found; starting with an empty one.');
     return {};
   }
   try {
-    const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    let data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    if (sealed.isEnvelope(data)) {
+      if (!STORE_KEY) throw new Error('the store is encrypted and STORE_KEY is not set');
+      data = JSON.parse(sealed.decrypt(STORE_KEY, data));
+    } else if (STORE_KEY && Object.keys(data || {}).length) {
+      throw new Error('the store is not encrypted; it will not be read or replaced with STORE_KEY set');
+    }
     if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('not an object');
     return data;
   } catch (e) {
-    throw new Error('Cannot read the local development store; refusing to overwrite it: ' + e.message);
+    throw new Error('Cannot read the store; refusing to overwrite it: ' + e.message);
   }
 }
+const storeText = () => (STORE_KEY ? JSON.stringify(sealed.encrypt(STORE_KEY, JSON.stringify(store))) : JSON.stringify(store));
+const auditText = line => (STORE_KEY ? JSON.stringify(sealed.encrypt(STORE_KEY, line)) : line);
 let store = {};
 let databaseStore = null;
 
@@ -99,7 +111,7 @@ function writeStoreFile() {
   fs.mkdirSync(BACKUP_DIR, { recursive: true });
   const tmp = DATA_FILE + '.tmp';
   const fd = fs.openSync(tmp, 'w');
-  try { fs.writeSync(fd, JSON.stringify(store)); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
+  try { fs.writeSync(fd, storeText()); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
   fs.renameSync(tmp, DATA_FILE);
   backupIfDue();
 }
@@ -149,7 +161,7 @@ async function flushStore() {
       writeStoreFile();
       for (const entry of auditEntries) {
         const line = JSON.stringify(Object.assign({}, entry, entry.details));
-        await fs.promises.appendFile(AUDIT_FILE, line + '\n');
+        await fs.promises.appendFile(AUDIT_FILE, auditText(line) + '\n');
       }
     }
   })();
@@ -1050,7 +1062,7 @@ async function healthy() {
     fs.accessSync(PAGE, fs.constants.R_OK);
     if (databaseStore) await databaseStore.check();
     else {
-      if (PRODUCTION) return false;
+      if (PRODUCTION && !STORE_KEY) return false;
       fs.mkdirSync(DATA_DIR, { recursive: true });
       fs.accessSync(DATA_DIR, fs.constants.W_OK);
     }
@@ -1095,8 +1107,8 @@ async function startServer() {
   if (PRODUCTION && ALLOW_UNVERIFIED_SIGNUP) {
     throw new Error('ALLOW_UNVERIFIED_SIGNUP=true is not allowed in production');
   }
-  if (PRODUCTION && !process.env.DATABASE_URL) {
-    throw new Error('DATABASE_URL is required in production; refusing to start with file storage');
+  if (PRODUCTION && !process.env.DATABASE_URL && !STORE_KEY) {
+    throw new Error('DATABASE_URL or STORE_KEY is required in production; refusing to start with unencrypted file storage');
   }
   if (process.env.DATABASE_URL) {
     databaseStore = new PostgresStore(createPool(), error => {
@@ -1113,7 +1125,7 @@ async function startServer() {
       throw new Error('A legacy JSON store exists on the mounted volume; preserve it and complete a verified migration before starting');
     }
   } else {
-    if (PRODUCTION) throw new Error('PostgreSQL is required in production');
+    if (PRODUCTION && !STORE_KEY) throw new Error('PostgreSQL or encrypted file storage is required in production');
     store = loadStore();
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
@@ -1121,7 +1133,7 @@ async function startServer() {
   sweepSessions();
   server.listen(PORT, () => {
     console.log('Online Advising System on port ' + PORT);
-    console.log('  storage: ' + (databaseStore ? 'PostgreSQL' : 'local development files'));
+    console.log('  storage: ' + (databaseStore ? 'PostgreSQL' : STORE_KEY ? 'encrypted files (AES-256-GCM)' : 'local development files'));
     console.log('  admins: ' + (ADMIN_SLUGS.join(', ') || 'none'));
     console.log('  sign-up ' + (ALLOW_SIGNUP ? 'open' : 'closed') + ', sessions ' + SESSION_HOURS + 'h (idle ' + SESSION_IDLE_MINUTES + ' min)');
     console.log('  email: ' + (mail.configured() ? 'on' : 'off') + ', public URL: ' + (PUBLIC_URL || 'not set'));
