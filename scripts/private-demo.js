@@ -2,8 +2,12 @@
  * Private demo from real advisee PDFs, renamed. Runs on this computer only.
  *
  *   npm i --no-save pdfjs-dist@3.11.174
- *   node scripts/private-demo.js --transcripts "C:\path\Transcripts.pdf" --schedules "C:\path\Schedules.pdf" --count 5
+ *   node scripts/private-demo.js --transcripts "A.pdf,B.pdf" --schedules "A-sched.pdf,B-sched.pdf" --count 8
  *
+ * Several advisors' PDFs can be given, separated by commas. Students are picked
+ * so the cases differ (a failed course, a withdrawal, transfer credits, a low
+ * or high CGPA, close to graduation, first year...) and are spread across the
+ * files, unless --ids names them.
  * Picks a few students from the registrar PDFs, replaces their name, Arabic
  * name, ID and nationality with invented ones, and writes:
  *   private-demo/students.json        the renamed records
@@ -29,7 +33,8 @@ const OUT = path.join(ROOT, 'private-demo');
 const arg = name => { const i = process.argv.indexOf(name); return i > 0 ? process.argv[i + 1] : null; };
 const transcripts = arg('--transcripts');
 const schedules = arg('--schedules');
-const count = Math.max(1, Math.min(30, Number(arg('--count') || 5)));
+const count = Math.max(1, Math.min(30, Number(arg('--count') || 6)));
+const list = v => String(v || '').split(',').map(x => x.trim()).filter(Boolean);
 const ids = (arg('--ids') || '').split(',').map(s => s.trim()).filter(Boolean);
 const advisor = arg('--advisor') || 'julie-bu-daher';
 if (!transcripts) {
@@ -57,6 +62,44 @@ const NAMES = [
   ['Wael Hani Itani', 'وائل هاني عيتاني'], ['Hiba Salim Barakat', 'هبة سليم بركات'], ['Elie Raymond Khoury', 'إيلي ريمون خوري']
 ];
 
+// what makes a case interesting, so the picks differ from each other
+function tagsOf(s) {
+  const h = s.history || [];
+  const t = new Set();
+  if (h.some(r => r.grade === 'F')) t.add('failed');
+  if (h.some(r => r.flag === 'I')) t.add('retake');
+  if (h.some(r => r.grade === 'W' || r.grade === 'AW')) t.add('withdrawal');
+  if (h.some(r => r.grade === 'D-')) t.add('d-minus');
+  if (h.some(r => r.term === 'TRANSFER' && !/^(ARAB|BIOL|CHEM|ENGL|HIST|MATH|PHIL|PHYS)1\d\d$/.test(r.code))) t.add('transfer');
+  if (h.some(r => /^INTE/.test(r.code))) t.add('intensive-english');
+  const cg = s.officialCgpa;
+  if (cg != null && cg < 2) t.add('low-cgpa');
+  if (cg != null && cg >= 3.5) t.add('high-cgpa');
+  const cr = s.officialCredits || 0;
+  if (cr >= 110) t.add('near-graduation');
+  if (cr < 50) t.add('early');
+  return t;
+}
+
+function pickVaried(pools, n) {
+  const picked = [], covered = new Set();
+  const left = pools.map(p => p.slice());
+  for (let round = 0; picked.length < n && left.some(p => p.length); round++) {
+    const pool = left[round % left.length];        // take turns between the files
+    if (!pool.length) continue;
+    let best = 0, bestScore = -1;
+    pool.forEach((s, i) => {
+      const score = [...tagsOf(s)].filter(x => !covered.has(x)).length;
+      if (score > bestScore) { best = i; bestScore = score; }
+    });
+    const s = pool.splice(best, 1)[0];
+    if (picked.some(p => p.id === s.id)) continue;   // the same student in two files
+    tagsOf(s).forEach(x => covered.add(x));
+    picked.push(s);
+  }
+  return picked;
+}
+
 async function pages(file) {
   const data = new Uint8Array(fs.readFileSync(file));
   const pdf = await pdfjsLib.getDocument({ data, isEvalSupported: false }).promise;
@@ -70,10 +113,13 @@ async function pages(file) {
 }
 
 (async () => {
-  const t = PdfImport.parseTranscripts(await pages(path.resolve(transcripts)));
-  let picked = ids.length ? t.students.filter(s => ids.includes(s.id)) : t.students.slice(0, count);
-  if (!picked.length) { console.error('No matching students in that transcript PDF.'); process.exit(1); }
-  const regs = schedules ? PdfImport.parseSchedules(await pages(path.resolve(schedules))).registrations : [];
+  const files = list(transcripts);
+  const pools = [];
+  for (const f of files) pools.push(PdfImport.parseTranscripts(await pages(path.resolve(f))).students);
+  let regs = [];
+  for (const f of list(schedules)) regs = regs.concat(PdfImport.parseSchedules(await pages(path.resolve(f))).registrations);
+  const picked = ids.length ? [].concat(...pools).filter(s => ids.includes(s.id)) : pickVaried(pools, count);
+  if (!picked.length) { console.error('No matching students in those transcript PDFs.'); process.exit(1); }
 
   const renamed = [], renamedRegs = [];
   picked.forEach((s, i) => {
@@ -94,6 +140,7 @@ async function pages(file) {
   fs.writeFileSync(seedFile, JSON.stringify({ note: 'PRIVATE: renamed copies of real records. Keep on this computer only.', advisor, students: merged }, null, 1));
   execFileSync(process.execPath, [path.join(ROOT, 'scripts', 'demo.js'), '--file', '--seed', seedFile,
     '--out', path.join(OUT, 'private-demo.html'), '--label', 'PRIVATE COPY: do not share'], { cwd: ROOT, stdio: 'inherit' });
-  console.log('\n' + merged.length + ' students renamed (' + renamedRegs.length + ' with schedules).');
+  console.log('\n' + merged.length + ' students renamed (' + renamedRegs.length + ' with schedules). Cases covered: ' +
+    Array.from(new Set([].concat(...picked.map(s => [...tagsOf(s)])))).join(', '));
   console.log('Open private-demo\\private-demo.html. Keep the private-demo folder on this computer and delete it when you are done.');
 })().catch(e => { console.error(e.message); process.exit(1); });
