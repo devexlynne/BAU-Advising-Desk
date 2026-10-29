@@ -13,7 +13,8 @@
     "test:security": "node tests/security.e2e.js",
     "test:email": "node tests/reset-email.e2e.js",
     "test:full": "node tests/full.e2e.js",
-    "demo": "node scripts/demo.js"
+    "demo": "node scripts/demo.js",
+    "demo:public": "node scripts/public-demo.js"
   },
   "engines": {
     "node": ">=18"

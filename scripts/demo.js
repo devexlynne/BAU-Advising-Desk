@@ -9,13 +9,16 @@
  *
  * npm run demo -- --file writes the same demo as one HTML file
  * (build/advising-demo.html) that opens with a double-click, no Node needed.
+ * --seed <file>, --out <file> and --label <text> are used by
+ * scripts/private-demo.js to build a private copy from another seed file.
  *
  * Refuses to run in production or on Railway.
  */
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { execFileSync, spawn } = require('child_process');
+const { spawn } = require('child_process');
+const { loadSeed, buildPage } = require('./demo-page');
 
 if (process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT_NAME || process.env.RAILWAY_SERVICE_ID) {
   console.error('The demo runs on a local computer only. It is disabled in production and on Railway.');
@@ -24,28 +27,15 @@ if (process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT_NAM
 
 const ROOT = path.join(__dirname, '..');
 const port = Number(process.env.PORT || 3005);
-const seed = JSON.parse(fs.readFileSync(path.join(ROOT, 'demo', 'students.json'), 'utf8'));
-if (!seed.students.every(s => s.demo === true && /^20\d\d99\d{3}$/.test(s.id))) {
-  console.error('demo/students.json must contain demo records only (demo: true, IDs in the 99xxx block).');
-  process.exit(1);
-}
-
-execFileSync(process.execPath, ['build.js'], { cwd: ROOT, stdio: 'inherit' });
-const built = fs.readFileSync(path.join(ROOT, 'build', 'index.html'), 'utf8');
-
-const data = JSON.stringify({ advisor: seed.advisor, students: seed.students }).replace(/</g, '\\u003c');
-const head = '<script>window.OFFLINE_DEMO=true;window.DEMO_DATA=' + data + ';' +
-  'sessionStorage.setItem("bau.session",' + JSON.stringify(seed.advisor) + ');' +
-  // a small label so nobody mistakes the demo for the live portal
-  'document.addEventListener("DOMContentLoaded",function(){var d=document.createElement("div");d.id="demo-ribbon";' +
-  'd.textContent="DEMO: fictional students, nothing is saved";document.body.appendChild(d)});</script>' +
-  '<style>#demo-ribbon{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:99999;' +
-  'background:#A8842C;color:#fff;font:600 12px/1.2 system-ui,sans-serif;padding:6px 14px;border-radius:999px;' +
-  'box-shadow:0 2px 8px rgba(0,0,0,.2);pointer-events:none}</style>';
-const page = built.replace('<head>', '<head>' + head);
+const arg = name => { const i = process.argv.indexOf(name); return i > 0 ? process.argv[i + 1] : null; };
+const seedFile = arg('--seed') ? path.resolve(arg('--seed')) : path.join(ROOT, 'demo', 'students.json');
+const label = arg('--label') || 'DEMO: fictional students, nothing is saved';
+let seed;
+try { seed = loadSeed(seedFile); } catch (e) { console.error(e.message); process.exit(1); }
+const page = buildPage(seed, label);
 
 if (process.argv.includes('--file')) {
-  const out = path.join(ROOT, 'build', 'advising-demo.html');
+  const out = arg('--out') ? path.resolve(arg('--out')) : path.join(ROOT, 'build', 'advising-demo.html');
   fs.writeFileSync(out, page);
   console.log('\nWrote ' + out + ' (' + Math.round(page.length / 1024) + ' KB). Double-click it to open the demo.');
   process.exit(0);

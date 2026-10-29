@@ -52,3 +52,17 @@ node demo/tools/build-seed.js           # demo/students.json, read back from the
 `build-seed.js` reads the PDFs with the portal's own importer and stops if
 anything read back differs from what was printed, so the demo records are
 exactly what a real import of these PDFs produces.
+
+## Online demo (Railway)
+
+`node scripts/public-demo.js` serves the same demo from a host, with only the
+fictional students above. It has no database and no sign-in, and nothing is
+saved. On Railway, set the service's config file to `railway.demo.json`.
+
+## Private copy from real PDFs (this computer only)
+
+`node scripts/private-demo.js --transcripts <pdf> --schedules <pdf> --count 5`
+builds `private-demo/private-demo.html` from a few real students with their
+names, IDs and nationality replaced. Their courses and grades are still real,
+so the `private-demo/` folder is ignored by git and must stay on this
+computer: never upload, deploy or share it, and delete it when done.
