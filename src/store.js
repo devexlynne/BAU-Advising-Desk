@@ -446,11 +446,23 @@
   async function saveSettings(slug, s) { return await docSet('advisors/' + slug + '/settings', s); }
 
   // only the admin's overrides, shipped rules stay in rules.json
+  // one study plan per programme; the server checks it before keeping it
+  async function getProgramme(id) { return await docGet('programmes/' + id + '/catalog', null); }
+  async function saveProgramme(id, catalog) {
+    if (api) return await post('/api/set', { path: 'programmes/' + id + '/catalog', value: catalog });
+    lsSet('bau.programmes/' + id + '/catalog', catalog);
+    return { ok: true, warnings: [] };
+  }
+  async function saveOrgTree(tree) {
+    if (!api) throw new Error('Changing the university structure needs the portal server.');
+    return (await post('/api/org/tree', { tree })).tree;
+  }
+
   async function getConfig(dept) { return await docGet('config/' + dept + '/rules', null); }
   async function saveConfig(dept, cfg) { return await docSet('config/' + dept + '/rules', cfg); }
 
   return {
-    getConfig, saveConfig,
+    getConfig, saveConfig, getProgramme, saveProgramme, saveOrgTree,
     init, isShared: () => api || !!db, isServer: () => api,
     whoAmI, signOutServer, lastError: () => lastError,
     isAdmin: () => amAdmin, mailReady: () => mailOn, allStudents, loadPeople, loadOrgTree,

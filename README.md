@@ -188,6 +188,19 @@ C 2.00, C- 1.67, **D 1.33**, F 0.00.
   The first startup seeds the Science > Mathematics and Computer Science > `cs` tree and imports
   legacy staff profiles idempotently. Existing account hashes are retained. The existing
   `ADMIN_SLUGS` setting remains a bootstrap superadmin list.
+- **University structure** — a superadmin adds and renames faculties, departments and
+  programmes from the browser; a faculty admin does the same inside their own faculty only. A
+  programme that already has a study plan, and Computer Science, cannot be removed.
+- **One programme at a time** — the programme picker at the top of the side menu switches the
+  whole portal: students, study plan, rules and printouts follow the chosen programme. University
+  rules (grades, probation, IC3, Intensive English, credit load) are shared; each programme keeps
+  its own study plan (`programmes/<id>/catalog`) and its own rule settings (`config/<id>/rules`).
+  Students are filed under the programme they were imported into.
+- **Programme setup** — basics, requirement blocks, courses (typed in or pasted from Excel),
+  prerequisites and tracks, with checks for duplicate codes, unknown blocks, prerequisite loops
+  and credits that do not add up. A new programme starts empty or as a copy of another one, can be
+  tried on a loaded student before saving, and the server re-checks the plan before keeping it.
+  Faculty admins and programme editors change only their own programmes.
 
 ## When another doctor loads their own students
 
@@ -227,6 +240,8 @@ data/rules.json     the regulations, with a citation on each rule
 data/faculty.json   legacy staff data, read only by the one-time migration
 src/org-tree.js     organisation tree validation and legacy staff migration
 src/permissions.js  role permissions and inherited scope checks
+src/programme.js    one study plan per programme: empty template, copy, checks, Excel rows
+src/structure.js    University structure and Programme setup pages, programme switching
 data/offering.json  course sections for the current term
 tests/              unit, rendering, server-safety and browser end-to-end tests
 ```

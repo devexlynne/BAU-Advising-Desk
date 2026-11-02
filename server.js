@@ -19,6 +19,8 @@ const { PostgresStore, createPool } = require('./src/postgres-store');
 const sealed = require('./src/encrypted-file');
 const OrgTree = require('./src/org-tree');
 const Permissions = require('./src/permissions');
+const Programme = require('./src/programme');
+const SHARED_CATALOG = require('./data/catalog.json');
 
 // ---- configuration -----------------------------------------------------------
 const RAILWAY_DEPLOYMENT = !!(process.env.RAILWAY_ENVIRONMENT_NAME || process.env.RAILWAY_SERVICE_ID);
@@ -193,6 +195,39 @@ function validRoleAssignments(actorSlug, roles) {
     }
   }
   return true;
+}
+
+/* A role assignment is split into (role, scope) pairs so that an admin only
+   ever touches the pairs inside their own authority. Pairs outside it are kept
+   exactly as they are, whatever the request sends. */
+function rolePairs(roles) {
+  const out = [];
+  (Array.isArray(roles) ? roles : []).forEach(assignment => {
+    if (!assignment) return;
+    (Array.isArray(assignment.scopes) ? assignment.scopes : []).forEach(scope =>
+      out.push({ role: assignment.role, scope }));
+  });
+  return out;
+}
+function groupPairs(pairs) {
+  const byRole = new Map();
+  pairs.forEach(pair => {
+    if (!byRole.has(pair.role)) byRole.set(pair.role, []);
+    const scopes = byRole.get(pair.role);
+    if (!scopes.includes(pair.scope)) scopes.push(pair.scope);
+  });
+  return Array.from(byRole, ([role, scopes]) => ({ role, scopes }));
+}
+function managesPair(actorSlug, pair) {
+  if (isSuperadmin(actorSlug)) return true;
+  if (pair.role === 'superadmin') return false;
+  return canUser(actorSlug, 'people:manage', pair.scope);
+}
+function managesAllOf(actorSlug, target) {
+  if (isSuperadmin(actorSlug)) return true;
+  if (!target || isSuperadmin(target.slug)) return false;
+  const pairs = rolePairs(target.roles);
+  return pairs.length > 0 && pairs.every(pair => managesPair(actorSlug, pair));
 }
 
 function canManagePerson(actorSlug, target) {
@@ -619,6 +654,11 @@ function mayTouch(slug, key, operation) {
     return owner === slug || (canForOwner(slug, owner, 'students:read')
       && scopesOf(personOf(owner)).some(scope => canUser(slug, 'students:clear', scope)));
   }
+  const plan = /^programmes\/([a-z0-9-]+)\/catalog$/.exec(key);
+  if (plan) {
+    if (OrgTree.findNode(store['org/tree'] || OrgTree.DEFAULT_TREE, plan[1]) === null) return false;
+    return canUser(slug, write ? 'rules:write' : 'rules:read', plan[1]);
+  }
   const rule = /^config\/([a-z0-9-]+)\/rules$/.exec(key);
   if (rule) return canUser(slug, write ? 'rules:write' : 'rules:read', rule[1]);
   if (key.indexOf('offering/') === 0) return canUser(slug, write ? 'offering:write' : 'offering:read');
@@ -854,9 +894,26 @@ async function api(req, res, url) {
 
   if (p === '/api/org/tree') {
     if (body.tree === undefined) return json(res, 200, { tree: store['org/tree'] || OrgTree.DEFAULT_TREE });
-    if (!isSuperadmin(me.slug)) return json(res, 403, { error: 'only a superadmin can change the organisation tree' });
+    const current = store['org/tree'] || OrgTree.DEFAULT_TREE;
+    // a faculty admin may reshape the inside of their own faculty, nothing else
+    const own = isSuperadmin(me.slug) ? null : ((personOf(me.slug) || {}).roles || [])
+      .filter(a => a && a.role === 'faculty-admin').flatMap(a => a.scopes || []);
+    if (own && !own.length) return json(res, 403, { error: 'only a superadmin or a faculty admin can change the organisation tree' });
     const result = OrgTree.validateTree(body.tree);
     if (!result.ok) return json(res, 400, { error: result.error });
+    if (own) {
+      const outside = t => JSON.stringify(Object.assign({}, t, {
+        faculties: (t.faculties || []).map(f => own.includes(f.id) ? { id: f.id } : f) }));
+      if (outside(current) !== outside(body.tree)) {
+        return json(res, 403, { error: 'you can only change departments and programmes inside your own faculty' });
+      }
+    }
+    const withPlan = Object.keys(store).map(k => /^programmes\/([a-z0-9-]+)\/catalog$/.exec(k)).filter(Boolean).map(m => m[1]);
+    const lost = withPlan.filter(id => !OrgTree.findNode(body.tree, id));
+    if (lost.length) {
+      return json(res, 409, { error: 'a programme that already has a study plan cannot be removed: ' + lost.join(', ') });
+    }
+    if (!OrgTree.findNode(body.tree, 'cs')) return json(res, 409, { error: 'the Computer Science programme cannot be removed' });
     const referenced = allPeople().flatMap(person => person.roles || [])
       .flatMap(role => role.scopes || []);
     if (referenced.some(scope => !OrgTree.findNode(body.tree, scope))) {
@@ -872,7 +929,7 @@ async function api(req, res, url) {
   }
 
   if (p === '/api/people/list') {
-    if (!canUser(me.slug, 'people:read', scopesOf(personOf(me.slug))[0])) {
+    if (!isSuperadmin(me.slug) && !scopesOf(personOf(me.slug)).some(scope => canUser(me.slug, 'people:read', scope))) {
       return json(res, 403, { error: 'no people are available in your scope' });
     }
     const people = inScopePeople(me.slug).map(person => ({
@@ -946,8 +1003,23 @@ async function api(req, res, url) {
     if (!current || !canManagePerson(me.slug, current)) return json(res, 403, { error: 'you cannot manage this person' });
     const profile = body.person && typeof body.person === 'object' && !Array.isArray(body.person)
       ? body.person : {};
-    const roles = body.roles;
-    if (!validRoleAssignments(me.slug, roles)) return json(res, 400, { error: 'the role or scope is invalid or outside your authority' });
+    // roles outside the caller's authority are kept; only in-scope roles change
+    const kept = rolePairs(current.roles).filter(pair => !managesPair(me.slug, pair));
+    const wanted = body.roles === undefined ? rolePairs(current.roles).filter(pair => managesPair(me.slug, pair))
+      : rolePairs(body.roles).filter(pair => managesPair(me.slug, pair));
+    const wantedRoles = groupPairs(wanted);
+    if (!Array.isArray(body.roles === undefined ? [] : body.roles)
+      || (wantedRoles.length && !validRoleAssignments(me.slug, wantedRoles))) {
+      return json(res, 400, { error: 'the role or scope is invalid or outside your authority' });
+    }
+    const roles = groupPairs(kept.concat(wanted));
+    if (!roles.length) return json(res, 400, { error: 'a person needs at least one role; deactivate them instead' });
+    const profileKeys = ['name', 'title', 'photo', 'faculty', 'department', 'email'];
+    const profileChanged = profileKeys.some(k => profile[k] !== undefined
+      && String(profile[k]).trim() !== String(current[k] || '').trim());
+    if (profileChanged && me.slug !== slug && !managesAllOf(me.slug, current)) {
+      return json(res, 403, { error: 'this person also works outside your scope, so only their roles in your scope can be changed' });
+    }
     if (isSuperadmin(slug) && !roles.some(role => role.role === 'superadmin') && lastSuperadmin(slug)) {
       return json(res, 409, { error: 'the last superadmin cannot be demoted' });
     }
@@ -994,6 +1066,15 @@ async function api(req, res, url) {
       return json(res, 409, { error: 'the last superadmin cannot be deactivated' });
     }
     const before = JSON.parse(JSON.stringify(target));
+    if (!managesAllOf(me.slug, target)) {
+      // they also work elsewhere: take away only the roles in the caller's scope
+      const kept = rolePairs(target.roles).filter(pair => !managesPair(me.slug, pair));
+      if (kept.length === rolePairs(target.roles).length) return json(res, 403, { error: 'you cannot manage this person' });
+      target.roles = groupPairs(kept);
+      save();
+      audit(me.slug, 'person-role-changed', { target: slug, before, after: target, ip });
+      return json(res, 200, { ok: true, active: true, rolesRemoved: true });
+    }
     target.active = false;
     [store._sessions, store._resets, store._verifies].forEach(bag => {
       if (bag) Object.keys(bag).forEach(key => { if (bag[key] && bag[key].slug === slug) delete bag[key]; });
@@ -1271,6 +1352,34 @@ async function api(req, res, url) {
         const votes = (Array.isArray(cur.votes) ? cur.votes : []).filter(x => x !== mine).concat(want ? [mine] : []);
         body.value = Object.assign({}, cur, { votes, done: isSuperadmin(me.slug) ? !!v.done : !!cur.done });
       }
+    }
+    // a programme's study plan is checked before it is kept: a broken one would
+    // give every student in that programme wrong advice
+    const planKey = /^programmes\/([a-z0-9-]+)\/catalog$/.exec(key);
+    if (planKey && p === '/api/delete') {
+      return json(res, 409, { error: 'a study plan cannot be deleted; remove the programme from the structure instead' });
+    }
+    if (planKey && p === '/api/set') {
+      const v = body.value;
+      if (!v || typeof v !== 'object' || Array.isArray(v) || JSON.stringify(v).length > 2 * 1024 * 1024) {
+        return json(res, 400, { error: 'invalid study plan' });
+      }
+      const known = SHARED_CATALOG.universityElectives.map(c => c.code)
+        .concat(SHARED_CATALOG.genScienceElectives.map(c => c.code), SHARED_CATALOG.courses.map(c => c.code));
+      Object.keys(store).forEach(k => {
+        if (/^programmes\/[a-z0-9-]+\/catalog$/.test(k) && store[k] && Array.isArray(store[k].courses)) {
+          store[k].courses.forEach(c => known.push(c.code));
+        }
+      });
+      const check = Programme.validate(v, known);
+      if (check.errors.length) return json(res, 400, { error: 'the study plan has problems: ' + check.errors.slice(0, 5).join(' '), problems: check.errors });
+      const before = store[key] || null;
+      body.value = Programme.forStorage(v);
+      body.value.updatedAt = Date.now(); body.value.updatedBy = me.slug;
+      store[key] = body.value; save();
+      audit(me.slug, 'study-plan-saved', { programme: planKey[1], created: !before,
+        courses: body.value.courses.length, totalCredits: body.value.totalCredits, ip });
+      return json(res, 200, { ok: true, warnings: check.warnings });
     }
     // a student record must carry the id it is filed under
     if (p === '/api/set' && /^advisors\/[a-z0-9-]+\/students\/[^/]+$/.test(key)) {

@@ -15,7 +15,7 @@ let rulesDraft = null;          // { values, courses, removed } while editing
 let rulesEffect = null;         // the last "See the effect" result
 let rulesTab = 'rules';
 
-const deptOf = () => (state.me && state.me.programme) || 'cs';
+const deptOf = () => activeProgramme();
 function deptName() {
   const tree = state.orgTree;
   const programme = deptOf();
@@ -141,7 +141,7 @@ async function loadRulesConfig() {
 }
 
 const draftOrSaved = () => rulesDraft || rulesCfg;
-const isAdminNow = () => !!(state.me && state.me.canEditRules);
+const isAdminNow = () => !!(state.me && canEditPlan(activeProgramme()));
 
 // ---- see the effect / publish / undo --------------------------------------
 // compact fingerprint of a student's result, if it differs the student "moved"
@@ -219,7 +219,10 @@ function viewRules() {
   const cfg = draftOrSaved();
   const editing = admin && !!rulesDraft;
   const groups = [];
-  RULE_FIELDS.forEach(rf => { if (!groups.includes(rf.group)) groups.push(rf.group); });
+  // a programme only sees the rules that exist for it (no Mathematics minor in Accounting)
+  const fields = RULE_FIELDS.filter(rf => rf.tokens.every(t => t.keys.length
+    && (readKey(t.keys[0]) !== undefined || t.dflt !== undefined)));
+  fields.forEach(rf => { if (!groups.includes(rf.group)) groups.push(rf.group); });
   // a number in a sentence: bold text when viewing, an input when editing
   const inputFor = (rf, ti) => {
     const tok = rf.tokens[ti], v = tokVal(tok, cfg.values);
@@ -230,7 +233,7 @@ function viewRules() {
       step="${tok.step || 1}" min="${tok.min != null ? tok.min : ''}" max="${tok.max != null ? tok.max : ''}">`;
   };
   const rulesHtml = groups.map(g => `<div class="panel"><div class="hd">${esc(g)}</div><div class="bd rsent">
-      ${RULE_FIELDS.filter(rf => rf.group === g).map(rf => `<p class="rs">${esc(LANG === 'ar' && rf.textAr ? rf.textAr : rf.text).replace(/\{(\d)\}/g, (m, i) => inputFor(rf, +i))}</p>`).join('')}
+      ${fields.filter(rf => rf.group === g).map(rf => `<p class="rs">${esc(LANG === 'ar' && rf.textAr ? rf.textAr : rf.text).replace(/\{(\d)\}/g, (m, i) => inputFor(rf, +i))}</p>`).join('')}
     </div></div>`).join('');
 
   const BUCKETS = Object.keys(C.buckets).filter(k => !['FRESHMAN', 'OTHER'].includes(k));

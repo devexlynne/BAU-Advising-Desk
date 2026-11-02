@@ -126,8 +126,20 @@ async function run() {
     }, businessCookie)).status, 403, 'Business faculty-admin must not change Science rules');
     assert.strictEqual((await post('/api/org/tree', {}, businessCookie)).status, 200,
       'authenticated staff may load the tree needed for scoped administration');
-    assert.strictEqual((await post('/api/org/tree', { tree: {} }, businessCookie)).status, 403,
-      'only a superadmin may change the organisation tree');
+    const treeNow = (await (await post('/api/org/tree', {}, businessCookie)).json()).tree;
+    const touchScience = JSON.parse(JSON.stringify(treeNow));
+    touchScience.faculties.find(f => f.id === 'science').name = 'Renamed by Business';
+    assert.strictEqual((await post('/api/org/tree', { tree: touchScience }, businessCookie)).status, 403,
+      'a faculty-admin must not change another faculty in the organisation tree');
+    const addFaculty = JSON.parse(JSON.stringify(treeNow));
+    addFaculty.faculties.push({ id: 'law', name: 'Faculty of Law', departments: [] });
+    assert.strictEqual((await post('/api/org/tree', { tree: addFaculty }, businessCookie)).status, 403,
+      'only a superadmin may add a faculty');
+    const ownDept = JSON.parse(JSON.stringify(treeNow));
+    ownDept.faculties.find(f => f.id === 'business-administration').departments.push({
+      id: 'marketing', name: 'Marketing', programmes: [{ id: 'bba-marketing', name: 'BBA Marketing', campuses: ['Beirut'] }] });
+    assert.strictEqual((await post('/api/org/tree', { tree: ownDept }, businessCookie)).status, 200,
+      'a faculty-admin may add a department and programme inside their own faculty');
 
     const invited = await post('/api/people/invite', {
       person: {

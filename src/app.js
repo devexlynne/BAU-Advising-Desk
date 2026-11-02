@@ -96,7 +96,7 @@ function coverBanner() {
     <div class="hero-in">
       <div class="crest">${logoWhite(58)}</div>
       <h1>Online Advising System</h1>
-      <p>Faculty of Science<i class="sep-dot" aria-hidden="true"></i>Mathematics and Computer Science</p>
+      <p>Beirut Arab University<i class="sep-dot" aria-hidden="true"></i>Academic advising</p>
       <div class="sub">${esc(hello())}</div>
     </div>
   </div>`;
@@ -431,6 +431,11 @@ async function signedIn(person, silent) {
     || 'cs';
   state.me.canEditRules = state.me.admin || roles.some(assignment =>
     assignment.role === 'programme-editor' && (assignment.scopes || []).includes(state.me.programme));
+  // the programme last worked on in this tab, if this person may still open it
+  let lastProgramme = null;
+  try { lastProgramme = sessionStorage.getItem('bau.programme'); } catch (e) { /* not kept */ }
+  state.programme = lastProgramme && programmesFor().includes(lastProgramme) ? lastProgramme
+    : (programmesFor().includes(state.me.programme) ? state.me.programme : programmesFor()[0] || 'cs');
   if (state.me.admin) {
     /* admin advises nobody, so their list is the whole department. Fetched once,
            then it's just a normal list (same pages, rules, arithmetic). */
@@ -444,7 +449,7 @@ async function signedIn(person, silent) {
     try { const n = await repairSplitRecords(); if (n) setTimeout(() => toast(n + ' transcripts joined to their students\' advisors'), 1200); }
     catch (e) { /* tried again next sign-in */ }
   } else {
-    state.students = await Store.loadStudents(person.slug, []);
+    state.students = inActiveProgramme(await Store.loadStudents(person.slug, []), person.slug);
   }
   // missing/mistyped email -> build it from name + ID so mail buttons always work
   state.students.forEach(s => {
@@ -453,7 +458,7 @@ async function signedIn(person, silent) {
     if (r.guessed) s.emailGuessed = true;
   });
   try { state.ideas = await Store.loadIdeas(); } catch (e) { state.ideas = []; }
-  await loadRulesConfig();
+  await useProgramme(activeProgramme());
   if (Store.isServer() && !state.cover) {
     try { state.cover = await Store.getCover(); } catch (e) { /* the drawn cover stands in */ }
   }
@@ -702,7 +707,7 @@ async function syncNow(reason) {
       state.everyone = await loadEveryone();
       state.students = everyoneFlat();
     } else {
-      state.students = await Store.loadStudents(state.me.slug, []);
+      state.students = inActiveProgramme(await Store.loadStudents(state.me.slug, []), state.me.slug);
       state.students.forEach(s => {
         const r = E.fixEmail(s.name, s.id, s.email);
         if (r.email && r.email !== s.email) s.email = r.email;
@@ -882,7 +887,7 @@ function welcomeLine(person) {
 async function signOut() {
   await Store.signOutServer();
   sessionStorage.removeItem('bau.session');
-  state.me = null; state.students = []; state.people = []; state.orgTree = null;
+  state.me = null; state.students = []; state.people = []; state.orgTree = null; state.programme = null;
   FACULTY = []; gateStep = 'pick'; gatePerson = null; resetEmail = '';
   drawGate();
 }
@@ -1116,6 +1121,8 @@ function render() {
     ? [
         ['everyone', 'Everyone', state.everyone ? String(allStudentCount()) : '', ''],
         ...(state.me.peopleManager ? [['people', 'People', String(state.people.length), '']] : []),
+        ...(canEditStructure() ? [['structure', 'University structure', '', '']] : []),
+        ['programme', 'Programme setup', state.programmeReady ? '' : 'new', state.programmeReady ? '' : 'hot'],
         ['rules', 'Rules and study plan', '', ''],
         ['ideas', 'Portal suggestions', state.ideas.length ? String(state.ideas.length) : '', ''],
         ['ask', 'Ask Me', '', ''],
@@ -1129,11 +1136,12 @@ function render() {
         ...(c.decide || c.graduated ? [['decide', 'To decide', c.decide ? String(c.decide) : '', '']] : []),
         ...(state.me.peopleManager ? [['people', 'People', String(state.people.length), '']] : []),
         ['ask', 'Ask Me', '', ''],
+        ...(canEditPlan(activeProgramme()) ? [['programme', 'Programme setup', '', '']] : []),
         ['rules', 'Rules in force', '', ''],
         ['ideas', 'Portal suggestions', state.ideas.length ? String(state.ideas.length) : '', '']
       ];
 
-  $('#rail').innerHTML = `<div class="lab">${admin ? 'Department' : 'Advising'}</div>`
+  $('#rail').innerHTML = programmePicker() + `<div class="lab">${admin ? 'Department' : 'Advising'}</div>`
     + items.map(([k, label, n, cls]) =>
       `<button data-view="${k}" aria-current="${state.view === k
         || (k === 'students' && state.view === 'student')
@@ -1167,6 +1175,8 @@ function render() {
   else if (state.view === 'notices') v.innerHTML = viewNotices();
   else if (state.view === 'rules') v.innerHTML = viewRules();
   else if (state.view === 'people') v.innerHTML = viewPeople();
+  else if (state.view === 'structure') v.innerHTML = viewStructure();
+  else if (state.view === 'programme') v.innerHTML = viewProgrammeSetup();
   drawFloat();
   drawBell();
   syncHistory();
@@ -1458,7 +1468,7 @@ function trackEvidencePanel(s, snap) {
       }).join('')}</div>
     </div>`;
   }).join('');
-  return `<div class="panel track-evidence"><div class="hd">Computer Science track evidence</div><div class="bd">
+  return `<div class="panel track-evidence"><div class="hd">${esc(C.program || 'Programme')} track evidence</div><div class="bd">
     <p class="note">${explanation}</p>
     <div class="track-grid">${rows}</div>
   </div></div>`;
@@ -1551,7 +1561,7 @@ function tabProgress(s) {
 ''}</dd>` : ''}
     ${s.phone ? `<dt>Phone</dt><dd class="mono">${esc(s.phone)}</dd>` : ''}
     ${s.nationality ? `<dt>Nationality</dt><dd>${esc(nice(s.nationality))}</dd>` : ''}
-    <dt>Programme</dt><dd>${esc(s.program || 'Computer Science')}</dd>
+    <dt>Programme</dt><dd>${esc(s.program || C.program || 'Computer Science')}</dd>
     <dt>Advisor</dt><dd>${esc(advisorOfStudent(s))}</dd>
   </dl>`;
 
@@ -2387,7 +2397,7 @@ function tabSheet(s) {
     </div>
     <div class="panel"><div class="bd" style="text-align:center;border-bottom:1px solid var(--line)">
       <div style="font-family:var(--serif);font-weight:700;font-size:16px">Beirut Arab University</div>
-      <div style="font-size:12.5px;color:var(--muted)">Faculty of Science<i class="sep-dot" aria-hidden="true"></i>Department of Mathematics and Computer Science</div>
+      <div style="font-size:12.5px;color:var(--muted)">${esc(progFacultyName())}<i class="sep-dot" aria-hidden="true"></i>${esc(progDeptLine())}</div>
       <div style="font-size:12.5px;color:var(--muted)">Advising contract sheet<i class="sep-dot" aria-hidden="true"></i>${esc(state.term)}</div>
     </div>
     <div class="bd">
@@ -2476,7 +2486,7 @@ function sheetDocument(s) {
   </style></head><body>
   <div class="head">
     <div class="u">Beirut Arab University</div>
-    <div class="f">Faculty of Science<i class="sep-dot" aria-hidden="true"></i>Department of Mathematics and Computer Science</div>
+    <div class="f">${esc(progFacultyName())}<i class="sep-dot" aria-hidden="true"></i>${esc(progDeptLine())}</div>
     <div class="t">Advising contract sheet<i class="sep-dot" aria-hidden="true"></i>${esc(state.term)}</div>
   </div>
   <div class="id">
@@ -2650,7 +2660,7 @@ function transcriptDocument(s) {
     table{width:100%;border-collapse:collapse}td{padding:3px 6px;border-bottom:1px solid #eef1f6}.c{font-family:Consolas,monospace;width:80px}
     .n{text-align:right;width:36px}.g{width:40px;font-weight:600;text-align:center}tr.dim td{color:#9aa3b2;text-decoration:line-through}
     @page{margin:14mm}</style></head><body>
-    <h1>${esc(s.name)}</h1><div class="sub">${esc(s.id)} · ${esc(s.program || 'Computer Science')} · Beirut Arab University</div>
+    <h1>${esc(s.name)}</h1><div class="sub">${esc(s.id)} · ${esc(s.program || C.program || 'Computer Science')} · Beirut Arab University</div>
     <div class="tot"><div><b>${tot.credits}</b>credits earned</div><div><b>${tot.cgpa != null ? tot.cgpa.toFixed(2) : '—'}</b>CGPA</div><div><b>${tot.terms}</b>semesters</div></div>
     ${body}</body></html>`;
 }
@@ -2691,7 +2701,7 @@ function reviewListDocument(list, title) {
   </style></head><body>
   <div class="head">
     <div class="u">Beirut Arab University</div>
-    <div class="f">Faculty of Science<i class="sep-dot" aria-hidden="true"></i>Department of Mathematics and Computer Science</div>
+    <div class="f">${esc(progFacultyName())}<i class="sep-dot" aria-hidden="true"></i>${esc(progDeptLine())}</div>
     <div class="t">${esc(title)}<i class="sep-dot" aria-hidden="true"></i>${esc(state.term)}</div>
   </div>
   <table><thead><tr><th>Student</th><th>What the records say</th><th>Note from the advisor</th></tr></thead>
@@ -2740,7 +2750,7 @@ const TEMPLATES = {
         + 'This is a summary from your advising record. If anything looks wrong,\n'
         + 'tell me and we will check it against the registrar together.\n\n'
         + 'Best regards,\nDr. ' + state.me.name + '\n'
-        + 'Mathematics and Computer Science, Faculty of Science\n';
+        + progDeptName() + ', ' + progFacultyName() + '\n';
     }
   },
   register: {
@@ -2759,7 +2769,7 @@ Please come and see me, or reply to this email, so we can settle your schedule.
 
 Best regards,
 Dr. ${state.me.name}
-Department of Mathematics and Computer Science
+${progDeptLine()}
 Beirut Arab University`
   },
   fix: {
@@ -2777,7 +2787,7 @@ Please make the change before the add and drop period closes. Come to my office 
 
 Best regards,
 Dr. ${state.me.name}
-Department of Mathematics and Computer Science
+${progDeptLine()}
 Beirut Arab University`
   },
   progress: {
@@ -2796,7 +2806,7 @@ This is recoverable, but it needs a plan. Please book a meeting with me this wee
 
 Best regards,
 Dr. ${state.me.name}
-Department of Mathematics and Computer Science
+${progDeptLine()}
 Beirut Arab University`
   },
   meeting: {
@@ -2811,7 +2821,7 @@ Bring your contract sheet if you have it with you.
 
 Best regards,
 Dr. ${state.me.name}
-Department of Mathematics and Computer Science
+${progDeptLine()}
 Beirut Arab University`
   },
   ok: {
@@ -2830,7 +2840,7 @@ ${ctx.courses.length ? 'You are registered for ' + ctx.regCredits + ' credits:\n
 
 Best regards,
 Dr. ${state.me.name}
-Department of Mathematics and Computer Science
+${progDeptLine()}
 Beirut Arab University`
   }
 };
@@ -4036,8 +4046,9 @@ function viewPeople() {
   });
   const groups = new Map();
   people.forEach(person => {
-    const faculty = person.faculty || 'Unassigned faculty';
-    const department = person.department || 'Unassigned department';
+    const wholeUni = (person.roles || []).some(role => role.role === 'superadmin');
+    const faculty = wholeUni ? 'Whole university' : person.faculty || 'Unassigned faculty';
+    const department = wholeUni ? 'Superadmins' : person.department || 'Unassigned department';
     if (!groups.has(faculty)) groups.set(faculty, new Map());
     const depts = groups.get(faculty);
     if (!depts.has(department)) depts.set(department, []);
@@ -4168,13 +4179,13 @@ const isAdvisorPerson = person => hasRole(person, 'advisor');
    lists live in this browser, so read each advisor's saved records here. */
 const advisorSlugs = () => FACULTY.filter(isAdvisorPerson).map(f => f.slug);
 async function loadEveryone() {
-  if (Store.isServer()) return await Store.allStudents();
+  if (Store.isServer()) return filterEveryone(await Store.allStudents());
   const out = {};
   for (const slug of advisorSlugs()) {
     const list = await Store.loadStudents(slug, []);
     if (list.length) out[slug] = list;
   }
-  return out;
+  return filterEveryone(out);
 }
 function everyoneFlat() {
   if (!state.everyone) return [];
@@ -4233,7 +4244,7 @@ function resetLinkPanel() {
   const opts = FACULTY.filter(isAdvisorPerson);
   const f = FACULTY.find(x => x.slug === pwReset.slug);
   const mail = f && pwReset.link ? 'mailto:' + encodeURIComponent(f.email || '') + '?subject=' + encodeURIComponent('Reset your Online Advising System password')
-    + '&body=' + encodeURIComponent('Dear Dr. ' + (f.short || f.name) + ',\n\nOpen this link within 30 minutes and choose a new password. It works once:\n' + pwReset.link + '\n\nDepartment of Mathematics and Computer Science') : '';
+    + '&body=' + encodeURIComponent('Dear Dr. ' + (f.short || f.name) + ',\n\nOpen this link within 30 minutes and choose a new password. It works once:\n' + pwReset.link + '\n\n' + progDeptLine()) : '';
   return `<div class="panel"><div class="hd">Forgotten password</div><div class="bd stack">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">
       <label class="f" for="pwFor" style="max-width:300px;flex:1">Advisor
@@ -4623,6 +4634,7 @@ async function onClick(e) {
   const t = e.target;
   if (t.closest('[data-lang-toggle]')) { setLang(LANG === 'ar' ? 'en' : 'ar'); return; }
   if (state.me && state.view === 'rules' && await rulesClick(t)) return;
+  if (state.me && (state.view === 'structure' || state.view === 'programme') && await structureClick(t)) return;
   if (t.closest('[data-person-add]')) { openPeopleForm('invite'); return; }
   const personEdit = t.closest('[data-person-edit]');
   if (personEdit) {
@@ -5117,6 +5129,7 @@ document.addEventListener('submit', e => {
 
 document.addEventListener('input', e => {
   if (e.target.dataset && (e.target.dataset.rf || e.target.dataset.pc || e.target.dataset.cal)) { rulesInput(e.target); return; }
+  if (e.target.dataset && e.target.dataset.pl) { planInput(e.target); return; }
   if (e.target.id === 'peopleSearch') {
     peopleQuery = e.target.value;
     const pos = e.target.selectionStart;
@@ -5134,6 +5147,8 @@ document.addEventListener('input', e => {
 
 document.addEventListener('change', e => {
   if (e.target.dataset && (e.target.dataset.rf || e.target.dataset.pc || e.target.dataset.cal)) { rulesInput(e.target); return; }
+  if (e.target.dataset && e.target.dataset.pl) { planInput(e.target, true); return; }
+  if (e.target.id === 'progPick') { switchProgramme(e.target.value); return; }
   if (e.target.id === 'peopleRole') { syncPeopleScopeOptions(); return; }
   if (e.target.id === 'sendTo') {
     const w = $('#sendOtherWrap');

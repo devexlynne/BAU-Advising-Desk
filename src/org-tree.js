@@ -14,7 +14,7 @@ const DEFAULT_TREE = {
       programmes: [{
         id: 'cs',
         name: 'BSc Computer Science',
-        campuses: ['Beirut', 'Debbieh']
+        campuses: ['Beirut', 'Debbieh', 'Tripoli', 'Bekaa']
       }]
     }]
   }]

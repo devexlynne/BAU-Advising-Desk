@@ -22,9 +22,9 @@ const data = [
   'window.BRAND=' + json('data/brand.json') + ';'
 ].join('\n');
 
-const app = read('src/app.js')
+const app = read('src/programme.js') + '\n' + read('src/app.js')
   .replace('/*__ASKME__*/', () => read('src/askme.js'))
-  .replace('/*__RULES__*/', () => read('src/rulesadmin.js'))
+  .replace('/*__RULES__*/', () => read('src/rulesadmin.js') + '\n' + read('src/structure.js'))
   .replace('/*__I18N__*/', () => read('src/i18n.js'));
 
 const PLACEHOLDER = /\/\*__[A-Z]+__\*\//;
