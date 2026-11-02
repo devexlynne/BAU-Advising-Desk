@@ -839,7 +839,7 @@ async function api(req, res, url) {
     endSessionsOf(slug);
     save();
     audit(slug, 'password-reset', { ip });
-    return json(res, 200, { ok: true, slug },
+    return json(res, 200, { ok: true, slug, admin: isSuperadmin(slug) },
       { 'set-cookie': cookieFor(newSession(slug), secure) });
   }
 
@@ -852,8 +852,8 @@ async function api(req, res, url) {
   }
 
   if (p === '/api/org/tree') {
-    if (!isSuperadmin(me.slug)) return json(res, 403, { error: 'only a superadmin can change the organisation tree' });
     if (body.tree === undefined) return json(res, 200, { tree: store['org/tree'] || OrgTree.DEFAULT_TREE });
+    if (!isSuperadmin(me.slug)) return json(res, 403, { error: 'only a superadmin can change the organisation tree' });
     const result = OrgTree.validateTree(body.tree);
     if (!result.ok) return json(res, 400, { error: result.error });
     const referenced = allPeople().flatMap(person => person.roles || [])

@@ -189,6 +189,7 @@
       try { const r = await post('/api/signin', { slug, password }); amAdmin = !!r.admin; return true; }
       catch (e) { lastError = e.message; lastUnverified = e.status === 403; return false; }
     }
+
     const acct = await getAccount(slug);
     if (!acct) return false;
     const hash = await hashPassword(password, acct.salt);
@@ -196,6 +197,20 @@
     acct.lastSignIn = Date.now();
     await docSet(acctPath(slug), acct);
     return true;
+  }
+
+  async function signIn(email, password) {
+    if (!api) return { ok: false, error: 'Sign-in needs the official advising portal.' };
+    lastUnverified = false;
+    try {
+      const result = await post('/api/signin', { email, password });
+      amAdmin = !!result.admin;
+      return result;
+    } catch (e) {
+      lastError = e.message;
+      lastUnverified = e.status === 403;
+      return { ok: false, error: e.message, unverified: lastUnverified };
+    }
   }
 
   async function setPassword(acct, password) {
@@ -237,15 +252,19 @@
   // ---- email reset + session ----------------------------------------------
 
   // server emails a reset link to the account's address
-  async function requestResetEmail(slug) {
+  async function requestResetEmail(email) {
     if (!api) return { ok: false, mail: false };
-    try { return await post('/api/reset-request', { slug }); }
+    try { return await post('/api/reset-request', { email }); }
     catch (e) { lastError = e.message; return { ok: false, mail: mailOn, error: e.message }; }
   }
 
   // second half: token from that email link
   async function resetWithLink(token, password) {
-    try { return await post('/api/reset-with-link', { token, password }); }
+    try {
+      const result = await post('/api/reset-with-link', { token, password });
+      amAdmin = !!result.admin;
+      return result;
+    }
     catch (e) { lastError = e.message; return { ok: false, error: e.message }; }
   }
 
@@ -281,6 +300,28 @@
     const r = await post('/api/all-students', {});
     if (!r || typeof r.advisors !== 'object') throw new Error('Could not load the department lists.');
     return r.advisors;
+  }
+
+  async function loadPeople() {
+    if (!api) return [];
+    return (await post('/api/people/list', {})).people || [];
+  }
+
+  async function loadOrgTree() {
+    if (!api) return null;
+    return (await post('/api/org/tree', {})).tree || null;
+  }
+
+  async function invitePerson(person, roles) {
+    return post('/api/people/invite', { person, roles });
+  }
+
+  async function updatePerson(slug, person, roles) {
+    return post('/api/people/update', { slug, person, roles });
+  }
+
+  async function deactivatePerson(slug) {
+    return post('/api/people/deactivate', { slug });
   }
 
   // Sends from the dept mailbox, full message, no length limit.
@@ -412,9 +453,10 @@
     getConfig, saveConfig,
     init, isShared: () => api || !!db, isServer: () => api,
     whoAmI, signOutServer, lastError: () => lastError,
-    isAdmin: () => amAdmin, mailReady: () => mailOn, allStudents, sendMail, adminResetLink, adminClearPassword,
+    isAdmin: () => amAdmin, mailReady: () => mailOn, allStudents, loadPeople, loadOrgTree,
+    invitePerson, updatePerson, deactivatePerson, sendMail, adminResetLink, adminClearPassword,
     mailReset: () => mailOn, requestResetEmail, resetWithLink,
-    verifyAccount, resendVerify, lastUnverified: () => lastUnverified,
+    verifyAccount, resendVerify, signIn, lastUnverified: () => lastUnverified,
     getAccount, createAccount, checkPassword, accountsThatExist,
     changePassword,
     loadStudents, saveStudent, saveStudents, removeStudent, clearStudents,

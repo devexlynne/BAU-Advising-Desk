@@ -100,6 +100,13 @@ async function run() {
     assert.ok(businessPeople.people.some(person => person.slug === 'synthetic-business-editor'));
     assert.ok(!businessPeople.people.some(person => person.slug === 'synthetic-cs-advisor'),
       'Business faculty-admin must not list Science people');
+    const updatedPerson = await post('/api/people/update', {
+      slug: 'synthetic-business-editor',
+      person: { name: 'Updated Synthetic Editor', title: 'Synthetic programme editor' },
+      roles: [{ role: 'programme-editor', scopes: ['bba-accounting'] }]
+    }, businessCookie);
+    assert.strictEqual(updatedPerson.status, 200, 'a faculty admin can edit a person within their scope');
+    assert.strictEqual((await updatedPerson.json()).person.name, 'Updated Synthetic Editor');
     for (const route of ['/api/get', '/api/list']) {
       const read = await post(route, {
         path: route === '/api/list' ? 'advisors/synthetic-cs-advisor/students' : 'config/cs/rules'
@@ -115,7 +122,10 @@ async function run() {
     assert.strictEqual((await post('/api/set', {
       path: 'config/cs/rules', value: { forbidden: true }
     }, businessCookie)).status, 403, 'Business faculty-admin must not change Science rules');
-    assert.strictEqual((await post('/api/org/tree', {}, businessCookie)).status, 403);
+    assert.strictEqual((await post('/api/org/tree', {}, businessCookie)).status, 200,
+      'authenticated staff may load the tree needed for scoped administration');
+    assert.strictEqual((await post('/api/org/tree', { tree: {} }, businessCookie)).status, 403,
+      'only a superadmin may change the organisation tree');
 
     const invited = await post('/api/people/invite', {
       person: {
@@ -208,6 +218,9 @@ async function run() {
     const auditEvents = auditText.trim().split('\n').map(line => JSON.parse(line));
     assert.ok(auditEvents.some(event => event.action === 'person-invited'
       && event.target === 'synthetic-invited' && event.before === null && event.after));
+    assert.ok(auditEvents.some(event => event.action === 'person-updated'
+      && event.target === 'synthetic-business-editor' && event.before.name === 'Synthetic synthetic-business-editor'
+      && event.after.name === 'Updated Synthetic Editor'));
     assert.ok(auditEvents.some(event => event.action === 'org-tree-changed' && event.before && event.after));
     assert.ok(auditEvents.some(event => event.action === 'person-deactivated'
       && event.target === 'synthetic-cs-advisor' && event.before.active === true && event.after.active === false));

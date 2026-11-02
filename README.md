@@ -15,7 +15,10 @@ prints from the student system: the transcript and the schedule. Nothing is type
   TLS, permissions and restore procedures are verified.
 - **Course sections** across Beirut and Debbieh, merged from the offering and from the sections
   supplied in the current course offering.
-- **Faculty list** (`data/faculty.json`): who may open an account and portal admins.
+- **Staff directory** is stored as `people/<slug>` records with scoped role assignments.
+  The encrypted application store also keeps the organisation hierarchy at `org/tree`.
+  `data/faculty.json` is retained only as a one-time migration source; it is not bundled into
+  the public page and is no longer an account allowlist.
 - **Automated tests** cover synthetic academic cases, rendering and server security safeguards.
 
 ## This semester and the one being advised for
@@ -177,6 +180,14 @@ C 2.00, C- 1.67, **D 1.33**, F 0.00.
 - **Sign in** — photo, BAU email, own password. A forgotten password is reset through a
   single-use link sent to the advisor's BAU mailbox, so typing or knowing the address is not
   enough to take the account. Changing a password still needs the current one.
+- **People** — superadmins and faculty admins can search staff in their authorised scope,
+  invite BAU email addresses, update profiles and roles, and deactivate accounts without
+  deleting student records. The server checks every scope and permission; invitation links are
+  single-use and expire.
+- **Organisation and roles** — the tree is University > Faculty > Department > Programme.
+  The first startup seeds the Science > Mathematics and Computer Science > `cs` tree and imports
+  legacy staff profiles idempotently. Existing account hashes are retained. The existing
+  `ADMIN_SLUGS` setting remains a bootstrap superadmin list.
 
 ## When another doctor loads their own students
 
@@ -213,7 +224,9 @@ src/app.js          the interface (with askme.js, rulesadmin.js and i18n.js inli
 web/shell.html      markup and styling
 data/catalog.json   curriculum, requirement blocks, electives, prerequisites
 data/rules.json     the regulations, with a citation on each rule
-data/faculty.json   advisor allowlist and administrator assignments
+data/faculty.json   legacy staff data, read only by the one-time migration
+src/org-tree.js     organisation tree validation and legacy staff migration
+src/permissions.js  role permissions and inherited scope checks
 data/offering.json  course sections for the current term
 tests/              unit, rendering, server-safety and browser end-to-end tests
 ```
@@ -222,13 +235,27 @@ tests/              unit, rendering, server-safety and browser end-to-end tests
 
 ```bash
 npm install                                   # build and PostgreSQL dependencies
-ALLOW_UNVERIFIED_SIGNUP=true npm start        # local only: http://localhost:3000
+npm start                                     # local only: http://localhost:3000
 npm test                                      # unit, rendering and server tests
 npm run test:security                         # browser end-to-end checks (Playwright)
 ```
 
-On Windows (Command Prompt) set variables first, e.g. `set ALLOW_UNVERIFIED_SIGNUP=true`, then
-`npm start`. Production settings, email and backups are described in `DEPLOY.md`.
+On Windows (Command Prompt) set variables first, then `npm start`. Public sign-up is disabled;
+`ALLOW_UNVERIFIED_SIGNUP` does not bypass invitations. Use an existing migrated account or ask
+an active administrator to send an invitation. The app migrates the organisation tree and staff
+profiles automatically at startup; it does not import student records. Production settings,
+email and backups are described in `DEPLOY.md`.
+
+The optional synthetic organisation extension is run manually, never at server startup:
+
+```powershell
+$env:BAU_DEMO_BASE_URL = "http://localhost:3000"
+$env:BAU_DEMO_ADMIN_COOKIE = "sid=<session-cookie>"
+npm run seed-demo-org
+```
+
+It adds only the invented demo faculties and people; `test.*@bau.edu.lb` invitations are logged
+for local testing instead of emailed.
 
 ## Printing
 

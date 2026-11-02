@@ -6,9 +6,10 @@ real student records are imported.
 
 ## What the advisors get
 
-One web address. Each of them taps their photo, sets a password the first time, and from then on
-sees their own advisees on any device, phone included. What one advisor imports is there for
-them everywhere, and is not visible to anyone else.
+One web address. Staff sign in with their BAU email and password. A scoped administrator invites
+staff through the People page; invitees set their own password from a single-use email link.
+Advisors see their own advisees, and administrators only see records allowed by their assigned
+scope.
 
 ## Moving or restoring deployment
 
@@ -114,16 +115,15 @@ Optional (defaults in brackets):
 | `DATABASE_SSL_CA` | trusted CA PEM; required for Railway's official self-signed PostgreSQL template |
 | `DATABASE_SSL_SERVER_NAME` | certificate DNS name to verify when it differs from the database URL hostname |
 | `DATABASE_MIGRATION_URL` | one-off migration environment only; never set on the running app service |
-| `ADMIN_SLUGS` | portal admins, comma-separated (faculty.json entries with `"admin": true`) |
+| `ADMIN_SLUGS` | bootstrap superadmin slugs, comma-separated; retain this setting to preserve emergency admin access |
 | `IDEAS_TO` | where suggestions are emailed (the admins' addresses) |
-| `ALLOW_SIGNUP` | `false` closes sign-up once everyone has an account (`true`) |
 | `ENABLE_STUDENT_IMPORTS` | keep `false` until storage and prior-data checks are complete |
 | `SESSION_HOURS` / `SESSION_IDLE_MINUTES` | session lifetime and idle timeout (`12` / `120`) |
 | `RESET_MINUTES` / `VERIFY_HOURS` | lifetime of reset and activation links (`30` / `24`) |
 | `MAIL_DOMAINS` | domains the portal may email (`bau.edu.lb,student.bau.edu.lb`) |
 | `MAIL_PER_DAY` | messages one advisor may send per day (`200`) |
 | `TRUST_PROXY` | `false` when the server is reached directly, not behind a proxy (`true`) |
-| `ALLOW_UNVERIFIED_SIGNUP` | local development only; the server refuses to start in production if enabled (`false`) |
+| `ALLOW_UNVERIFIED_SIGNUP` | development-only email-verification escape; never allows uninvited sign-up (`false`) |
 
 For a fresh Railway deployment, provision a separate PostgreSQL service first. The existing
 app-only project and its `/data` volume are not a database. Keep the old volume intact and do not
@@ -132,9 +132,21 @@ attach it to the new service or enable imports until its contents are inventorie
 Numeric values are checked at start-up; an invalid one stops the server with a message instead of
 running with unsafe settings.
 
-**Sign-up requires working email.** Without `MAIL_FROM`, a mail transport and `PUBLIC_URL`, new
-accounts are refused (anyone who knows an advisor's address could otherwise claim the account).
-Once every advisor has an account, set `ALLOW_SIGNUP=false`.
+**Accounts are invitation-only.** Public sign-up is refused regardless of `ALLOW_SIGNUP`.
+Invitations require a working mail transport and `PUBLIC_URL`, except local `test.*@bau.edu.lb`
+addresses, whose invite links are logged for synthetic testing. Existing accounts keep their
+password hashes and sign in using the BAU email stored in their migrated person profile.
+
+On the first server start after deployment, the app seeds `org/tree` if missing and imports
+`data/faculty.json` into `people/<slug>` only when there are no people records. This is idempotent.
+Existing `advisors/<slug>/account` entries and their password hashes are retained. The staff list
+is no longer public or the source of truth after migration. Back up the current store and verify
+that existing accounts are present before starting the new version; do not upload student records
+to perform the staff migration.
+
+Keep the current admin slugs in `ADMIN_SLUGS` during and after migration. The role UI prevents
+removing or demoting the last superadmin. Use People to invite and manage staff once a superadmin
+can sign in.
 
 ## 5. Let them reset a forgotten password from their BAU inbox
 

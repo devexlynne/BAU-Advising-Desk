@@ -19,7 +19,6 @@ const data = [
   'window.CATALOG=' + json('data/catalog.json') + ';',
   'window.RULES=' + json('data/rules.json') + ';',
   'window.OFFERING=' + json('data/offering.json') + ';',
-  'window.FACULTY=' + json('data/faculty.json') + ';',
   'window.BRAND=' + json('data/brand.json') + ';'
 ].join('\n');
 
