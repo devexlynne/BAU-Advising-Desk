@@ -5,9 +5,10 @@ const { isWithin } = require('./org-tree');
 const SCOPED_ACTIONS = {
   'people:read': ['superadmin', 'faculty-admin', 'programme-editor', 'approver', 'advisor', 'viewer'],
   'people:manage': ['superadmin', 'faculty-admin'],
+  'rules:read': ['superadmin', 'faculty-admin', 'programme-editor', 'approver', 'advisor', 'viewer'],
   'students:read': ['superadmin', 'faculty-admin', 'programme-editor', 'approver', 'advisor', 'viewer'],
   'students:write': ['superadmin', 'faculty-admin', 'advisor'],
-  'students:clear': ['superadmin', 'faculty-admin'],
+  'students:clear': ['superadmin', 'faculty-admin', 'advisor'],
   'rules:write': ['superadmin', 'faculty-admin', 'programme-editor']
 };
 

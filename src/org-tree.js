@@ -141,7 +141,7 @@ function migrateStore(store, faculty, adminSlugs) {
         ...(member.honorific !== undefined ? { honorific: member.honorific } : {}),
         keepOnBulkClear: !!member.keepOnBulkClear,
         active: true,
-        verified: !!(account && account.verified),
+        verified: !!account && account.verified !== false,
         roles: [{ role, scopes }]
       };
       importedPeople.push(member.slug);

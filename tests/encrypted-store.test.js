@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const sealed = require('../src/encrypted-file');
+const { PASSWORDS, defaultStore } = require('./helpers/auth-fixture');
 
 let passed = 0, failed = 0;
 const check = (name, ok, extra) => {
@@ -39,12 +40,15 @@ function start(port, extra) {
   check('a wrong key cannot decrypt', (() => { try { sealed.decrypt(crypto.randomBytes(32), env); return false; } catch (e) { return true; } })());
 
   fs.rmSync(DATA, { recursive: true, force: true });
+  fs.mkdirSync(DATA, { recursive: true });
+  fs.writeFileSync(path.join(DATA, 'store.json'), JSON.stringify(
+    sealed.encrypt(Buffer.from(KEY, 'hex'), JSON.stringify(defaultStore()))));
   let srv = start(3291, { ALLOW_UNVERIFIED_SIGNUP: 'true', ENABLE_STUDENT_IMPORTS: 'true' });
   let url = 'http://127.0.0.1:3291';
   try {
     await waitFor(url);
-    const su = await post(url, '/api/signup', { slug: 'may-itani', email: 'ma.itani@bau.edu.lb', password: 'long-enough-pass-1' });
-    const cookie = (su.headers.get('set-cookie') || '').split(';')[0];
+    const si = await post(url, '/api/signin', { email: 'test.advisor@bau.edu.lb', password: PASSWORDS.advisor });
+    const cookie = (si.headers.get('set-cookie') || '').split(';')[0];
     const save = await post(url, '/api/students/save', { students: [{ id: '202599901', name: 'Zelda Quentin Example' }] }, cookie);
     check('a record is saved', save.status === 200, 'status ' + save.status);
     await new Promise(r => setTimeout(r, 400));
@@ -62,9 +66,9 @@ function start(port, extra) {
   url = 'http://127.0.0.1:3292';
   try {
     await waitFor(url);
-    const si = await post(url, '/api/signin', { slug: 'may-itani', password: 'long-enough-pass-1' });
+    const si = await post(url, '/api/signin', { email: 'test.advisor@bau.edu.lb', password: PASSWORDS.advisor });
     const cookie = (si.headers.get('set-cookie') || '').split(';')[0];
-    const got = await (await post(url, '/api/get', { path: 'advisors/may-itani/students/202599901' }, cookie)).json();
+    const got = await (await post(url, '/api/get', { path: 'advisors/synthetic-cs-advisor/students/202599901' }, cookie)).json();
     check('the record comes back after a restart with the same key', got.data && got.data.name === 'Zelda Quentin Example');
   } finally { srv.kill(); await new Promise(r => setTimeout(r, 300)); }
 

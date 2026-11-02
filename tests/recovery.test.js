@@ -33,11 +33,12 @@ async function waitForServer(base) {
       body: JSON.stringify({ slug: 'may-itani', email: 'ma.itani@bau.edu.lb', password: 'test-password-2026' })
     });
     const body = await signup.json();
-    check('sign-up succeeds without returning a recovery code', signup.ok && body.ok && !body.recoveryCode);
+    check('uninvited sign-up is refused without returning a recovery code',
+      signup.status === 403 && !body.recoveryCode);
 
     await new Promise(resolve => setTimeout(resolve, 600));
     const raw = fs.readFileSync(DATA + '/store.json', 'utf8');
-    check('no recovery-code hash or salt is stored for a new account', !/codeHash|codeSalt|recoveryCode/.test(raw));
+    check('no recovery-code hash or salt is stored', !/codeHash|codeSalt|recoveryCode/.test(raw));
 
     const oldRoute = await fetch(base + '/api/reset', {
       method: 'POST', headers: { 'content-type': 'application/json' },
