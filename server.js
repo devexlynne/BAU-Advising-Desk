@@ -623,6 +623,7 @@ function mayTouch(slug, key, operation) {
   if (rule) return canUser(slug, write ? 'rules:write' : 'rules:read', rule[1]);
   if (key.indexOf('offering/') === 0) return canUser(slug, write ? 'offering:write' : 'offering:read');
   if (key.indexOf('brand/') === 0) return canUser(slug, write ? 'brand:write' : 'brand:read');
+  if (key === 'ideas') return !write && canUser(slug, 'ideas:read');
   if (key.indexOf('ideas/') === 0) return canUser(slug, 'ideas:' + (write ? 'write' : 'read'));
   return false;
 }

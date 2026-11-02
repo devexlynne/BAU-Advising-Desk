@@ -87,6 +87,8 @@ async function run() {
     const sessionAccounts = await fetch(BASE + '/api/accounts', { headers: { cookie: adminCookie } });
     assert.strictEqual(sessionAccounts.status, 200);
     assert.strictEqual((await sessionAccounts.json()).accounts['synthetic-cs-advisor'], true);
+    const ideas = await post('/api/list', { path: 'ideas' }, adminCookie);
+    assert.strictEqual(ideas.status, 200, 'a superadmin can read the suggestions collection');
 
     assert.strictEqual((await post('/api/signup', {
       slug: 'synthetic-outsider', email: 'test.outsider@bau.edu.lb', password: 'Synthetic-outsider-pass-1'
