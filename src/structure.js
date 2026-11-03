@@ -16,6 +16,7 @@ let planStatus = {};          // programme id -> { ready, courses, updatedAt }
 let planStatusLoading = false;
 let structEdit = null;        // the add/rename form that is open, if any
 let structMsg = '';
+let catalogueMsg = '';
 let planDraft = null;         // working copy on the Programme setup page
 let planFor = null;           // which programme the draft belongs to
 let planDirty = false;
@@ -158,7 +159,7 @@ async function loadPlanStatuses() {
   await Promise.all(programmeRows().filter(row => mine.includes(row.id)).map(async row => {
     let saved = null;
     try { saved = Store.isServer() ? await Store.getProgramme(row.id) : null; } catch (e) { /* unreadable: not ours */ }
-    out[row.id] = saved ? { ready: true, courses: (saved.courses || []).length, updatedAt: saved.updatedAt }
+    out[row.id] = saved ? { ready: true, courses: (saved.courses || []).length, updatedAt: saved.updatedAt, review: !!saved.needsReview }
       : row.id === 'cs' ? { ready: true, builtIn: true, courses: SHARED_C.courses.length } : { ready: false };
   }));
   planStatus = out; planStatusLoading = false; planStatus.loaded = true;
@@ -198,6 +199,7 @@ function viewStructure() {
   const progRow = (dept, p) => {
     const st = planStatus[p.id] || {};
     const chip = !planStatus.loaded ? '<span class="chip">checking…</span>'
+      : st.ready && st.review ? `<span class="chip watch">From the catalogue · ${st.courses} courses · to check</span>`
       : st.ready ? `<span class="chip ok">Study plan ready · ${st.courses} courses${st.builtIn ? ' · built in' : ''}</span>`
         : '<span class="chip watch">Not set up yet</span>';
     return `<div class="al"><span class="body"><span class="t">${esc(p.name)}${p.nameAr ? ` <span class="who-meta" dir="rtl">${esc(p.nameAr)}</span>` : ''}
@@ -234,7 +236,9 @@ function viewStructure() {
   return `<div class="wrap"><div class="page-h"><h1>University structure</h1>
       <p>Faculties, departments and programmes. Each programme gets its own study plan and rules; university rules such as probation, IC3 and Intensive English apply to all of them.</p></div>
     ${state.me.superadmin ? `<div class="rbar"><span>${(tree.faculties || []).length} faculties · ${programmeRows().length} programmes</span>
-      <button class="btn sm primary" data-st-add="faculty:bau">Add faculty</button></div>` : `<div class="rbar"><span>You can add and rename departments and programmes inside your own faculty.</span></div>`}
+      <button class="btn sm primary" data-st-add="faculty:bau">Add faculty</button>
+      ${window.CATALOGUE_SEED ? '<button class="btn sm" data-st-catalogue="1">Load BAU catalogue (2020–2021)</button>' : ''}</div>
+      ${catalogueMsg ? `<p class="note">${esc(catalogueMsg)}</p>` : ''}` : `<div class="rbar"><span>You can add and rename departments and programmes inside your own faculty.</span></div>`}
     ${isOpen('faculty', 'bau', null) ? structForm('faculty', 'bau', null) : ''}
     ${faculties}
   </div>`;
@@ -270,6 +274,45 @@ function structSave() {
   if (kind === 'department') { node.programmes = []; findOrgNode(parent, tree).departments.push(node); }
   if (kind === 'programme') { node.campuses = campuses; findOrgNode(parent, tree).programmes.push(node); }
   return saveTree(tree, name + ' added' + (kind === 'programme' ? '. Open its setup to build the study plan.' : '.'));
+}
+
+/* Adds the faculties, departments and programmes of the 2020-2021 catalogue that
+   are not in the structure yet (nothing existing is renamed or removed), then
+   gives each programme without a study plan the plan read from the catalogue,
+   marked "to check". */
+async function loadCatalogue() {
+  const seed = window.CATALOGUE_SEED;
+  if (!seed || !state.me.superadmin) return;
+  if (!window.confirm('Add the BAU faculties, departments and programmes from the 2020–2021 catalogue, and their study plans where they could be read? Nothing that already exists is changed.')) return;
+  const tree = JSON.parse(JSON.stringify(state.orgTree));
+  const ids = new Set(); const walk = n => { ids.add(n.id); ['faculties', 'departments', 'programmes'].forEach(k => (n[k] || []).forEach(walk)); }; walk(tree);
+  let added = 0;
+  const merge = (into, from, key, childKey) => (from[key] || []).forEach(child => {
+    let have = (into[key] || []).find(x => x.id === child.id);
+    if (!have) {
+      if (ids.has(child.id)) return;   // the id is used elsewhere in the structure: leave it alone
+      have = JSON.parse(JSON.stringify(childKey ? Object.assign({}, child, { [childKey]: [] }) : child));
+      into[key].push(have); added++; ids.add(child.id);
+    }
+    if (childKey) merge(have, child, childKey, childKey === 'departments' ? 'programmes' : null);
+  });
+  merge(tree, seed.tree, 'faculties', 'departments');
+  try {
+    if (added) state.orgTree = await Store.saveOrgTree(tree);
+    let plans = 0, kept = 0;
+    for (const id of Object.keys(seed.plans)) {
+      if (!findOrgNode(id) || id === 'cs') continue;
+      let have = null;
+      try { have = await Store.getProgramme(id); } catch (e) { /* none yet */ }
+      if (have) { kept++; continue; }
+      await Store.saveProgramme(id, seed.plans[id]);
+      plans++;
+    }
+    planStatus = {};
+    catalogueMsg = added + ' faculties, departments and programmes added. ' + plans + ' study plans loaded from the catalogue, marked "to check"'
+      + (kept ? '; ' + kept + ' programmes already had a plan and were left as they are' : '') + '. Programmes without a readable plan stay "Not set up yet".';
+    render(); toast('Catalogue loaded');
+  } catch (e) { catalogueMsg = 'Not loaded: ' + e.message; render(); }
 }
 
 function structRemove(id) {
@@ -404,7 +447,14 @@ function viewProgrammeSetup() {
     ${edit ? `<div class="row" style="margin-top:10px;gap:8px"><input id="plNewTrack" class="pin" placeholder="New track name" style="max-width:260px"><button class="btn sm" data-pl-addtrack="1">Add track</button></div>` : ''}
     </div></div>`;
 
-  return `<div class="wrap">${head}${bar}
+  const src = d.source || null;
+  const review = d.needsReview ? `<div class="chk warn" style="margin-bottom:12px"><span class="ic">!</span><span class="tx">
+      <p><b>Read from the ${esc((src && src.catalogue) || 'catalogue')}, not checked yet.</b> Compare it with the programme's current study plan and correct anything that changed.
+      ${src && src.url ? `<a href="${esc(src.url)}" target="_blank" rel="noopener noreferrer">Open the catalogue page</a>` : ''}</p>
+      ${src && src.note ? `<p class="note" style="margin-top:4px">${esc(src.note)}</p>` : ''}
+      ${edit ? `<label style="display:flex;gap:8px;align-items:center;margin-top:6px"><input type="checkbox" data-pl="checked"${d.checkedNow ? ' checked' : ''}> I have checked this plan against the current study plan</label>` : ''}
+    </span></div>` : '';
+  return `<div class="wrap">${head}${bar}${review}
     <div class="panel"><div class="hd">Checks</div><div class="bd" id="planChecks">${checksHtml()}</div></div>
     ${basics}${blocks}${courses}${tracks}
     <div class="panel"><div class="hd">Try it on a student</div><div class="bd" id="planPreview">${previewHtml()}</div></div>
@@ -437,6 +487,7 @@ function planChanged() {
 function planInput(el) {
   const key = el.dataset.pl;
   if (key === 'preview') { planPreview = el.value; const pv = $('#planPreview'); if (pv) pv.innerHTML = previewHtml(); return; }
+  if (key === 'checked') { if (planDraft) { planDraft.checkedNow = el.checked; planChanged(); } return; }
   if (!planDraft || !canEditPlan(activeProgramme())) return;
   const parts = key.split(':'), v = el.value;
   const num = x => { const n = Number(x); return Number.isFinite(n) ? n : 0; };
@@ -465,6 +516,8 @@ async function savePlan() {
   const ch = draftChecks();
   if (ch.errors.length) { planMsg = 'Fix the problems listed under Checks first.'; render(); return; }
   const value = Object.assign({}, planDraft, { setupStatus: 'ready' });
+  if (value.checkedNow) { value.needsReview = false; value.checkedBy = fullName(state.me); value.checkedAt = Date.now(); }
+  delete value.checkedNow;
   try {
     const r = await Store.saveProgramme(id, value);
     await useProgramme(id);
@@ -492,6 +545,7 @@ async function structureClick(t) {
   if (ren) { const [kind, parent, id] = ren.dataset.stRename.split(':'); structEdit = { kind, parent, id }; structMsg = ''; render(); return true; }
   if (t.closest('[data-st-cancel]')) { structEdit = null; structMsg = ''; render(); return true; }
   if (t.closest('[data-st-save]')) { await structSave(); return true; }
+  if (t.closest('[data-st-catalogue]')) { await loadCatalogue(); return true; }
   const rem = t.closest('[data-st-remove]');
   if (rem) {
     const node = findOrgNode(rem.dataset.stRemove);
@@ -555,4 +609,42 @@ async function structureClick(t) {
   const dt = t.closest('[data-pl-deltrack]');
   if (dt) { delete planDraft.tracks[dt.dataset.plDeltrack]; planDirty = true; render(); return true; }
   return false;
+}
+
+// ---- the programme a transcript names ------------------------------------------
+const ADVISORY_LINE = 'Advisory only. The official transcript from the registrar is the reference.';
+const programmeKey = name => String(name || '').toLowerCase()
+  .replace(/\b(b\.?\s?sc|bs|ba|bba|be|barch|bgd|bid|bfd|bl|mbbch|bods|bachelor( degree)? of|bachelor|in|of|and)\b\.?/g, ' ')
+  .replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+/* "Science / Computer Science" -> the cs programme. Only an unambiguous match
+   counts; anything else stays with the programme picked for the import. */
+function programmeFromRecord(s) {
+  const text = String((s && s.program) || '');
+  if (!text.trim()) return null;
+  const whole = ' ' + programmeKey(text) + ' ', last = programmeKey(text.split('/').pop());
+  const rows = programmeRows().map(r => ({ id: r.id, key: programmeKey(programmeName(r.id)) })).filter(r => r.key);
+  const exact = rows.filter(r => r.key === last);
+  if (exact.length === 1) return exact[0].id;
+  const hits = rows.filter(r => whole.includes(' ' + r.key + ' ')).sort((a, b) => b.key.length - a.key.length);
+  if (hits.length === 1 || (hits.length > 1 && hits[0].key.length > hits[1].key.length)) return hits[0].id;
+  return null;
+}
+// files each imported student under the programme its transcript names; returns who moved
+function fileByTranscript(records, parsed) {
+  const here = activeProgramme(), moved = [];
+  (parsed || []).forEach(p => {
+    const id = programmeFromRecord(p);
+    if (!id || id === here) return;
+    const rec = (records || []).find(r => r.id === p.id);
+    if (!rec || rec.programme === id) return;
+    rec.programme = id;
+    moved.push({ name: rec.name || p.name, id: rec.id, programme: id });
+  });
+  return moved;
+}
+function elsewhereHtml(moved) {
+  if (!moved || !moved.length) return '';
+  return `<p style="margin-top:5px"><b>${moved.length} student${moved.length === 1 ? ' is' : 's are'} in another programme</b> according to the transcript and ${moved.length === 1 ? 'was' : 'were'} filed there:
+    ${moved.slice(0, 8).map(m => esc(m.name) + ' (' + esc(programmeName(m.programme)) + ')').join(', ')}${moved.length > 8 ? ' and ' + (moved.length - 8) + ' more' : ''}.
+    Switch the programme menu to see them.</p>`;
 }

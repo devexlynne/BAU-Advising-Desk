@@ -28,7 +28,7 @@
   const NO_CREDIT_BUCKETS = ['FRESHMAN', 'OTHER'];
   // lists that belong to the whole university, taken from the shared catalogue
   const SHARED_KEYS = ['universityElectives', 'electiveCategories', 'nonDegreeBuckets',
-    'campuses', 'bucketsByCatalogYear', 'seasonPolicy'];
+    'campuses', 'seasonPolicy'];
   const SEASONS = ['FALL', 'SPRING', 'SUMMER'];
   const CODE = /^[A-Z]{2,6}\d{1,4}[A-Z]?$/;
   // university foundation blocks (remedial, Intensive English, non-credit)
@@ -70,6 +70,9 @@
     delete out.history;
     // CS-only extras do not travel to another programme
     delete out.mathMinor; delete out.genSciencePolicy;
+    // the Computer Science split of university requirements by entry year (5+11
+    // before 2026, 8+8 after) is not assumed for another programme
+    delete out.bucketsByCatalogYear;
     const i = info || {};
     if (i.program || i.name) out.program = String(i.program || i.name);
     if (i.faculty !== undefined) out.faculty = String(i.faculty);

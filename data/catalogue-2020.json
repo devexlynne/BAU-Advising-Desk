@@ -1,0 +1,7191 @@
+{
+ "builtFrom": "BAU undergraduate catalogue 2020-2021 and the undergraduate programmes page",
+ "builtAt": "2026-11-03",
+ "programmesPage": "https://www.bau.edu.lb/Undergraduate/Programs",
+ "tree": {
+  "id": "bau",
+  "name": "Beirut Arab University",
+  "faculties": [
+   {
+    "id": "science",
+    "name": "Faculty of Science",
+    "departments": [
+     {
+      "id": "mathematics-and-computer-science",
+      "name": "Mathematics and Computer Science",
+      "programmes": [
+       {
+        "id": "cs",
+        "name": "BSc Computer Science",
+        "campuses": [
+         "Beirut",
+         "Debbieh",
+         "Tripoli",
+         "Bekaa"
+        ]
+       },
+       {
+        "id": "bsc-mathematics",
+        "name": "BSc Mathematics",
+        "campuses": [
+         "Debbieh",
+         "Tripoli"
+        ]
+       }
+      ]
+     },
+     {
+      "id": "physics",
+      "name": "Physics",
+      "programmes": [
+       {
+        "id": "bsc-physics",
+        "name": "BSc Physics",
+        "campuses": [
+         "Debbieh",
+         "Tripoli"
+        ]
+       }
+      ]
+     },
+     {
+      "id": "chemistry",
+      "name": "Chemistry",
+      "programmes": [
+       {
+        "id": "bsc-chemistry",
+        "name": "BSc Chemistry",
+        "campuses": [
+         "Debbieh",
+         "Tripoli"
+        ]
+       }
+      ]
+     },
+     {
+      "id": "biological-sciences",
+      "name": "Biological Sciences",
+      "programmes": [
+       {
+        "id": "bsc-biology",
+        "name": "BSc Biology",
+        "campuses": [
+         "Debbieh",
+         "Tripoli"
+        ]
+       },
+       {
+        "id": "bsc-biochemistry",
+        "name": "BSc Biochemistry",
+        "campuses": [
+         "Debbieh",
+         "Tripoli"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "business-administration",
+    "name": "Faculty of Business Administration",
+    "departments": [
+     {
+      "id": "business-administration-dept",
+      "name": "Business Administration",
+      "programmes": [
+       {
+        "id": "bba-management",
+        "name": "BBA Management",
+        "campuses": [
+         "Beirut",
+         "Debbieh",
+         "Tripoli",
+         "Bekaa"
+        ]
+       },
+       {
+        "id": "bba-banking-finance",
+        "name": "BBA Banking and Finance",
+        "campuses": [
+         "Beirut",
+         "Tripoli"
+        ]
+       },
+       {
+        "id": "bba-marketing",
+        "name": "BBA Marketing",
+        "campuses": [
+         "Beirut",
+         "Tripoli",
+         "Bekaa"
+        ]
+       },
+       {
+        "id": "bba-mis",
+        "name": "BBA Management Information Systems",
+        "campuses": [
+         "Beirut"
+        ]
+       }
+      ]
+     },
+     {
+      "id": "accounting",
+      "name": "Accounting",
+      "programmes": [
+       {
+        "id": "bba-accounting",
+        "name": "BBA Accounting",
+        "campuses": [
+         "Beirut",
+         "Debbieh",
+         "Tripoli"
+        ]
+       }
+      ]
+     },
+     {
+      "id": "economics",
+      "name": "Economics",
+      "programmes": [
+       {
+        "id": "bba-economics",
+        "name": "BBA Economics",
+        "campuses": [
+         "Beirut"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "engineering",
+    "name": "Faculty of Engineering",
+    "departments": [
+     {
+      "id": "civil-and-environmental-engineering",
+      "name": "Civil and Environmental Engineering",
+      "programmes": [
+       {
+        "id": "be-civil",
+        "name": "BE Civil Engineering",
+        "campuses": [
+         "Debbieh",
+         "Tripoli"
+        ]
+       }
+      ]
+     },
+     {
+      "id": "electrical-and-computer-engineering",
+      "name": "Electrical and Computer Engineering",
+      "programmes": [
+       {
+        "id": "be-computer",
+        "name": "BE Computer Engineering",
+        "campuses": [
+         "Debbieh",
+         "Tripoli",
+         "Bekaa"
+        ]
+       },
+       {
+        "id": "be-communications-electronics",
+        "name": "BE Communications and Electronics Engineering",
+        "campuses": [
+         "Debbieh",
+         "Tripoli"
+        ]
+       },
+       {
+        "id": "be-electrical-power",
+        "name": "BE Electrical Power and Machines Engineering",
+        "campuses": [
+         "Debbieh",
+         "Tripoli"
+        ]
+       }
+      ]
+     },
+     {
+      "id": "industrial-engineering-and-engineering-management",
+      "name": "Industrial Engineering and Engineering Management",
+      "programmes": [
+       {
+        "id": "be-industrial",
+        "name": "BE Industrial Engineering",
+        "campuses": [
+         "Debbieh"
+        ]
+       }
+      ]
+     },
+     {
+      "id": "mechanical-engineering",
+      "name": "Mechanical Engineering",
+      "programmes": [
+       {
+        "id": "be-mechanical",
+        "name": "BE Mechanical Engineering",
+        "campuses": [
+         "Debbieh",
+         "Tripoli"
+        ]
+       }
+      ]
+     },
+     {
+      "id": "chemical-and-petroleum-engineering",
+      "name": "Chemical and Petroleum Engineering",
+      "programmes": [
+       {
+        "id": "be-chemical",
+        "name": "BE Chemical Engineering",
+        "campuses": [
+         "Debbieh"
+        ]
+       },
+       {
+        "id": "be-petroleum",
+        "name": "BE Petroleum Engineering",
+        "campuses": [
+         "Debbieh"
+        ]
+       }
+      ]
+     },
+     {
+      "id": "engineering-department-to-confirm",
+      "name": "Department to confirm",
+      "programmes": [
+       {
+        "id": "be-biomedical",
+        "name": "BE Biomedical Engineering",
+        "campuses": [
+         "Debbieh"
+        ]
+       },
+       {
+        "id": "be-renewable-energy",
+        "name": "BE Renewable Energy Engineering",
+        "campuses": [
+         "Debbieh"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "pharmacy",
+    "name": "Faculty of Pharmacy",
+    "departments": [
+     {
+      "id": "pharmacy-faculty-wide",
+      "name": "Faculty-wide programme",
+      "programmes": [
+       {
+        "id": "bsc-pharmacy",
+        "name": "BSc Pharmacy",
+        "campuses": [
+         "Beirut",
+         "Tripoli"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "medicine",
+    "name": "Faculty of Medicine",
+    "departments": [
+     {
+      "id": "medicine-faculty-wide",
+      "name": "Faculty-wide programme",
+      "programmes": [
+       {
+        "id": "mbbch",
+        "name": "Bachelor of Medicine and Surgery (MBBCh)",
+        "campuses": [
+         "Beirut"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "dentistry",
+    "name": "Faculty of Dentistry",
+    "departments": [
+     {
+      "id": "dentistry-faculty-wide",
+      "name": "Faculty-wide programme",
+      "programmes": [
+       {
+        "id": "bds",
+        "name": "Bachelor of Oral and Dental Surgery (BDS)",
+        "campuses": [
+         "Beirut"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "law-and-political-science",
+    "name": "Faculty of Law and Political Science",
+    "departments": [
+     {
+      "id": "law-faculty-wide",
+      "name": "Faculty-wide programme",
+      "programmes": [
+       {
+        "id": "law",
+        "name": "Bachelor of Law",
+        "campuses": [
+         "Beirut"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "health-sciences",
+    "name": "Faculty of Health Sciences",
+    "departments": [
+     {
+      "id": "health-sciences-department-to-confirm",
+      "name": "Department to confirm",
+      "programmes": [
+       {
+        "id": "bsc-nursing",
+        "name": "BSc Nursing",
+        "campuses": [
+         "Beirut",
+         "Tripoli"
+        ]
+       },
+       {
+        "id": "bsc-medical-laboratory",
+        "name": "BSc Medical Laboratory Technology",
+        "campuses": [
+         "Beirut",
+         "Tripoli"
+        ]
+       },
+       {
+        "id": "bsc-nutrition",
+        "name": "BSc Nutrition and Dietetics",
+        "campuses": [
+         "Beirut",
+         "Tripoli"
+        ]
+       },
+       {
+        "id": "bsc-physical-therapy",
+        "name": "BSc Physical Therapy",
+        "campuses": [
+         "Beirut"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "human-sciences",
+    "name": "Faculty of Human Sciences",
+    "departments": [
+     {
+      "id": "human-sciences-department-to-confirm",
+      "name": "Department to confirm",
+      "programmes": [
+       {
+        "id": "ba-arabic",
+        "name": "BA Arabic Language and Literature",
+        "campuses": [
+         "Beirut"
+        ]
+       },
+       {
+        "id": "ba-french",
+        "name": "BA French Language and Literature",
+        "campuses": [
+         "Beirut"
+        ]
+       },
+       {
+        "id": "ba-psychology",
+        "name": "BA Psychology",
+        "campuses": [
+         "Beirut"
+        ]
+       },
+       {
+        "id": "ba-history",
+        "name": "BA History",
+        "campuses": [
+         "Beirut"
+        ]
+       },
+       {
+        "id": "ba-sociology",
+        "name": "BA Sociology",
+        "campuses": [
+         "Beirut"
+        ]
+       },
+       {
+        "id": "ba-mass-communication",
+        "name": "BA Mass Communication",
+        "campuses": [
+         "Beirut"
+        ]
+       },
+       {
+        "id": "educ-early-childhood",
+        "name": "Education: Early Childhood",
+        "campuses": [
+         "Beirut"
+        ]
+       },
+       {
+        "id": "educ-arabic",
+        "name": "Education: Arabic Language",
+        "campuses": [
+         "Beirut"
+        ]
+       },
+       {
+        "id": "educ-english",
+        "name": "Education: English Language",
+        "campuses": [
+         "Beirut"
+        ]
+       },
+       {
+        "id": "educ-sciences-mathematics",
+        "name": "Education: Sciences and Mathematics",
+        "campuses": [
+         "Beirut"
+        ]
+       },
+       {
+        "id": "educ-social-sciences",
+        "name": "Education: Social Sciences",
+        "campuses": [
+         "Beirut"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "architecture-design-built-environment",
+    "name": "Faculty of Architecture, Design and Built Environment",
+    "departments": [
+     {
+      "id": "architecture-faculty-wide",
+      "name": "Programme units (no departments printed)",
+      "programmes": [
+       {
+        "id": "barch",
+        "name": "Bachelor of Architecture",
+        "campuses": [
+         "Debbieh",
+         "Tripoli"
+        ]
+       },
+       {
+        "id": "graphic-design",
+        "name": "Bachelor of Graphic Design",
+        "campuses": [
+         "Debbieh",
+         "Tripoli"
+        ]
+       },
+       {
+        "id": "interior-design",
+        "name": "Bachelor of Interior Design",
+        "campuses": [
+         "Debbieh",
+         "Tripoli"
+        ]
+       },
+       {
+        "id": "fashion-design",
+        "name": "Bachelor of Fashion Design",
+        "campuses": [
+         "Debbieh"
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "plans": {
+  "bba-accounting": {
+   "catalogYear": 2020,
+   "program": "BBA Accounting",
+   "faculty": "Faculty of Business Administration",
+   "department": "Accounting",
+   "totalCredits": 100,
+   "standardSemesters": 6,
+   "maxSemesters": 12,
+   "buckets": {
+    "UNIV_MANDATORY": {
+     "label": "University Mandatory Courses",
+     "credits": 5
+    },
+    "UNIV_ELECTIVE": {
+     "label": "University Elective Courses",
+     "credits": 11
+    },
+    "FACULTY_CORE": {
+     "label": "Common Requirement Courses",
+     "credits": 48
+    },
+    "MAJOR_CORE": {
+     "label": "Major Core Courses",
+     "credits": 27
+    },
+    "DEPT_ELECTIVE": {
+     "label": "Major Elective Courses",
+     "credits": 9
+    },
+    "GEN_SCI_ELECTIVE": {
+     "label": "General Electives",
+     "credits": 0
+    },
+    "FRESHMAN": {
+     "label": "Freshman",
+     "credits": 0
+    },
+    "OTHER": {
+     "label": "Other",
+     "credits": 0
+    }
+   },
+   "tracks": {},
+   "courses": [
+    {
+     "code": "BACC201",
+     "title": "Principles of Accounting I",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO201",
+     "title": "Micro Economics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN201",
+     "title": "Business Law",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN203",
+     "title": "Business Communications",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMTH201",
+     "title": "Business Math",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC202",
+     "title": "Principles of Accounting II",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BACC201"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO202",
+     "title": "Macro Economics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BECO201"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT202",
+     "title": "Principles of Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN204",
+     "title": "Business Ethics",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMTH202",
+     "title": "Business Statistics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENGL001",
+     "title": "General English",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT301",
+     "title": "Organizational Behavior",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMIS301",
+     "title": "Management Information Systems I",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT301",
+     "title": "Principles of Marketing",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT302",
+     "title": "Operations Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT304",
+     "title": "Strategic Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFSC302",
+     "title": "Taxation Systems",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN302",
+     "title": "Financial Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC301",
+     "title": "Intermediate Accounting I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BACC202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC302",
+     "title": "Intermediate Accounting II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BACC301"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC401",
+     "title": "Corporation and Partnership Accounting",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BACC302"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC403",
+     "title": "Cost Accounting",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BACC202"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC405",
+     "title": "Accounting Information Systems",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BACC301"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC402",
+     "title": "Auditing",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BACC401"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC404",
+     "title": "Managerial Accounting",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BACC202"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC406",
+     "title": "Tax Accounting",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BACC401"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC410",
+     "title": "Senior Project and Internship",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMIS302",
+     "title": "Management Information Systems II",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMIS301"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT404",
+     "title": "Entrepreneurship and Venture Management",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO406",
+     "title": "Managerial Economics",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC411",
+     "title": "Governmental Accounting",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BACC302"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC412",
+     "title": "International Accounting",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BACC302"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC413",
+     "title": "Advanced Cost and Managerial Accounting",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BACC403"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC414",
+     "title": "Advanced Financial Accounting",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BACC401"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC415",
+     "title": "Cost Accounting for Restaurants and Hotels",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BACC202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC416",
+     "title": "Hospitality Managerial Accounting",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BACC202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN420",
+     "title": "Corporate Social Responsibility",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    }
+   ],
+   "genScienceElectives": [],
+   "deptElectiveSlots": [],
+   "setupStatus": "draft",
+   "needsReview": true,
+   "source": {
+    "catalogue": "BAU undergraduate catalogue 2020-2021",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Undergraduate/Catalogue-2020-2021/Faculty-of-Business-Administration.pdf",
+    "note": "University electives are chosen from the university list. MATH 112, MATH 113 and ECON 110 are asked of some admission certificates only and are not listed as prerequisites. BUSN420 prerequisite printed as \"3TBMGT202\", read as BMGT202."
+   }
+  },
+  "bba-management": {
+   "catalogYear": 2020,
+   "program": "BBA Management",
+   "faculty": "Faculty of Business Administration",
+   "department": "Business Administration",
+   "totalCredits": 100,
+   "standardSemesters": 6,
+   "maxSemesters": 12,
+   "buckets": {
+    "UNIV_MANDATORY": {
+     "label": "University Mandatory Courses",
+     "credits": 5
+    },
+    "UNIV_ELECTIVE": {
+     "label": "University Elective Courses",
+     "credits": 11
+    },
+    "FACULTY_CORE": {
+     "label": "Common Requirement Courses",
+     "credits": 48
+    },
+    "MAJOR_CORE": {
+     "label": "Major Core Courses",
+     "credits": 27
+    },
+    "DEPT_ELECTIVE": {
+     "label": "Major Elective Courses",
+     "credits": 9
+    },
+    "GEN_SCI_ELECTIVE": {
+     "label": "General Electives",
+     "credits": 0
+    },
+    "FRESHMAN": {
+     "label": "Freshman",
+     "credits": 0
+    },
+    "OTHER": {
+     "label": "Other",
+     "credits": 0
+    }
+   },
+   "tracks": {},
+   "courses": [
+    {
+     "code": "BACC201",
+     "title": "Principles of Accounting I",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO201",
+     "title": "Micro Economics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN201",
+     "title": "Business Law",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN203",
+     "title": "Business Communications",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMTH201",
+     "title": "Business Math",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC202",
+     "title": "Principles of Accounting II",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BACC201"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO202",
+     "title": "Macro Economics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BECO201"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT202",
+     "title": "Principles of Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN204",
+     "title": "Business Ethics",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMTH202",
+     "title": "Business Statistics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENGL001",
+     "title": "General English",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT301",
+     "title": "Organizational Behavior",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMIS301",
+     "title": "Management Information Systems I",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT301",
+     "title": "Principles of Marketing",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT302",
+     "title": "Operations Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT304",
+     "title": "Strategic Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFSC302",
+     "title": "Taxation Systems",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN302",
+     "title": "Financial Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT303",
+     "title": "International Business",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT306",
+     "title": "Human Resource Management",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMGT202",
+      "BMGT301"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT401",
+     "title": "Leadership",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMGT202",
+      "BMGT301"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT401",
+     "title": "Marketing Research",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMKT301"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN401",
+     "title": "E-Business",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT402",
+     "title": "Organizational Analysis and Design",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT404",
+     "title": "Entrepreneurship and Venture Management",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC404",
+     "title": "Managerial Accounting",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BACC202"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT410",
+     "title": "Senior Project and Internship",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BHOT301",
+     "title": "Introduction to Hospitality Management",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMIS302",
+     "title": "Management Information Systems II",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMIS301"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN314",
+     "title": "Investments",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BFIN302"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC403",
+     "title": "Cost Accounting",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BACC202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO406",
+     "title": "Managerial Economics",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT411",
+     "title": "Human Resource Planning and Development",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMGT306"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT412",
+     "title": "Quantitative Techniques for Management",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMGT302"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN412",
+     "title": "Financial Institutions and Capital Markets",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BFIN302"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT413",
+     "title": "Logistics and Supply Chain Management",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN420",
+     "title": "Corporate Social Responsibility",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    }
+   ],
+   "genScienceElectives": [],
+   "deptElectiveSlots": [],
+   "setupStatus": "draft",
+   "needsReview": true,
+   "source": {
+    "catalogue": "BAU undergraduate catalogue 2020-2021",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Undergraduate/Catalogue-2020-2021/Faculty-of-Business-Administration.pdf",
+    "note": "University electives are chosen from the university list. MATH 112, MATH 113 and ECON 110 are asked of some admission certificates only and are not listed as prerequisites. BUSN420 prerequisite printed as \"BGMT202\", read as BMGT202."
+   }
+  },
+  "bba-banking-finance": {
+   "catalogYear": 2020,
+   "program": "BBA Banking and Finance",
+   "faculty": "Faculty of Business Administration",
+   "department": "Business Administration",
+   "totalCredits": 100,
+   "standardSemesters": 6,
+   "maxSemesters": 12,
+   "buckets": {
+    "UNIV_MANDATORY": {
+     "label": "University Mandatory Courses",
+     "credits": 5
+    },
+    "UNIV_ELECTIVE": {
+     "label": "University Elective Courses",
+     "credits": 11
+    },
+    "FACULTY_CORE": {
+     "label": "Common Requirement Courses",
+     "credits": 48
+    },
+    "MAJOR_CORE": {
+     "label": "Major Core Courses",
+     "credits": 27
+    },
+    "DEPT_ELECTIVE": {
+     "label": "Major Elective Courses",
+     "credits": 9
+    },
+    "GEN_SCI_ELECTIVE": {
+     "label": "General Electives",
+     "credits": 0
+    },
+    "FRESHMAN": {
+     "label": "Freshman",
+     "credits": 0
+    },
+    "OTHER": {
+     "label": "Other",
+     "credits": 0
+    }
+   },
+   "tracks": {},
+   "courses": [
+    {
+     "code": "BACC201",
+     "title": "Principles of Accounting I",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO201",
+     "title": "Micro Economics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN201",
+     "title": "Business Law",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN203",
+     "title": "Business Communications",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMTH201",
+     "title": "Business Math",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC202",
+     "title": "Principles of Accounting II",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BACC201"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO202",
+     "title": "Macro Economics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BECO201"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT202",
+     "title": "Principles of Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN204",
+     "title": "Business Ethics",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMTH202",
+     "title": "Business Statistics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENGL001",
+     "title": "General English",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT301",
+     "title": "Organizational Behavior",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMIS301",
+     "title": "Management Information Systems I",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT301",
+     "title": "Principles of Marketing",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT302",
+     "title": "Operations Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT304",
+     "title": "Strategic Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFSC302",
+     "title": "Taxation Systems",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN302",
+     "title": "Financial Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC301",
+     "title": "Intermediate Accounting I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BACC202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC302",
+     "title": "Intermediate Accounting II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BACC301"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN401",
+     "title": "Security Analysis",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BFIN302"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN403",
+     "title": "Portfolio Management",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BFIN302"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN405",
+     "title": "Principles of Insurance",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMTH201"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN402",
+     "title": "Islamic Banking",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BFIN302"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN404",
+     "title": "Bank Management",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BFIN302"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN406",
+     "title": "Fundamentals of Risk Management",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BFIN302"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN410",
+     "title": "Senior Project and Internship",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMIS302",
+     "title": "Management Information Systems II",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMIS301"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO402",
+     "title": "Money and Banking",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BECO202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO405",
+     "title": "Public Finance and Fiscal Policy",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BECO202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN411",
+     "title": "Real Estate Finance",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BECO202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN412",
+     "title": "Financial Institutions and Capital Markets",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BFIN302"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN413",
+     "title": "Derivatives",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BECO202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN414",
+     "title": "International Finance",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BECO202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN415",
+     "title": "Credit and Risk Analysis",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BECO202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO417",
+     "title": "Applied Econometrics",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMTH202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN420",
+     "title": "Corporate Social Responsibility",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    }
+   ],
+   "genScienceElectives": [],
+   "deptElectiveSlots": [],
+   "setupStatus": "draft",
+   "needsReview": true,
+   "source": {
+    "catalogue": "BAU undergraduate catalogue 2020-2021",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Undergraduate/Catalogue-2020-2021/Faculty-of-Business-Administration.pdf",
+    "note": "University electives are chosen from the university list. MATH 112, MATH 113 and ECON 110 are asked of some admission certificates only and are not listed as prerequisites."
+   }
+  },
+  "bba-marketing": {
+   "catalogYear": 2020,
+   "program": "BBA Marketing",
+   "faculty": "Faculty of Business Administration",
+   "department": "Business Administration",
+   "totalCredits": 100,
+   "standardSemesters": 6,
+   "maxSemesters": 12,
+   "buckets": {
+    "UNIV_MANDATORY": {
+     "label": "University Mandatory Courses",
+     "credits": 5
+    },
+    "UNIV_ELECTIVE": {
+     "label": "University Elective Courses",
+     "credits": 11
+    },
+    "FACULTY_CORE": {
+     "label": "Common Requirement Courses",
+     "credits": 48
+    },
+    "MAJOR_CORE": {
+     "label": "Major Core Courses",
+     "credits": 27
+    },
+    "DEPT_ELECTIVE": {
+     "label": "Major Elective Courses",
+     "credits": 9
+    },
+    "GEN_SCI_ELECTIVE": {
+     "label": "General Electives",
+     "credits": 0
+    },
+    "FRESHMAN": {
+     "label": "Freshman",
+     "credits": 0
+    },
+    "OTHER": {
+     "label": "Other",
+     "credits": 0
+    }
+   },
+   "tracks": {},
+   "courses": [
+    {
+     "code": "BACC201",
+     "title": "Principles of Accounting I",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO201",
+     "title": "Micro Economics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN201",
+     "title": "Business Law",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN203",
+     "title": "Business Communications",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMTH201",
+     "title": "Business Math",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC202",
+     "title": "Principles of Accounting II",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BACC201"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BECO202",
+     "title": "Macro Economics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BECO201"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT202",
+     "title": "Principles of Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN204",
+     "title": "Business Ethics",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMTH202",
+     "title": "Business Statistics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENGL001",
+     "title": "General English",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT301",
+     "title": "Organizational Behavior",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMIS301",
+     "title": "Management Information Systems I",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT301",
+     "title": "Principles of Marketing",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT302",
+     "title": "Operations Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT304",
+     "title": "Strategic Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFSC302",
+     "title": "Taxation Systems",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BFIN302",
+     "title": "Financial Management",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN401",
+     "title": "E-Business",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT302",
+     "title": "Services Marketing",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMKT301"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT401",
+     "title": "Marketing Research",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMKT301"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT403",
+     "title": "International Marketing",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMKT301"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT405",
+     "title": "Consumer Behavior",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMKT301"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT402",
+     "title": "Strategic Marketing Management",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMKT301",
+      "BMGT304"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT404",
+     "title": "Brand Management",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMKT301"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT406",
+     "title": "Advertising Marketing Communications",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BMKT301"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT410",
+     "title": "Senior Project and Internship",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMIS302",
+     "title": "Management Information Systems II",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMIS301"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT306",
+     "title": "Human Resource Management",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMGT202",
+      "BMGT301"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BACC403",
+     "title": "Cost Accounting",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BACC202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT404",
+     "title": "Entrepreneurship and Venture Management",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT411",
+     "title": "Social Marketing",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMKT301"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT412",
+     "title": "Professional Selling",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMKT301"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT413",
+     "title": "Retail Management",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMKT301"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMGT413",
+     "title": "Logistics and Supply Chain Management",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BMKT414",
+     "title": "Public Relations",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMKT301"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BUSN420",
+     "title": "Corporate Social Responsibility",
+     "cr": 3,
+     "bucket": "DEPT_ELECTIVE",
+     "pre": [
+      "BMGT202"
+     ],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    }
+   ],
+   "genScienceElectives": [],
+   "deptElectiveSlots": [],
+   "setupStatus": "draft",
+   "needsReview": true,
+   "source": {
+    "catalogue": "BAU undergraduate catalogue 2020-2021",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Undergraduate/Catalogue-2020-2021/Faculty-of-Business-Administration.pdf",
+    "note": "University electives are chosen from the university list. MATH 112, MATH 113 and ECON 110 are asked of some admission certificates only and are not listed as prerequisites."
+   }
+  },
+  "bsc-mathematics": {
+   "catalogYear": 2020,
+   "program": "BSc Mathematics",
+   "faculty": "Faculty of Science",
+   "department": "Mathematics and Computer Science",
+   "totalCredits": 97,
+   "standardSemesters": 6,
+   "maxSemesters": 12,
+   "buckets": {
+    "UNIV_MANDATORY": {
+     "label": "University Mandatory Courses",
+     "credits": 5
+    },
+    "UNIV_ELECTIVE": {
+     "label": "University Elective Courses",
+     "credits": 11
+    },
+    "FACULTY_CORE": {
+     "label": "Faculty Core Courses",
+     "credits": 19
+    },
+    "MAJOR_CORE": {
+     "label": "Major Core Courses",
+     "credits": 44
+    },
+    "DEPT_ELECTIVE": {
+     "label": "Departmental Elective Courses",
+     "credits": 12
+    },
+    "GEN_SCI_ELECTIVE": {
+     "label": "Faculty Electives",
+     "credits": 6
+    },
+    "FRESHMAN": {
+     "label": "Freshman",
+     "credits": 0
+    },
+    "OTHER": {
+     "label": "Other",
+     "credits": 0
+    }
+   },
+   "tracks": {},
+   "courses": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of Chemistry",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of Chemistry Laboratory",
+     "cr": 1,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [
+      "CHEM241"
+     ],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics Laboratory",
+     "cr": 1,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [
+      "PHYS243"
+     ],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and Analytical Geometry",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to Programming",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and Statistics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "TSHS341",
+     "title": "Teaching Science in High Schools",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH244",
+     "title": "Ordinary Differential Equations",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH241"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH246",
+     "title": "Real Analysis I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH241"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH248",
+     "title": "Multivariable Calculus",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH241"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH341",
+     "title": "Linear Algebra",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH343",
+     "title": "Special Functions",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH244"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH345",
+     "title": "Discrete Mathematics",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH342",
+     "title": "Vector Calculus",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH241"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH344",
+     "title": "Real Analysis II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH246"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH346",
+     "title": "Abstract Algebra I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH345"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH348",
+     "title": "Numerical Methods",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH241"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH441",
+     "title": "Introduction to Complex Analysis",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH241"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH443",
+     "title": "Topology",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH246"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH442",
+     "title": "Abstract Algebra II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH346"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH446",
+     "title": "Fourier Series and Applications",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH246"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH444",
+     "title": "Senior Project",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    }
+   ],
+   "genScienceElectives": [],
+   "deptElectiveSlots": [],
+   "setupStatus": "draft",
+   "needsReview": true,
+   "source": {
+    "catalogue": "BAU undergraduate catalogue 2020-2021",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Undergraduate/Catalogue-2020-2021/Faculty-of-Science.pdf",
+    "note": "The fourth-semester courses are printed without their heading; placed in semester 4 because they add up to its 17 credits. Faculty core and major core are not labelled in the study plan; split so that they match the printed 19 and 44 credits."
+   }
+  },
+  "bsc-physics": {
+   "catalogYear": 2020,
+   "program": "BSc Physics",
+   "faculty": "Faculty of Science",
+   "department": "Physics",
+   "totalCredits": 97,
+   "standardSemesters": 6,
+   "maxSemesters": 12,
+   "buckets": {
+    "UNIV_MANDATORY": {
+     "label": "University Mandatory Courses",
+     "credits": 5
+    },
+    "UNIV_ELECTIVE": {
+     "label": "University Elective Courses",
+     "credits": 11
+    },
+    "FACULTY_CORE": {
+     "label": "Faculty Core Courses",
+     "credits": 19
+    },
+    "MAJOR_CORE": {
+     "label": "Major Core Courses",
+     "credits": 47
+    },
+    "DEPT_ELECTIVE": {
+     "label": "Departmental Elective Courses",
+     "credits": 9
+    },
+    "GEN_SCI_ELECTIVE": {
+     "label": "Faculty Electives",
+     "credits": 6
+    },
+    "FRESHMAN": {
+     "label": "Freshman",
+     "credits": 0
+    },
+    "OTHER": {
+     "label": "Other",
+     "credits": 0
+    }
+   },
+   "tracks": {},
+   "courses": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of Chemistry",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of Chemistry Laboratory",
+     "cr": 1,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [
+      "CHEM241"
+     ],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics Laboratory",
+     "cr": 1,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [
+      "PHYS243"
+     ],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and Analytical Geometry",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to Programming",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and Statistics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "TSHS341",
+     "title": "Teaching Science in High Schools",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS242",
+     "title": "Thermal Physics",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS242L",
+     "title": "Thermal Physics Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "PHYS242"
+     ],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS244",
+     "title": "Physical Optics",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS244L",
+     "title": "Physical Optics Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "PHYS244"
+     ],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH244",
+     "title": "Ordinary Differential Equations",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH241"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS341",
+     "title": "Classical Mechanics and Waves",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS341L",
+     "title": "Classical Mechanics and Waves Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "PHYS341"
+     ],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS347",
+     "title": "Modern Physics",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS347L",
+     "title": "Modern Physics Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "PHYS347"
+     ],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS345",
+     "title": "Mathematical Methods for Physics",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MATH241"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS342",
+     "title": "Quantum Mechanics I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PHYS347"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS346",
+     "title": "Electromagnetic Theory",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS346L",
+     "title": "Electromagnetic Theory Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "PHYS346"
+     ],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS441",
+     "title": "Electrodynamics",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PHYS346"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS443",
+     "title": "Quantum Mechanics II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PHYS342"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS445",
+     "title": "Relativity",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PHYS346"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS442",
+     "title": "Solid State Physics",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PHYS342"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS442L",
+     "title": "Solid State Physics Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "PHYS442"
+     ],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS446",
+     "title": "Statistical Physics",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PHYS242"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS440",
+     "title": "Electronics",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS440L",
+     "title": "Electronics Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "PHYS440"
+     ],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS444",
+     "title": "Senior Project",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    }
+   ],
+   "genScienceElectives": [],
+   "deptElectiveSlots": [],
+   "setupStatus": "draft",
+   "needsReview": true,
+   "source": {
+    "catalogue": "BAU undergraduate catalogue 2020-2021",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Undergraduate/Catalogue-2020-2021/Faculty-of-Science.pdf",
+    "note": "Semesters 4 and 6 are printed under one heading; split by their printed totals (17 and 15). Laboratories are co-requisites of their lectures."
+   }
+  },
+  "bsc-chemistry": {
+   "catalogYear": 2020,
+   "program": "BSc Chemistry",
+   "faculty": "Faculty of Science",
+   "department": "Chemistry",
+   "totalCredits": 97,
+   "standardSemesters": 6,
+   "maxSemesters": 12,
+   "buckets": {
+    "UNIV_MANDATORY": {
+     "label": "University Mandatory Courses",
+     "credits": 5
+    },
+    "UNIV_ELECTIVE": {
+     "label": "University Elective Courses",
+     "credits": 11
+    },
+    "FACULTY_CORE": {
+     "label": "Faculty Core Courses",
+     "credits": 19
+    },
+    "MAJOR_CORE": {
+     "label": "Major Core Courses",
+     "credits": 44
+    },
+    "DEPT_ELECTIVE": {
+     "label": "Departmental Elective Courses",
+     "credits": 12
+    },
+    "GEN_SCI_ELECTIVE": {
+     "label": "Faculty Electives",
+     "credits": 6
+    },
+    "FRESHMAN": {
+     "label": "Freshman",
+     "credits": 0
+    },
+    "OTHER": {
+     "label": "Other",
+     "credits": 0
+    }
+   },
+   "tracks": {},
+   "courses": [
+    {
+     "code": "CHEM241",
+     "title": "Principles of Chemistry",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM241L",
+     "title": "Principles of Chemistry Laboratory",
+     "cr": 1,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [
+      "CHEM241"
+     ],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS243",
+     "title": "General Physics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYS243L",
+     "title": "General Physics Laboratory",
+     "cr": 1,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [
+      "PHYS243"
+     ],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH241",
+     "title": "Calculus and Analytical Geometry",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CMPS241",
+     "title": "Introduction to Programming",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MATH242",
+     "title": "Probability and Statistics",
+     "cr": 3,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "TSHS341",
+     "title": "Teaching Science in High Schools",
+     "cr": 2,
+     "bucket": "FACULTY_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM242",
+     "title": "Analytical Chemistry",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CHEM241"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM242L",
+     "title": "Analytical Chemistry Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "CHEM242"
+     ],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM248",
+     "title": "Physical Chemistry I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CHEM241"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM244",
+     "title": "Organic Chemistry I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM341",
+     "title": "Organic Chemistry II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CHEM244"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM341L",
+     "title": "Organic Chemistry Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "CHEM341"
+     ],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM343",
+     "title": "Chemical Kinetics",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CHEM248"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM349",
+     "title": "Physical Chemistry II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CHEM248"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM349L",
+     "title": "Physical Chemistry Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "CHEM349"
+     ],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM345",
+     "title": "Inorganic Chemistry I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CHEM241"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM342",
+     "title": "Instrumental Analysis",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CHEM242"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM342L",
+     "title": "Instrumental Analysis Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "CHEM342"
+     ],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM346",
+     "title": "Bioorganic Chemistry",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CHEM341"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM348",
+     "title": "Inorganic Chemistry II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CHEM345"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM348L",
+     "title": "Inorganic Chemistry Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "CHEM348"
+     ],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM441",
+     "title": "Electrochemistry and Applications",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM441L",
+     "title": "Electrochemistry and Applications Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "CHEM441"
+     ],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM442",
+     "title": "Spectroscopic Identification of Chemical Compounds",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CHEM341"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM442L",
+     "title": "Spectroscopic Identification of Chemical Compounds Laboratory",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "CHEM442"
+     ],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CHEM444",
+     "title": "Senior Project",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    }
+   ],
+   "genScienceElectives": [],
+   "deptElectiveSlots": [],
+   "setupStatus": "draft",
+   "needsReview": true,
+   "source": {
+    "catalogue": "BAU undergraduate catalogue 2020-2021",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Undergraduate/Catalogue-2020-2021/Faculty-of-Science.pdf",
+    "note": "Semesters 2 to 4 are printed without headings; placed in order because they add up to the printed 16, 17 and 17 credits."
+   }
+  },
+  "ba-arabic": {
+   "catalogYear": 2020,
+   "program": "BA Arabic Language and Literature",
+   "faculty": "Faculty of Human Sciences",
+   "department": "Department to confirm",
+   "totalCredits": 99,
+   "standardSemesters": 6,
+   "maxSemesters": 12,
+   "buckets": {
+    "UNIV_MANDATORY": {
+     "label": "University Mandatory Courses",
+     "credits": 5
+    },
+    "UNIV_ELECTIVE": {
+     "label": "University Elective Courses",
+     "credits": 11
+    },
+    "FACULTY_CORE": {
+     "label": "Faculty Core",
+     "credits": 0
+    },
+    "MAJOR_CORE": {
+     "label": "Major Core Courses",
+     "credits": 51
+    },
+    "DEPT_ELECTIVE": {
+     "label": "Minor",
+     "credits": 20
+    },
+    "GEN_SCI_ELECTIVE": {
+     "label": "Faculty Elective Courses",
+     "credits": 12
+    },
+    "FRESHMAN": {
+     "label": "Freshman",
+     "credits": 0
+    },
+    "OTHER": {
+     "label": "Other",
+     "credits": 0
+    }
+   },
+   "tracks": {},
+   "courses": [
+    {
+     "code": "ARAB251",
+     "title": "النحو والصرف",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB253",
+     "title": "البلاغة والأسلوبية",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB255",
+     "title": "الاتجاهات الحديثة في تحليل الخطاب",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB257",
+     "title": "العروض وموسيقى الشعر",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB259",
+     "title": "قضايا الأدب الجاهلي",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB261",
+     "title": "الأدب أنواعه ومذاهبه",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "FREN111",
+     "title": "French Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB250",
+     "title": "النحو والتراكيب",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB252",
+     "title": "الأدب في عصر صدر الإسلام والعصر الأموي",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB254",
+     "title": "الحضارة العربية والأدب",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB351",
+     "title": "النحو والصرف في ألفية ابن مالك",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB353",
+     "title": "الأدب في العصر العباسي",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB355",
+     "title": "علم الأصوات",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB350",
+     "title": "التدريب اللغوي العملي",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB352",
+     "title": "الأدب العربي في الأندلس",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB451",
+     "title": "مناهج البحث في اللغة والأدب",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB453",
+     "title": "اللسانيات النظرية والتطبيقية",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB455",
+     "title": "طرائق تدريس اللغة العربية",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB450",
+     "title": "فن الكتابة والتعبير",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB452",
+     "title": "الأدب العربي الحديث",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    }
+   ],
+   "genScienceElectives": [],
+   "deptElectiveSlots": [],
+   "setupStatus": "draft",
+   "needsReview": true,
+   "source": {
+    "catalogue": "BAU undergraduate catalogue 2020-2021",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Undergraduate/Catalogue-2020-2021/Faculty-of-Human-Sciences.pdf",
+    "note": "The study plan prints Arabic titles only. The minor (20 credits) and faculty electives (12 credits) are chosen from lists not printed in the plan."
+   }
+  },
+  "mbbch": {
+   "catalogYear": 2020,
+   "program": "Bachelor of Medicine and Surgery (MBBCh)",
+   "faculty": "Faculty of Medicine",
+   "department": "Faculty-wide programme",
+   "totalCredits": 204,
+   "standardSemesters": 12,
+   "maxSemesters": 18,
+   "buckets": {
+    "UNIV_MANDATORY": {
+     "label": "University Mandatory Courses",
+     "credits": 5
+    },
+    "UNIV_ELECTIVE": {
+     "label": "Student Selected Components (university electives)",
+     "credits": 9
+    },
+    "FACULTY_CORE": {
+     "label": "Faculty Core",
+     "credits": 0
+    },
+    "MAJOR_CORE": {
+     "label": "Major Core Courses",
+     "credits": 190
+    },
+    "DEPT_ELECTIVE": {
+     "label": "Departmental Electives",
+     "credits": 0
+    },
+    "GEN_SCI_ELECTIVE": {
+     "label": "General Electives",
+     "credits": 0
+    },
+    "FRESHMAN": {
+     "label": "Freshman",
+     "credits": 0
+    },
+    "OTHER": {
+     "label": "Other",
+     "credits": 0
+    }
+   },
+   "tracks": {},
+   "courses": [
+    {
+     "code": "FABL201",
+     "title": "Life Cycle",
+     "cr": 5,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "COHD203",
+     "title": "Health and Disease",
+     "cr": 7,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "LOCO202",
+     "title": "Locomotor System",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "HEMA204",
+     "title": "Hematology",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CARD205",
+     "title": "Cardiovascular System",
+     "cr": 7,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FABL201",
+      "LOCO202",
+      "COHD203",
+      "HEMA204"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "RESP207",
+     "title": "Respiratory System",
+     "cr": 5,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FABL201",
+      "LOCO202",
+      "COHD203",
+      "HEMA204"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "GITN206",
+     "title": "Gastrointestinal System",
+     "cr": 7,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FABL201",
+      "LOCO202",
+      "COHD203",
+      "HEMA204"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "RENR208",
+     "title": "Endocrine and Reproductive System I",
+     "cr": 7,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FABL201",
+      "LOCO202",
+      "COHD203",
+      "HEMA204"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "USRP301",
+     "title": "Urinary System and Reproductive System II",
+     "cr": 6,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CARD205",
+      "GITN206",
+      "RENR208",
+      "RESP207"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "NESC303",
+     "title": "Neurosciences",
+     "cr": 8,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CARD205",
+      "GITN206",
+      "RENR208",
+      "RESP207"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MSYS302",
+     "title": "Multisystem I",
+     "cr": 7,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CARD205",
+      "GITN206",
+      "RENR208",
+      "RESP207"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MSYS304",
+     "title": "Multisystem II",
+     "cr": 7,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CARD205",
+      "GITN206",
+      "RENR208",
+      "RESP207"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "REPG306",
+     "title": "Research Project",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CARD205",
+      "GITN206",
+      "RENR208",
+      "RESP207"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "IPEH308",
+     "title": "Interprofessional Education for Health Care",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "CARD205",
+      "GITN206",
+      "RENR208",
+      "RESP207"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OBGY401",
+     "title": "Obstetrics and Gynecology",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "USRP301",
+      "NESC303",
+      "MSYS302",
+      "MSYS304",
+      "REPG306"
+     ],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PEDT403",
+     "title": "Pediatrics 1",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "USRP301",
+      "NESC303",
+      "MSYS302",
+      "MSYS304",
+      "REPG306"
+     ],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "SURG402",
+     "title": "Surgery 1",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "USRP301",
+      "NESC303",
+      "MSYS302",
+      "MSYS304",
+      "REPG306"
+     ],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "INTM404",
+     "title": "Medicine 1",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "USRP301",
+      "NESC303",
+      "MSYS302",
+      "MSYS304",
+      "REPG306"
+     ],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "FAMI501",
+     "title": "Family Medicine",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PEDT403",
+      "INTM404",
+      "OBGY401",
+      "SURG402"
+     ],
+     "co": [],
+     "planSem": 9,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "SURG503",
+     "title": "Surgery 2",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PEDT403",
+      "INTM404",
+      "OBGY401",
+      "SURG402"
+     ],
+     "co": [],
+     "planSem": 9,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "NEPS502",
+     "title": "Neurology and Psychiatry",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PEDT403",
+      "INTM404",
+      "OBGY401",
+      "SURG402"
+     ],
+     "co": [],
+     "planSem": 10,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "INTM504",
+     "title": "Medicine 2",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PEDT403",
+      "INTM404",
+      "OBGY401",
+      "SURG402"
+     ],
+     "co": [],
+     "planSem": 10,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PEDM601",
+     "title": "Medicine 3 and Pediatrics 2",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FAMI501",
+      "INTM504",
+      "NEPS502",
+      "SURG503"
+     ],
+     "co": [],
+     "planSem": 11,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "SMED602",
+     "title": "Medicine 4 and Surgery 3",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FAMI501",
+      "INTM504",
+      "NEPS502",
+      "SURG503"
+     ],
+     "co": [],
+     "planSem": 11,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "SUME603",
+     "title": "Elective 1",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FAMI501",
+      "INTM504",
+      "NEPS502",
+      "SURG503"
+     ],
+     "co": [],
+     "planSem": 12,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "SUME604",
+     "title": "Elective 2",
+     "cr": 9,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FAMI501",
+      "INTM504",
+      "NEPS502",
+      "SURG503"
+     ],
+     "co": [],
+     "planSem": 12,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    }
+   ],
+   "genScienceElectives": [],
+   "deptElectiveSlots": [],
+   "setupStatus": "draft",
+   "needsReview": true,
+   "source": {
+    "catalogue": "BAU undergraduate catalogue 2020-2021",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Undergraduate/Catalogue-2020-2021/Faculty-of-Medicine.pdf",
+    "note": "Clinical modules of semesters 7 to 12 are taken as Block I or Block II in either semester of their year; each is placed in one semester here. A comprehensive MBBCh exit exam closes the programme and is not a course."
+   }
+  },
+  "law": {
+   "catalogYear": 2020,
+   "program": "Bachelor of Law",
+   "faculty": "Faculty of Law and Political Science",
+   "department": "Faculty-wide programme",
+   "totalCredits": 138,
+   "standardSemesters": 8,
+   "maxSemesters": 16,
+   "buckets": {
+    "UNIV_MANDATORY": {
+     "label": "University Mandatory Courses",
+     "credits": 2
+    },
+    "UNIV_ELECTIVE": {
+     "label": "University Elective Courses",
+     "credits": 10
+    },
+    "FACULTY_CORE": {
+     "label": "Faculty Core",
+     "credits": 0
+    },
+    "MAJOR_CORE": {
+     "label": "Major Core Courses",
+     "credits": 114
+    },
+    "DEPT_ELECTIVE": {
+     "label": "Major Elective Courses",
+     "credits": 12
+    },
+    "GEN_SCI_ELECTIVE": {
+     "label": "General Electives",
+     "credits": 0
+    },
+    "FRESHMAN": {
+     "label": "Freshman",
+     "credits": 0
+    },
+    "OTHER": {
+     "label": "Other",
+     "credits": 0
+    }
+   },
+   "tracks": {},
+   "courses": [
+    {
+     "code": "BLAW221",
+     "title": "Introduction to Law I (Theory of Legal Rule)",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW223",
+     "title": "Political Institutions",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW225",
+     "title": "History of Social and Legal Institutions",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW227",
+     "title": "Islamic Law I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW229",
+     "title": "International Organization",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW222",
+     "title": "Penal Law I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW224",
+     "title": "Constitutional Law",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW226",
+     "title": "Legal Methodology",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW228",
+     "title": "Citizenship and Foreigners Status",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW230",
+     "title": "Principles of Political Economy",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW232",
+     "title": "Introduction to Law II (Theory of Rights)",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW251",
+     "title": "Penal Law II (General Part)",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW253",
+     "title": "Public International Law",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW255",
+     "title": "Law of Civil Procedures I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW257",
+     "title": "Personal Status Laws of Different Religions",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW259",
+     "title": "Administrative Law I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW261",
+     "title": "Civil Law I (Sources of Obligation)",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BLAW232"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW252",
+     "title": "Public Finance",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW254",
+     "title": "Islamic Law II (Marriage, Divorce and Children Rights)",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW256",
+     "title": "Law of Civil Procedures II",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BLAW255"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW258",
+     "title": "Law of Proof",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW260",
+     "title": "Administrative Law II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BLAW259"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW262",
+     "title": "Civil Law II (Rules of Obligation)",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BLAW261"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW301",
+     "title": "Criminal Law I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW303",
+     "title": "Commercial Law I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW305",
+     "title": "Labor and Social Security Law",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW307",
+     "title": "Introduction to Intellectual Property Law",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW309",
+     "title": "Administrative Judicature I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW311",
+     "title": "Civil Law I (Special Contracts)",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BLAW261",
+      "BLAW262"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW302",
+     "title": "Criminal Law II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BLAW301"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW304",
+     "title": "Commercial Law II (Trade Companies)",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW306",
+     "title": "Islamic Law III (Inheritances, Wills and Waqf)",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW308",
+     "title": "Money and Banking",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW310",
+     "title": "Administrative Judicature II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BLAW309"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW312",
+     "title": "Civil Law II (Special Contracts)",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BLAW311"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW403",
+     "title": "Maritime and Air Law",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW405",
+     "title": "Fundamentals of Islamic Doctrines",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW407",
+     "title": "Private International Law I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW409",
+     "title": "Law of Penal Procedures I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW411",
+     "title": "Civil Law III (Real Rights)",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW402",
+     "title": "International Commercial Arbitration",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW404",
+     "title": "Commercial Law III (Bank Operations and Bankruptcy)",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW406",
+     "title": "Forced Execution",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BLAW255",
+      "BLAW256"
+     ],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW408",
+     "title": "Private International Law II",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW410",
+     "title": "Law of Penal Procedures II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BLAW409"
+     ],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW412",
+     "title": "Civil Law IV (Real and Personal Collaterals and Real Estates Registration)",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BLAW411"
+     ],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    }
+   ],
+   "genScienceElectives": [],
+   "deptElectiveSlots": [],
+   "setupStatus": "draft",
+   "needsReview": true,
+   "source": {
+    "catalogue": "BAU undergraduate catalogue 2020-2021",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Undergraduate/Catalogue-2020-2021/Faculty-of-Law-and-Political-Science.pdf",
+    "note": "Semester placement could not be checked against the printed study plan; codes, credits and prerequisites come from the printed course table. The 2 mandatory university credits are not named in the plan. Faculty electives are taken by level (1, 2, 4, 5) from a list not included here."
+   }
+  },
+  "bds": {
+   "catalogYear": 2020,
+   "program": "Bachelor of Oral and Dental Surgery (BDS)",
+   "faculty": "Faculty of Dentistry",
+   "department": "Faculty-wide programme",
+   "totalCredits": 180,
+   "standardSemesters": 10,
+   "maxSemesters": 16,
+   "buckets": {
+    "UNIV_MANDATORY": {
+     "label": "University Mandatory Courses",
+     "credits": 5
+    },
+    "UNIV_ELECTIVE": {
+     "label": "University Elective Courses",
+     "credits": 7
+    },
+    "FACULTY_CORE": {
+     "label": "Faculty Core",
+     "credits": 0
+    },
+    "MAJOR_CORE": {
+     "label": "Faculty Core Courses (basic, biomedical, preclinical, clinical)",
+     "credits": 163
+    },
+    "DEPT_ELECTIVE": {
+     "label": "Faculty Elective Courses",
+     "credits": 5
+    },
+    "GEN_SCI_ELECTIVE": {
+     "label": "General Electives",
+     "credits": 0
+    },
+    "FRESHMAN": {
+     "label": "Freshman",
+     "credits": 0
+    },
+    "OTHER": {
+     "label": "Other",
+     "credits": 0
+    }
+   },
+   "tracks": {},
+   "courses": [
+    {
+     "code": "ARAB001",
+     "title": "Arabic Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENGL001",
+     "title": "English Language",
+     "cr": 2,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BLAW001",
+     "title": "Human Rights",
+     "cr": 1,
+     "bucket": "UNIV_MANDATORY",
+     "pre": [],
+     "co": [],
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ANAT221",
+     "title": "Gross Anatomy",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BCHM221",
+     "title": "Biochemistry",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BIOL221",
+     "title": "Molecular Genetics",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BIOM221",
+     "title": "Principles of Dental Biomaterials",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "DANT221",
+     "title": "Dental Anatomy",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHRM221",
+     "title": "Medical Botany",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHYL221",
+     "title": "Physiology",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 1,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ANAT222",
+     "title": "Head and Neck Anatomy",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ANAT221"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "DANT222",
+     "title": "Dental Anatomy and Occlusion",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "DANT221"
+     ],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "GHST222",
+     "title": "General Histology",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MICR222",
+     "title": "Microbiology and Immunology",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OPER222",
+     "title": "Preclinical Operative Dentistry I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "DANT221"
+     ],
+     "co": [
+      "BIOM224"
+     ],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BIOM224",
+     "title": "Applied Dental Biomaterials I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BIOM221"
+     ],
+     "co": [
+      "OPER222"
+     ],
+     "planSem": 2,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "FPRO223",
+     "title": "Preclinical Fixed Prosthodontics I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OPER222"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "MICR223",
+     "title": "Applied Microbiology and Infection Control",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MICR222"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OCLS223",
+     "title": "Fundamentals of Occlusion",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "DANT222"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OPER223",
+     "title": "Preclinical Operative Dentistry II",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OPER222"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ORBL223",
+     "title": "Oral Biology I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "GHST222"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PATH223",
+     "title": "Pathology",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ANAT221"
+     ],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHBS223",
+     "title": "Behavioural Sciences",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "RPRO223",
+     "title": "Preclinical Removable Prosthodontics I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "DANT222"
+     ],
+     "co": [
+      "BIOM225"
+     ],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "BIOM225",
+     "title": "Applied Dental Biomaterials II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "BIOM221"
+     ],
+     "co": [
+      "RPRO223"
+     ],
+     "planSem": 3,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "FPRO224",
+     "title": "Preclinical Fixed Prosthodontics II",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FPRO223"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OPER224",
+     "title": "Preclinical Operative Dentistry III",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OPER223"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OPTH224",
+     "title": "Oral Pathology I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ORBL223"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ORAD224",
+     "title": "Oral Radiology",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ANAT222"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ORBL224",
+     "title": "Oral Biology II",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ORBL223"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHBS224",
+     "title": "Research and Evidence Based Dentistry",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "PHBS226"
+     ],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHRM224",
+     "title": "Pharmacology",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PHRM221",
+      "PHYL221"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "RPRO224",
+     "title": "Preclinical Removable Prosthodontics II",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "RPRO223"
+     ],
+     "co": [],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHBS226",
+     "title": "Preventive and Public Health Dentistry",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "PHBS224"
+     ],
+     "planSem": 4,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "FPRO321",
+     "title": "Preclinical Fixed Prosthodontics III",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FPRO224"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "GMED321",
+     "title": "General Medicine",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PATH223"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ODTP321",
+     "title": "Oral Diagnosis, Radiology and Treatment Planning",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ORAD224"
+     ],
+     "co": [
+      "PERI323"
+     ],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OPER321",
+     "title": "Preclinical Operative Dentistry IV",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OPER224"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHBS321",
+     "title": "Practice Management",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PHBS223"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "RPRO321",
+     "title": "Preclinical Removable Prosthodontics III",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "RPRO224"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENDO323",
+     "title": "Preclinical Endodontics I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ORAD224",
+      "OPER224",
+      "MICR223"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OSRG323",
+     "title": "Anesthesia and Introduction to Oral Surgery",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PHRM224"
+     ],
+     "co": [],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PERI323",
+     "title": "Preventive Periodontology",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "MICR223"
+     ],
+     "co": [
+      "ODTP321"
+     ],
+     "planSem": 5,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "FPRO322",
+     "title": "Preclinical Fixed Prosthodontics IV",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FPRO321"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "GSRG322",
+     "title": "General Surgery, ENT and Ophthalmology",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PATH223"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OPER322",
+     "title": "Operative Dentistry I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OPER321"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OPTH322",
+     "title": "Oral Pathology II",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OPTH224"
+     ],
+     "co": [
+      "OMED324"
+     ],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "RPRO322",
+     "title": "Preclinical Removable Prosthodontics IV",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "RPRO321"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENDO324",
+     "title": "Preclinical Endodontics II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ENDO323"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OMED324",
+     "title": "Oral Medicine",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ORBL224"
+     ],
+     "co": [
+      "OPTH322"
+     ],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PERI324",
+     "title": "Periodontology I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PERI323"
+     ],
+     "co": [],
+     "planSem": 6,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "FPRO421",
+     "title": "Fixed Prosthodontics I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FPRO322"
+     ],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OPER421",
+     "title": "Operative Dentistry II",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OPER322"
+     ],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OSRG421",
+     "title": "Oral Surgery I",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OSRG323"
+     ],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PEDI421",
+     "title": "Preventive and Pediatric Dentistry I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PHBS226"
+     ],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "RPRO421",
+     "title": "Removable Prosthodontics I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "RPRO322"
+     ],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENDO423",
+     "title": "Endodontics I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ENDO324"
+     ],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ORTD423",
+     "title": "Orthodontics I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OCLS223"
+     ],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PERI423",
+     "title": "Periodontology II",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PERI324"
+     ],
+     "co": [],
+     "planSem": 7,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "FPRO422",
+     "title": "Fixed Prosthodontics II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FPRO421"
+     ],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OPER422",
+     "title": "Operative Dentistry III",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OPER421"
+     ],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OSRG422",
+     "title": "Oral Surgery II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OSRG421"
+     ],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "RPRO422",
+     "title": "Removable Prosthodontics II",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "RPRO421"
+     ],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENDO424",
+     "title": "Endodontics II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ENDO423"
+     ],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ORTD424",
+     "title": "Orthodontics II",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ORTD423"
+     ],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PEDI424",
+     "title": "Preventive and Pediatric Dentistry II",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PEDI421"
+     ],
+     "co": [],
+     "planSem": 8,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "FPRO521",
+     "title": "Fixed Prosthodontics III",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FPRO422"
+     ],
+     "co": [],
+     "planSem": 9,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OPER521",
+     "title": "Operative Dentistry IV",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OPER422"
+     ],
+     "co": [],
+     "planSem": 9,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OSRG521",
+     "title": "Oral Surgery and Implantology",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OSRG422"
+     ],
+     "co": [],
+     "planSem": 9,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PEDI521",
+     "title": "Pediatric Dentistry I",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PEDI424"
+     ],
+     "co": [],
+     "planSem": 9,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PERI521",
+     "title": "Periodontology III",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PERI423"
+     ],
+     "co": [],
+     "planSem": 9,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHBS521",
+     "title": "Ethics and Professionalism in Dentistry",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PHBS321"
+     ],
+     "co": [],
+     "planSem": 9,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "RPRO521",
+     "title": "Removable Prosthodontics III",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "RPRO422"
+     ],
+     "co": [],
+     "planSem": 9,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "ENDO523",
+     "title": "Endodontics III",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ENDO424"
+     ],
+     "co": [],
+     "planSem": 9,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "CLNC522",
+     "title": "Comprehensive Clinical Care",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [],
+     "co": [
+      "PROS524"
+     ],
+     "planSem": 10,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PEDI522",
+     "title": "Pediatric Dentistry II",
+     "cr": 3,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PEDI521"
+     ],
+     "co": [],
+     "planSem": 10,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PHBS522",
+     "title": "Interprofessional Education for Health Care",
+     "cr": 1,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "PHBS521"
+     ],
+     "co": [],
+     "planSem": 10,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "OSRG524",
+     "title": "Oral and Maxillofacial Surgery",
+     "cr": 2,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "OSRG521"
+     ],
+     "co": [],
+     "planSem": 10,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "PROS524",
+     "title": "Prosthodontics",
+     "cr": 5,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "FPRO521",
+      "RPRO521"
+     ],
+     "co": [],
+     "planSem": 10,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    },
+    {
+     "code": "REST524",
+     "title": "Restorative Dentistry",
+     "cr": 5,
+     "bucket": "MAJOR_CORE",
+     "pre": [
+      "ENDO523",
+      "OPER521"
+     ],
+     "co": [],
+     "planSem": 10,
+     "runsIn": [
+      "FALL",
+      "SPRING"
+     ]
+    }
+   ],
+   "genScienceElectives": [],
+   "deptElectiveSlots": [],
+   "setupStatus": "draft",
+   "needsReview": true,
+   "source": {
+    "catalogue": "BAU undergraduate catalogue 2020-2021",
+    "url": "https://www.bau.edu.lb/BAUUpload/BAU-Library/files/Undergraduate/Catalogue-2020-2021/Faculty-of-Dentistry.pdf",
+    "note": "Semester placement could not be checked against the printed study plan; codes, credits and prerequisites come from the printed course table. Co-requisites printed with * are entered as co-requisites. MICR222 needs BCHM221 or BIOL221, entered without a prerequisite because a choice of two cannot be expressed yet. Faculty electives (DENT501 to DENT517) are not listed."
+   }
+  }
+ }
+}

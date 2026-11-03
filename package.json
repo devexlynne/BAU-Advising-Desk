@@ -9,7 +9,7 @@
     "inventory:volume": "node scripts/inventory-volume.js",
     "inventory:postgres": "node scripts/inventory-postgres.js",
     "db:migrate": "node scripts/db-migrate.js",
-    "test": "node tests/rules.test.js && node tests/email.test.js && node tests/import-synthetic.test.js && node tests/demo-data.test.js && node tests/client-phase1.test.js && node tests/permissions.test.js && node tests/org-migration.test.js && node tests/demo-org-seed.test.js && node tests/invites.test.js && node tests/programmes.test.js && node tests/theme.test.js && node tests/storage-safety.test.js && node tests/preview-safety.test.js && node tests/volume-inventory.test.js && node tests/postgres-store.test.js && node tests/postgres-inventory.test.js && node tests/bulk-save.test.js && node tests/recovery.test.js && node tests/server-safety.test.js && node tests/encrypted-store.test.js",
+    "test": "node tests/rules.test.js && node tests/email.test.js && node tests/import-synthetic.test.js && node tests/demo-data.test.js && node tests/client-phase1.test.js && node tests/permissions.test.js && node tests/org-migration.test.js && node tests/demo-org-seed.test.js && node tests/invites.test.js && node tests/programmes.test.js && node tests/catalogue-exceptions.test.js && node tests/theme.test.js && node tests/storage-safety.test.js && node tests/preview-safety.test.js && node tests/volume-inventory.test.js && node tests/postgres-store.test.js && node tests/postgres-inventory.test.js && node tests/bulk-save.test.js && node tests/recovery.test.js && node tests/server-safety.test.js && node tests/encrypted-store.test.js",
     "test:security": "node tests/security.e2e.js",
     "test:email": "node tests/reset-email.e2e.js",
     "test:full": "node tests/full.e2e.js",

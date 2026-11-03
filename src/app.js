@@ -1526,6 +1526,7 @@ function viewStudent() {
     ${recordNotes(s)}
     ${groupOf(s) === 'masters' ? mastersPanel(s) : ''}
     ${body}
+    <p class="note" style="margin-top:14px">${esc(ADVISORY_LINE)}</p>
   </div>`;
 }
 
@@ -1538,7 +1539,11 @@ function gradeClass(g) {
 
 function tabProgress(s) {
   const { snap, alerts, level } = look(s);
-  const order = ['UNIV_MANDATORY', 'UNIV_ELECTIVE', 'FACULTY_CORE', 'MAJOR_CORE', 'DEPT_ELECTIVE', 'GEN_SCI_ELECTIVE'];
+  // the standard blocks first, then any block a programme added (Internship, Basic sciences),
+  // leaving out blocks this programme does not use
+  const STANDARD = ['UNIV_MANDATORY', 'UNIV_ELECTIVE', 'FACULTY_CORE', 'MAJOR_CORE', 'DEPT_ELECTIVE', 'GEN_SCI_ELECTIVE'];
+  const order = STANDARD.concat(Object.keys(snap.buckets).filter(k => !STANDARD.includes(k) && !['FRESHMAN', 'OTHER'].includes(k)))
+    .filter(k => snap.buckets[k] && (snap.buckets[k].required > 0 || snap.buckets[k].earned > 0));
   const audit = E.graduationAudit(R, C, s);
   const blocks = order.filter(k => snap.buckets[k]).map(k => {
     const b = snap.buckets[k], label = (C.buckets[k] || {}).label || k;
@@ -1624,6 +1629,7 @@ function tabProgress(s) {
         </div>`).join('') : '<p class="empty">On track. Nothing outstanding.</p>'}
       </div></div>
       ${notePanel(s)}
+      ${exceptionsPanel(s)}
       <div class="panel"><div class="hd">Contact</div><div class="bd">${contact}</div></div>
     </div>
   </div>`;
@@ -2398,6 +2404,7 @@ function tabSheet(s) {
     <div class="panel"><div class="bd" style="text-align:center;border-bottom:1px solid var(--line)">
       <div style="font-family:var(--serif);font-weight:700;font-size:16px">Beirut Arab University</div>
       <div style="font-size:12.5px;color:var(--muted)">${esc(progFacultyName())}<i class="sep-dot" aria-hidden="true"></i>${esc(progDeptLine())}</div>
+      <div style="font-size:11.5px;color:var(--muted)">${esc(ADVISORY_LINE)}</div>
       <div style="font-size:12.5px;color:var(--muted)">Advising contract sheet<i class="sep-dot" aria-hidden="true"></i>${esc(state.term)}</div>
     </div>
     <div class="bd">
@@ -2487,6 +2494,7 @@ function sheetDocument(s) {
   <div class="head">
     <div class="u">Beirut Arab University</div>
     <div class="f">${esc(progFacultyName())}<i class="sep-dot" aria-hidden="true"></i>${esc(progDeptLine())}</div>
+    <div class="f">${esc(ADVISORY_LINE)}</div>
     <div class="t">Advising contract sheet<i class="sep-dot" aria-hidden="true"></i>${esc(state.term)}</div>
   </div>
   <div class="id">
@@ -2702,6 +2710,7 @@ function reviewListDocument(list, title) {
   <div class="head">
     <div class="u">Beirut Arab University</div>
     <div class="f">${esc(progFacultyName())}<i class="sep-dot" aria-hidden="true"></i>${esc(progDeptLine())}</div>
+    <div class="f">${esc(ADVISORY_LINE)}</div>
     <div class="t">${esc(title)}<i class="sep-dot" aria-hidden="true"></i>${esc(state.term)}</div>
   </div>
   <table><thead><tr><th>Student</th><th>What the records say</th><th>Note from the advisor</th></tr></thead>
@@ -3328,6 +3337,8 @@ async function onTranscripts(file) {
     const pre = snapshotOf(T.list);
     const moved = await claimFromOthers(T, students);
     const { students: merged, added, updated } = Merge.mergeTranscripts(T.list, students, T.name);
+    // the transcript names the programme; a student from another one is filed there, not here
+    const elsewhere = fileByTranscript(merged, students);
     rememberUndo(merged, 'the transcripts from ' + file.name, T, pre, moved);
     await Store.saveStudents(T.slug, merged);
     await finishClaim(moved);
@@ -3341,6 +3352,7 @@ async function onTranscripts(file) {
     showImport('T', `<div class="chk ${check.off.length ? 'warn' : 'info'}">
       <span class="ic">${check.off.length ? '!' : '&check;'}</span><span class="tx">
       <p><b>${students.length} transcripts read</b>${T.admin ? ' for ' + esc(advisorNamed(T.slug)) : ''} from ${esc(file.name)}: ${added} new, ${updated} updated, ${rows} course rows.</p>
+      ${elsewhereHtml(elsewhere)}
       ${withCourses ? `<p style="margin-top:5px"><b>${check.ok.length} of ${withCourses} transcripts with completed courses</b> match the CGPA and credit total printed on the page.</p>` : ''}
       ${check.off.length ? `<p style="margin-top:5px"><b>${check.off.length} to look at:</b></p>
         <ul style="margin:4px 0 0 18px;font-size:13px">${check.off.slice(0, 8).map(o =>
@@ -3543,6 +3555,21 @@ async function onOffering(file) {
       if (start) days.forEach(day => sec.meetings.push({ day, start: fix(start), end: fix(end), kind: '', room: iRoom >= 0 ? String(r[iRoom]).trim() : '' }));
     });
     const sections = Object.keys(byCrn).map(k => byCrn[k]);
+    // a meeting whose end is before its start is a typing slip in the file:
+    // swapped back and reported; an empty one (start = end) or a repeat is dropped
+    const mins = t => { const m = /^(\d{1,2}):(\d{2})$/.exec(String(t || '')); return m ? +m[1] * 60 + +m[2] : null; };
+    const timeFixes = [];
+    sections.forEach(sec => {
+      const seen = new Set();
+      sec.meetings = sec.meetings.filter(m => {
+        const a = mins(m.start), b = mins(m.end);
+        if (a != null && b != null && a > b) { timeFixes.push(sec.code + ' ' + sec.section + ' ' + m.day + ' ' + m.start + '–' + m.end); const t = m.start; m.start = m.end; m.end = t; }
+        else if (a != null && a === b) { timeFixes.push(sec.code + ' ' + sec.section + ' ' + m.day + ' ' + m.start + ' (no length, dropped)'); return false; }
+        const key = m.day + '|' + m.start + '|' + m.end;
+        if (seen.has(key)) return false;
+        seen.add(key); return true;
+      });
+    });
     if (!sections.length) throw new Error('no course rows recognised. Course codes should look like CMPS347 (or Subj CMPS + Crse 347)');
     const kept = state.offering.sections.filter(s => s.term !== forTerm);
     state.offering = Object.assign({}, state.offering, {
@@ -3554,7 +3581,8 @@ async function onOffering(file) {
     importState.result = `<p><b>${sections.length} sections</b> synced for ${esc(forTerm)}.</p>`;
     showImport('O', `<div class="chk info"><span class="ic">&check;</span><span class="tx">
       <p><b>${sections.length} sections synced</b> for ${esc(forTerm)}, covering ${new Set(sections.map(s => s.code)).size} courses.
-      ${forTerm === state.planTerm ? 'The ' + esc(shortTerm(forTerm)) + ' recommendations now use these sections.' : ''}</p></span></div>`);
+      ${forTerm === state.planTerm ? 'The ' + esc(shortTerm(forTerm)) + ' recommendations now use these sections.' : ''}</p>
+      ${timeFixes.length ? `<p style="margin-top:5px"><b>${timeFixes.length} meeting time${timeFixes.length === 1 ? '' : 's'} had the end before the start</b> and ${timeFixes.length === 1 ? 'was' : 'were'} corrected. Check ${timeFixes.length === 1 ? 'it' : 'them'} against the registrar's file: ${esc(timeFixes.slice(0, 10).join('; '))}${timeFixes.length > 10 ? ' and ' + (timeFixes.length - 10) + ' more' : ''}.</p>` : ''}</span></div>`);
     render();
   } catch (e) {
     showImport('O', `<div class="chk block"><span class="ic">!</span><span class="tx"><p>Could not read that file: ${esc(e.message)}</p></span></div>`);
@@ -4635,6 +4663,7 @@ async function onClick(e) {
   if (t.closest('[data-lang-toggle]')) { setLang(LANG === 'ar' ? 'en' : 'ar'); return; }
   if (state.me && state.view === 'rules' && await rulesClick(t)) return;
   if (state.me && (state.view === 'structure' || state.view === 'programme') && await structureClick(t)) return;
+  if (state.me && state.view === 'student' && await exceptionsClick(t)) return;
   if (t.closest('[data-person-add]')) { openPeopleForm('invite'); return; }
   const personEdit = t.closest('[data-person-edit]');
   if (personEdit) {

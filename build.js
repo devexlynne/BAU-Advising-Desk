@@ -19,12 +19,14 @@ const data = [
   'window.CATALOG=' + json('data/catalog.json') + ';',
   'window.RULES=' + json('data/rules.json') + ';',
   'window.OFFERING=' + json('data/offering.json') + ';',
-  'window.BRAND=' + json('data/brand.json') + ';'
+  'window.BRAND=' + json('data/brand.json') + ';',
+  // faculties, programmes and study plans read from the 2020-2021 catalogue, loaded on request by a superadmin
+  'window.CATALOGUE_SEED=' + json('data/catalogue-2020.json') + ';'
 ].join('\n');
 
 const app = read('src/programme.js') + '\n' + read('src/app.js')
   .replace('/*__ASKME__*/', () => read('src/askme.js'))
-  .replace('/*__RULES__*/', () => read('src/rulesadmin.js') + '\n' + read('src/structure.js'))
+  .replace('/*__RULES__*/', () => read('src/rulesadmin.js') + '\n' + read('src/structure.js') + '\n' + read('src/exceptions.js'))
   .replace('/*__I18N__*/', () => read('src/i18n.js'));
 
 const PLACEHOLDER = /\/\*__[A-Z]+__\*\//;
