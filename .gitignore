@@ -24,3 +24,6 @@ tmp/
 # secrets and local data
 .env
 *.env
+
+# renamed copies of real records, never committed
+private-demo/

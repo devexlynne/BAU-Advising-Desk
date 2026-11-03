@@ -2,7 +2,8 @@
 'use strict';
 
 const E = window.Engine, C = window.CATALOG, R = window.RULES;
-const FACULTY = window.FACULTY, BASE_OFFERING = window.OFFERING;
+let FACULTY = [];
+const BASE_OFFERING = window.OFFERING;
 const BRAND = window.BRAND || {};
 let MAP = E.byCode(C);
 
@@ -20,7 +21,7 @@ const nice = s => String(s || '')
   .replace(/\b(i|ii|iii|iv|v)\b/gi, m => m.toUpperCase());
 
 const state = {
-  me: null, students: [], offering: BASE_OFFERING,
+  me: null, students: [], people: [], orgTree: null, offering: BASE_OFFERING,
   // two terms, don't mix them up:
   // term     - semester running now (what the schedules describe)
   // planTerm - semester we're advising for (what recommendations target)
@@ -95,7 +96,7 @@ function coverBanner() {
     <div class="hero-in">
       <div class="crest">${logoWhite(58)}</div>
       <h1>Online Advising System</h1>
-      <p>Faculty of Science<i class="sep-dot" aria-hidden="true"></i>Mathematics and Computer Science</p>
+      <p>Beirut Arab University<i class="sep-dot" aria-hidden="true"></i>Academic advising</p>
       <div class="sub">${esc(hello())}</div>
     </div>
   </div>`;
@@ -174,11 +175,11 @@ function toast(msg) {
 }
 
 // ---- sign in --------------------------------------------------------------
-let gateStep = 'pick', gatePerson = null, accountsExist = {};
+let gateStep = 'pick', gatePerson = null, resetEmail = '';
 
 let resetToken = '';
 // new-account email check: token from the link, and what was typed at sign-up (kept in memory only, for "send it again")
-let verifyToken = '', pendingSlug = '', pendingPass = '', pendingEmail = '';
+let verifyToken = '';
 let ideaKind = 'idea';
 // help dialog keeps the half-typed text in case it gets closed by accident
 let holdKind = '', holdStudent = null;
@@ -204,11 +205,20 @@ async function boot() {
     drawGate();
     return;
   }
-  accountsExist = await Store.accountsThatExist(FACULTY.map(f => f.slug));
-  // served portal: server decides who's signed in (httpOnly cookie).
-  // anywhere else the tab remembers
   const who = Store.isServer() ? await Store.whoAmI() : sessionStorage.getItem('bau.session');
   if (who) {
+    if (Store.isServer()) {
+      FACULTY = await Store.loadPeople();
+      state.people = FACULTY;
+      state.orgTree = await Store.loadOrgTree();
+    } else if (window.OFFLINE_DEMO) {
+      const demo = window.DEMO_DATA || {};
+      FACULTY = [demo.profile || {
+        slug: who, name: 'Demo Advisor', title: 'Demo advisor',
+        email: 'demo.advisor@bau.edu.lb', roles: [{ role: 'advisor', scopes: ['cs'] }]
+      }];
+      state.people = FACULTY;
+    }
     const p = FACULTY.find(f => f.slug === who);
     if (p) {
       try { state.cover = await Store.getCover(); } catch (e) { state.cover = null; }
@@ -259,8 +269,9 @@ function drawGate() {
     g.innerHTML = `<div class="gate-inner"><div class="card">
       <div class="pic"><div><b>Activate your account</b><span>Opened from your BAU email</span></div></div>
       <form class="stack" id="verifyForm">
-        <p class="note">Type the password you chose when you created the account.</p>
-        <label class="f" for="vPass">Password<input id="vPass" type="password" autocomplete="current-password"></label>
+        <p class="note">Choose a password to activate your invitation. If this is an older account waiting for email verification, enter the password you originally chose.</p>
+        <label class="f" for="vPass">Password<input id="vPass" type="password" autocomplete="new-password"></label>
+        <label class="f" for="vPass2">Repeat password<input id="vPass2" type="password" autocomplete="new-password"></label>
         <p class="err" id="gateErr" hidden></p>
         <button class="btn primary" type="submit" style="justify-content:center">Activate and sign in</button>
         <button class="btn ghost" type="button" data-back="1" style="justify-content:center">Back</button>
@@ -271,16 +282,10 @@ function drawGate() {
   }
   // just signed up: waiting for them to open the email
   if (gateStep === 'sent') {
-    const f = gatePerson;
     g.innerHTML = `<div class="gate-inner"><div class="card">
-      <div class="pic">${faceOf(f)}
-        <div><b>${esc(fullName(f))}</b><span>Check your BAU email</span></div></div>
+      <div class="pic"><div><b>Check your BAU email</b><span>Account activation</span></div></div>
       <div class="stack">
-        <p class="note">We sent an activation link to your BAU email:</p>
-        <p class="note" dir="ltr" style="text-align:center"><b>${esc(pendingEmail)}</b></p>
-        <p class="note">Open it and type your password to finish. The link lasts 24 hours.</p>
-        ${pendingPass ? `<button class="btn ghost" type="button" data-verify-resend="1" style="justify-content:center">Send the link again</button>` : ''}
-        <p class="okmsg" id="mailSent" hidden></p>
+        <p class="note">This account is not activated yet. Open the invitation link sent to your BAU email, or contact your administrator.</p>
         <button class="btn ghost" type="button" data-back="1" style="justify-content:center">Back</button>
       </div>
     </div></div>`;
@@ -289,106 +294,74 @@ function drawGate() {
   if (gateStep === 'pick') {
     g.innerHTML = `<div class="gate-inner">
       ${coverBanner()}
-      <div class="stack">
-        <p class="note" style="text-align:center">Choose your name. First time here? Create a password.</p>
-        <div class="who-grid">
-          ${FACULTY.map((f, i) => `<button class="who ${i === 0 ? 'lead' : ''}${f.admin ? ' adminwho' : ''}" data-pick="${f.slug}">
-            <span class="ph">${faceOf(f)}</span>
-            <b>${esc(fullName(f))}</b>
-            <span class="rank">${esc(f.rank || f.title)}</span>
-            ${accountsExist[f.slug] ? '<span class="set">Account ready</span>' : '<span class="set new">Set up</span>'}
-          </button>`).join('')}
-        </div>
-        <div class="gate-foot">
-          <p class="note" style="text-align:center">
-            Computer Science advising. More programmes can be added later.
-          </p>
-        </div>
+      <div class="card">
+        <form class="stack" id="signForm" autocomplete="on">
+          <label class="f" for="fEmail">BAU email
+            <input id="fEmail" type="email" autocomplete="username" required>
+          </label>
+          <label class="f" for="fPass">Password
+            <input id="fPass" type="password" autocomplete="current-password" required>
+          </label>
+          <p class="err" id="gateErr" hidden></p>
+          <button class="btn primary" type="submit" style="justify-content:center">Sign in</button>
+          <button class="linkbtn" type="button" data-reset="1">I forgot my password</button>
+          <p class="note" style="text-align:center">Staff accounts are created by invitation. Use your BAU email address.</p>
+        </form>
       </div>
     </div>`;
     return;
   }
 
   if (gateStep === 'reset') {
-    const f = gatePerson;
     g.innerHTML = `<div class="gate-inner"><div class="card">
-      <div class="pic">${faceOf(f)}
-        <div><b>${esc(fullName(f))}</b><span>Forgotten password</span></div></div>
-      ${Store.mailReset() ? `<div class="stack" style="margin-bottom:18px">
-        <p class="note">We will send a reset link to the BAU email on this account.</p>
-        <button class="btn primary" type="button" data-mail-reset="${esc(f.slug)}" style="justify-content:center">
-          Email me a reset link</button>
+      <div class="pic"><div><b>Forgot your password?</b><span>Reset using your BAU email</span></div></div>
+      <form class="stack" id="resetRequestForm">
+        <label class="f" for="resetEmail">BAU email
+          <input id="resetEmail" type="email" value="${esc(resetEmail)}" autocomplete="username" required>
+        </label>
+        <p class="err" id="gateErr" hidden></p>
         <p class="okmsg" id="mailSent" hidden></p>
-      </div>` : `<div class="stack">
-        <p class="note">Password reset email is not configured. Contact the department administrator. Your imported records will stay unchanged.</p>
-      </div>`}
-      <div class="stack">
+        <button class="btn primary" type="submit" style="justify-content:center">Email me a reset link</button>
         <button class="btn ghost" type="button" data-back="1" style="justify-content:center">Back</button>
-      </div>
+      </form>
     </div></div>`;
     return;
   }
-  const f = gatePerson;
-  const has = accountsExist[f.slug];
-  g.innerHTML = `<div class="gate-inner">
-    <div class="card">
-      <div class="pic">
-        ${faceOf(f)}
-        <div><b>${esc(fullName(f))}</b><span>${esc(f.title)}</span></div>
-      </div>
-      <form class="stack" id="signForm" autocomplete="on">
-        <label class="f" for="fEmail">BAU email
-          <input id="fEmail" type="email" value="${esc(f.email)}" ${has ? 'readonly' : ''} autocomplete="username">
-        </label>
-        <label class="f" for="fPass">${has ? 'Password' : 'Choose a password'}
-          <input id="fPass" type="password" autocomplete="${has ? 'current-password' : 'new-password'}" placeholder="${has ? 'Your password' : 'At least 10 characters'}">
-        </label>
-        ${has ? '' : `<label class="f" for="fPass2">Repeat it<input id="fPass2" type="password" autocomplete="new-password"></label>`}
-        <p class="err" id="gateErr" hidden></p>
-        <button class="btn primary" type="submit" style="justify-content:center">${has ? 'Sign in' : 'Create my account'}</button>
-        ${has ? '<button class="linkbtn" type="button" data-reset="1">I forgot my password</button>' : ''}
-        <button class="btn ghost" type="button" data-back="1" style="justify-content:center">Back</button>
-        <p class="note">${Store.isServer()
-          ? 'Your password is checked on the department server and is never stored anywhere readable. Your students are yours: no other advisor can open them.'
-          : 'This preview keeps everything in this browser alone. The portal at its own address checks your password on the server and keeps each advisor\'s students apart.'}</p>
-      </form>
-    </div></div>`;
-  setTimeout(() => { const el = $('#fPass'); if (el) el.focus(); }, 60);
 }
 
 async function trySignIn(ev) {
   ev.preventDefault();
-  const f = gatePerson, err = $('#gateErr');
-  const pass = $('#fPass').value, has = accountsExist[f.slug];
+  const email = $('#fEmail').value.trim().toLowerCase();
+  const pass = $('#fPass').value;
+  const err = $('#gateErr');
   const fail = m => { err.hidden = false; err.textContent = m; };
-  if (!has) {
-    const email = $('#fEmail').value.trim();
-    if (!/^[^@\s]+@bau\.edu\.lb$/i.test(email)) return fail('Use your BAU email address, ending in bau.edu.lb.');
-    if (pass.length < 10) return fail('Make the password at least 10 characters.');
-    if (pass !== $('#fPass2').value) return fail('The two passwords are different.');
-    let made;
-    try { made = await Store.createAccount(f.slug, email, pass); }
-    catch (e) { return fail(e.message ? e.message.charAt(0).toUpperCase() + e.message.slice(1) + '.' : 'That account could not be created.'); }
-    if (made && made.verify) {
-      pendingSlug = f.slug; pendingPass = pass; pendingEmail = made.email || email;
-      gateStep = 'sent'; drawGate();
-      return;
-    }
-    accountsExist[f.slug] = true;
-    await signedIn(f, false);
+  if (!/^[^@\s]+@bau\.edu\.lb$/i.test(email)) return fail('Use your BAU email address, ending in bau.edu.lb.');
+  const result = await Store.signIn(email, pass);
+  if (!result.ok) {
+    if (result.unverified) { gateStep = 'sent'; drawGate(); return; }
+    return fail(result.error || 'That email and password do not match.');
+  }
+  await loadSignedInDirectory();
+  const person = FACULTY.find(member => member.slug === result.slug);
+  if (!person) return fail('Your staff profile is unavailable. Contact your administrator.');
+  await signedIn(person, false);
+}
+
+async function requestPasswordReset(ev) {
+  ev.preventDefault();
+  const email = $('#resetEmail').value.trim().toLowerCase();
+  const err = $('#gateErr'), note = $('#mailSent');
+  err.hidden = true;
+  if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)) {
+    err.hidden = false;
+    err.textContent = 'Use your BAU email address, ending in bau.edu.lb.';
     return;
   }
-  if (!(await Store.checkPassword(f.slug, pass))) {
-    if (Store.lastUnverified()) {
-      pendingSlug = f.slug; pendingPass = pass; pendingEmail = f.email || '';
-      gateStep = 'sent'; drawGate();
-      return;
-    }
-    const why = Store.isServer() ? Store.lastError() : '';
-    return fail((why ? why.charAt(0).toUpperCase() + why.slice(1) + '.' : 'That password does not match.')
-      + ' If you cannot remember it, use "I forgot my password" below.');
-  }
-  await signedIn(f, false);
+  const result = await Store.requestResetEmail(email);
+  note.hidden = false;
+  note.textContent = result.ok
+    ? 'If this account exists, a reset link was sent to its BAU inbox.'
+    : (result.error || 'That request could not be completed. Contact your administrator.');
 }
 
 // finish a reset started from the email link
@@ -403,8 +376,9 @@ async function tryLinkReset(ev) {
   if (!r.ok) return fail(r.error || 'That link has expired. Ask for another one.');
   resetToken = '';
   history.replaceState(null, '', location.pathname);
-  gatePerson = FACULTY.find(f => f.slug === r.slug) || gatePerson;
-  accountsExist[r.slug] = true;
+  await loadSignedInDirectory();
+  gatePerson = FACULTY.find(f => f.slug === r.slug) || null;
+  if (!gatePerson) return fail('Your staff profile is unavailable. Contact your administrator.');
   await signedIn(gatePerson, false);
   toast('Password changed.');
 }
@@ -416,22 +390,52 @@ async function tryVerify(ev) {
   const fail = m => { err.hidden = false; err.textContent = m; };
   const pass = $('#vPass').value;
   if (!pass) return fail('Type your password.');
+  if (pass !== $('#vPass2').value) return fail('The two passwords are different.');
   const r = await Store.verifyAccount(verifyToken, pass);
   if (!r.ok) return fail(r.error ? r.error.charAt(0).toUpperCase() + r.error.slice(1) + '.' : 'That link has expired. Create the account again.');
-  verifyToken = ''; pendingPass = '';
+  verifyToken = '';
   history.replaceState(null, '', location.pathname);
+  await loadSignedInDirectory();
   gatePerson = FACULTY.find(f => f.slug === r.slug) || gatePerson;
-  accountsExist[r.slug] = true;
+  if (!gatePerson) return fail('Your staff profile is unavailable. Contact your administrator.');
   await signedIn(gatePerson, false);
   toast('Your account is active.');
+}
+
+async function loadSignedInDirectory() {
+  if (Store.isServer()) {
+    FACULTY = await Store.loadPeople();
+    state.people = FACULTY;
+    state.orgTree = await Store.loadOrgTree();
+  }
 }
 
 async function signedIn(person, silent) {
   state.me = person;
   sessionStorage.setItem('bau.session', person.slug);
-  // admin flag comes from the person record but the server has the final say,
-  // otherwise anyone could edit the record and become admin
-  state.me.admin = !!person.admin && (!Store.isServer() || Store.isAdmin());
+  const roles = Array.isArray(person.roles) ? person.roles : [];
+  state.me.superadmin = Store.isServer() ? Store.isAdmin()
+    : roles.some(assignment => assignment.role === 'superadmin');
+  state.me.facultyAdmin = roles.some(assignment => assignment.role === 'faculty-admin');
+  state.me.admin = state.me.superadmin || state.me.facultyAdmin;
+  state.me.peopleManager = roles.some(assignment =>
+    assignment.role === 'superadmin' || assignment.role === 'faculty-admin');
+  const scopeRows = orgScopeRows();
+  const programmeScopes = roles.flatMap(assignment => assignment.scopes || [])
+    .filter(scope => scopeRows.some(row => row.id === scope && row.kind === 'programme'));
+  const facultyScopes = roles.flatMap(assignment => assignment.scopes || [])
+    .filter(scope => scopeRows.some(row => row.id === scope && row.kind === 'faculty'));
+  state.me.programme = programmeScopes[0]
+    || scopeRows.find(row => row.kind === 'programme'
+      && facultyScopes.some(scope => uiNodeContains(scope, row.id)))?.id
+    || 'cs';
+  state.me.canEditRules = state.me.admin || roles.some(assignment =>
+    assignment.role === 'programme-editor' && (assignment.scopes || []).includes(state.me.programme));
+  // the programme last worked on in this tab, if this person may still open it
+  let lastProgramme = null;
+  try { lastProgramme = sessionStorage.getItem('bau.programme'); } catch (e) { /* not kept */ }
+  state.programme = lastProgramme && programmesFor().includes(lastProgramme) ? lastProgramme
+    : (programmesFor().includes(state.me.programme) ? state.me.programme : programmesFor()[0] || 'cs');
   if (state.me.admin) {
     /* admin advises nobody, so their list is the whole department. Fetched once,
            then it's just a normal list (same pages, rules, arithmetic). */
@@ -445,7 +449,7 @@ async function signedIn(person, silent) {
     try { const n = await repairSplitRecords(); if (n) setTimeout(() => toast(n + ' transcripts joined to their students\' advisors'), 1200); }
     catch (e) { /* tried again next sign-in */ }
   } else {
-    state.students = await Store.loadStudents(person.slug, []);
+    state.students = inActiveProgramme(await Store.loadStudents(person.slug, []), person.slug);
   }
   // missing/mistyped email -> build it from name + ID so mail buttons always work
   state.students.forEach(s => {
@@ -454,7 +458,7 @@ async function signedIn(person, silent) {
     if (r.guessed) s.emailGuessed = true;
   });
   try { state.ideas = await Store.loadIdeas(); } catch (e) { state.ideas = []; }
-  await loadRulesConfig();
+  await useProgramme(activeProgramme());
   if (Store.isServer() && !state.cover) {
     try { state.cover = await Store.getCover(); } catch (e) { /* the drawn cover stands in */ }
   }
@@ -703,7 +707,7 @@ async function syncNow(reason) {
       state.everyone = await loadEveryone();
       state.students = everyoneFlat();
     } else {
-      state.students = await Store.loadStudents(state.me.slug, []);
+      state.students = inActiveProgramme(await Store.loadStudents(state.me.slug, []), state.me.slug);
       state.students.forEach(s => {
         const r = E.fixEmail(s.name, s.id, s.email);
         if (r.email && r.email !== s.email) s.email = r.email;
@@ -883,7 +887,8 @@ function welcomeLine(person) {
 async function signOut() {
   await Store.signOutServer();
   sessionStorage.removeItem('bau.session');
-  state.me = null; state.students = []; gateStep = 'pick'; gatePerson = null;
+  state.me = null; state.students = []; state.people = []; state.orgTree = null; state.programme = null;
+  FACULTY = []; gateStep = 'pick'; gatePerson = null; resetEmail = '';
   drawGate();
 }
 
@@ -1115,6 +1120,9 @@ function render() {
   const items = admin
     ? [
         ['everyone', 'Everyone', state.everyone ? String(allStudentCount()) : '', ''],
+        ...(state.me.peopleManager ? [['people', 'People', String(state.people.length), '']] : []),
+        ...(canEditStructure() ? [['structure', 'University structure', '', '']] : []),
+        ['programme', 'Programme setup', state.programmeReady ? '' : 'new', state.programmeReady ? '' : 'hot'],
         ['rules', 'Rules and study plan', '', ''],
         ['ideas', 'Portal suggestions', state.ideas.length ? String(state.ideas.length) : '', ''],
         ['ask', 'Ask Me', '', ''],
@@ -1126,12 +1134,14 @@ function render() {
         ['notices', 'Notices', String((state.view === 'notices' ? (markNoticesSeen(), 0) : unseenUrgent()) || ''), 'hot'],
         ...(c.freshmen ? [['freshmen', 'Freshmen', String(c.freshmen), '']] : []),
         ...(c.decide || c.graduated ? [['decide', 'To decide', c.decide ? String(c.decide) : '', '']] : []),
+        ...(state.me.peopleManager ? [['people', 'People', String(state.people.length), '']] : []),
         ['ask', 'Ask Me', '', ''],
+        ...(canEditPlan(activeProgramme()) ? [['programme', 'Programme setup', '', '']] : []),
         ['rules', 'Rules in force', '', ''],
         ['ideas', 'Portal suggestions', state.ideas.length ? String(state.ideas.length) : '', '']
       ];
 
-  $('#rail').innerHTML = `<div class="lab">${admin ? 'Department' : 'Advising'}</div>`
+  $('#rail').innerHTML = programmePicker() + `<div class="lab">${admin ? 'Department' : 'Advising'}</div>`
     + items.map(([k, label, n, cls]) =>
       `<button data-view="${k}" aria-current="${state.view === k
         || (k === 'students' && state.view === 'student')
@@ -1164,6 +1174,9 @@ function render() {
   else if (state.view === 'ideas') v.innerHTML = viewIdeas();
   else if (state.view === 'notices') v.innerHTML = viewNotices();
   else if (state.view === 'rules') v.innerHTML = viewRules();
+  else if (state.view === 'people') v.innerHTML = viewPeople();
+  else if (state.view === 'structure') v.innerHTML = viewStructure();
+  else if (state.view === 'programme') v.innerHTML = viewProgrammeSetup();
   drawFloat();
   drawBell();
   syncHistory();
@@ -1455,7 +1468,7 @@ function trackEvidencePanel(s, snap) {
       }).join('')}</div>
     </div>`;
   }).join('');
-  return `<div class="panel track-evidence"><div class="hd">Computer Science track evidence</div><div class="bd">
+  return `<div class="panel track-evidence"><div class="hd">${esc(C.program || 'Programme')} track evidence</div><div class="bd">
     <p class="note">${explanation}</p>
     <div class="track-grid">${rows}</div>
   </div></div>`;
@@ -1513,6 +1526,7 @@ function viewStudent() {
     ${recordNotes(s)}
     ${groupOf(s) === 'masters' ? mastersPanel(s) : ''}
     ${body}
+    <p class="note" style="margin-top:14px">${esc(ADVISORY_LINE)}</p>
   </div>`;
 }
 
@@ -1525,7 +1539,11 @@ function gradeClass(g) {
 
 function tabProgress(s) {
   const { snap, alerts, level } = look(s);
-  const order = ['UNIV_MANDATORY', 'UNIV_ELECTIVE', 'FACULTY_CORE', 'MAJOR_CORE', 'DEPT_ELECTIVE', 'GEN_SCI_ELECTIVE'];
+  // the standard blocks first, then any block a programme added (Internship, Basic sciences),
+  // leaving out blocks this programme does not use
+  const STANDARD = ['UNIV_MANDATORY', 'UNIV_ELECTIVE', 'FACULTY_CORE', 'MAJOR_CORE', 'DEPT_ELECTIVE', 'GEN_SCI_ELECTIVE'];
+  const order = STANDARD.concat(Object.keys(snap.buckets).filter(k => !STANDARD.includes(k) && !['FRESHMAN', 'OTHER'].includes(k)))
+    .filter(k => snap.buckets[k] && (snap.buckets[k].required > 0 || snap.buckets[k].earned > 0));
   const audit = E.graduationAudit(R, C, s);
   const blocks = order.filter(k => snap.buckets[k]).map(k => {
     const b = snap.buckets[k], label = (C.buckets[k] || {}).label || k;
@@ -1548,7 +1566,7 @@ function tabProgress(s) {
 ''}</dd>` : ''}
     ${s.phone ? `<dt>Phone</dt><dd class="mono">${esc(s.phone)}</dd>` : ''}
     ${s.nationality ? `<dt>Nationality</dt><dd>${esc(nice(s.nationality))}</dd>` : ''}
-    <dt>Programme</dt><dd>${esc(s.program || 'Computer Science')}</dd>
+    <dt>Programme</dt><dd>${esc(s.program || C.program || 'Computer Science')}</dd>
     <dt>Advisor</dt><dd>${esc(advisorOfStudent(s))}</dd>
   </dl>`;
 
@@ -1611,6 +1629,7 @@ function tabProgress(s) {
         </div>`).join('') : '<p class="empty">On track. Nothing outstanding.</p>'}
       </div></div>
       ${notePanel(s)}
+      ${exceptionsPanel(s)}
       <div class="panel"><div class="hd">Contact</div><div class="bd">${contact}</div></div>
     </div>
   </div>`;
@@ -2384,7 +2403,8 @@ function tabSheet(s) {
     </div>
     <div class="panel"><div class="bd" style="text-align:center;border-bottom:1px solid var(--line)">
       <div style="font-family:var(--serif);font-weight:700;font-size:16px">Beirut Arab University</div>
-      <div style="font-size:12.5px;color:var(--muted)">Faculty of Science<i class="sep-dot" aria-hidden="true"></i>Department of Mathematics and Computer Science</div>
+      <div style="font-size:12.5px;color:var(--muted)">${esc(progFacultyName())}<i class="sep-dot" aria-hidden="true"></i>${esc(progDeptLine())}</div>
+      <div style="font-size:11.5px;color:var(--muted)">${esc(ADVISORY_LINE)}</div>
       <div style="font-size:12.5px;color:var(--muted)">Advising contract sheet<i class="sep-dot" aria-hidden="true"></i>${esc(state.term)}</div>
     </div>
     <div class="bd">
@@ -2473,7 +2493,8 @@ function sheetDocument(s) {
   </style></head><body>
   <div class="head">
     <div class="u">Beirut Arab University</div>
-    <div class="f">Faculty of Science<i class="sep-dot" aria-hidden="true"></i>Department of Mathematics and Computer Science</div>
+    <div class="f">${esc(progFacultyName())}<i class="sep-dot" aria-hidden="true"></i>${esc(progDeptLine())}</div>
+    <div class="f">${esc(ADVISORY_LINE)}</div>
     <div class="t">Advising contract sheet<i class="sep-dot" aria-hidden="true"></i>${esc(state.term)}</div>
   </div>
   <div class="id">
@@ -2647,7 +2668,7 @@ function transcriptDocument(s) {
     table{width:100%;border-collapse:collapse}td{padding:3px 6px;border-bottom:1px solid #eef1f6}.c{font-family:Consolas,monospace;width:80px}
     .n{text-align:right;width:36px}.g{width:40px;font-weight:600;text-align:center}tr.dim td{color:#9aa3b2;text-decoration:line-through}
     @page{margin:14mm}</style></head><body>
-    <h1>${esc(s.name)}</h1><div class="sub">${esc(s.id)} · ${esc(s.program || 'Computer Science')} · Beirut Arab University</div>
+    <h1>${esc(s.name)}</h1><div class="sub">${esc(s.id)} · ${esc(s.program || C.program || 'Computer Science')} · Beirut Arab University</div>
     <div class="tot"><div><b>${tot.credits}</b>credits earned</div><div><b>${tot.cgpa != null ? tot.cgpa.toFixed(2) : '—'}</b>CGPA</div><div><b>${tot.terms}</b>semesters</div></div>
     ${body}</body></html>`;
 }
@@ -2688,7 +2709,8 @@ function reviewListDocument(list, title) {
   </style></head><body>
   <div class="head">
     <div class="u">Beirut Arab University</div>
-    <div class="f">Faculty of Science<i class="sep-dot" aria-hidden="true"></i>Department of Mathematics and Computer Science</div>
+    <div class="f">${esc(progFacultyName())}<i class="sep-dot" aria-hidden="true"></i>${esc(progDeptLine())}</div>
+    <div class="f">${esc(ADVISORY_LINE)}</div>
     <div class="t">${esc(title)}<i class="sep-dot" aria-hidden="true"></i>${esc(state.term)}</div>
   </div>
   <table><thead><tr><th>Student</th><th>What the records say</th><th>Note from the advisor</th></tr></thead>
@@ -2737,7 +2759,7 @@ const TEMPLATES = {
         + 'This is a summary from your advising record. If anything looks wrong,\n'
         + 'tell me and we will check it against the registrar together.\n\n'
         + 'Best regards,\nDr. ' + state.me.name + '\n'
-        + 'Mathematics and Computer Science, Faculty of Science\n';
+        + progDeptName() + ', ' + progFacultyName() + '\n';
     }
   },
   register: {
@@ -2756,7 +2778,7 @@ Please come and see me, or reply to this email, so we can settle your schedule.
 
 Best regards,
 Dr. ${state.me.name}
-Department of Mathematics and Computer Science
+${progDeptLine()}
 Beirut Arab University`
   },
   fix: {
@@ -2774,7 +2796,7 @@ Please make the change before the add and drop period closes. Come to my office 
 
 Best regards,
 Dr. ${state.me.name}
-Department of Mathematics and Computer Science
+${progDeptLine()}
 Beirut Arab University`
   },
   progress: {
@@ -2793,7 +2815,7 @@ This is recoverable, but it needs a plan. Please book a meeting with me this wee
 
 Best regards,
 Dr. ${state.me.name}
-Department of Mathematics and Computer Science
+${progDeptLine()}
 Beirut Arab University`
   },
   meeting: {
@@ -2808,7 +2830,7 @@ Bring your contract sheet if you have it with you.
 
 Best regards,
 Dr. ${state.me.name}
-Department of Mathematics and Computer Science
+${progDeptLine()}
 Beirut Arab University`
   },
   ok: {
@@ -2827,7 +2849,7 @@ ${ctx.courses.length ? 'You are registered for ' + ctx.regCredits + ' credits:\n
 
 Best regards,
 Dr. ${state.me.name}
-Department of Mathematics and Computer Science
+${progDeptLine()}
 Beirut Arab University`
   }
 };
@@ -3315,6 +3337,8 @@ async function onTranscripts(file) {
     const pre = snapshotOf(T.list);
     const moved = await claimFromOthers(T, students);
     const { students: merged, added, updated } = Merge.mergeTranscripts(T.list, students, T.name);
+    // the transcript names the programme; a student from another one is filed there, not here
+    const elsewhere = fileByTranscript(merged, students);
     rememberUndo(merged, 'the transcripts from ' + file.name, T, pre, moved);
     await Store.saveStudents(T.slug, merged);
     await finishClaim(moved);
@@ -3328,6 +3352,7 @@ async function onTranscripts(file) {
     showImport('T', `<div class="chk ${check.off.length ? 'warn' : 'info'}">
       <span class="ic">${check.off.length ? '!' : '&check;'}</span><span class="tx">
       <p><b>${students.length} transcripts read</b>${T.admin ? ' for ' + esc(advisorNamed(T.slug)) : ''} from ${esc(file.name)}: ${added} new, ${updated} updated, ${rows} course rows.</p>
+      ${elsewhereHtml(elsewhere)}
       ${withCourses ? `<p style="margin-top:5px"><b>${check.ok.length} of ${withCourses} transcripts with completed courses</b> match the CGPA and credit total printed on the page.</p>` : ''}
       ${check.off.length ? `<p style="margin-top:5px"><b>${check.off.length} to look at:</b></p>
         <ul style="margin:4px 0 0 18px;font-size:13px">${check.off.slice(0, 8).map(o =>
@@ -3530,6 +3555,21 @@ async function onOffering(file) {
       if (start) days.forEach(day => sec.meetings.push({ day, start: fix(start), end: fix(end), kind: '', room: iRoom >= 0 ? String(r[iRoom]).trim() : '' }));
     });
     const sections = Object.keys(byCrn).map(k => byCrn[k]);
+    // a meeting whose end is before its start is a typing slip in the file:
+    // swapped back and reported; an empty one (start = end) or a repeat is dropped
+    const mins = t => { const m = /^(\d{1,2}):(\d{2})$/.exec(String(t || '')); return m ? +m[1] * 60 + +m[2] : null; };
+    const timeFixes = [];
+    sections.forEach(sec => {
+      const seen = new Set();
+      sec.meetings = sec.meetings.filter(m => {
+        const a = mins(m.start), b = mins(m.end);
+        if (a != null && b != null && a > b) { timeFixes.push(sec.code + ' ' + sec.section + ' ' + m.day + ' ' + m.start + '–' + m.end); const t = m.start; m.start = m.end; m.end = t; }
+        else if (a != null && a === b) { timeFixes.push(sec.code + ' ' + sec.section + ' ' + m.day + ' ' + m.start + ' (no length, dropped)'); return false; }
+        const key = m.day + '|' + m.start + '|' + m.end;
+        if (seen.has(key)) return false;
+        seen.add(key); return true;
+      });
+    });
     if (!sections.length) throw new Error('no course rows recognised. Course codes should look like CMPS347 (or Subj CMPS + Crse 347)');
     const kept = state.offering.sections.filter(s => s.term !== forTerm);
     state.offering = Object.assign({}, state.offering, {
@@ -3541,7 +3581,8 @@ async function onOffering(file) {
     importState.result = `<p><b>${sections.length} sections</b> synced for ${esc(forTerm)}.</p>`;
     showImport('O', `<div class="chk info"><span class="ic">&check;</span><span class="tx">
       <p><b>${sections.length} sections synced</b> for ${esc(forTerm)}, covering ${new Set(sections.map(s => s.code)).size} courses.
-      ${forTerm === state.planTerm ? 'The ' + esc(shortTerm(forTerm)) + ' recommendations now use these sections.' : ''}</p></span></div>`);
+      ${forTerm === state.planTerm ? 'The ' + esc(shortTerm(forTerm)) + ' recommendations now use these sections.' : ''}</p>
+      ${timeFixes.length ? `<p style="margin-top:5px"><b>${timeFixes.length} meeting time${timeFixes.length === 1 ? '' : 's'} had the end before the start</b> and ${timeFixes.length === 1 ? 'was' : 'were'} corrected. Check ${timeFixes.length === 1 ? 'it' : 'them'} against the registrar's file: ${esc(timeFixes.slice(0, 10).join('; '))}${timeFixes.length > 10 ? ' and ' + (timeFixes.length - 10) + ' more' : ''}.</p>` : ''}</span></div>`);
     render();
   } catch (e) {
     showImport('O', `<div class="chk block"><span class="ic">!</span><span class="tx"><p>Could not read that file: ${esc(e.message)}</p></span></div>`);
@@ -3948,6 +3989,200 @@ function viewIdeas() {
    student is on, which advisor asked for what. Same student rows plus the
    advisor's name, filters work across everyone. */
 
+let peopleQuery = '', peopleForm = null, peopleMessage = '';
+
+function orgScopeRows() {
+  const rows = [];
+  const visit = (node, kind, path) => {
+    if (!node) return;
+    const nextPath = path.concat([{ id: node.id, name: node.name, kind }]);
+    rows.push({ id: node.id, kind, label: nextPath.slice(1).map(part => part.name).join(' / ') || node.name,
+      faculty: nextPath.find(part => part.kind === 'faculty')?.name || '',
+      department: nextPath.find(part => part.kind === 'department')?.name || '' });
+    (node.faculties || []).forEach(child => visit(child, 'faculty', nextPath));
+    (node.departments || []).forEach(child => visit(child, 'department', nextPath));
+    (node.programmes || []).forEach(child => visit(child, 'programme', nextPath));
+  };
+  if (state.orgTree) visit(state.orgTree, 'university', []);
+  return rows;
+}
+
+function uiNodeContains(scopeId, targetId) {
+  const node = orgScopeRows().find(row => row.id === scopeId);
+  if (!node || !state.orgTree) return false;
+  const has = (current, target) => current.id === target
+    || ['faculties', 'departments', 'programmes'].some(key =>
+      (current[key] || []).some(child => has(child, target)));
+  const find = current => current.id === scopeId ? current
+    : ['faculties', 'departments', 'programmes'].map(key =>
+      (current[key] || []).map(find).find(Boolean)).find(Boolean);
+  const source = find(state.orgTree);
+  return !!source && has(source, targetId);
+}
+
+function manageableScopeRows() {
+  const roles = state.me && Array.isArray(state.me.roles) ? state.me.roles : [];
+  if (state.me && state.me.superadmin) return orgScopeRows();
+  return orgScopeRows().filter(row => roles.some(assignment =>
+    assignment.role === 'faculty-admin'
+      && (assignment.scopes || []).some(scope => uiNodeContains(scope, row.id))));
+}
+
+function peopleRoleOptions() {
+  const rows = manageableScopeRows();
+  const kinds = new Set(rows.map(row => row.kind));
+  const options = [];
+  if (state.me && state.me.superadmin) options.push(['superadmin', 'Superadmin']);
+  if (kinds.has('faculty')) options.push(['faculty-admin', 'Faculty admin']);
+  if (kinds.has('programme')) {
+    options.push(['programme-editor', 'Programme editor'], ['advisor', 'Advisor'], ['viewer', 'Viewer']);
+  }
+  if (kinds.has('faculty') || kinds.has('programme')) options.push(['approver', 'Approver']);
+  return options;
+}
+
+function scopeKindsForRole(role) {
+  if (role === 'superadmin') return ['university'];
+  if (role === 'faculty-admin') return ['faculty'];
+  if (role === 'approver') return ['faculty', 'programme'];
+  return ['programme'];
+}
+
+function syncPeopleScopeOptions() {
+  const select = $('#peopleScopes'), role = $('#peopleRole');
+  if (!select || !role) return;
+  const allowed = new Set(scopeKindsForRole(role.value));
+  Array.from(select.options).forEach(option => {
+    const show = allowed.has(option.dataset.kind);
+    option.hidden = !show;
+    if (!show) option.selected = false;
+  });
+}
+
+function personRoleScope(person) {
+  return (person.roles || []).flatMap(assignment => assignment.scopes || [])
+    .map(scope => orgScopeRows().find(row => row.id === scope)?.label || scope).join(', ');
+}
+
+function viewPeople() {
+  if (!state.me.peopleManager) return '<div class="wrap"><p class="note">You do not have permission to manage staff.</p></div>';
+  const query = peopleQuery.trim().toLowerCase();
+  const people = state.people.filter(person => {
+    const haystack = [person.name, person.email, person.faculty, person.department,
+      personRoleScope(person), ...(person.roles || []).map(role => role.role)].join(' ').toLowerCase();
+    return !query || haystack.includes(query);
+  });
+  const groups = new Map();
+  people.forEach(person => {
+    const wholeUni = (person.roles || []).some(role => role.role === 'superadmin');
+    const faculty = wholeUni ? 'Whole university' : person.faculty || 'Unassigned faculty';
+    const department = wholeUni ? 'Superadmins' : person.department || 'Unassigned department';
+    if (!groups.has(faculty)) groups.set(faculty, new Map());
+    const depts = groups.get(faculty);
+    if (!depts.has(department)) depts.set(department, []);
+    depts.get(department).push(person);
+  });
+  const roleOptions = peopleRoleOptions();
+  const editing = peopleForm;
+  const currentRole = editing && editing.person && editing.person.roles && editing.person.roles[0];
+  const defaultRole = (roleOptions.find(([value]) => value === 'advisor') || roleOptions[0] || [])[0] || '';
+  const selectedRole = editing ? (currentRole && currentRole.role) || defaultRole : '';
+  const allowedScopeKinds = new Set(scopeKindsForRole(selectedRole));
+  const scopeOptions = manageableScopeRows();
+  const selectedScopes = editing && currentRole ? currentRole.scopes || [] : [];
+  const form = editing ? `<div class="panel"><div class="hd">${editing.mode === 'invite' ? 'Invite a staff member' : 'Edit staff member'}</div>
+    <form class="bd stack" id="peopleForm">
+      <label class="f">Staff ID (slug)
+        <input name="slug" required pattern="[a-z0-9-]{2,60}" value="${esc(editing.person.slug || '')}" ${editing.mode === 'edit' ? 'readonly' : ''}>
+      </label>
+      <label class="f">Name<input name="name" required maxlength="200" value="${esc(editing.person.name || '')}"></label>
+      <label class="f">Title<input name="title" maxlength="200" value="${esc(editing.person.title || '')}"></label>
+      <label class="f">BAU email<input name="email" type="email" required value="${esc(editing.person.email || '')}" ${editing.mode === 'edit' ? 'readonly' : ''}></label>
+      <label class="f">Role
+        <select id="peopleRole" name="role" required>${roleOptions.map(([value, label]) =>
+          `<option value="${value}" ${selectedRole === value ? 'selected' : ''}>${label}</option>`).join('')}</select>
+      </label>
+      <label class="f">Scope
+        <select id="peopleScopes" name="scopes" multiple required size="${Math.min(6, Math.max(2, scopeOptions.length))}">
+          ${scopeOptions.map(row => `<option value="${esc(row.id)}" data-kind="${row.kind}" ${allowedScopeKinds.has(row.kind) ? '' : 'hidden'} ${selectedScopes.includes(row.id) ? 'selected' : ''}>${esc(row.label)}</option>`).join('')}
+        </select>
+      </label>
+      <p class="note">Use Ctrl or Command to select more than one programme scope. Only BAU email addresses can be invited.</p>
+      ${peopleMessage ? `<p class="note">${esc(peopleMessage)}</p>` : ''}
+      <div style="display:flex;gap:8px"><button class="btn primary" type="submit">${editing.mode === 'invite' ? 'Send invitation' : 'Save changes'}</button>
+        <button class="btn" type="button" data-people-cancel="1">Cancel</button></div>
+    </form></div>` : '';
+  const sections = Array.from(groups, ([faculty, departments]) =>
+    `<section class="sec"><div class="sec-h"><h2>${esc(faculty)}</h2></div>
+      ${Array.from(departments, ([department, members]) => `<div class="panel"><div class="hd">${esc(department)}</div>
+        <div class="alist">${members.map(person => `<div class="al">
+          <span class="body"><span class="t">${esc(fullName(person))}
+            ${person.active === false ? '<span class="tag urgent">Deactivated</span>' : ''}
+            ${person.verified === false ? '<span class="tag watch">Invite pending</span>' : ''}
+            <span class="who-meta">${esc(person.email || '')}<i class="sep-dot" aria-hidden="true"></i>${esc((person.roles || []).map(role => role.role).join(', '))}
+              <i class="sep-dot" aria-hidden="true"></i>${esc(personRoleScope(person))}</span></span>
+          </span><span class="act" style="display:flex;gap:6px">
+            <button class="btn sm" data-person-edit="${esc(person.slug)}">Edit</button>
+            ${person.active !== false ? `<button class="btn sm danger" data-person-deactivate="${esc(person.slug)}">Deactivate</button>` : ''}
+          </span>
+        </div>`).join('')}</div></div>`).join('')}
+    </section>`).join('');
+  return `<div class="wrap"><div class="page-h"><h1>People</h1>
+      <p>Manage staff access within your authorised scope. Invitations go to BAU email addresses.</p></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <input id="peopleSearch" type="search" placeholder="Search name, email, faculty or role" value="${esc(peopleQuery)}" style="max-width:440px">
+      <button class="btn primary" data-person-add="1">Invite staff</button>
+    </div>
+    ${form}
+    ${sections || '<p class="note">No people match this search.</p>'}
+  </div>`;
+}
+
+function openPeopleForm(mode, person) {
+  peopleMessage = '';
+  peopleForm = {
+    mode,
+    person: person ? JSON.parse(JSON.stringify(person)) : {
+      slug: '', name: '', title: '', email: '', faculty: '', department: '', roles: []
+    }
+  };
+  render();
+}
+
+async function savePersonForm(ev) {
+  ev.preventDefault();
+  const form = ev.target;
+  const values = new FormData(form);
+  const scopes = Array.from(form.elements.scopes.selectedOptions).map(option => option.value);
+  const role = String(values.get('role') || '');
+  const firstScope = orgScopeRows().find(row => row.id === scopes[0]);
+  const profile = {
+    slug: String(values.get('slug') || '').trim().toLowerCase(),
+    name: String(values.get('name') || '').trim(),
+    title: String(values.get('title') || '').trim(),
+    email: String(values.get('email') || '').trim().toLowerCase(),
+    faculty: firstScope ? firstScope.faculty : '',
+    department: firstScope ? firstScope.department : ''
+  };
+  const mode = peopleForm.mode;
+  const roles = [{ role, scopes }];
+  peopleForm = { mode, person: Object.assign({}, profile, { roles }) };
+  peopleMessage = '';
+  try {
+    if (!role || !scopes.length) throw new Error('Choose a role and at least one scope.');
+    if (mode === 'invite') await Store.invitePerson(profile, roles);
+    else await Store.updatePerson(profile.slug, profile, roles);
+    await loadSignedInDirectory();
+    peopleForm = null;
+    peopleMessage = '';
+    toast(mode === 'invite' ? 'Invitation sent.' : 'Staff profile saved.');
+    render();
+  } catch (error) {
+    peopleMessage = error.message || 'The staff profile could not be saved.';
+    render();
+  }
+}
+
 function allStudentCount() {
   if (!state.everyone) return state.students.length;
   return Object.keys(state.everyone).reduce((n, k) => n + state.everyone[k].length, 0);
@@ -3962,20 +4197,23 @@ const advisorNamed = slug => {
   const f = FACULTY.find(x => x.slug === slug);
   return f ? fullName(f) : slug;
 };
+const hasRole = (person, role) => (person && Array.isArray(person.roles)
+  ? person.roles.some(assignment => assignment && assignment.role === role) : false);
+const isAdvisorPerson = person => hasRole(person, 'advisor');
 
 // all students in the dept, each tagged with their advisor. The admin's own
 // list is empty, so student pages read this
 /* every advisor's list. The server answers for the admin; opened as a file the
    lists live in this browser, so read each advisor's saved records here. */
-const advisorSlugs = () => FACULTY.filter(f => !f.admin).map(f => f.slug);
+const advisorSlugs = () => FACULTY.filter(isAdvisorPerson).map(f => f.slug);
 async function loadEveryone() {
-  if (Store.isServer()) return await Store.allStudents();
+  if (Store.isServer()) return filterEveryone(await Store.allStudents());
   const out = {};
   for (const slug of advisorSlugs()) {
     const list = await Store.loadStudents(slug, []);
     if (list.length) out[slug] = list;
   }
-  return out;
+  return filterEveryone(out);
 }
 function everyoneFlat() {
   if (!state.everyone) return [];
@@ -3989,7 +4227,7 @@ function everyoneFlat() {
 /* Clear several advisors' records at once. Advisors marked keepOnBulkClear in
    faculty.json start unticked; nothing is cleared until "Yes, clear". */
 let bulkClear = null;   // null = closed, else { picked: Set, confirm: bool, busy: bool }
-const KEEP_BY_DEFAULT = FACULTY.filter(f => f.keepOnBulkClear).map(f => f.slug);
+const keepByDefault = () => FACULTY.filter(f => f.keepOnBulkClear).map(f => f.slug);
 function bulkClearPanel(slugs) {
   if (!bulkClear) return `<div class="panel"><div class="bd"><button class="btn sm" data-bulk-open="1">Clear several advisors' records</button></div></div>`;
   const n = slugs.filter(sl => bulkClear.picked.has(sl)).reduce((a, sl) => a + (state.everyone[sl] || []).length, 0);
@@ -4006,7 +4244,7 @@ function bulkClearPanel(slugs) {
 }
 async function bulkClearClick(t) {
   if (!state.me || !state.me.admin) return false;
-  if (t.closest('[data-bulk-open]')) { bulkClear = { picked: new Set(Object.keys(state.everyone || {}).filter(sl => !KEEP_BY_DEFAULT.includes(sl))), confirm: false, busy: false }; render(); return true; }
+  if (t.closest('[data-bulk-open]')) { bulkClear = { picked: new Set(Object.keys(state.everyone || {}).filter(sl => !keepByDefault().includes(sl))), confirm: false, busy: false }; render(); return true; }
   if (!bulkClear) return false;
   const pick = t.closest('[data-bulk-pick]');
   if (pick) { const sl = pick.dataset.bulkPick; if (pick.checked) bulkClear.picked.add(sl); else bulkClear.picked.delete(sl); bulkClear.confirm = false; render(); return true; }
@@ -4031,10 +4269,10 @@ async function bulkClearClick(t) {
    their own mailbox (or WhatsApp). The link is shown once and never stored. */
 let pwReset = { slug: '', link: '', busy: false, err: '', clearAsk: false };
 function resetLinkPanel() {
-  const opts = FACULTY.filter(f => !f.admin);
+  const opts = FACULTY.filter(isAdvisorPerson);
   const f = FACULTY.find(x => x.slug === pwReset.slug);
   const mail = f && pwReset.link ? 'mailto:' + encodeURIComponent(f.email || '') + '?subject=' + encodeURIComponent('Reset your Online Advising System password')
-    + '&body=' + encodeURIComponent('Dear Dr. ' + (f.short || f.name) + ',\n\nOpen this link within 30 minutes and choose a new password. It works once:\n' + pwReset.link + '\n\nDepartment of Mathematics and Computer Science') : '';
+    + '&body=' + encodeURIComponent('Dear Dr. ' + (f.short || f.name) + ',\n\nOpen this link within 30 minutes and choose a new password. It works once:\n' + pwReset.link + '\n\n' + progDeptLine()) : '';
   return `<div class="panel"><div class="hd">Forgotten password</div><div class="bd stack">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">
       <label class="f" for="pwFor" style="max-width:300px;flex:1">Advisor
@@ -4424,40 +4662,35 @@ async function onClick(e) {
   const t = e.target;
   if (t.closest('[data-lang-toggle]')) { setLang(LANG === 'ar' ? 'en' : 'ar'); return; }
   if (state.me && state.view === 'rules' && await rulesClick(t)) return;
-  const pick = t.closest('[data-pick]');
-  if (pick) {
-    gatePerson = FACULTY.find(f => f.slug === pick.dataset.pick);
-    gateStep = 'form'; drawGate(); return;
+  if (state.me && (state.view === 'structure' || state.view === 'programme') && await structureClick(t)) return;
+  if (state.me && state.view === 'student' && await exceptionsClick(t)) return;
+  if (t.closest('[data-person-add]')) { openPeopleForm('invite'); return; }
+  const personEdit = t.closest('[data-person-edit]');
+  if (personEdit) {
+    const person = state.people.find(member => member.slug === personEdit.dataset.personEdit);
+    if (person) openPeopleForm('edit', person);
+    return;
+  }
+  if (t.closest('[data-people-cancel]')) { peopleForm = null; peopleMessage = ''; render(); return; }
+  const personDeactivate = t.closest('[data-person-deactivate]');
+  if (personDeactivate) {
+    const person = state.people.find(member => member.slug === personDeactivate.dataset.personDeactivate);
+    if (!person || !window.confirm('Deactivate ' + fullName(person) + '? Their student records will be kept.')) return;
+    await Store.deactivatePerson(person.slug);
+    await loadSignedInDirectory();
+    toast('Staff account deactivated. Student records were kept.');
+    render();
+    return;
   }
   if (t.closest('[data-back]')) {
-    if (gateStep === 'verify') { verifyToken = ''; history.replaceState(null, '', location.pathname); accountsExist = await Store.accountsThatExist(FACULTY.map(f => f.slug)); }
-    pendingPass = '';
+    if (gateStep === 'verify') { verifyToken = ''; history.replaceState(null, '', location.pathname); }
     gateStep = 'pick'; drawGate(); return;
   }
-  const vr = t.closest('[data-verify-resend]');
-  if (vr) {
-    vr.disabled = true; vr.textContent = 'Sending...';
-    const r = await Store.resendVerify(pendingSlug, pendingPass);
-    vr.disabled = false; vr.textContent = 'Send the link again';
-    const note = $('#mailSent'); note.hidden = false;
-    note.textContent = r.ok ? 'Sent. Only the newest link works.' : (r.error ? r.error.charAt(0).toUpperCase() + r.error.slice(1) + '.' : 'That did not send.');
-    return;
-  }
-  const mr = t.closest('[data-mail-reset]');
-  if (mr) {
-    const slug = mr.dataset.mailReset;
-    mr.disabled = true; mr.textContent = 'Sending...';
-    const r = await Store.requestResetEmail(slug);
-    mr.disabled = false; mr.textContent = 'Email me a reset link';
-    const note = $('#mailSent');
-    note.hidden = false;
-    note.textContent = r.ok
-      ? 'If this account exists, the link was sent to its BAU inbox. It works once and lasts half an hour.'
-      : (r.error || 'That did not send. Contact the department administrator.');
-    return;
-  }
   if (t.closest('[data-account]')) { drawAccount(''); return; }
-  if (t.closest('[data-reset]')) { gateStep = 'reset'; drawGate(); return; }
+  if (t.closest('[data-reset]')) {
+    resetEmail = ($('#fEmail') && $('#fEmail').value.trim()) || '';
+    gateStep = 'reset'; drawGate(); return;
+  }
   if (t.id === 'signOut') { await signOut(); return; }
   if (t.closest('#themeBtn')) {
     setTheme(themeShown() === 'dark' ? 'light' : 'dark');
@@ -4918,11 +5151,21 @@ document.addEventListener('submit', e => {
   if (e.target.id === 'signForm') trySignIn(e);
   if (e.target.id === 'linkForm') tryLinkReset(e);
   if (e.target.id === 'verifyForm') tryVerify(e);
+  if (e.target.id === 'resetRequestForm') requestPasswordReset(e);
+  if (e.target.id === 'peopleForm') savePersonForm(e);
   if (e.target.id === 'pwForm') changeMyPassword(e);
 });
 
 document.addEventListener('input', e => {
   if (e.target.dataset && (e.target.dataset.rf || e.target.dataset.pc || e.target.dataset.cal)) { rulesInput(e.target); return; }
+  if (e.target.dataset && e.target.dataset.pl) { planInput(e.target); return; }
+  if (e.target.id === 'peopleSearch') {
+    peopleQuery = e.target.value;
+    const pos = e.target.selectionStart;
+    render();
+    const input = $('#peopleSearch'); if (input) { input.focus(); input.setSelectionRange(pos, pos); }
+    return;
+  }
   if (e.target.id === 'q') {
     state.q = e.target.value;
     const pos = e.target.selectionStart;
@@ -4933,6 +5176,9 @@ document.addEventListener('input', e => {
 
 document.addEventListener('change', e => {
   if (e.target.dataset && (e.target.dataset.rf || e.target.dataset.pc || e.target.dataset.cal)) { rulesInput(e.target); return; }
+  if (e.target.dataset && e.target.dataset.pl) { planInput(e.target, true); return; }
+  if (e.target.id === 'progPick') { switchProgramme(e.target.value); return; }
+  if (e.target.id === 'peopleRole') { syncPeopleScopeOptions(); return; }
   if (e.target.id === 'sendTo') {
     const w = $('#sendOtherWrap');
     if (w) { w.hidden = !!e.target.value; if (!e.target.value) $('#sendOther').focus(); }

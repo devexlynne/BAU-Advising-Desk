@@ -1250,6 +1250,7 @@
   function minorAudit(rules, catalog, student) {
     const snap = snapshot(rules, catalog, student);
     const m = catalog.mathMinor;
+    if (!m || !Array.isArray(m.eligiblePrefixes)) return null;   // programme without a minor
     const map = byCode(catalog);
     const allMath = snap.best.filter(r => m.eligiblePrefixes.some(p => r.code.startsWith(p)) && isPassing(rules, r.grade));
     // Foundation doesn't count for the minor: MATH111/112 are remedial,

@@ -43,6 +43,14 @@
     if (!api && !offlineDemo) {
       throw new Error('Offline storage is disabled. Open the official advising portal to continue.');
     }
+    // Offline demo only: start from the fictional students in demo/students.json.
+    // They live in memory like everything else in the demo and vanish on reload.
+    const demo = !api && offlineDemo && typeof window !== 'undefined' ? window.DEMO_DATA : null;
+    if (demo && demo.advisor && Array.isArray(demo.students) && !demoStorage.size) {
+      const list = {};
+      demo.students.forEach(s => { if (s && s.id && s.demo === true) list[s.id] = s; });
+      lsSet('bau.col.advisors/' + demo.advisor + '/students', list);
+    }
     ready = true;
     return db;
   }
@@ -181,6 +189,7 @@
       try { const r = await post('/api/signin', { slug, password }); amAdmin = !!r.admin; return true; }
       catch (e) { lastError = e.message; lastUnverified = e.status === 403; return false; }
     }
+
     const acct = await getAccount(slug);
     if (!acct) return false;
     const hash = await hashPassword(password, acct.salt);
@@ -188,6 +197,20 @@
     acct.lastSignIn = Date.now();
     await docSet(acctPath(slug), acct);
     return true;
+  }
+
+  async function signIn(email, password) {
+    if (!api) return { ok: false, error: 'Sign-in needs the official advising portal.' };
+    lastUnverified = false;
+    try {
+      const result = await post('/api/signin', { email, password });
+      amAdmin = !!result.admin;
+      return result;
+    } catch (e) {
+      lastError = e.message;
+      lastUnverified = e.status === 403;
+      return { ok: false, error: e.message, unverified: lastUnverified };
+    }
   }
 
   async function setPassword(acct, password) {
@@ -229,15 +252,19 @@
   // ---- email reset + session ----------------------------------------------
 
   // server emails a reset link to the account's address
-  async function requestResetEmail(slug) {
+  async function requestResetEmail(email) {
     if (!api) return { ok: false, mail: false };
-    try { return await post('/api/reset-request', { slug }); }
+    try { return await post('/api/reset-request', { email }); }
     catch (e) { lastError = e.message; return { ok: false, mail: mailOn, error: e.message }; }
   }
 
   // second half: token from that email link
   async function resetWithLink(token, password) {
-    try { return await post('/api/reset-with-link', { token, password }); }
+    try {
+      const result = await post('/api/reset-with-link', { token, password });
+      amAdmin = !!result.admin;
+      return result;
+    }
     catch (e) { lastError = e.message; return { ok: false, error: e.message }; }
   }
 
@@ -273,6 +300,28 @@
     const r = await post('/api/all-students', {});
     if (!r || typeof r.advisors !== 'object') throw new Error('Could not load the department lists.');
     return r.advisors;
+  }
+
+  async function loadPeople() {
+    if (!api) return [];
+    return (await post('/api/people/list', {})).people || [];
+  }
+
+  async function loadOrgTree() {
+    if (!api) return null;
+    return (await post('/api/org/tree', {})).tree || null;
+  }
+
+  async function invitePerson(person, roles) {
+    return post('/api/people/invite', { person, roles });
+  }
+
+  async function updatePerson(slug, person, roles) {
+    return post('/api/people/update', { slug, person, roles });
+  }
+
+  async function deactivatePerson(slug) {
+    return post('/api/people/deactivate', { slug });
   }
 
   // Sends from the dept mailbox, full message, no length limit.
@@ -397,16 +446,29 @@
   async function saveSettings(slug, s) { return await docSet('advisors/' + slug + '/settings', s); }
 
   // only the admin's overrides, shipped rules stay in rules.json
+  // one study plan per programme; the server checks it before keeping it
+  async function getProgramme(id) { return await docGet('programmes/' + id + '/catalog', null); }
+  async function saveProgramme(id, catalog) {
+    if (api) return await post('/api/set', { path: 'programmes/' + id + '/catalog', value: catalog });
+    lsSet('bau.programmes/' + id + '/catalog', catalog);
+    return { ok: true, warnings: [] };
+  }
+  async function saveOrgTree(tree) {
+    if (!api) throw new Error('Changing the university structure needs the portal server.');
+    return (await post('/api/org/tree', { tree })).tree;
+  }
+
   async function getConfig(dept) { return await docGet('config/' + dept + '/rules', null); }
   async function saveConfig(dept, cfg) { return await docSet('config/' + dept + '/rules', cfg); }
 
   return {
-    getConfig, saveConfig,
+    getConfig, saveConfig, getProgramme, saveProgramme, saveOrgTree,
     init, isShared: () => api || !!db, isServer: () => api,
     whoAmI, signOutServer, lastError: () => lastError,
-    isAdmin: () => amAdmin, mailReady: () => mailOn, allStudents, sendMail, adminResetLink, adminClearPassword,
+    isAdmin: () => amAdmin, mailReady: () => mailOn, allStudents, loadPeople, loadOrgTree,
+    invitePerson, updatePerson, deactivatePerson, sendMail, adminResetLink, adminClearPassword,
     mailReset: () => mailOn, requestResetEmail, resetWithLink,
-    verifyAccount, resendVerify, lastUnverified: () => lastUnverified,
+    verifyAccount, resendVerify, signIn, lastUnverified: () => lastUnverified,
     getAccount, createAccount, checkPassword, accountsThatExist,
     changePassword,
     loadStudents, saveStudent, saveStudents, removeStudent, clearStudents,

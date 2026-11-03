@@ -15,8 +15,17 @@ let rulesDraft = null;          // { values, courses, removed } while editing
 let rulesEffect = null;         // the last "See the effect" result
 let rulesTab = 'rules';
 
-const deptOf = () => (state.me && state.me.dept) || 'cs';
-const DEPT_NAME = { cs: 'Computer Science' };
+const deptOf = () => activeProgramme();
+function deptName() {
+  const tree = state.orgTree;
+  const programme = deptOf();
+  for (const faculty of (tree && tree.faculties) || []) {
+    for (const department of faculty.departments || []) {
+      if ((department.programmes || []).some(node => node.id === programme)) return department.name;
+    }
+  }
+  return programme === 'cs' ? 'Computer Science' : programme;
+}
 
 // dotted-path helpers; keys look like 'R.load.REG-LOAD-01.max' or 'C.totalCredits'
 const pathGet = (root, path) => path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), root);
@@ -132,7 +141,7 @@ async function loadRulesConfig() {
 }
 
 const draftOrSaved = () => rulesDraft || rulesCfg;
-const isAdminNow = () => !!(state.me && state.me.admin);
+const isAdminNow = () => !!(state.me && canEditPlan(activeProgramme()));
 
 // ---- see the effect / publish / undo --------------------------------------
 // compact fingerprint of a student's result, if it differs the student "moved"
@@ -210,7 +219,10 @@ function viewRules() {
   const cfg = draftOrSaved();
   const editing = admin && !!rulesDraft;
   const groups = [];
-  RULE_FIELDS.forEach(rf => { if (!groups.includes(rf.group)) groups.push(rf.group); });
+  // a programme only sees the rules that exist for it (no Mathematics minor in Accounting)
+  const fields = RULE_FIELDS.filter(rf => rf.tokens.every(t => t.keys.length
+    && (readKey(t.keys[0]) !== undefined || t.dflt !== undefined)));
+  fields.forEach(rf => { if (!groups.includes(rf.group)) groups.push(rf.group); });
   // a number in a sentence: bold text when viewing, an input when editing
   const inputFor = (rf, ti) => {
     const tok = rf.tokens[ti], v = tokVal(tok, cfg.values);
@@ -221,7 +233,7 @@ function viewRules() {
       step="${tok.step || 1}" min="${tok.min != null ? tok.min : ''}" max="${tok.max != null ? tok.max : ''}">`;
   };
   const rulesHtml = groups.map(g => `<div class="panel"><div class="hd">${esc(g)}</div><div class="bd rsent">
-      ${RULE_FIELDS.filter(rf => rf.group === g).map(rf => `<p class="rs">${esc(LANG === 'ar' && rf.textAr ? rf.textAr : rf.text).replace(/\{(\d)\}/g, (m, i) => inputFor(rf, +i))}</p>`).join('')}
+      ${fields.filter(rf => rf.group === g).map(rf => `<p class="rs">${esc(LANG === 'ar' && rf.textAr ? rf.textAr : rf.text).replace(/\{(\d)\}/g, (m, i) => inputFor(rf, +i))}</p>`).join('')}
     </div></div>`).join('');
 
   const BUCKETS = Object.keys(C.buckets).filter(k => !['FRESHMAN', 'OTHER'].includes(k));
@@ -274,9 +286,9 @@ function viewRules() {
         <input id="rulesWhy" placeholder="Why the change (kept in the history)" class="pin" style="flex:1;min-width:180px">
         <button class="btn sm primary" data-rules-publish="1">Publish</button>
         <button class="btn sm ghost" data-rules-cancel="1">Discard</button></div>`
-    : `<div class="rbar"><span>These are the rules every student is checked with, for ${esc(DEPT_NAME[deptOf()] || deptOf())}.</span>
+    : `<div class="rbar"><span>These are the rules every student is checked with, for ${esc(deptName())}.</span>
         <button class="btn sm primary" data-rules-edit="1">Change the rules</button></div>`)
-    : `<div class="rbar"><span>The rules every student is checked with. Only the department admin can change them; ask them if something here is wrong.</span></div>`;
+    : `<div class="rbar"><span>The rules every student is checked with. Ask an authorised rules editor if something here is wrong.</span></div>`;
 
   return `<div class="wrap">
     <div class="page-h"><h1>${admin ? 'Rules and study plan' : 'Rules in force'}</h1>

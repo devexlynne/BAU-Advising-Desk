@@ -5,6 +5,7 @@
 const { spawn, spawnSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const { PASSWORDS, writeStore } = require('./helpers/auth-fixture');
 
 let passed = 0, failed = 0;
 const check = (name, ok, extra) => {
@@ -38,12 +39,13 @@ const post = (base, p, body, cookie) => fetch(base + p, {
       RAILWAY_ENVIRONMENT_NAME: '',
       RAILWAY_SERVICE_ID: '',
       DATABASE_URL: '',
+      STORE_KEY: '',
       DATA_DIR: productionDir
     }),
     timeout: 8000
   });
-  check('production refuses to start without PostgreSQL',
-    production.status === 1 && /DATABASE_URL is required/.test(production.stderr), 'exit ' + production.status);
+  check('production refuses to start without PostgreSQL or encrypted storage',
+    production.status === 1 && /DATABASE_URL or STORE_KEY is required/.test(production.stderr), 'exit ' + production.status);
   check('failed production startup does not create a local store',
     !fs.existsSync(path.join(productionDir, 'store.json')));
 
@@ -66,6 +68,7 @@ const post = (base, p, body, cookie) => fetch(base + p, {
   // Student imports stay explicitly disabled until a production operator verifies storage.
   const disabledDir = DATA + '-imports-disabled';
   fs.rmSync(disabledDir, { recursive: true, force: true });
+  writeStore(disabledDir);
   let lockedServer = spawn(process.execPath, ['server.js'], {
     cwd: ROOT,
     env: Object.assign({}, process.env, {
@@ -77,19 +80,19 @@ const post = (base, p, body, cookie) => fetch(base + p, {
   const lockedBase = 'http://127.0.0.1:3195';
   try {
     await waitFor(lockedBase);
-    const account = await post(lockedBase, '/api/signup', {
-      slug: 'may-itani', email: 'ma.itani@bau.edu.lb', password: 'long-enough-pass-1'
+    const account = await post(lockedBase, '/api/signin', {
+      email: 'test.advisor@bau.edu.lb', password: PASSWORDS.advisor
     });
     const cookie = (account.headers.get('set-cookie') || '').split(';')[0];
     const denied = await post(lockedBase, '/api/students/save', {
       students: [{ id: '999900001', officialCgpa: 'abc' }]
     }, cookie);
     const blockedSet = await post(lockedBase, '/api/set', {
-      path: 'advisors/may-itani/students/999900001',
+      path: 'advisors/synthetic-cs-advisor/students/999900001',
       value: { id: '999900001' }
     }, cookie);
     const blockedDelete = await post(lockedBase, '/api/delete', {
-      path: 'advisors/may-itani/students/999900001'
+      path: 'advisors/synthetic-cs-advisor/students/999900001'
     }, cookie);
     check('bulk student imports remain blocked until explicitly enabled', denied.status === 503, 'status ' + denied.status);
     check('direct student writes remain blocked until explicitly enabled', blockedSet.status === 503, 'status ' + blockedSet.status);
@@ -125,11 +128,12 @@ const post = (base, p, body, cookie) => fetch(base + p, {
   try {
     await waitFor(base);
     const r = await post(base, '/api/signup', { slug: 'may-itani', email: 'ma.itani@bau.edu.lb', password: 'long-enough-pass-1' });
-    check('sign-up is refused when email verification is unavailable', r.status === 503, 'status ' + r.status);
+    check('sign-up is refused because accounts require invitations', r.status === 403, 'status ' + r.status);
   } finally { srv.kill(); }
 
   // 4. development mode: sessions hashed, mail limited, actions audited
   fs.rmSync(DATA, { recursive: true, force: true });
+  writeStore(DATA);
   srv = spawn(process.execPath, ['server.js'], {
     cwd: ROOT, env: Object.assign({}, process.env, {
       PORT: '3194', DATA_DIR: DATA, ALLOW_UNVERIFIED_SIGNUP: 'true',
@@ -139,31 +143,31 @@ const post = (base, p, body, cookie) => fetch(base + p, {
   base = 'http://127.0.0.1:3194';
   try {
     await waitFor(base);
-    const tooLong = await post(base, '/api/signup', { slug: 'may-itani', email: 'ma.itani@bau.edu.lb', password: 'x'.repeat(500) });
-    check('an over-long password is refused', tooLong.status === 400, 'status ' + tooLong.status);
-    const su = await post(base, '/api/signup', { slug: 'may-itani', email: 'ma.itani@bau.edu.lb', password: 'long-enough-pass-1' });
-    check('development sign-up works', su.status === 200, 'status ' + su.status);
-    const cookie = (su.headers.get('set-cookie') || '').split(';')[0];
+    const signup = await post(base, '/api/signup', { slug: 'synthetic-new', email: 'test.new@bau.edu.lb', password: 'Synthetic-new-pass-2026' });
+    check('development escape does not allow uninvited sign-up', signup.status === 403, 'status ' + signup.status);
+    const signIn = await post(base, '/api/signin', { email: 'test.advisor@bau.edu.lb', password: PASSWORDS.advisor });
+    check('a migrated account signs in with its BAU email', signIn.status === 200, 'status ' + signIn.status);
+    const cookie = (signIn.headers.get('set-cookie') || '').split(';')[0];
     const sid = cookie.split('=')[1];
 
     const ext = await post(base, '/api/send', { to: 'someone@gmail.com', subject: 'x', text: 'hello' }, cookie);
     check('mail to a non-university address is refused', ext.status === 400 || ext.status === 503, 'status ' + ext.status);
 
-    const wrong = await post(base, '/api/signin', { slug: 'may-itani', password: 'wrong-password-1' });
+    const wrong = await post(base, '/api/signin', { email: 'test.advisor@bau.edu.lb', password: 'Wrong-synthetic-pass-1' });
     check('a wrong password is refused', wrong.status === 401, 'status ' + wrong.status);
 
     const save = await post(base, '/api/students/save', { students: [{ id: '202600001', officialCgpa: 'abc' }] }, cookie);
     check('an import is accepted', save.status === 200, 'status ' + save.status);
-    const got = await (await post(base, '/api/get', { path: 'advisors/may-itani/students/202600001' }, cookie)).json();
-    check('numeric fields are cleaned on save', got.data && got.data.officialCgpa === null && got.data.updatedBy === 'may-itani');
+    const got = await (await post(base, '/api/get', { path: 'advisors/synthetic-cs-advisor/students/202600001' }, cookie)).json();
+    check('numeric fields are cleaned on save', got.data && got.data.officialCgpa === null && got.data.updatedBy === 'synthetic-cs-advisor');
 
     await new Promise(r => setTimeout(r, 700));
     const raw = fs.readFileSync(path.join(DATA, 'store.json'), 'utf8');
     check('the session cookie value is not stored in plain text', sid && !raw.includes(sid));
     const audit = fs.readFileSync(path.join(DATA, 'audit.log'), 'utf8').trim().split('\n').map(l => JSON.parse(l));
     const actions = audit.map(a => a.action);
-    check('sign-up, failed sign-in and import are in the audit log',
-      ['signup', 'signin-failed', 'students-save'].every(a => actions.includes(a)), actions.join(','));
+    check('sign-in, failed sign-in and import are in the audit log',
+      ['signin', 'signin-failed', 'students-save'].every(a => actions.includes(a)), actions.join(','));
     check('the audit log holds no passwords', !/long-enough-pass|wrong-password/.test(JSON.stringify(audit)));
     check('a backup snapshot was written', fs.readdirSync(path.join(DATA, 'backups')).some(f => /^store-.*\.json$/.test(f)));
   } finally { srv.kill(); }

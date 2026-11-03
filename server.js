@@ -16,6 +16,11 @@ const path = require('path');
 const crypto = require('crypto');
 const mail = require('./mail');
 const { PostgresStore, createPool } = require('./src/postgres-store');
+const sealed = require('./src/encrypted-file');
+const OrgTree = require('./src/org-tree');
+const Permissions = require('./src/permissions');
+const Programme = require('./src/programme');
+const SHARED_CATALOG = require('./data/catalog.json');
 
 // ---- configuration -----------------------------------------------------------
 const RAILWAY_DEPLOYMENT = !!(process.env.RAILWAY_ENVIRONMENT_NAME || process.env.RAILWAY_SERVICE_ID);
@@ -43,6 +48,9 @@ const DATA_DIR = process.env.DATA_DIR || (RAILWAY_DEPLOYMENT ? '/data' : path.jo
 const DATA_FILE = path.join(DATA_DIR, 'store.json');
 const BACKUP_DIR = path.join(DATA_DIR, 'backups');
 const AUDIT_FILE = path.join(DATA_DIR, 'audit.log');
+// STORE_KEY switches on encrypted file storage (store, backups and audit log
+// written with AES-256-GCM). It is the only file storage allowed in production.
+const STORE_KEY = process.env.STORE_KEY ? sealed.parseKey(process.env.STORE_KEY) : null;
 const PAGE = path.join(__dirname, 'build', 'index.html');
 const SESSION_HOURS = numberEnv('SESSION_HOURS', 12, 1, 168);
 const SESSION_IDLE_MINUTES = numberEnv('SESSION_IDLE_MINUTES', 120, 5, 10080);
@@ -63,34 +71,199 @@ const PUBLIC_URL = (process.env.PUBLIC_URL || '').replace(/\/+$/, '');   // base
 const MAIL_DOMAINS = String(process.env.MAIL_DOMAINS || 'bau.edu.lb,student.bau.edu.lb')
   .split(',').map(d => d.trim().toLowerCase()).filter(Boolean);
 
-// Faculty list (data/faculty.json): who may open an account, with the BAU
-// address on file, and which entries are portal admins.
-const FACULTY = (() => { try { return require('./data/faculty.json'); } catch (e) { return []; } })();
-const facultyOf = slug => FACULTY.find(f => f && f.slug === slug) || null;
-const ADMIN_SLUGS = (process.env.ADMIN_SLUGS
-  ? String(process.env.ADMIN_SLUGS).split(',')
-  : FACULTY.filter(f => f && f.admin).map(f => f.slug)).map(s => String(s).trim()).filter(Boolean);
-const isAdmin = slug => ADMIN_SLUGS.indexOf(slug) >= 0;
-// Where suggestions are emailed: IDEAS_TO, else the admins' addresses.
-const IDEAS_TO = process.env.IDEAS_TO
-  || FACULTY.filter(f => f && isAdmin(f.slug) && f.email).map(f => f.email).join(',');
+// The legacy directory is read only during the one-time store migration.
+const LEGACY_FACULTY = require('./data/faculty.json');
+const LEGACY_ADMIN_SLUGS = LEGACY_FACULTY.filter(f => f && f.admin).map(f => f.slug);
+const BOOTSTRAP_SUPERADMINS = String(process.env.ADMIN_SLUGS || '')
+  .split(',').map(s => s.trim()).filter(Boolean);
+const MIGRATION_ADMIN_SLUGS = BOOTSTRAP_SUPERADMINS.length
+  ? BOOTSTRAP_SUPERADMINS : LEGACY_ADMIN_SLUGS;
+const IDEAS_TO = process.env.IDEAS_TO || '';
 
 // ---- storage --------------------------------------------------------------
 function loadStore() {
   if (!fs.existsSync(DATA_FILE)) {
-    console.warn('No local development store found; starting with an empty one.');
+    console.warn(STORE_KEY ? 'No store yet; starting with an empty encrypted one.' : 'No local development store found; starting with an empty one.');
     return {};
   }
   try {
-    const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    let data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    if (sealed.isEnvelope(data)) {
+      if (!STORE_KEY) throw new Error('the store is encrypted and STORE_KEY is not set');
+      data = JSON.parse(sealed.decrypt(STORE_KEY, data));
+    } else if (STORE_KEY && Object.keys(data || {}).length) {
+      throw new Error('the store is not encrypted; it will not be read or replaced with STORE_KEY set');
+    }
     if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('not an object');
     return data;
   } catch (e) {
-    throw new Error('Cannot read the local development store; refusing to overwrite it: ' + e.message);
+    throw new Error('Cannot read the store; refusing to overwrite it: ' + e.message);
   }
 }
+const storeText = () => (STORE_KEY ? JSON.stringify(sealed.encrypt(STORE_KEY, JSON.stringify(store))) : JSON.stringify(store));
+const auditText = line => (STORE_KEY ? JSON.stringify(sealed.encrypt(STORE_KEY, line)) : line);
 let store = {};
 let databaseStore = null;
+
+function personOf(slug) {
+  const person = store['people/' + slug];
+  if (person) return person;
+  if (BOOTSTRAP_SUPERADMINS.includes(String(slug))) return { slug, active: true, roles: [] };
+  return null;
+}
+
+function canUser(slug, action, scopeNode) {
+  return Permissions.can(personOf(slug), action, scopeNode, store['org/tree'] || OrgTree.DEFAULT_TREE,
+    BOOTSTRAP_SUPERADMINS);
+}
+
+function isSuperadmin(slug) {
+  return Permissions.isSuperadmin(personOf(slug), BOOTSTRAP_SUPERADMINS);
+}
+
+function scopesOf(person) {
+  const scopes = new Set();
+  (person && Array.isArray(person.roles) ? person.roles : []).forEach(assignment => {
+    (assignment && Array.isArray(assignment.scopes) ? assignment.scopes : []).forEach(scope => scopes.add(scope));
+  });
+  return Array.from(scopes);
+}
+
+function canForOwner(actorSlug, ownerSlug, action) {
+  if (actorSlug === ownerSlug) {
+    const scopes = scopesOf(personOf(ownerSlug));
+    return scopes.some(scope => canUser(actorSlug, action, scope));
+  }
+  return scopesOf(personOf(ownerSlug)).some(scope => canUser(actorSlug, action, scope));
+}
+
+function findPersonByEmail(email) {
+  const normalized = String(email || '').trim().toLowerCase();
+  if (!normalized) return null;
+  return Object.keys(store).filter(key => /^people\/[a-z0-9-]+$/.test(key))
+    .map(key => store[key]).find(person => person && person.email
+      && String(person.email).trim().toLowerCase() === normalized) || null;
+}
+
+function allPeople() {
+  return Object.keys(store).filter(key => /^people\/[a-z0-9-]+$/.test(key))
+    .map(key => store[key]).filter(Boolean);
+}
+
+function ideaRecipients() {
+  if (IDEAS_TO) return IDEAS_TO;
+  return allPeople().filter(person => person.active !== false && person.email
+    && (isSuperadmin(person.slug) || (person.roles || []).some(role => role.role === 'faculty-admin')))
+    .map(person => person.email).join(',');
+}
+
+function inScopePeople(actorSlug) {
+  return allPeople().filter(person => person.slug === actorSlug
+    || scopesOf(person).some(scope => canUser(actorSlug, 'people:read', scope)));
+}
+
+function nodeKind(id) {
+  const tree = store['org/tree'] || OrgTree.DEFAULT_TREE;
+  for (const faculty of tree.faculties || []) {
+    if (faculty.id === id) return 'faculty';
+    for (const department of faculty.departments || []) {
+      if (department.id === id) return 'department';
+      for (const programme of department.programmes || []) {
+        if (programme.id === id) return 'programme';
+      }
+    }
+  }
+  return id === 'bau' ? 'university' : null;
+}
+
+function validRoleAssignments(actorSlug, roles) {
+  if (!Array.isArray(roles) || !roles.length || roles.length > 20) return false;
+  const seen = new Set();
+  for (const assignment of roles) {
+    if (!assignment || !['superadmin', 'faculty-admin', 'programme-editor', 'approver', 'advisor', 'viewer'].includes(assignment.role)
+      || !Array.isArray(assignment.scopes) || !assignment.scopes.length) return false;
+    for (const scope of assignment.scopes) {
+      const kind = nodeKind(scope);
+      if (!kind || seen.has(assignment.role + ':' + scope)) return false;
+      seen.add(assignment.role + ':' + scope);
+      if (assignment.role === 'superadmin' && scope !== 'bau') return false;
+      if (assignment.role === 'faculty-admin' && kind !== 'faculty') return false;
+      if (['programme-editor', 'advisor', 'viewer'].includes(assignment.role) && kind !== 'programme') return false;
+      if (assignment.role === 'approver' && !['faculty', 'programme'].includes(kind)) return false;
+      if (!canUser(actorSlug, 'people:manage', scope)) return false;
+      if (assignment.role === 'superadmin' && !isSuperadmin(actorSlug)) return false;
+    }
+  }
+  return true;
+}
+
+/* A role assignment is split into (role, scope) pairs so that an admin only
+   ever touches the pairs inside their own authority. Pairs outside it are kept
+   exactly as they are, whatever the request sends. */
+function rolePairs(roles) {
+  const out = [];
+  (Array.isArray(roles) ? roles : []).forEach(assignment => {
+    if (!assignment) return;
+    (Array.isArray(assignment.scopes) ? assignment.scopes : []).forEach(scope =>
+      out.push({ role: assignment.role, scope }));
+  });
+  return out;
+}
+function groupPairs(pairs) {
+  const byRole = new Map();
+  pairs.forEach(pair => {
+    if (!byRole.has(pair.role)) byRole.set(pair.role, []);
+    const scopes = byRole.get(pair.role);
+    if (!scopes.includes(pair.scope)) scopes.push(pair.scope);
+  });
+  return Array.from(byRole, ([role, scopes]) => ({ role, scopes }));
+}
+function managesPair(actorSlug, pair) {
+  if (isSuperadmin(actorSlug)) return true;
+  if (pair.role === 'superadmin') return false;
+  return canUser(actorSlug, 'people:manage', pair.scope);
+}
+function managesAllOf(actorSlug, target) {
+  if (isSuperadmin(actorSlug)) return true;
+  if (!target || isSuperadmin(target.slug)) return false;
+  const pairs = rolePairs(target.roles);
+  return pairs.length > 0 && pairs.every(pair => managesPair(actorSlug, pair));
+}
+
+function canManagePerson(actorSlug, target) {
+  if (!target || target.slug === actorSlug) return true;
+  if (isSuperadmin(target.slug) && !isSuperadmin(actorSlug)) return false;
+  return scopesOf(target).some(scope => canUser(actorSlug, 'people:manage', scope));
+}
+
+function lastSuperadmin(slug) {
+  if (BOOTSTRAP_SUPERADMINS.includes(String(slug))) return true;
+  const active = allPeople().filter(person => person.active !== false
+    && isSuperadmin(person.slug));
+  return active.length <= 1 && active.some(person => person.slug === slug);
+}
+
+function inviteProfile(body) {
+  const source = body && body.person;
+  if (!source || typeof source !== 'object' || Array.isArray(source)) return null;
+  const slug = String(source.slug || '').trim().toLowerCase();
+  const email = String(source.email || '').trim().toLowerCase();
+  if (!SLUG.test(slug) || !/^[^@\s]+@bau\.edu\.lb$/.test(email)) return null;
+  const text = value => String(value || '').trim();
+  return {
+    slug,
+    name: text(source.name),
+    title: text(source.title),
+    email,
+    photo: typeof source.photo === 'string' ? source.photo : '',
+    faculty: text(source.faculty),
+    department: text(source.department),
+    short: text(source.short),
+    rank: text(source.rank),
+    active: true,
+    roles: body.roles
+  };
+}
 
 // Write to a temporary file, flush it to disk, then rename over the old file,
 // so a crash or power cut never leaves a half-written store.
@@ -99,7 +272,7 @@ function writeStoreFile() {
   fs.mkdirSync(BACKUP_DIR, { recursive: true });
   const tmp = DATA_FILE + '.tmp';
   const fd = fs.openSync(tmp, 'w');
-  try { fs.writeSync(fd, JSON.stringify(store)); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
+  try { fs.writeSync(fd, storeText()); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
   fs.renameSync(tmp, DATA_FILE);
   backupIfDue();
 }
@@ -149,7 +322,7 @@ async function flushStore() {
       writeStoreFile();
       for (const entry of auditEntries) {
         const line = JSON.stringify(Object.assign({}, entry, entry.details));
-        await fs.promises.appendFile(AUDIT_FILE, line + '\n');
+        await fs.promises.appendFile(AUDIT_FILE, auditText(line) + '\n');
       }
     }
   })();
@@ -278,10 +451,10 @@ function dropVerifies(slug) {
   const v = verifies();
   Object.keys(v).forEach(k => { if (v[k] && v[k].slug === slug) delete v[k]; });
 }
-function newVerifyToken(slug) {
+function newVerifyToken(slug, purpose) {
   const t = crypto.randomBytes(32).toString('hex');
   sweepVerifies(); dropVerifies(slug);          // only the latest link works
-  verifies()[tokenHash(t)] = { slug, at: Date.now() };
+  verifies()[tokenHash(t)] = { slug, at: Date.now(), ...(purpose ? { purpose } : {}) };
   save();
   return t;
 }
@@ -336,6 +509,31 @@ function sendVerifyEmail(acct) {
     after: 'If you did not create this account, you can ignore this message. It stays locked and you can create your own account with your own password.'
   });
   return mail.send(acct.email, 'Activate your Online Advising System account', text, undefined, html);
+}
+
+const isTestAddress = email => /^test\.[^@\s]+@bau\.edu\.lb$/i.test(String(email || '').trim());
+function invitationLink(req, slug, purpose) {
+  const token = newVerifyToken(slug, purpose || 'invite');
+  const base = PUBLIC_URL || ((isHttps(req) ? 'https://' : 'http://') + (req.headers.host || 'localhost'));
+  return base + '/?verify=' + token;
+}
+function sendInviteEmail(person, link) {
+  const text = [
+    'You have been invited to the Online Advising System.',
+    '',
+    'To set your password and activate your account, open this link within ' + VERIFY_HOURS + ' hours:',
+    link,
+    '',
+    'If you were not expecting this invitation, contact your department administrator.'
+  ].join('\n');
+  const html = accountEmailHtml({
+    title: 'You are invited',
+    intro: 'You have been invited to the Online Advising System. Open the link to set your password and activate your account.',
+    button: 'Set my password',
+    link,
+    after: 'The link expires after ' + VERIFY_HOURS + ' hours and works once. If you were not expecting this invitation, contact your department administrator.'
+  });
+  return mail.send(person.email, 'Your Online Advising System invitation', text, undefined, html);
 }
 
 function dropResets(slug) {
@@ -440,23 +638,33 @@ function cleanStudent(st) {
   return st;
 }
 
-/* Access check for get/list/set/delete. An advisor gets their own records
-   plus the shared offering/brand/config/ideas. Never another advisor's
-   students (admins excepted) and never an account record. */
-function mayTouch(slug, key) {
+/* All generic storage access is checked here as well as by action-specific routes. */
+function mayTouch(slug, key, operation) {
   if (!PATH_OK.test(key)) return false;
   if (key.indexOf('..') >= 0) return false;
   if (/\/account$/.test(key)) return false;          // accounts go through the sign-in routes
   if (key.charAt(0) === '_') return false;           // sessions, tokens, internal state
-  if (key.indexOf('advisors/' + slug + '/') === 0) return true;
-  // admins manage every advisor's list (reassigning students, importing on an
-  // advisor's behalf); every such write is in the audit log
-  if (isAdmin(slug) && key.indexOf('advisors/') === 0) return true;
-  if (key.indexOf('offering/') === 0 || key.indexOf('brand/') === 0) return true;
-  // dept rules, everyone needs them to run the checks (writes: admin only, see below)
-  if (key.indexOf('config/') === 0) return true;
-  // suggestions board is shared so a request isn't lost when its author is away
-  if (key.indexOf('ideas/') === 0) return true;
+  const write = operation === 'write';
+  const ownerMatch = /^advisors\/([a-z0-9-]+)\//.exec(key);
+  if (ownerMatch) {
+    const owner = ownerMatch[1];
+    if (/^advisors\/[a-z0-9-]+\/students\//.test(key)) {
+      return canForOwner(slug, owner, write ? 'students:write' : 'students:read');
+    }
+    return owner === slug || (canForOwner(slug, owner, 'students:read')
+      && scopesOf(personOf(owner)).some(scope => canUser(slug, 'students:clear', scope)));
+  }
+  const plan = /^programmes\/([a-z0-9-]+)\/catalog$/.exec(key);
+  if (plan) {
+    if (OrgTree.findNode(store['org/tree'] || OrgTree.DEFAULT_TREE, plan[1]) === null) return false;
+    return canUser(slug, write ? 'rules:write' : 'rules:read', plan[1]);
+  }
+  const rule = /^config\/([a-z0-9-]+)\/rules$/.exec(key);
+  if (rule) return canUser(slug, write ? 'rules:write' : 'rules:read', rule[1]);
+  if (key.indexOf('offering/') === 0) return canUser(slug, write ? 'offering:write' : 'offering:read');
+  if (key.indexOf('brand/') === 0) return canUser(slug, write ? 'brand:write' : 'brand:read');
+  if (key === 'ideas') return !write && canUser(slug, 'ideas:read');
+  if (key.indexOf('ideas/') === 0) return canUser(slug, 'ideas:' + (write ? 'write' : 'read'));
   return false;
 }
 
@@ -467,19 +675,27 @@ async function api(req, res, url) {
   const ip = clientIp(req);
 
   if (p === '/api/session') {
-    const s = sessionOf(req);
+    let s = sessionOf(req);
+    if (s && (!personOf(s.slug) || personOf(s.slug).active === false)) {
+      delete sessions()[s.id];
+      save();
+      s = null;
+    }
     return json(res, 200, {
-      slug: s ? s.slug : null, admin: !!(s && isAdmin(s.slug)),
+      slug: s ? s.slug : null, admin: !!(s && isSuperadmin(s.slug)),
       signupAllowed: ALLOW_SIGNUP, mail: mail.configured()
     });
   }
 
-  // which advisors have an account, slugs only
   if (p === '/api/accounts') {
+    const me = sessionOf(req);
+    if (!me || !personOf(me.slug) || personOf(me.slug).active === false) {
+      return json(res, 401, { error: 'please sign in' });
+    }
     const out = {};
-    Object.keys(store).forEach(k => {
-      const m = /^advisors\/([a-z0-9-]+)\/account$/.exec(k);
-      if (m && isVerified(store[k])) out[m[1]] = true;
+    inScopePeople(me.slug).forEach(person => {
+      const account = store[acctKey(person.slug)];
+      if (account && isVerified(account)) out[person.slug] = true;
     });
     return json(res, 200, { accounts: out });
   }
@@ -499,74 +715,36 @@ async function api(req, res, url) {
   if (declared > (preSession ? 40 : 0.25) * 1024 * 1024) return json(res, 413, { error: 'that request is too large' });
   try { body = await readBody(req, preSession ? p : '/api/small'); } catch (e) { return json(res, 400, { error: e.message }); }
 
-  if (p === '/api/signup') {
-    if (!ALLOW_SIGNUP) return json(res, 403, { error: 'sign-up is closed, ask the department' });
-    const slug = String(body.slug || '');
-    const email = String(body.email || '').trim().toLowerCase();
-    const password = String(body.password || '');
-    const fac = SLUG.test(slug) ? facultyOf(slug) : null;
-    if (!fac) return json(res, 400, { error: 'unknown advisor' });
-    // an account nobody has verified can be made again (the old one may not be theirs)
-    if (isVerified(store[acctKey(slug)])) return json(res, 409, { error: 'that account already exists' });
-    if (tooMany('su-acct:' + slug)) return json(res, 429, { error: 'too many tries, wait a few minutes' });
-    if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)) return json(res, 400, { error: 'use your BAU email address' });
-    if (fac.email && email !== String(fac.email).trim().toLowerCase()) {
-      return json(res, 400, { error: 'use the BAU email address the department has on file for you' });
-    }
-    const pwBad = passwordProblem(password);
-    if (pwBad) return json(res, 400, { error: pwBad });
-    // without email verification anyone who knows an advisor's address could
-    // claim their account, so sign-up stays closed until mail is configured
-    if (!canVerify() && !ALLOW_UNVERIFIED_SIGNUP) {
-      return json(res, 503, { error: 'sign-up is not available yet: the email service is not set up. Contact the department admin' });
-    }
-    const salt = newSalt();
-    const acct = {
-      slug, email, salt, hash: await hash(password, salt),
-      createdAt: Date.now(), lastSignIn: Date.now()
-    };
-    if (!canVerify()) {
-      // development only (ALLOW_UNVERIFIED_SIGNUP): the account opens right away
-      store[acctKey(slug)] = acct; save();
-      audit(slug, 'signup', { ip, verified: false });
-      return json(res, 200, { ok: true },
-        { 'set-cookie': cookieFor(newSession(slug), secure) });
-    }
-    failed('su-acct:' + slug);              // limits how many emails one name can trigger
-    acct.verified = false;
-    store[acctKey(slug)] = acct; save();
-    try { await sendVerifyEmail(acct); }
-    catch (e) {
-      console.error('could not send the verification email:', e.message);
-      delete store[acctKey(slug)]; dropVerifies(slug); save();
-      return json(res, 502, { error: 'the verification email could not be sent. Try again in a few minutes or contact the department' });
-    }
-    audit(slug, 'signup', { ip, verificationSent: true });
-    return json(res, 200, { ok: true, verify: true, email });
-  }
+  if (p === '/api/signup') return json(res, 403, { error: 'accounts are created by invitation only' });
 
   if (p === '/api/signin') {
-    const slug = String(body.slug || '');
-    const key = 'in:' + slug + ':' + ip;
-    if (!SLUG.test(slug)) return json(res, 400, { error: 'unknown advisor' });
-    const acctTries = 'in-acct:' + slug;      // per account, whatever address it comes from
+    const email = String(body.email || '').trim().toLowerCase();
+    const person = findPersonByEmail(email);
+    const slug = person && person.slug;
+    const key = 'in:' + (email || 'missing-email') + ':' + ip;
+    if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)) {
+      await hash(String(body.password || '').slice(0, PASSWORD_MAX), 'no-account');
+      failed(key);
+      return json(res, 401, { error: 'that email and password do not match' });
+    }
+    const acct = slug ? store[acctKey(slug)] : null;
+    const acctTries = 'in-acct:' + (slug || email);      // per account, whatever address it comes from
     if (tooMany(key) || tooMany(acctTries)) return json(res, 429, { error: 'too many tries, wait a few minutes' });
-    const acct = store[acctKey(slug)];
     const password = String(body.password || '').slice(0, PASSWORD_MAX);
     // hash even for an unknown name, so response time does not reveal which accounts exist
     const given = await hash(password, acct ? acct.salt : 'no-account');
-    if (!acct || !sameSecret(given, acct.hash)) {
+    if (!acct || !sameSecret(given, acct.hash) || !person || person.active === false) {
       failed(key); if (acct) failed(acctTries);
-      audit(slug, 'signin-failed', { ip });
-      return json(res, 401, { error: 'that name and password do not match' });
+      audit(slug || null, 'signin-failed', { ip });
+      return json(res, 401, { error: 'that email and password do not match' });
     }
     cleared(key); cleared(acctTries);
     if (!isVerified(acct)) {
-      return json(res, 403, { error: 'this account is not active yet. Open the link we sent to your BAU email', unverified: true });
+      return json(res, 403, { error: 'this account is not active yet. Open the invitation link sent to your BAU email', unverified: true });
     }
     acct.lastSignIn = Date.now(); save();
     audit(slug, 'signin', { ip });
-    return json(res, 200, { ok: true, slug, admin: isAdmin(slug) },
+    return json(res, 200, { ok: true, slug, admin: isSuperadmin(slug) },
       { 'set-cookie': cookieFor(newSession(slug), secure) });
   }
 
@@ -581,19 +759,43 @@ async function api(req, res, url) {
     if (tooMany(key)) return json(res, 429, { error: 'too many tries, wait a few minutes' });
     const rec = verifyRecord(String(body.token || ''));
     if (!rec) return json(res, 401, { error: 'that link has expired or a newer one was sent. Create the account again to get a new link' });
+    const invitedPerson = personOf(rec.slug);
+    if (rec.purpose === 'invite') {
+      if (!invitedPerson || invitedPerson.active === false) {
+        return json(res, 404, { error: 'that invitation is no longer active; contact your administrator' });
+      }
+      if (store[acctKey(rec.slug)]) return json(res, 409, { error: 'that invitation has already been used' });
+      const password = String(body.password || '');
+      const pwBad = passwordProblem(password);
+      if (pwBad) return json(res, 400, { error: pwBad });
+      const salt = newSalt();
+      store[acctKey(rec.slug)] = {
+        slug: rec.slug, email: invitedPerson.email, salt,
+        hash: await hash(password, salt),
+        createdAt: Date.now(), lastSignIn: Date.now(), verified: true, verifiedAt: Date.now()
+      };
+      dropVerifies(rec.slug);
+      save();
+      audit(rec.slug, 'invite-accepted', { ip, before: null, after: { active: true, verified: true } });
+      return json(res, 200, { ok: true, slug: rec.slug, admin: isSuperadmin(rec.slug) },
+        { 'set-cookie': cookieFor(newSession(rec.slug), secure) });
+    }
     const acct = store[acctKey(rec.slug)];
     if (!acct) return json(res, 404, { error: 'that account no longer exists. Create it again' });
+    if (!invitedPerson || invitedPerson.active === false) {
+      return json(res, 403, { error: 'this account is no longer active; contact your administrator' });
+    }
     if (tooMany('ver-acct:' + rec.slug)) return json(res, 429, { error: 'too many tries, wait a few minutes' });
     if (!sameSecret(await hash(String(body.password || '').slice(0, PASSWORD_MAX), acct.salt), acct.hash)) {
       failed(key); failed('ver-acct:' + rec.slug);
-      return json(res, 401, { error: 'that is not the password chosen when this account was created. If you did not create it, go back and create your own account' });
+      return json(res, 401, { error: 'that is not the password chosen when this account was created' });
     }
     cleared(key); cleared('ver-acct:' + rec.slug); cleared('su-acct:' + rec.slug);
     acct.verified = true; acct.verifiedAt = Date.now(); acct.lastSignIn = Date.now();
     dropVerifies(rec.slug);
     save();
     audit(rec.slug, 'account-verified', { ip });
-    return json(res, 200, { ok: true, slug: rec.slug, admin: isAdmin(rec.slug) },
+    return json(res, 200, { ok: true, slug: rec.slug, admin: isSuperadmin(rec.slug) },
       { 'set-cookie': cookieFor(newSession(rec.slug), secure) });
   }
 
@@ -621,14 +823,17 @@ async function api(req, res, url) {
   // "Email me a link". Same answer whether or not the account exists, so this
   // can't be used to find out who has one.
   if (p === '/api/reset-request') {
-    const slug = String(body.slug || '');
-    const key = 'req:' + slug + ':' + ip;
-    if (!SLUG.test(slug)) return json(res, 400, { error: 'unknown advisor' });
-    if (tooMany(key) || tooMany('req-acct:' + slug)) return json(res, 429, { error: 'too many tries, wait a few minutes' });
-    failed(key); failed('req-acct:' + slug);
+    const email = String(body.email || '').trim().toLowerCase();
+    const legacySlug = String(body.slug || '');
+    const person = email ? findPersonByEmail(email)
+      : (SLUG.test(legacySlug) ? personOf(legacySlug) : null);
+    const slug = person && person.slug;
+    const key = 'req:' + (email || legacySlug || 'missing-email') + ':' + ip;
+    if (tooMany(key) || (slug && tooMany('req-acct:' + slug))) return json(res, 429, { error: 'too many tries, wait a few minutes' });
+    failed(key); if (slug) failed('req-acct:' + slug);
     const acct = store[acctKey(slug)];
     // emailed links always use PUBLIC_URL, never the request's Host header
-    if (acct && acct.email && mail.configured() && PUBLIC_URL) {
+    if (person && person.active !== false && acct && acct.email && mail.configured() && PUBLIC_URL) {
       const link = PUBLIC_URL + '/?reset=' + newResetToken(slug);
       const text = [
         'Someone asked to reset the password for your Online Advising System account.',
@@ -639,8 +844,7 @@ async function api(req, res, url) {
         'The link works once. If it was not you, ignore this message: nothing changes',
         'until the link is opened, and your current password still works.',
         '',
-        'Beirut Arab University, Faculty of Science',
-        'Department of Mathematics and Computer Science'
+        'Beirut Arab University'
       ].join('\n');
       const html = accountEmailHtml({
         title: 'Reset your password',
@@ -664,7 +868,9 @@ async function api(req, res, url) {
     const slug = useResetToken(String(body.token || ''));
     if (!slug) return json(res, 401, { error: 'that link has expired or was already used' });
     const acct = store[acctKey(slug)];
-    if (!acct) return json(res, 404, { error: 'no account' });
+    if (!acct || !personOf(slug) || personOf(slug).active === false) {
+      return json(res, 404, { error: 'no active account' });
+    }
     acct.salt = newSalt();
     acct.hash = await hash(next, acct.salt);
     acct.changedAt = Date.now();
@@ -674,13 +880,209 @@ async function api(req, res, url) {
     endSessionsOf(slug);
     save();
     audit(slug, 'password-reset', { ip });
-    return json(res, 200, { ok: true, slug },
+    return json(res, 200, { ok: true, slug, admin: isSuperadmin(slug) },
       { 'set-cookie': cookieFor(newSession(slug), secure) });
   }
 
   // ---- everything below needs a session ----
   const me = sessionOf(req);
   if (!me) return json(res, 401, { error: 'please sign in' });
+  if (!personOf(me.slug) || personOf(me.slug).active === false) {
+    endSession(req);
+    return json(res, 401, { error: 'this account is no longer active' });
+  }
+
+  if (p === '/api/org/tree') {
+    if (body.tree === undefined) return json(res, 200, { tree: store['org/tree'] || OrgTree.DEFAULT_TREE });
+    const current = store['org/tree'] || OrgTree.DEFAULT_TREE;
+    // a faculty admin may reshape the inside of their own faculty, nothing else
+    const own = isSuperadmin(me.slug) ? null : ((personOf(me.slug) || {}).roles || [])
+      .filter(a => a && a.role === 'faculty-admin').flatMap(a => a.scopes || []);
+    if (own && !own.length) return json(res, 403, { error: 'only a superadmin or a faculty admin can change the organisation tree' });
+    const result = OrgTree.validateTree(body.tree);
+    if (!result.ok) return json(res, 400, { error: result.error });
+    if (own) {
+      const outside = t => JSON.stringify(Object.assign({}, t, {
+        faculties: (t.faculties || []).map(f => own.includes(f.id) ? { id: f.id } : f) }));
+      if (outside(current) !== outside(body.tree)) {
+        return json(res, 403, { error: 'you can only change departments and programmes inside your own faculty' });
+      }
+    }
+    const withPlan = Object.keys(store).map(k => /^programmes\/([a-z0-9-]+)\/catalog$/.exec(k)).filter(Boolean).map(m => m[1]);
+    const lost = withPlan.filter(id => !OrgTree.findNode(body.tree, id));
+    if (lost.length) {
+      return json(res, 409, { error: 'a programme that already has a study plan cannot be removed: ' + lost.join(', ') });
+    }
+    if (!OrgTree.findNode(body.tree, 'cs')) return json(res, 409, { error: 'the Computer Science programme cannot be removed' });
+    const referenced = allPeople().flatMap(person => person.roles || [])
+      .flatMap(role => role.scopes || []);
+    if (referenced.some(scope => !OrgTree.findNode(body.tree, scope))) {
+      return json(res, 409, { error: 'the organisation tree cannot remove a scope assigned to a person' });
+    }
+    const before = store['org/tree'] || null;
+    if (JSON.stringify(before) !== JSON.stringify(body.tree)) {
+      store['org/tree'] = body.tree;
+      save();
+      audit(me.slug, 'org-tree-changed', { before, after: body.tree, ip });
+    }
+    return json(res, 200, { ok: true, tree: store['org/tree'] });
+  }
+
+  if (p === '/api/people/list') {
+    if (!isSuperadmin(me.slug) && !scopesOf(personOf(me.slug)).some(scope => canUser(me.slug, 'people:read', scope))) {
+      return json(res, 403, { error: 'no people are available in your scope' });
+    }
+    const people = inScopePeople(me.slug).map(person => ({
+      slug: person.slug,
+      name: person.name,
+      title: person.title,
+      email: person.email,
+      photo: person.photo || '',
+      faculty: person.faculty || '',
+      department: person.department || '',
+      short: person.short || '',
+      rank: person.rank || '',
+      honorific: person.honorific,
+      keepOnBulkClear: !!person.keepOnBulkClear,
+      active: person.active !== false,
+      verified: !!store[acctKey(person.slug)] && isVerified(store[acctKey(person.slug)]),
+      roles: Array.isArray(person.roles) ? person.roles : []
+    }));
+    return json(res, 200, { people });
+  }
+
+  if (p === '/api/people/invite') {
+    const person = inviteProfile(body);
+    if (!person) return json(res, 400, { error: 'provide a valid person profile and BAU email address' });
+    if (allPeople().some(existing => existing.slug === person.slug
+      || String(existing.email || '').toLowerCase() === person.email)) {
+      return json(res, 409, { error: 'a person with that slug or email already exists' });
+    }
+    if (!canUser(me.slug, 'people:manage', body.roles && body.roles[0] && body.roles[0].scopes && body.roles[0].scopes[0])) {
+      return json(res, 403, { error: 'you cannot invite people outside your scope' });
+    }
+    if (!validRoleAssignments(me.slug, person.roles)) {
+      return json(res, 400, { error: 'the role or scope is invalid or outside your authority' });
+    }
+    if (person.name.length > 200 || person.title.length > 200
+      || person.faculty.length > 200 || person.department.length > 200
+      || person.photo.length > 200000) {
+      return json(res, 400, { error: 'a profile field is too long' });
+    }
+    const link = invitationLink(req, person.slug, 'invite');
+    store['people/' + person.slug] = person;
+    if (isTestAddress(person.email)) {
+      console.log('Synthetic test invitation for ' + person.email + ': ' + link);
+    } else if (canVerify()) {
+      try { await sendInviteEmail(person, link); }
+      catch (error) {
+        delete store['people/' + person.slug];
+        dropVerifies(person.slug);
+        save();
+        console.error('could not send the invitation email:', error.message);
+        return json(res, 502, { error: 'the invitation email could not be sent' });
+      }
+    } else if (ALLOW_UNVERIFIED_SIGNUP && !PRODUCTION) {
+      console.log('Development invitation for ' + person.email + ': ' + link);
+    } else {
+      delete store['people/' + person.slug];
+      dropVerifies(person.slug);
+      save();
+      return json(res, 503, { error: 'invitations are unavailable until email and PUBLIC_URL are configured' });
+    }
+    save();
+    audit(me.slug, 'person-invited', { target: person.slug, before: null, after: {
+      profile: person, roles: person.roles
+    }, ip });
+    return json(res, 200, { ok: true, slug: person.slug, inviteLink: isTestAddress(person.email) ? link : undefined });
+  }
+
+  if (p === '/api/people/update') {
+    const slug = String(body.slug || '');
+    const current = SLUG.test(slug) ? personOf(slug) : null;
+    if (!current || !canManagePerson(me.slug, current)) return json(res, 403, { error: 'you cannot manage this person' });
+    const profile = body.person && typeof body.person === 'object' && !Array.isArray(body.person)
+      ? body.person : {};
+    // roles outside the caller's authority are kept; only in-scope roles change
+    const kept = rolePairs(current.roles).filter(pair => !managesPair(me.slug, pair));
+    const wanted = body.roles === undefined ? rolePairs(current.roles).filter(pair => managesPair(me.slug, pair))
+      : rolePairs(body.roles).filter(pair => managesPair(me.slug, pair));
+    const wantedRoles = groupPairs(wanted);
+    if (!Array.isArray(body.roles === undefined ? [] : body.roles)
+      || (wantedRoles.length && !validRoleAssignments(me.slug, wantedRoles))) {
+      return json(res, 400, { error: 'the role or scope is invalid or outside your authority' });
+    }
+    const roles = groupPairs(kept.concat(wanted));
+    if (!roles.length) return json(res, 400, { error: 'a person needs at least one role; deactivate them instead' });
+    const profileKeys = ['name', 'title', 'photo', 'faculty', 'department', 'email'];
+    const profileChanged = profileKeys.some(k => profile[k] !== undefined
+      && String(profile[k]).trim() !== String(current[k] || '').trim());
+    if (profileChanged && me.slug !== slug && !managesAllOf(me.slug, current)) {
+      return json(res, 403, { error: 'this person also works outside your scope, so only their roles in your scope can be changed' });
+    }
+    if (isSuperadmin(slug) && !roles.some(role => role.role === 'superadmin') && lastSuperadmin(slug)) {
+      return json(res, 409, { error: 'the last superadmin cannot be demoted' });
+    }
+    const before = JSON.parse(JSON.stringify(current));
+    const next = Object.assign({}, current, {
+      name: profile.name === undefined ? current.name : String(profile.name).trim(),
+      title: profile.title === undefined ? current.title : String(profile.title).trim(),
+      photo: profile.photo === undefined ? current.photo || '' : String(profile.photo),
+      faculty: profile.faculty === undefined ? current.faculty : String(profile.faculty).trim(),
+      department: profile.department === undefined ? current.department : String(profile.department).trim(),
+      roles
+    });
+    if (next.name.length > 200 || next.title.length > 200 || next.photo.length > 200000
+      || next.faculty.length > 200 || next.department.length > 200) {
+      return json(res, 400, { error: 'a profile field is too long' });
+    }
+    if (profile.email !== undefined) {
+      const email = String(profile.email).trim().toLowerCase();
+      if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)
+        || allPeople().some(person => person.slug !== slug && String(person.email || '').toLowerCase() === email)) {
+        return json(res, 400, { error: 'use a unique BAU email address' });
+      }
+      const account = store[acctKey(slug)];
+      if (account && email !== String(current.email || '').toLowerCase()) {
+        return json(res, 409, { error: 'email changes for an activated account require a new verified invitation' });
+      }
+      next.email = email;
+    }
+    store['people/' + slug] = next;
+    save();
+    const rolesChanged = JSON.stringify(before.roles) !== JSON.stringify(next.roles);
+    audit(me.slug, rolesChanged ? 'person-role-changed' : 'person-updated', {
+      target: slug, before, after: next, ip
+    });
+    return json(res, 200, { ok: true, person: next });
+  }
+
+  if (p === '/api/people/deactivate') {
+    const slug = String(body.slug || '');
+    const target = SLUG.test(slug) ? personOf(slug) : null;
+    if (!target || !canManagePerson(me.slug, target)) return json(res, 403, { error: 'you cannot manage this person' });
+    if (target.active === false) return json(res, 200, { ok: true, active: false });
+    if (isSuperadmin(slug) && lastSuperadmin(slug)) {
+      return json(res, 409, { error: 'the last superadmin cannot be deactivated' });
+    }
+    const before = JSON.parse(JSON.stringify(target));
+    if (!managesAllOf(me.slug, target)) {
+      // they also work elsewhere: take away only the roles in the caller's scope
+      const kept = rolePairs(target.roles).filter(pair => !managesPair(me.slug, pair));
+      if (kept.length === rolePairs(target.roles).length) return json(res, 403, { error: 'you cannot manage this person' });
+      target.roles = groupPairs(kept);
+      save();
+      audit(me.slug, 'person-role-changed', { target: slug, before, after: target, ip });
+      return json(res, 200, { ok: true, active: true, rolesRemoved: true });
+    }
+    target.active = false;
+    [store._sessions, store._resets, store._verifies].forEach(bag => {
+      if (bag) Object.keys(bag).forEach(key => { if (bag[key] && bag[key].slug === slug) delete bag[key]; });
+    });
+    save();
+    audit(me.slug, 'person-deactivated', { target: slug, before, after: target, ip });
+    return json(res, 200, { ok: true, active: false });
+  }
 
   if (p === '/api/password') {
     const acct = store[acctKey(me.slug)];
@@ -708,21 +1110,22 @@ async function api(req, res, url) {
   // ---- records ---------------------------------------------------------------
   // Suggestions. The author slug comes from the session, not the page, so an
   // idea is always tied to whoever was signed in. Saved to the board and
-  // emailed to IDEAS_TO if mail is set up.
+  // emailed to the configured admin recipients when mail is set up.
   if (p === '/api/idea') {
     const text = String(body.text || '').trim().slice(0, 4000);
     const kind = ['idea', 'problem', 'question'].indexOf(String(body.kind)) >= 0 ? String(body.kind) : 'idea';
     if (!text) return json(res, 400, { error: 'write something first' });
     const acct = store[acctKey(me.slug)] || {};
     const id = 'i' + Date.now().toString(36) + crypto.randomBytes(3).toString('hex');
-    const fac = facultyOf(me.slug);
-    const idea = { id, kind, text, slug: me.slug, by: fac ? ((fac.honorific !== undefined ? fac.honorific : 'Dr.') + ' ' + fac.name).trim() : me.slug,
+    const person = personOf(me.slug);
+    const idea = { id, kind, text, slug: me.slug, by: person ? ((person.honorific !== undefined ? person.honorific : 'Dr.') + ' ' + person.name).trim() : me.slug,
       email: acct.email || '', at: Date.now(), votes: [] };
     store['ideas/' + id] = idea;
     save();
 
     let sent = false;
-    if (mail.configured() && IDEAS_TO) {
+    const recipients = ideaRecipients();
+    if (mail.configured() && recipients) {
       const label = kind === 'problem' ? 'Problem reported' : kind === 'question' ? 'Question' : 'Suggestion';
       const lines = [
         label + ' from the Online Advising System.',
@@ -735,12 +1138,12 @@ async function api(req, res, url) {
         'It is also on the suggestions board inside the portal, where the other advisors can',
         'add that they want the same thing.'
       ].join('\n');
-      mail.send(IDEAS_TO, 'Online Advising System: ' + label.toLowerCase() + ' from ' + idea.by, lines)
+      mail.send(recipients, 'Online Advising System: ' + label.toLowerCase() + ' from ' + idea.by, lines)
         .then(() => { idea.emailed = true; save(); })
         .catch(e => console.error('could not send the suggestion:', e.message));
       sent = true;
     }
-    return json(res, 200, { ok: true, idea, emailed: sent, to: sent ? IDEAS_TO : null });
+    return json(res, 200, { ok: true, idea, emailed: sent, to: sent ? recipients : null });
   }
 
   /* ---- send mail from the portal ----
@@ -778,9 +1181,11 @@ async function api(req, res, url) {
      For when mail is not set up. The admin forwards the link from their own
      mailbox; it is the same single-use, time-limited link the email carries. */
   if (p === '/api/admin/reset-link') {
-    if (!isAdmin(me.slug)) return json(res, 403, { error: 'only the department admin can do that' });
+    if (!canUser(me.slug, 'people:manage', scopesOf(personOf(String(body.slug || '')))[0])) {
+      return json(res, 403, { error: 'you cannot manage this person' });
+    }
     const slug = String(body.slug || '');
-    if (!SLUG.test(slug) || isAdmin(slug)) return json(res, 400, { error: 'unknown advisor' });
+    if (!SLUG.test(slug) || isSuperadmin(slug)) return json(res, 400, { error: 'unknown advisor' });
     if (!store[acctKey(slug)]) return json(res, 404, { error: 'this advisor has not created an account yet' });
     audit(me.slug, 'admin-reset-link', { advisor: slug, ip });
     return json(res, 200, { ok: true, link: resetLink(req, newResetToken(slug)), minutes: RESET_MINUTES });
@@ -789,9 +1194,11 @@ async function api(req, res, url) {
   // Admin: clear one advisor's password so they create their account again
   // (and get the activation email). Their students and notes are untouched.
   if (p === '/api/admin/clear-password') {
-    if (!isAdmin(me.slug)) return json(res, 403, { error: 'only the department admin can do that' });
     const slug = String(body.slug || '');
-    if (!SLUG.test(slug) || isAdmin(slug)) return json(res, 400, { error: 'unknown advisor' });
+    const target = SLUG.test(slug) ? personOf(slug) : null;
+    if (!target || !canManagePerson(me.slug, target) || isSuperadmin(slug)) {
+      return json(res, 403, { error: 'you cannot manage this person' });
+    }
     const had = !!store[acctKey(slug)];
     delete store[acctKey(slug)];
     [store._sessions, store._resets, store._verifies].forEach(bag => {
@@ -806,7 +1213,9 @@ async function api(req, res, url) {
   /* ---- admin: all students ----
      Every advisor's stored list, keyed by slug. */
   if (p === '/api/all-students') {
-    if (!isAdmin(me.slug)) return json(res, 403, { error: 'not yours to read' });
+    if (!canUser(me.slug, 'students:read', scopesOf(personOf(me.slug))[0])) {
+      return json(res, 403, { error: 'not yours to read' });
+    }
     audit(me.slug, 'read-all-students', { ip });
     const slugs = new Set();
     Object.keys(store).forEach(k => {
@@ -815,6 +1224,7 @@ async function api(req, res, url) {
     });
     const out = {};
     slugs.forEach(slug => {
+      if (!canForOwner(me.slug, slug, 'students:read')) return;
       const prefix = 'advisors/' + slug + '/students/';
       const saved = {};
       Object.keys(store).forEach(k => {
@@ -838,8 +1248,9 @@ async function api(req, res, url) {
     }
     let owner = me.slug;
     if (body.advisor && body.advisor !== me.slug) {
-      if (!isAdmin(me.slug)) return json(res, 403, { error: 'not yours to change' });
-      if (!/^[a-z0-9-]{2,60}$/.test(String(body.advisor)) || isAdmin(String(body.advisor))) return json(res, 400, { error: 'unknown advisor' });
+      if (!SLUG.test(String(body.advisor)) || !canForOwner(me.slug, String(body.advisor), 'students:write')) {
+        return json(res, 403, { error: 'not yours to change' });
+      }
       owner = String(body.advisor);
     }
     const students = Array.isArray(body.students) ? body.students : null;
@@ -877,10 +1288,12 @@ async function api(req, res, url) {
     }
     let owner = me.slug;
     if (body.advisor && body.advisor !== me.slug) {
-      if (!isAdmin(me.slug)) return json(res, 403, { error: 'not yours to change' });
-      if (!/^[a-z0-9-]{2,60}$/.test(String(body.advisor)) || isAdmin(String(body.advisor))) return json(res, 400, { error: 'unknown advisor' });
+      if (!SLUG.test(String(body.advisor)) || !canForOwner(me.slug, String(body.advisor), 'students:clear')) {
+        return json(res, 403, { error: 'not yours to change' });
+      }
       owner = String(body.advisor);
     }
+    if (!canForOwner(me.slug, owner, 'students:clear')) return json(res, 403, { error: 'not yours to change' });
     const prefix = 'advisors/' + owner + '/students/';
     let n = 0;
     Object.keys(store).forEach(k => { if (k.indexOf(prefix) === 0) { delete store[k]; n++; } });
@@ -892,7 +1305,8 @@ async function api(req, res, url) {
 
   if (p === '/api/get' || p === '/api/list' || p === '/api/set' || p === '/api/delete') {
     const key = String(body.path || '');
-    if (!mayTouch(me.slug, key)) return json(res, 403, { error: 'not yours to read' });
+    const write = p === '/api/set' || p === '/api/delete';
+    if (!mayTouch(me.slug, key, write ? 'write' : 'read')) return json(res, 403, { error: 'not yours to read or change' });
     if ((p === '/api/set' || p === '/api/delete')
         && /^advisors\/[a-z0-9-]+\/students\//.test(key)) {
       if (!ENABLE_STUDENT_IMPORTS) {
@@ -915,16 +1329,8 @@ async function api(req, res, url) {
       });
       return json(res, 200, { data: out });
     }
-    // rules are read-only unless you're admin
-    if ((p === '/api/set' || p === '/api/delete') && key.indexOf('config/') === 0 && !isAdmin(me.slug)) {
-      return json(res, 403, { error: 'only the department admin can change the rules' });
-    }
-    if ((p === '/api/set' || p === '/api/delete') && key.indexOf('offering/') === 0 && !isAdmin(me.slug)) {
-      return json(res, 403, { error: 'only the department admin can change the course offering' });
-    }
-    // the sign-in cover is admin-only and must be an image
+    // The sign-in cover is superadmin-only and must be an image.
     if ((p === '/api/set' || p === '/api/delete') && key.indexOf('brand/') === 0) {
-      if (!isAdmin(me.slug)) return json(res, 403, { error: 'only the department admin can change the cover' });
       if (p === '/api/set' && body.value != null
           && !/^data:image\/(png|jpe?g|webp);base64,[A-Za-z0-9+/=]+$/.test(String(body.value))) {
         return json(res, 400, { error: 'that is not an image' });
@@ -935,17 +1341,45 @@ async function api(req, res, url) {
     if ((p === '/api/set' || p === '/api/delete') && key.indexOf('ideas/') === 0) {
       const cur = store[key];
       if (!cur) return json(res, 403, { error: 'post suggestions from the suggestions page' });
-      if (p === '/api/delete' && cur.slug !== me.slug && !isAdmin(me.slug)) {
+      if (p === '/api/delete' && cur.slug !== me.slug && !isSuperadmin(me.slug)) {
         return json(res, 403, { error: 'only the author or the admin can remove it' });
       }
       if (p === '/api/set') {
         const v = body.value && typeof body.value === 'object' ? body.value : {};
         // you can only add or take back your own vote
-        const fac = facultyOf(me.slug), mine = fac ? fac.name : me.slug;
+        const person = personOf(me.slug), mine = person ? person.name : me.slug;
         const want = Array.isArray(v.votes) && v.votes.map(String).includes(mine);
         const votes = (Array.isArray(cur.votes) ? cur.votes : []).filter(x => x !== mine).concat(want ? [mine] : []);
-        body.value = Object.assign({}, cur, { votes, done: isAdmin(me.slug) ? !!v.done : !!cur.done });
+        body.value = Object.assign({}, cur, { votes, done: isSuperadmin(me.slug) ? !!v.done : !!cur.done });
       }
+    }
+    // a programme's study plan is checked before it is kept: a broken one would
+    // give every student in that programme wrong advice
+    const planKey = /^programmes\/([a-z0-9-]+)\/catalog$/.exec(key);
+    if (planKey && p === '/api/delete') {
+      return json(res, 409, { error: 'a study plan cannot be deleted; remove the programme from the structure instead' });
+    }
+    if (planKey && p === '/api/set') {
+      const v = body.value;
+      if (!v || typeof v !== 'object' || Array.isArray(v) || JSON.stringify(v).length > 2 * 1024 * 1024) {
+        return json(res, 400, { error: 'invalid study plan' });
+      }
+      const known = SHARED_CATALOG.universityElectives.map(c => c.code)
+        .concat(SHARED_CATALOG.genScienceElectives.map(c => c.code), SHARED_CATALOG.courses.map(c => c.code));
+      Object.keys(store).forEach(k => {
+        if (/^programmes\/[a-z0-9-]+\/catalog$/.test(k) && store[k] && Array.isArray(store[k].courses)) {
+          store[k].courses.forEach(c => known.push(c.code));
+        }
+      });
+      const check = Programme.validate(v, known);
+      if (check.errors.length) return json(res, 400, { error: 'the study plan has problems: ' + check.errors.slice(0, 5).join(' '), problems: check.errors });
+      const before = store[key] || null;
+      body.value = Programme.forStorage(v);
+      body.value.updatedAt = Date.now(); body.value.updatedBy = me.slug;
+      store[key] = body.value; save();
+      audit(me.slug, 'study-plan-saved', { programme: planKey[1], created: !before,
+        courses: body.value.courses.length, totalCredits: body.value.totalCredits, ip });
+      return json(res, 200, { ok: true, warnings: check.warnings });
     }
     // a student record must carry the id it is filed under
     if (p === '/api/set' && /^advisors\/[a-z0-9-]+\/students\/[^/]+$/.test(key)) {
@@ -1050,7 +1484,7 @@ async function healthy() {
     fs.accessSync(PAGE, fs.constants.R_OK);
     if (databaseStore) await databaseStore.check();
     else {
-      if (PRODUCTION) return false;
+      if (PRODUCTION && !STORE_KEY) return false;
       fs.mkdirSync(DATA_DIR, { recursive: true });
       fs.accessSync(DATA_DIR, fs.constants.W_OK);
     }
@@ -1095,8 +1529,8 @@ async function startServer() {
   if (PRODUCTION && ALLOW_UNVERIFIED_SIGNUP) {
     throw new Error('ALLOW_UNVERIFIED_SIGNUP=true is not allowed in production');
   }
-  if (PRODUCTION && !process.env.DATABASE_URL) {
-    throw new Error('DATABASE_URL is required in production; refusing to start with file storage');
+  if (PRODUCTION && !process.env.DATABASE_URL && !STORE_KEY) {
+    throw new Error('DATABASE_URL or STORE_KEY is required in production; refusing to start with unencrypted file storage');
   }
   if (process.env.DATABASE_URL) {
     databaseStore = new PostgresStore(createPool(), error => {
@@ -1113,16 +1547,27 @@ async function startServer() {
       throw new Error('A legacy JSON store exists on the mounted volume; preserve it and complete a verified migration before starting');
     }
   } else {
-    if (PRODUCTION) throw new Error('PostgreSQL is required in production');
+    if (PRODUCTION && !STORE_KEY) throw new Error('PostgreSQL or encrypted file storage is required in production');
     store = loadStore();
     fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+
+  const beforeTree = store['org/tree'] || null;
+  const migration = OrgTree.migrateStore(store, LEGACY_FACULTY, MIGRATION_ADMIN_SLUGS);
+  if (migration.changed) {
+    save();
+    audit('system', 'org-migration', {
+      before: { tree: beforeTree, people: [] },
+      after: { tree: store['org/tree'], importedPeople: migration.importedPeople }
+    });
+    await flushStore();
   }
 
   sweepSessions();
   server.listen(PORT, () => {
     console.log('Online Advising System on port ' + PORT);
-    console.log('  storage: ' + (databaseStore ? 'PostgreSQL' : 'local development files'));
-    console.log('  admins: ' + (ADMIN_SLUGS.join(', ') || 'none'));
+    console.log('  storage: ' + (databaseStore ? 'PostgreSQL' : STORE_KEY ? 'encrypted files (AES-256-GCM)' : 'local development files'));
+    console.log('  bootstrap superadmins: ' + (BOOTSTRAP_SUPERADMINS.join(', ') || 'none'));
     console.log('  sign-up ' + (ALLOW_SIGNUP ? 'open' : 'closed') + ', sessions ' + SESSION_HOURS + 'h (idle ' + SESSION_IDLE_MINUTES + ' min)');
     console.log('  email: ' + (mail.configured() ? 'on' : 'off') + ', public URL: ' + (PUBLIC_URL || 'not set'));
     if (!mail.configured() || !PUBLIC_URL) {
