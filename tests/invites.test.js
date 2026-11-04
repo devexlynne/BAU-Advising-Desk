@@ -66,7 +66,8 @@ async function run() {
       MAIL_API_URL: '',
       MAIL_API_KEY: '',
       PUBLIC_URL: BASE,
-      ADMIN_SLUGS: ''
+      ADMIN_SLUGS: '',
+      SUPERADMIN_EMAIL: 'system.desk@example.com'
     }),
     stdio: ['ignore', 'pipe', 'pipe']
   });
@@ -76,6 +77,22 @@ async function run() {
 
   try {
     await waitForServer(server);
+    {
+      // the dedicated superadmin: created at start-up from SUPERADMIN_EMAIL, set up by its own link
+      await new Promise(done => setTimeout(done, 200));
+      const first = JSON.parse(fs.readFileSync(path.join(DATA, 'store.json'), 'utf8'));
+      const sys = first['people/system-admin'];
+      assert.ok(sys && sys.email === 'system.desk@example.com' && sys.roles[0].role === 'superadmin' && !first['advisors/system-admin/account'],
+        'a separate superadmin record is created from SUPERADMIN_EMAIL, with no password yet');
+      const r = await post('/api/reset-request', { email: 'system.desk@example.com' });
+      assert.strictEqual(r.status, 200, 'the superadmin can ask for a set-up link');
+      await new Promise(done => setTimeout(done, 300));
+      const after = JSON.parse(fs.readFileSync(path.join(DATA, 'store.json'), 'utf8'));
+      assert.ok(Object.values(after._verifies || {}).some(v => v.slug === 'system-admin' && v.purpose === 'invite'),
+        'the set-up link for the separate superadmin is created for its own address');
+      const other = await post('/api/signin', { email: 'someone@example.com', password: 'Synthetic-any-pass-2026' });
+      assert.strictEqual(other.status, 401, 'no other address outside bau.edu.lb is accepted');
+    }
     {
       const r = await post('/api/reset-request', { email: 'never.joined@bau.edu.lb' });
       assert.strictEqual(r.status, 200, 'a set-up request is answered like any reset request');
@@ -207,6 +224,9 @@ async function run() {
       email: 'test.pending@bau.edu.lb', password: 'Synthetic-reset-password-2026'
     })).status, 200);
 
+    // with the separate superadmin still active, the other superadmin is not the last one
+    assert.strictEqual((await post('/api/people/deactivate', { slug: 'system-admin' }, adminCookie)).status, 200,
+      'a superadmin can deactivate the separate superadmin while another superadmin remains');
     const demoteLast = await post('/api/people/update', {
       slug: 'synthetic-superadmin',
       person: {},

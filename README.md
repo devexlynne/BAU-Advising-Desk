@@ -188,6 +188,10 @@ C 2.00, C- 1.67, **D 1.33**, F 0.00.
   The first startup seeds the Science > Mathematics and Computer Science > `cs` tree and imports
   legacy staff profiles idempotently. Existing account hashes are retained. The existing
   `ADMIN_SLUGS` setting remains a bootstrap superadmin list.
+- **Separate superadmin account** — set `SUPERADMIN_EMAIL` (for example the project's own
+  mailbox) and the server creates a staff record "Superadmin" for it at start-up. Its password is
+  set with "Forgot your password, or first time here?" on the sign-in page, which emails a set-up
+  link to that address. It is the only address outside bau.edu.lb the server accepts.
 - **University structure** — a superadmin adds and renames faculties, departments and
   programmes from the browser; a faculty admin does the same inside their own faculty only. A
   programme that already has a study plan, and Computer Science, cannot be removed.

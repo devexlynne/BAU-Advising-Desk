@@ -79,6 +79,14 @@ const BOOTSTRAP_SUPERADMINS = String(process.env.ADMIN_SLUGS || '')
 const MIGRATION_ADMIN_SLUGS = BOOTSTRAP_SUPERADMINS.length
   ? BOOTSTRAP_SUPERADMINS : LEGACY_ADMIN_SLUGS;
 const IDEAS_TO = process.env.IDEAS_TO || '';
+/* A dedicated superadmin account that is nobody's personal account. Its
+   address may be outside bau.edu.lb (for example the project's own mailbox);
+   it is the only such address the server accepts. */
+const SUPERADMIN_EMAIL = String(process.env.SUPERADMIN_EMAIL || '').trim().toLowerCase();
+const staffEmailOk = email => {
+  const e = String(email || '').trim().toLowerCase();
+  return /^[^@\s]+@bau\.edu\.lb$/.test(e) || (!!SUPERADMIN_EMAIL && e === SUPERADMIN_EMAIL);
+};
 
 // ---- storage --------------------------------------------------------------
 function loadStore() {
@@ -722,7 +730,7 @@ async function api(req, res, url) {
     const person = findPersonByEmail(email);
     const slug = person && person.slug;
     const key = 'in:' + (email || 'missing-email') + ':' + ip;
-    if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)) {
+    if (!staffEmailOk(email)) {
       await hash(String(body.password || '').slice(0, PASSWORD_MAX), 'no-account');
       failed(key);
       return json(res, 401, { error: 'that email and password do not match' });
@@ -837,7 +845,7 @@ async function api(req, res, url) {
        link. It goes only to the BAU address on file, so it proves the same
        thing an invitation does: they can read that mailbox. */
     if (person && person.active !== false && (!acct || !isVerified(acct)) && canVerify()
-        && /^[^@\s]+@bau\.edu\.lb$/.test(String(person.email || ''))) {
+        && staffEmailOk(person.email)) {
       if (acct) delete store[acctKey(slug)];      // an old sign-up that was never confirmed
       const link = invitationLink(req, slug, 'invite');
       sendInviteEmail(person, link)
@@ -1022,7 +1030,7 @@ async function api(req, res, url) {
       return json(res, 403, { error: 'you cannot manage this person' });
     }
     if (target.active === false) return json(res, 409, { error: 'this person is deactivated' });
-    if (!/^[^@\s]+@bau\.edu\.lb$/.test(String(target.email || ''))) return json(res, 400, { error: 'this person has no BAU email address on file' });
+    if (!staffEmailOk(target.email)) return json(res, 400, { error: 'this person has no BAU email address on file' });
     const acct = store[acctKey(slug)];
     if (acct && isVerified(acct)) return json(res, 409, { error: 'this person already has an account; use a password reset instead' });
     if (acct) delete store[acctKey(slug)];        // an old sign-up that was never confirmed
@@ -1082,7 +1090,7 @@ async function api(req, res, url) {
     }
     if (profile.email !== undefined) {
       const email = String(profile.email).trim().toLowerCase();
-      if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)
+      if (!staffEmailOk(email)
         || allPeople().some(person => person.slug !== slug && String(person.email || '').toLowerCase() === email)) {
         return json(res, 400, { error: 'use a unique BAU email address' });
       }
@@ -1569,6 +1577,29 @@ const server = http.createServer(async (req, res) => {
   json(res, 405, { error: 'method not allowed' });
 });
 
+// Creates the dedicated superadmin's staff record once, from SUPERADMIN_EMAIL.
+// Its password is set through "first time here?" on the sign-in page, which
+// emails a set-up link to that address.
+function ensureSuperadminAccount() {
+  if (!SUPERADMIN_EMAIL) return;
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(SUPERADMIN_EMAIL)) { console.warn('SUPERADMIN_EMAIL is not an email address; ignored'); return; }
+  const have = findPersonByEmail(SUPERADMIN_EMAIL);
+  if (have) {
+    if (!isSuperadmin(have.slug)) console.warn('SUPERADMIN_EMAIL belongs to ' + have.slug + ', who is not a superadmin; left unchanged');
+    return;
+  }
+  let slug = 'system-admin', n = 2;
+  while (store['people/' + slug]) slug = 'system-admin-' + n++;
+  store['people/' + slug] = {
+    slug, name: 'Superadmin', honorific: '', title: 'System administrator', email: SUPERADMIN_EMAIL,
+    photo: '', faculty: '', department: '', short: 'Superadmin', rank: '',
+    active: true, verified: false, roles: [{ role: 'superadmin', scopes: ['bau'] }]
+  };
+  save();
+  audit('system', 'superadmin-account-created', { target: slug });
+  console.log('  created the superadmin staff record ' + slug + ' for ' + SUPERADMIN_EMAIL);
+}
+
 async function startServer() {
   if (PRODUCTION && ALLOW_UNVERIFIED_SIGNUP) {
     throw new Error('ALLOW_UNVERIFIED_SIGNUP=true is not allowed in production');
@@ -1607,6 +1638,7 @@ async function startServer() {
     await flushStore();
   }
 
+  ensureSuperadminAccount();
   sweepSessions();
   server.listen(PORT, () => {
     console.log('Online Advising System on port ' + PORT);
