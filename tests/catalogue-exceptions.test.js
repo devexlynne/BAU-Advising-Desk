@@ -100,4 +100,42 @@ student.exceptions = [{ id: 'x3', kind: 'waive', course: missing.code, reason: '
 student.updatedAt = 4;
 ok(isOpen(vm.runInContext('E.snapshot(R, C, s)', ctx), missing.code), 'a removed exception no longer counts, and stays in the record');
 
-console.log('\n  ' + passed + ' passed, 0 failed');
+// ---- the deployed server loads the catalogue once by itself -----------------------------
+const { spawn } = require('child_process');
+const SEED_DATA = path.join(ROOT, '.test-data', 'catalogue-seed');
+const PORT = 3199;
+function startServer() {
+  const server = spawn(process.execPath, [path.join(ROOT, 'server.js')], {
+    cwd: ROOT, stdio: 'ignore',
+    env: Object.assign({}, process.env, { PORT: String(PORT), DATA_DIR: SEED_DATA, SEED_CATALOGUE: 'true', STORE_KEY: '', ADMIN_SLUGS: '' })
+  });
+  return new Promise((resolve, reject) => {
+    let tries = 0;
+    const poll = () => fetch('http://127.0.0.1:' + PORT + '/health').then(() => resolve(server))
+      .catch(() => (++tries > 80 ? reject(new Error('server did not start')) : setTimeout(poll, 100)));
+    poll();
+  });
+}
+const stopServer = server => new Promise(done => { server.on('exit', done); server.kill('SIGTERM'); });
+const readSeeded = () => JSON.parse(fs.readFileSync(path.join(SEED_DATA, 'store.json'), 'utf8'));
+(async () => {
+  fs.rmSync(SEED_DATA, { recursive: true, force: true });
+  let server = await startServer();
+  await stopServer(server);
+  let st = readSeeded();
+  ok(st['org/tree'].faculties.length === 10 && OrgTree.findNode(st['org/tree'], 'cs'),
+    'a fresh deployed server starts with all 10 faculties, Computer Science included');
+  const seededPlans = Object.keys(st).filter(k => /^programmes\/[a-z0-9-]+\/catalog$/.test(k));
+  ok(seededPlans.length === Object.keys(SEED.plans).length && !st['programmes/cs/catalog'],
+    'every catalogue study plan except the built-in Computer Science one is loaded, marked to check');
+  // someone removes a programme; a restart must not bring it back
+  st['org/tree'].faculties.find(f => f.id === 'engineering').departments
+    .find(d => d.id === 'civil-and-environmental-engineering').programmes = [];
+  fs.writeFileSync(path.join(SEED_DATA, 'store.json'), JSON.stringify(st));
+  server = await startServer();
+  await stopServer(server);
+  st = readSeeded();
+  ok(!OrgTree.findNode(st['org/tree'], 'be-civil') && st._seeds && st._seeds['catalogue-2020'],
+    'the catalogue loads only once: a programme removed afterwards stays removed');
+  console.log('\n  ' + passed + ' passed, 0 failed');
+})().catch(e => { console.error(e); process.exit(1); });

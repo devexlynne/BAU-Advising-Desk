@@ -192,6 +192,10 @@ C 2.00, C- 1.67, **D 1.33**, F 0.00.
   mailbox) and the server creates a staff record "Superadmin" for it at start-up. Its password is
   set with "Forgot your password, or first time here?" on the sign-in page, which emails a set-up
   link to that address. It is the only address outside bau.edu.lb the server accepts.
+- **Catalogue on the deployed server** — on the first start in production the server adds BAU's
+  faculties, departments and programmes and the catalogue study plans (marked "to check") from
+  `data/catalogue-2020.json`, once. Nothing existing is changed, and anything removed later is not
+  brought back. `SEED_CATALOGUE=false` turns it off; locally it is off unless set to `true`.
 - **University structure** — a superadmin adds and renames faculties, departments and
   programmes from the browser; a faculty admin does the same inside their own faculty only. A
   programme that already has a study plan, and Computer Science, cannot be removed.

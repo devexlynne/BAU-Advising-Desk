@@ -79,6 +79,9 @@ const BOOTSTRAP_SUPERADMINS = String(process.env.ADMIN_SLUGS || '')
 const MIGRATION_ADMIN_SLUGS = BOOTSTRAP_SUPERADMINS.length
   ? BOOTSTRAP_SUPERADMINS : LEGACY_ADMIN_SLUGS;
 const IDEAS_TO = process.env.IDEAS_TO || '';
+// Load BAU's faculties, programmes and catalogue study plans once at start-up
+// (on by default on the deployed server, off for local development and tests).
+const SEED_CATALOGUE = boolEnv('SEED_CATALOGUE', PRODUCTION);
 /* A dedicated superadmin account that is nobody's personal account. Its
    address may be outside bau.edu.lb (for example the project's own mailbox);
    it is the only such address the server accepts. */
@@ -1600,6 +1603,46 @@ function ensureSuperadminAccount() {
   console.log('  created the superadmin staff record ' + slug + ' for ' + SUPERADMIN_EMAIL);
 }
 
+/* Adds the faculties, departments and programmes of data/catalogue-2020.json
+   that are not in the structure yet, and gives each programme without a study
+   plan the plan read from the catalogue (marked "to check"). Runs once: a
+   marker in the store stops it from bringing back anything removed later.
+   Nothing that already exists is renamed, moved or replaced. */
+function seedCatalogueOnce() {
+  if (!SEED_CATALOGUE) return;
+  const marks = store._seeds || (store._seeds = {});
+  if (marks['catalogue-2020']) return;
+  let seed;
+  try { seed = require('./data/catalogue-2020.json'); } catch (e) { console.warn('catalogue seed missing; skipped'); return; }
+  const tree = JSON.parse(JSON.stringify(store['org/tree'] || OrgTree.DEFAULT_TREE));
+  const ids = new Set(OrgTree.allNodes(tree).map(n => n.id));
+  let added = 0;
+  const merge = (into, from, key, childKey) => (from[key] || []).forEach(child => {
+    let have = (into[key] || []).find(x => x.id === child.id);
+    if (!have) {
+      if (ids.has(child.id)) return;            // that id is used elsewhere: leave it alone
+      have = JSON.parse(JSON.stringify(childKey ? Object.assign({}, child, { [childKey]: [] }) : child));
+      into[key].push(have); ids.add(child.id); added++;
+    }
+    if (childKey) merge(have, child, childKey, childKey === 'departments' ? 'programmes' : null);
+  });
+  merge(tree, seed.tree, 'faculties', 'departments');
+  const check = OrgTree.validateTree(tree);
+  if (!check.ok) { console.warn('catalogue seed not applied: ' + check.error); return; }
+  const before = store['org/tree'] || null;
+  store['org/tree'] = tree;
+  const plans = [];
+  Object.keys(seed.plans || {}).forEach(id => {
+    if (id === 'cs' || !OrgTree.findNode(tree, id) || store['programmes/' + id + '/catalog']) return;
+    store['programmes/' + id + '/catalog'] = Object.assign({}, seed.plans[id], { updatedAt: Date.now(), updatedBy: 'catalogue-2020' });
+    plans.push(id);
+  });
+  marks['catalogue-2020'] = { at: Date.now(), added, plans };
+  save();
+  audit('system', 'catalogue-seeded', { before: before ? { faculties: (before.faculties || []).length } : null, added, plans });
+  console.log('  catalogue 2020-2021: ' + added + ' faculties, departments and programmes added, ' + plans.length + ' study plans to check');
+}
+
 async function startServer() {
   if (PRODUCTION && ALLOW_UNVERIFIED_SIGNUP) {
     throw new Error('ALLOW_UNVERIFIED_SIGNUP=true is not allowed in production');
@@ -1639,6 +1682,7 @@ async function startServer() {
   }
 
   ensureSuperadminAccount();
+  seedCatalogueOnce();
   sweepSessions();
   server.listen(PORT, () => {
     console.log('Online Advising System on port ' + PORT);
