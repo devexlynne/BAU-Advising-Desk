@@ -441,7 +441,7 @@ async function signedIn(person, silent) {
            then it's just a normal list (same pages, rules, arithmetic). */
     try {
       state.everyone = await loadEveryone();
-      state.everyoneErr = Object.keys(state.everyone).length ? '' : 'No advisor has imported a list yet.';
+      state.everyoneErr = '';   // an empty programme gets its own empty page
     } catch (e) {
       state.everyone = {}; state.everyoneErr = 'Could not reach the department lists just now.';
     }
@@ -1409,7 +1409,8 @@ function viewStudents() {
                ['under', 'Under ' + R.load['REG-LOAD-01'].min + ' credits', advisees().filter(underLoad).length],
                ['over', 'Over ' + R.load['REG-LOAD-01'].max + ' credits', advisees().filter(overLoad).length]];
   return `<div class="wrap">
-    <div class="page-h"><h1>All students</h1><p>${esc(shortTerm(state.term))}</p></div>
+    <div class="page-h"><h1>All students</h1><p>${programmeLine()} · ${esc(shortTerm(state.term))}</p></div>
+    ${!state.students.length ? emptyProgrammeHtml() : ''}
     <div class="filters">
       <div class="search"><input id="q" placeholder="Search by name or ID" value="${esc(state.q)}" autocomplete="off"></div>
       <div class="seg">${seg.map(([k, l, n]) => `<button data-filter="${k}" aria-pressed="${state.filter === k}">${l}<span class="segn">${n}</span></button>`).join('')}</div>
@@ -4310,7 +4311,7 @@ function resetLinkPanel() {
 
 function viewEveryone() {
   if (state.everyoneErr) {
-    return `<div class="wrap"><div class="page-h"><h1>Everyone</h1></div>
+    return `<div class="wrap"><div class="page-h"><h1>Everyone</h1><p>${programmeLine()}</p></div>
       <div class="panel"><p class="empty">${esc(state.everyoneErr)}</p></div></div>`;
   }
   if (!state.everyone) {
@@ -4339,7 +4340,9 @@ function viewEveryone() {
 
   return `<div class="wrap">
     <div class="page-h"><h1>Everyone</h1>
+      <p>${programmeLine()}</p>
       <p>${allStudentCount()} students · ${tally.urgent} urgent · ${tally.watch} to plan · ${tally.ok} on track</p></div>
+    ${!departmentList().length ? emptyProgrammeHtml() : ''}
 
     ${(() => {
       const crit = departmentList().filter(isCritical);
