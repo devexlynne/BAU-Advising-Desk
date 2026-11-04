@@ -4091,6 +4091,10 @@ function viewPeople() {
   const allowedScopeKinds = new Set(scopeKindsForRole(selectedRole));
   const scopeOptions = manageableScopeRows();
   const selectedScopes = editing && currentRole ? currentRole.scopes || [] : [];
+  // a second, advisor role next to an admin role (an admin with their own advisees)
+  const advisingOptions = scopeOptions.filter(row => row.kind === 'programme');
+  const extraAdvisor = editing && editing.person && (editing.person.roles || []).slice(1).find(r => r && r.role === 'advisor');
+  const alsoAdvises = extraAdvisor && (extraAdvisor.scopes || [])[0] || '';
   const form = editing ? `<div class="panel"><div class="hd">${editing.mode === 'invite' ? 'Invite a staff member' : 'Edit staff member'}</div>
     <form class="bd stack" id="peopleForm">
       <label class="f">Staff ID (slug)
@@ -4108,6 +4112,10 @@ function viewPeople() {
           ${scopeOptions.map(row => `<option value="${esc(row.id)}" data-kind="${row.kind}" ${allowedScopeKinds.has(row.kind) ? '' : 'hidden'} ${selectedScopes.includes(row.id) ? 'selected' : ''}>${esc(row.label)}</option>`).join('')}
         </select>
       </label>
+      ${advisingOptions.length ? `<label class="f">Also advises students in (optional)
+        <select name="alsoAdvises"><option value="">No own advisees</option>${advisingOptions.map(row => `<option value="${esc(row.id)}" ${alsoAdvises === row.id ? 'selected' : ''}>${esc(row.label)}</option>`).join('')}</select>
+      </label>
+      <p class="note">For an admin who also has their own advisees: they keep their admin role and get their own student list in that programme.</p>` : ''}
       <p class="note">Use Ctrl or Command to select more than one programme scope. Only BAU email addresses can be invited.</p>
       ${peopleMessage ? `<p class="note">${esc(peopleMessage)}</p>` : ''}
       <div style="display:flex;gap:8px"><button class="btn primary" type="submit">${editing.mode === 'invite' ? 'Send invitation' : 'Save changes'}</button>
@@ -4174,6 +4182,8 @@ async function savePersonForm(ev) {
   };
   const mode = peopleForm.mode;
   const roles = [{ role, scopes }];
+  const alsoAdvises = String(values.get('alsoAdvises') || '');
+  if (alsoAdvises && !(role === 'advisor' && scopes.includes(alsoAdvises))) roles.push({ role: 'advisor', scopes: [alsoAdvises] });
   peopleForm = { mode, person: Object.assign({}, profile, { roles }) };
   peopleMessage = '';
   try {
