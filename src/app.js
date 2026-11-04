@@ -304,7 +304,7 @@ function drawGate() {
           </label>
           <p class="err" id="gateErr" hidden></p>
           <button class="btn primary" type="submit" style="justify-content:center">Sign in</button>
-          <button class="linkbtn" type="button" data-reset="1">I forgot my password</button>
+          <button class="linkbtn" type="button" data-reset="1">Forgot your password, or first time here?</button>
           <p class="note" style="text-align:center">Staff accounts are created by invitation. Use your BAU email address.</p>
         </form>
       </div>
@@ -314,14 +314,14 @@ function drawGate() {
 
   if (gateStep === 'reset') {
     g.innerHTML = `<div class="gate-inner"><div class="card">
-      <div class="pic"><div><b>Forgot your password?</b><span>Reset using your BAU email</span></div></div>
+      <div class="pic"><div><b>Forgot your password, or first time here?</b><span>We email a link to your BAU address to set a password</span></div></div>
       <form class="stack" id="resetRequestForm">
         <label class="f" for="resetEmail">BAU email
           <input id="resetEmail" type="email" value="${esc(resetEmail)}" autocomplete="username" required>
         </label>
         <p class="err" id="gateErr" hidden></p>
         <p class="okmsg" id="mailSent" hidden></p>
-        <button class="btn primary" type="submit" style="justify-content:center">Email me a reset link</button>
+        <button class="btn primary" type="submit" style="justify-content:center">Email me a link</button>
         <button class="btn ghost" type="button" data-back="1" style="justify-content:center">Back</button>
       </form>
     </div></div>`;

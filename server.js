@@ -832,6 +832,20 @@ async function api(req, res, url) {
     if (tooMany(key) || (slug && tooMany('req-acct:' + slug))) return json(res, 429, { error: 'too many tries, wait a few minutes' });
     failed(key); if (slug) failed('req-acct:' + slug);
     const acct = store[acctKey(slug)];
+    /* Someone on the staff list who has no working account yet (the original
+       doctors never finished sign-up) gets a set-up link instead of a reset
+       link. It goes only to the BAU address on file, so it proves the same
+       thing an invitation does: they can read that mailbox. */
+    if (person && person.active !== false && (!acct || !isVerified(acct)) && canVerify()
+        && /^[^@\s]+@bau\.edu\.lb$/.test(String(person.email || ''))) {
+      if (acct) delete store[acctKey(slug)];      // an old sign-up that was never confirmed
+      const link = invitationLink(req, slug, 'invite');
+      sendInviteEmail(person, link)
+        .catch(e => console.error('could not send the set-up email:', e.message));
+      save();
+      audit(slug, 'setup-link-requested', { ip });
+      return json(res, 200, { ok: true, mail: true });
+    }
     // emailed links always use PUBLIC_URL, never the request's Host header
     if (person && person.active !== false && acct && acct.email && mail.configured() && PUBLIC_URL) {
       const link = PUBLIC_URL + '/?reset=' + newResetToken(slug);

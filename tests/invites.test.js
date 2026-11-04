@@ -49,6 +49,9 @@ async function run() {
       slug: 'synthetic-pending', at: Date.now()
     }
   };
+  // on the original staff list, never set up an account
+  store['people/synthetic-never-joined'] = person('synthetic-never-joined', 'never.joined@bau.edu.lb',
+    [{ role: 'advisor', scopes: ['cs'] }]);
   writeStore(DATA, store);
 
   const server = spawn(process.execPath, [path.join(ROOT, 'server.js')], {
@@ -73,6 +76,15 @@ async function run() {
 
   try {
     await waitForServer(server);
+    {
+      const r = await post('/api/reset-request', { email: 'never.joined@bau.edu.lb' });
+      assert.strictEqual(r.status, 200, 'a set-up request is answered like any reset request');
+      await new Promise(done => setTimeout(done, 300));
+      const saved = JSON.parse(fs.readFileSync(path.join(DATA, 'store.json'), 'utf8'));
+      assert.ok(Object.values(saved._verifies || {}).some(v => v.slug === 'synthetic-never-joined' && v.purpose === 'invite'),
+        'a listed doctor without an account gets a set-up link by asking with their BAU email');
+      assert.ok(!saved['advisors/synthetic-never-joined/account'], 'no account exists until the link is used');
+    }
     assert.strictEqual((await fetch(BASE + '/api/accounts')).status, 401,
       'account enumeration must require a session');
 
