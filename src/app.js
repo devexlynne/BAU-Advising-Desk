@@ -3990,6 +3990,7 @@ function viewIdeas() {
    advisor's name, filters work across everyone. */
 
 let peopleQuery = '', peopleForm = null, peopleMessage = '';
+let reinviteResult = null;   // the last invitation sent from People, shown once
 
 function orgScopeRows() {
   const rows = [];
@@ -4122,6 +4123,7 @@ function viewPeople() {
             <span class="who-meta">${esc(person.email || '')}<i class="sep-dot" aria-hidden="true"></i>${esc((person.roles || []).map(role => role.role).join(', '))}
               <i class="sep-dot" aria-hidden="true"></i>${esc(personRoleScope(person))}</span></span>
           </span><span class="act" style="display:flex;gap:6px">
+            ${person.verified === false && person.active !== false && person.slug !== state.me.slug ? `<button class="btn sm" data-person-reinvite="${esc(person.slug)}">Send invitation</button>` : ''}
             <button class="btn sm" data-person-edit="${esc(person.slug)}">Edit</button>
             ${person.active !== false ? `<button class="btn sm danger" data-person-deactivate="${esc(person.slug)}">Deactivate</button>` : ''}
           </span>
@@ -4134,6 +4136,12 @@ function viewPeople() {
       <button class="btn primary" data-person-add="1">Invite staff</button>
     </div>
     ${form}
+    ${reinviteResult ? `<div class="chk info"><span class="ic">&check;</span><span class="tx">
+      <p><b>Invitation for ${esc(reinviteResult.name)}</b>${reinviteResult.emailed ? ' sent to ' + esc(reinviteResult.email) + '.' : ' created. The email could not be sent, so hand over the link yourself.'}</p>
+      ${reinviteResult.link ? `<p style="margin-top:6px">Link (works once, for ${esc(reinviteResult.hours)} hours). Whoever opens it sets this person's password:</p>
+        <input class="pin mono" readonly value="${esc(reinviteResult.link)}" style="width:100%;margin-top:4px">
+        <p class="note" style="margin-top:4px">If you open it yourself in this browser you will be signed in as them; use a private window, then sign out.</p>` : ''}
+    </span></div>` : ''}
     ${sections || '<p class="note">No people match this search.</p>'}
   </div>`;
 }
@@ -4672,6 +4680,16 @@ async function onClick(e) {
     return;
   }
   if (t.closest('[data-people-cancel]')) { peopleForm = null; peopleMessage = ''; render(); return; }
+  const personReinvite = t.closest('[data-person-reinvite]');
+  if (personReinvite) {
+    const person = state.people.find(member => member.slug === personReinvite.dataset.personReinvite);
+    if (!person) return;
+    const r = await Store.reinvitePerson(person.slug);
+    reinviteResult = { name: fullName(person), emailed: !!r.emailed, email: r.email, link: r.link || '', hours: r.hours };
+    render(); window.scrollTo(0, 0);
+    toast(r.emailed ? 'Invitation sent to ' + r.email : 'Invitation link created');
+    return;
+  }
   const personDeactivate = t.closest('[data-person-deactivate]');
   if (personDeactivate) {
     const person = state.people.find(member => member.slug === personDeactivate.dataset.personDeactivate);

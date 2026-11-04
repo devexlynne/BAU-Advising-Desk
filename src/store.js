@@ -320,6 +320,10 @@
     return post('/api/people/update', { slug, person, roles });
   }
 
+  async function reinvitePerson(slug) {
+    return post('/api/people/reinvite', { slug });
+  }
+
   async function deactivatePerson(slug) {
     return post('/api/people/deactivate', { slug });
   }
@@ -466,7 +470,7 @@
     init, isShared: () => api || !!db, isServer: () => api,
     whoAmI, signOutServer, lastError: () => lastError,
     isAdmin: () => amAdmin, mailReady: () => mailOn, allStudents, loadPeople, loadOrgTree,
-    invitePerson, updatePerson, deactivatePerson, sendMail, adminResetLink, adminClearPassword,
+    invitePerson, updatePerson, deactivatePerson, reinvitePerson, sendMail, adminResetLink, adminClearPassword,
     mailReset: () => mailOn, requestResetEmail, resetWithLink,
     verifyAccount, resendVerify, signIn, lastUnverified: () => lastUnverified,
     getAccount, createAccount, checkPassword, accountsThatExist,

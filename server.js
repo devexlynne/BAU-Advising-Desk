@@ -997,6 +997,36 @@ async function api(req, res, url) {
     return json(res, 200, { ok: true, slug: person.slug, inviteLink: isTestAddress(person.email) ? link : undefined });
   }
 
+  /* Invite someone who is already on the staff list but has no working
+     account yet (for example a doctor from the original list who never signed
+     up). A new single-use link is emailed to their BAU address. A superadmin
+     also gets the link back, to hand over when email is not set up. */
+  if (p === '/api/people/reinvite') {
+    const slug = String(body.slug || '');
+    const target = SLUG.test(slug) ? personOf(slug) : null;
+    if (!target || !store['people/' + slug] || !canManagePerson(me.slug, target) || me.slug === slug) {
+      return json(res, 403, { error: 'you cannot manage this person' });
+    }
+    if (target.active === false) return json(res, 409, { error: 'this person is deactivated' });
+    if (!/^[^@\s]+@bau\.edu\.lb$/.test(String(target.email || ''))) return json(res, 400, { error: 'this person has no BAU email address on file' });
+    const acct = store[acctKey(slug)];
+    if (acct && isVerified(acct)) return json(res, 409, { error: 'this person already has an account; use a password reset instead' });
+    if (acct) delete store[acctKey(slug)];        // an old sign-up that was never confirmed
+    const link = invitationLink(req, slug, 'invite');
+    let emailed = false;
+    if (!isTestAddress(target.email) && canVerify()) {
+      try { await sendInviteEmail(target, link); emailed = true; }
+      catch (e) { console.error('could not send the invitation email:', e.message); }
+    } else if (isTestAddress(target.email) || !PRODUCTION) {
+      console.log('Invitation for ' + target.email + ': ' + link);
+    }
+    save();
+    audit(me.slug, 'person-reinvited', { target: slug, emailed, ip });
+    const showLink = isSuperadmin(me.slug) || isTestAddress(target.email);
+    if (!emailed && !showLink) return json(res, 502, { error: 'the invitation email could not be sent' });
+    return json(res, 200, { ok: true, emailed, email: target.email, link: showLink ? link : undefined, hours: VERIFY_HOURS });
+  }
+
   if (p === '/api/people/update') {
     const slug = String(body.slug || '');
     const current = SLUG.test(slug) ? personOf(slug) : null;
