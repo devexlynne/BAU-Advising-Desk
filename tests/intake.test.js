@@ -1,7 +1,8 @@
 'use strict';
-/* The faculty set-up workbook: reading the .xlsx, turning it into structure,
-   study plans, rule values and staff, refusing what is wrong, and loading it
-   through the normal server routes. Synthetic data only. */
+/* Study-plan files sent to departments: reading the .xlsx, turning one file
+   into one programme (structure, study plan, rule values, staff), refusing
+   what is wrong, and loading it through the normal server routes.
+   Synthetic data only. */
 const assert = require('assert');
 const { spawn } = require('child_process');
 const fs = require('fs');
@@ -12,68 +13,75 @@ const OrgTree = require('../src/org-tree');
 const { PASSWORDS, defaultStore, writeStore } = require('./helpers/auth-fixture');
 
 const ROOT = path.join(__dirname, '..');
-const FILE = path.join(__dirname, 'fixtures', 'intake-sample.xlsx');
+const ACC = path.join(__dirname, 'fixtures', 'intake-accounting.xlsx');
+const NEW = path.join(__dirname, 'fixtures', 'intake-new-programme.xlsx');
 const PORT = 3197;
 const BASE = 'http://127.0.0.1:' + PORT;
 const DATA = path.join(ROOT, '.test-data', 'intake');
 const known = require('../data/catalog.json').universityElectives.map(c => c.code);
 let passed = 0;
 const ok = (cond, msg) => { assert.ok(cond, msg); passed++; console.log('  ok  ' + msg); };
-const read = () => Intake.readWorkbook(fs.readFileSync(FILE), b => zlib.inflateRawSync(b));
+const read = file => Intake.readWorkbook(fs.readFileSync(file), b => zlib.inflateRawSync(b));
 const copy = v => JSON.parse(JSON.stringify(v));
-const headerAt = (book, sheet, name) => book[sheet][4].findIndex(h => String(h).trim() === name);
+const rowOf = (book, text) => book['Study plan'].findIndex(r => r && r[0] === text);
 
 async function moduleChecks(tree) {
-  const book = await read();
-  ok(book['5 Courses'] && book['3 Programmes'] && book.Lists, 'the .xlsx is read sheet by sheet without any extra library');
-  const got = Intake.fromWorkbook(book, { tree, known, fileName: 'sample.xlsx' });
-  ok(got.report.errors.length === 0, 'the sample workbook has no errors' + (got.report.errors.length ? ': ' + got.report.errors.join(' | ') : ''));
-  ok(got.facultyId === 'business-administration' && OrgTree.validateTree(got.tree).ok, 'it describes the Faculty of Business Administration and gives a valid structure');
-  ok(OrgTree.findNode(got.tree, 'bba-digital-business') && OrgTree.isWithin(got.tree, 'accounting', 'bba-digital-business'),
-    'a new programme without an ID gets one from its name, under the department given');
-  const digital = got.plans['bba-digital-business'];
-  ok(digital && digital.totalCredits === 100 && digital.buckets.MAJOR_CORE.credits === 27, 'the new programme has its credits and blocks');
-  const c301 = digital.courses.find(c => c.code === 'BDIG301');
-  ok(c301 && c301.minGrade === 'C' && c301.runsIn.join() === 'FALL' && c301.preOneOf && c301.preOneOf[0].join() === 'BACC201,BECO201' && !c301.pre.length,
-    '"A OR B" is kept as one-of, not turned into both');
-  const intern = digital.courses.find(c => c.code === 'BDIG490');
-  ok(intern && intern.minEarned === 90 && intern.noGpa === true && intern.kind === 'Internship', 'credit-gated, pass/fail and internship details are kept on the course');
-  ok(Object.keys(got.plans).every(id => got.plans[id].courses.some(c => c.code === 'BUSN100')), 'a course entered once for ALL is added to every programme of the faculty');
-  ok(!got.plans['bba-economics'] && got.report.warnings.some(w => /BBA Economics: not filled in yet/.test(w)), 'a programme nobody filled in keeps its current plan');
-  ok(got.plans['bba-accounting'].needsReview && !digital.needsReview, 'rows still marked "To check" make the plan load as "to check"');
-  ok(got.rules['bba-management']['R.graduation.minCgpa'].value === 2.2 && got.rules['bba-digital-business']['R.load.REG-LOAD-01.max'].value === 17
-    && !got.rules['bba-management']['R.load.REG-LOAD-01.max'], 'a faculty rule applies to all its programmes, a programme rule only to that one');
-  ok(digital.intake.rules.some(r => r.rule === 'MIN_GRADE_MAJOR' && r.value === 'C'), 'rules the system cannot apply yet are recorded with the plan, with their source');
-  ok(got.people.length === 2 && got.people[1].roles.some(r => r.role === 'faculty-admin') && got.people[1].roles.some(r => r.role === 'advisor' && r.scopes[0] === 'bba-accounting'),
-    'staff come with their role, scope and the programme they also advise in');
-  ok(digital.intake.approvals[0].approvedBy === 'Chairperson' && got.questions.length === 1, 'approvals and questions travel with the import');
+  const acc = await read(ACC);
+  ok(Object.keys(acc).includes('Study plan'), 'the .xlsx is read without any extra library');
+  let got = Intake.fromWorkbook(acc, { tree, known, fileName: 'acc.xlsx' });
+  ok(got.report.errors.length === 0, 'a checked programme file has no errors' + (got.report.errors.length ? ': ' + got.report.errors.join(' | ') : ''));
+  ok(got.programmeId === 'bba-accounting' && !got.isNew && got.plan.courses.length === 39 && got.plan.totalCredits === 100,
+    'the file knows which programme it belongs to, and brings its credits and courses');
+  ok(got.plan.buckets.FACULTY_CORE.credits === 48 && got.plan.buckets.FACULTY_CORE.label === 'Common Requirement Courses',
+    'blocks keep the name the study plan prints');
+  ok(!got.plan.needsReview && got.plan.source.checkedBy === 'Synthetic Chair', '"Everything is correct: Yes" loads it as checked, with who checked it');
+  ok(OrgTree.findNode(got.tree, 'bba-accounting').nameAr === 'بكالوريوس المحاسبة', 'the Arabic name goes into the structure');
+  ok(got.rules['R.graduation.minCgpa'].value === 2.2 && got.plan.intake.rules[0].value === 'C',
+    'a different rule is applied, and one the system cannot apply yet is kept with its source');
+  ok(got.people.length === 2 && got.people[1].roles[0].role === 'programme-editor' && got.people[1].roles[0].scopes[0] === 'bba-accounting',
+    'staff come with their role on this programme');
+
+  const fresh = await read(NEW);
+  got = Intake.fromWorkbook(fresh, { tree, known, fileName: 'new.xlsx' });
+  ok(got.report.errors.length === 0 && got.isNew && got.programmeId === 'bba-digital-business'
+    && OrgTree.isWithin(got.tree, 'accounting', 'bba-digital-business'), 'the blank file creates a new programme in the department picked');
+  const c301 = got.plan.courses.find(c => c.code === 'BDIG301');
+  ok(c301.preOneOf[0].join() === 'BACC201,BECO201' && !c301.pre.length, '"A OR B" stays one-of, not both');
+  const c490 = got.plan.courses.find(c => c.code === 'BDIG490');
+  ok(c490.minEarned === 90 && c490.noGpa && got.plan.courses.find(c => c.code === 'BDIG302').minGrade === 'C',
+    'plain notes like "pass/fail, needs 90 credits first" and "lowest grade C" are understood');
+  ok(got.rules['R.load.REG-LOAD-01.max'].value === 17, 'a programme rule value is read');
+
+  const kept = Intake.keepFromExisting(got.plan, { tracks: { SEC: { label: 'Security', courses: ['BDIG301'], coursesRequired: 1 } }, deptElectiveSlots: [4, 5] });
+  ok(kept.tracks.SEC && kept.deptElectiveSlots.join() === '4,5', 'tracks and settings already in the system are kept, not wiped');
 
   // what must stop a load
-  let bad = copy(book);
+  let bad = copy(acc);
   bad.Lists[1][24] = 'something else';
-  ok(Intake.fromWorkbook(bad, { tree }).report.errors.length === 1, 'a spreadsheet that is not the set-up workbook is refused');
-  bad = copy(book);
-  bad['5 Courses'][4][headerAt(bad, '5 Courses', 'Prerequisites')] = 'Prereqs';
-  ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /no column "Prerequisites"/.test(e)), 'a renamed column is reported, not guessed');
-  bad = copy(book);
-  const rr = bad['7 Rules'].findIndex(r => r && r[1] === 'GRAD_CGPA' && r[5] === 2.2);
-  bad['7 Rules'][rr][5] = 7;
-  ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /GRAD_CGPA must be a number from 0 to 4/.test(e)), 'a rule value out of range is refused');
-  bad = copy(book);
-  const pr = bad['8 People'].findIndex(r => r && /test\.intake\.advisor/.test(r[2]));
-  bad['8 People'][pr][2] = 'someone@gmail.com';
+  ok(Intake.fromWorkbook(bad, { tree }).report.errors.length === 1, 'a spreadsheet that is not a study-plan file is refused');
+  bad = copy(acc);
+  bad['Study plan'][rowOf(bad, '5. Courses')][0] = 'Courses';
+  ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /5\. Courses/.test(e)), 'a renamed section is reported, not guessed');
+  bad = copy(acc);
+  bad['Study plan'][rowOf(bad, '3. Rules that are different for this programme') + 2][4] = 7;
+  ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /from 0 to 4/.test(e)), 'a rule value out of range is refused');
+  bad = copy(acc);
+  bad['Study plan'][rowOf(bad, '4. People who advise or edit this programme') + 2][3] = 'someone@gmail.com';
   ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /@bau\.edu\.lb/.test(e)), 'staff must have a BAU email');
-  bad = copy(book);
-  const cr = bad['5 Courses'].findIndex(r => r && r[1] === 'BDIG302');
-  bad['5 Courses'][cr][8] = 'BDIG302';
-  ok(Intake.fromWorkbook(bad, { tree, known }).report.errors.some(e => /cannot require itself/.test(e)), 'the study plan checks of the setup page run on every programme');
-  bad = copy(book);
-  bad['3 Programmes'].find(r => r && r[0] === 'bba-accounting')[0] = 'cs';
-  ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /cs is already used in another faculty/.test(e)), 'an ID used in another faculty is refused');
-  const merged = Intake.mergeRules({ values: { 'R.load.REG-LOAD-01.min': 12 }, history: [] }, got.rules['bba-digital-business'], 'Synthetic', 'workbook');
+  bad = copy(acc);
+  const first = rowOf(bad, '5. Courses') + 3;
+  bad['Study plan'][first + 1][0] = bad['Study plan'][first][0];
+  ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /listed twice/.test(e)), 'a course listed twice is refused');
+  bad = copy(acc);
+  bad['Study plan'][first][5] = bad['Study plan'][first][0];
+  ok(Intake.fromWorkbook(bad, { tree, known }).report.errors.some(e => /cannot require itself/.test(e)), 'the study plan checks of the setup page run too');
+  bad = copy(acc);
+  bad['Study plan'][first][3] = 'Lab block';
+  ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /not in section 2/.test(e)), 'a course in a block the plan does not have is refused');
+
+  const merged = Intake.mergeRules({ values: { 'R.load.REG-LOAD-01.min': 12 }, history: [] }, got.rules, 'Synthetic', 'file');
   ok(merged.values['R.load.REG-LOAD-01.min'] === 12 && merged.values['R.load.REG-LOAD-01.max'] === 17 && merged.history[0].before.values['R.load.REG-LOAD-01.min'] === 12,
     'rule values join the saved ones with a history entry, so the Rules page can undo them');
-  return got;
 }
 
 const post = (route, body, cookie) => fetch(BASE + route, {
@@ -96,46 +104,38 @@ async function serverChecks() {
     const signIn = async (email, password) => (await post('/api/signin', { email, password })).headers.get('set-cookie').split(';')[0];
     const admin = await signIn('test.superadmin@bau.edu.lb', PASSWORDS.admin);
     const business = await signIn('test.business.admin@bau.edu.lb', PASSWORDS.business);
-    const tree = (await (await post('/api/org/tree', {}, admin)).json()).tree;
-    const got = Intake.fromWorkbook(await read(), { tree, known });
-    ok(got.report.errors.length === 0, 'the sample workbook reads cleanly against the live structure');
+    let tree = (await (await post('/api/org/tree', {}, admin)).json()).tree;
 
-    // the faculty's own admin can load it: it only touches their faculty
-    let r = await post('/api/org/tree', { tree: got.tree }, business);
-    ok(r.status === 200, 'the Business faculty admin can load the structure of their own faculty');
-    for (const id of Object.keys(got.plans)) {
-      r = await post('/api/set', { path: 'programmes/' + id + '/catalog', value: got.plans[id] }, business);
-      assert.strictEqual(r.status, 200, id + ': ' + await r.text());
+    // two files, loaded one after the other the way the page does
+    for (const file of [ACC, NEW]) {
+      const got = Intake.fromWorkbook(await read(file), { tree, known });
+      assert.strictEqual(got.report.errors.length, 0, path.basename(file));
+      let r = await post('/api/org/tree', { tree: got.tree }, business);
+      assert.strictEqual(r.status, 200, 'tree ' + path.basename(file));
+      tree = (await r.json()).tree;
+      r = await post('/api/set', { path: 'programmes/' + got.programmeId + '/catalog', value: got.plan }, business);
+      assert.strictEqual(r.status, 200, 'plan ' + path.basename(file) + ': ' + await r.text());
+      r = await post('/api/set', { path: 'config/' + got.programmeId + '/rules', value: Intake.mergeRules(null, got.rules, 'Synthetic', 'file') }, business);
+      assert.strictEqual(r.status, 200, 'rules ' + path.basename(file));
+      for (const p of got.people) assert.strictEqual((await post('/api/people/invite', p, business)).status, 200, p.person.email);
     }
-    ok(true, 'every study plan in the workbook is accepted by the server checks');
-    for (const id of Object.keys(got.rules)) {
-      const next = Intake.mergeRules(null, got.rules[id], 'Synthetic', 'workbook');
-      r = await post('/api/set', { path: 'config/' + id + '/rules', value: next }, business);
-      assert.strictEqual(r.status, 200, id + ' rules');
-    }
-    ok(true, 'the rule values are saved per programme');
-    const inv = await post('/api/people/invite', got.people[0], business);
-    ok(inv.status === 200 && (await inv.json()).inviteLink, 'a person from the workbook can be invited with their role');
-
+    ok(true, 'the faculty admin loads both files: structure, study plans, rules and invitations all pass the server checks');
     const st = JSON.parse(fs.readFileSync(path.join(DATA, 'store.json'), 'utf8'));
-    ok(st['programmes/bba-digital-business/catalog'].courses.length === 4
+    ok(st['programmes/bba-digital-business/catalog'].courses.length === 5 && st['programmes/bba-accounting/catalog'].courses.length === 39
       && st['config/bba-digital-business/rules'].values['R.load.REG-LOAD-01.max'] === 17
-      && st['people/test-intake-advisor'].roles[0].scopes[0] === 'bba-digital-business',
-    'the new programme, its plan, its rules and its advisor are all in the system');
+      && st['people/test-intake-editor'].roles[0].role === 'programme-editor',
+    'both programmes, their plans, rules and staff are in the system');
 
-    // but not another faculty's
-    const science = copy(got.tree);
+    const science = copy(tree);
     science.faculties.find(f => f.id === 'science').name = 'Changed by Business';
-    r = await post('/api/org/tree', { tree: science }, business);
-    ok(r.status === 403, 'a faculty admin still cannot change another faculty through a workbook');
+    ok((await post('/api/org/tree', { tree: science }, business)).status === 403, 'a faculty admin still cannot change another faculty');
   } finally {
     await new Promise(done => { server.on('exit', done); server.kill('SIGTERM'); });
   }
 }
 
 (async () => {
-  const tree = defaultStore()['org/tree'];
-  await moduleChecks(tree);
+  await moduleChecks(defaultStore()['org/tree']);
   await serverChecks();
   console.log('\n  ' + passed + ' passed, 0 failed');
 })().catch(e => { console.error(e); process.exit(1); });

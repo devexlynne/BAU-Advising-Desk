@@ -1,58 +1,31 @@
 /*
- * intake.js - reads a faculty set-up workbook (made by
+ * intake.js - reads a programme's study-plan file (one sheet, made by
  * scripts/build-intake-workbooks.py) and turns it into what the system keeps:
- * the organisation tree, one study plan per programme, the rule values that
- * differ from the university, and the staff to invite.
+ * the programme in the organisation tree, its study plan, the rule values
+ * that differ from the university, and the staff to invite.
  *
  * Nothing here saves anything. It returns a report (errors stop the load,
  * warnings are for someone to read) and the data; the page saves it through
  * the normal routes, so the server checks every piece again.
- * Used by the page ("Load a faculty workbook") and by scripts/intake.js.
+ * Used by the page ("Load study-plan files") and by scripts/intake.js.
  */
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory(require('./programme'), require('./org-tree'));
-  else root.Intake = factory(root.Programme, root.OrgTree || null);
-})(typeof self !== 'undefined' ? self : this, function (Programme, OrgTree) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./programme'), require('./org-tree'), require('../data/intake-rules.json'));
+  else root.Intake = factory(root.Programme, root.OrgTree || null, root.INTAKE_SPEC);
+})(typeof self !== 'undefined' ? self : this, function (Programme, OrgTree, SPEC) {
   'use strict';
 
-  const FORMAT = 'BAU-INTAKE-1';
-  const HEADER_ROW = 4;            // row 5 in Excel
-  const FIRST_ROW = 6;             // row 7; row 6 is the example
+  const FORMAT = SPEC.format;
+  const SHEET = 'Study plan';
+  const SECTIONS = ['1. Programme', '2. Requirement blocks', '3. Rules that are different for this programme',
+    '4. People who advise or edit this programme', '5. Courses'];
   const CAMPUSES = ['Beirut', 'Debbieh', 'Tripoli', 'Bekaa'];
   const NON_DEGREE = ['REMEDIAL', 'INTENSIVE', 'NON_CREDIT'];
   const GRADES = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-'];
-  const ROLE_OF = { 'faculty admin': 'faculty-admin', 'programme editor': 'programme-editor', approver: 'approver', advisor: 'advisor', viewer: 'viewer' };
+  const ROLE_OF = { advisor: 'advisor', 'programme editor': 'programme-editor' };
   const OFFERED = { fall: ['FALL'], spring: ['SPRING'], summer: ['SUMMER'], 'fall and spring': ['FALL', 'SPRING'], 'every semester': ['FALL', 'SPRING', 'SUMMER'] };
-
-  /* Rules the system applies by itself, with the key the Rules page uses.
-     Anything else in sheet 7 is recorded with the plan and listed for a person. */
-  const RULES = {
-    LOAD_MIN: { key: 'R.load.REG-LOAD-01.min', type: 'int', min: 0, max: 30 },
-    LOAD_MAX: { key: 'R.load.REG-LOAD-01.max', type: 'int', min: 1, max: 30 },
-    SUMMER_MAX: { key: 'R.load.REG-LOAD-05.max', type: 'int', min: 0, max: 18 },
-    HIGH_LOAD_CGPA: { key: 'R.load.REG-LOAD-02.requiresCgpa', type: 'num', min: 0, max: 4 },
-    HIGH_LOAD_EARNED: { key: 'R.load.REG-LOAD-02.requiresEarned', type: 'int', min: 0, max: 300 },
-    HIGH_LOAD_MAX: { key: 'R.load.REG-LOAD-02.max', type: 'int', min: 1, max: 30 },
-    SENIOR_CGPA: { key: 'R.load.REG-LOAD-03.requiresCgpa', type: 'num', min: 0, max: 4 },
-    SENIOR_MAX: { key: 'R.load.REG-LOAD-03.max', type: 'int', min: 1, max: 30 },
-    PROBATION_GPA: { key: 'R.probation.warningThresholdCgpa', type: 'num', min: 0, max: 4 },
-    PROBATION_CAP: { key: 'R.probation.warningLoadCap', type: 'int', min: 0, max: 30 },
-    REMEDIAL_AFTER: { key: 'R.probation.remedialAfter', type: 'int', min: 1, max: 6 },
-    REMEDIAL_CAP: { key: 'R.probation.remedialFallSpringCap', type: 'int', min: 0, max: 30 },
-    REMEDIAL_SUMMER: { key: 'R.probation.remedialSummerCap', type: 'int', min: 0, max: 18 },
-    DISMISS_CGPA: { key: 'R.probation.dismissCgpaBelow', type: 'num', min: 0, max: 4 },
-    GRAD_CGPA: { key: 'R.graduation.minCgpa', type: 'num', min: 0, max: 4 },
-    IC3_DUE: { key: 'R.nonCredit.REG-UE-06.dueBySemester', type: 'int', min: 1, max: 16 },
-    UE_TOTAL: { key: 'R.universityElectives.REG-UE-03.totalCredits', type: 'int', min: 0, max: 40 },
-    UE_MIN_HUM: { key: 'R.universityElectives.REG-UE-03.minHumanitiesCourses', type: 'int', min: 0, max: 5 },
-    UE_MIN_SOC: { key: 'R.universityElectives.REG-UE-03.minSocialCourses', type: 'int', min: 0, max: 5 },
-    WRNL_FROM: { key: 'R.universityElectives.REG-UE-05.appliesFromAdmissionYear', type: 'int', min: 2000, max: 2100 },
-    WRNL_AFTER: { key: 'R.universityElectives.REG-UE-05.requiredAboveEarnedCredits', type: 'int', min: 0, max: 300 },
-    CORE_AHEAD: { key: 'C.coreAheadSemesters', type: 'int', min: 0, max: 6 },
-    ELECTIVE_SLOTS: { key: 'C.deptElectiveSlots', type: 'list' }
-  };
-  const RECORDED = ['HONOURS_CGPA', 'MIN_GRADE_MAJOR', 'MIN_GRADE_PREREQ', 'ATTENDANCE_AW', 'YEAR_PROGRESSION',
-    'INTERNSHIP', 'EXIT_EXAM', 'ENTRY_TEST', 'TRANSFER_MIN_GRADE', 'OTHER'];
+  // study-plan details the file does not ask about, kept from the plan already in the system
+  const KEEP = ['tracks', 'genScienceElectives', 'deptElectiveSlots', 'mathMinor', 'genSciencePolicy', 'deptElectiveShowMax', 'coreAheadSemesters'];
 
   // ---- reading the .xlsx file ------------------------------------------------
   // An .xlsx is a zip of XML files. inflateRaw(bytes) undoes zip compression:
@@ -157,362 +130,235 @@
     return { all, oneOf };
   }
 
-  // a sheet as objects keyed by the header names in row 5
-  function table(book, name, required, report) {
-    const rows = book[name];
-    if (!rows) { report.errors.push('Sheet "' + name + '" is missing. Was it renamed?'); return []; }
-    const head = (rows[HEADER_ROW] || []).map(h => txt(h).toLowerCase());
-    const missing = required.filter(h => !head.includes(h.toLowerCase()));
-    if (missing.length) { report.errors.push('Sheet "' + name + '" has no column ' + missing.map(m => '"' + m + '"').join(', ') + '. Columns must keep their names.'); return []; }
+  const blockKey = label => {
+    const t = txt(label).toLowerCase();
+    const hit = SPEC.blocks.find(b => b.label.toLowerCase() === t || b.key.toLowerCase() === t);
+    return hit ? hit.key : txt(label).toUpperCase().replace(/[^A-Z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 30);
+  };
+
+  // rows of one section: from the row after its title (plus skip) to the next section title
+  function sectionRows(rows, index, skip) {
+    const titles = SECTIONS.map(s => s.toLowerCase());
+    const at = rows.findIndex(r => r && txt(r[0]).toLowerCase() === titles[index]);
+    if (at < 0) return null;
     const out = [];
-    for (let r = FIRST_ROW; r < rows.length; r++) {
+    for (let r = at + 1 + skip; r < rows.length; r++) {
       const cells = rows[r] || [];
-      if (!cells.some(c => txt(c) !== '')) continue;
-      const row = { _row: r + 1 };
-      head.forEach((h, i) => { if (h) row[h] = cells[i]; });
-      out.push(row);
+      if (titles.includes(txt(cells[0]).toLowerCase())) break;
+      out.push({ cells, row: r + 1 });
     }
     return out;
   }
-  const get = (row, name) => row[name.toLowerCase()];
 
-  // ---- the workbook to the system ----------------------------------------------
-  /* ctx: { tree, people: [{email}], known: [course codes outside the programme],
-            fileName, now } */
+  /* One file = one programme.
+     ctx: { tree, people: [{email}], known: [course codes outside the programme], fileName, now } */
   function fromWorkbook(book, ctx) {
     const c = ctx || {};
     const report = { errors: [], warnings: [], notes: [] };
     const now = c.now || Date.now();
     const lists = book.Lists || [];
-    if (txt((lists[1] || [])[24]) !== FORMAT) {
-      report.errors.push('This is not a faculty set-up workbook (format ' + FORMAT + '). Use the workbook the system administrator sent.');
+    const rows = book[SHEET];
+    if (!rows || txt((lists[1] || [])[24]) !== FORMAT) {
+      report.errors.push('This is not a study-plan file from the advising system. Use the file that was sent to the department.');
       return { report };
     }
-    const facultyId = txt((lists[2] || [])[24]);
-
-    // 1 Faculty: question / answer pairs
-    const facultyInfo = {};
-    (book['1 Faculty'] || []).slice(HEADER_ROW + 1).forEach(r => { if (r && txt(r[0])) facultyInfo[txt(r[0])] = txt(r[1]); });
-    const facultyName = facultyInfo['Faculty name (English)'];
-    if (!facultyName) report.errors.push('Sheet 1: give the faculty name.');
-    const workbookYear = parseInt(facultyInfo['Catalogue year these answers describe'], 10) || null;
-
-    const tree = clone(c.tree || (OrgTree && OrgTree.DEFAULT_TREE) || { id: 'bau', name: 'Beirut Arab University', faculties: [] });
-    const elsewhere = new Map();     // id -> faculty id, for ids outside this faculty
-    (tree.faculties || []).forEach(f => {
-      if (f.id !== facultyId) {
-        elsewhere.set(f.id, f.id);
-        (f.departments || []).forEach(d => { elsewhere.set(d.id, f.id); (d.programmes || []).forEach(p => elsewhere.set(p.id, f.id)); });
-      }
-    });
-    let faculty = tree.faculties.find(f => f.id === facultyId);
-    if (!faculty) {
-      if (elsewhere.has(facultyId)) report.errors.push('The faculty ID ' + facultyId + ' is already used by something else.');
-      faculty = { id: facultyId, name: facultyName || facultyId, departments: [] };
-      tree.faculties.push(faculty);
-      report.notes.push('New faculty: ' + faculty.name + '.');
+    const facultyId = txt((lists[1] || [])[25]);
+    const givenId = txt((lists[2] || [])[25]);
+    const parts = SECTIONS.map((s, i) => sectionRows(rows, i, [0, 1, 1, 1, 2][i]));
+    const missing = SECTIONS.filter((s, i) => !parts[i]);
+    if (missing.length) {
+      report.errors.push('These section titles were changed or removed: ' + missing.join(', ') + '. Put them back as they were.');
+      return { report };
     }
-    if (facultyName && faculty.name !== facultyName) { report.notes.push('Faculty renamed to ' + facultyName + '.'); faculty.name = facultyName; }
-    if (facultyInfo['Faculty name (Arabic)']) faculty.nameAr = facultyInfo['Faculty name (Arabic)'];
-    const taken = id => elsewhere.has(id) ? 'already used in another faculty' : null;
 
-    // 2 Departments
-    table(book, '2 Departments', ['Department ID', 'Department name (English)', 'Action'], report).forEach(r => {
-      const name = txt(get(r, 'Department name (English)'));
-      const id = txt(get(r, 'Department ID')) || slug(name);
-      const where = 'Sheet 2, row ' + r._row;
-      if (!id) { report.errors.push(where + ': give the department a name.'); return; }
-      if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) { report.errors.push(where + ': the ID "' + id + '" may only use lowercase letters, digits and dashes.'); return; }
-      if (taken(id)) { report.errors.push(where + ': the ID ' + id + ' is ' + taken(id) + '.'); return; }
-      const have = faculty.departments.find(d => d.id === id);
-      if (/^remove$/i.test(txt(get(r, 'Action')))) {
-        if (have) report.warnings.push(where + ': ' + have.name + ' is marked Remove. Nothing is removed by an import; remove it in University structure once it is empty.');
-        return;
-      }
-      if (!have) {
-        if (!name) { report.errors.push(where + ': give the department a name.'); return; }
-        faculty.departments.push(Object.assign({ id, name, programmes: [] }, txt(get(r, 'Department name (Arabic)')) ? { nameAr: txt(get(r, 'Department name (Arabic)')) } : {}));
-        report.notes.push('New department: ' + name + '.');
-      } else {
-        if (name && have.name !== name) { report.notes.push('Department ' + have.name + ' renamed to ' + name + '.'); have.name = name; }
-        if (txt(get(r, 'Department name (Arabic)'))) have.nameAr = txt(get(r, 'Department name (Arabic)'));
-      }
-    });
+    // 1. Programme: label in column A, answer in column C
+    const info = {};
+    parts[0].forEach(({ cells }) => { if (txt(cells[0])) info[txt(cells[0]).toLowerCase()] = cells[2]; });
+    const field = name => info[name.toLowerCase()];
+    const name = txt(field('Programme name (English)'));
+    const deptName = txt(field('Department'));
+    const total = num(field('Total credits to graduate'));
+    const standard = num(field('Standard length (semesters)'));
+    const maximum = num(field('Maximum length (semesters)'));
+    const confirmed = yes(field('Everything on this sheet is correct'));
+    if (!name) report.errors.push('Section 1: give the programme name.');
+    if (!deptName) report.errors.push('Section 1: give the department.');
+    if (!(total > 0)) report.errors.push('Section 1: give the total credits to graduate.');
+    if (!(standard > 0)) report.errors.push('Section 1: give the standard length in semesters.');
+    if (!(maximum > 0)) report.errors.push('Section 1: give the maximum length in semesters.');
+    else if (standard > 0 && maximum > 2 * standard) report.warnings.push('Section 1: the maximum length is more than double the standard length (R&R VIII.1).');
+    if (!confirmed) report.warnings.push('The file does not say "Yes" to "Everything on this sheet is correct", so the plan loads marked "to check".');
 
-    // 3 Programmes
-    const programmes = [];
-    table(book, '3 Programmes', ['Programme ID', 'Department ID', 'Degree name (English)', 'Total credits', 'Standard semesters', 'Maximum semesters', 'Action', 'Status'], report).forEach(r => {
-      const name = txt(get(r, 'Degree name (English)'));
-      const id = txt(get(r, 'Programme ID')) || slug(name);
-      const where = 'Sheet 3, row ' + r._row;
-      if (!id) { report.errors.push(where + ': give the programme a name.'); return; }
-      if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) { report.errors.push(where + ': the ID "' + id + '" may only use lowercase letters, digits and dashes.'); return; }
-      if (taken(id)) { report.errors.push(where + ': the ID ' + id + ' is ' + taken(id) + '.'); return; }
-      const deptId = txt(get(r, 'Department ID'));
-      const dept = faculty.departments.find(d => d.id === deptId);
-      let node = null, from = null;
-      faculty.departments.forEach(d => (d.programmes || []).forEach(p => { if (p.id === id) { node = p; from = d; } }));
-      if (/^remove$/i.test(txt(get(r, 'Action')))) {
-        if (node) report.warnings.push(where + ': ' + node.name + ' is marked Remove. Nothing is removed by an import; a programme with students or a study plan has to be retired by hand.');
-        return;
+    // where it sits in the structure
+    const tree = clone(c.tree || (OrgTree && OrgTree.DEFAULT_TREE) || { id: 'bau', name: 'Beirut Arab University', faculties: [] });
+    const faculty = (tree.faculties || []).find(f => f.id === facultyId);
+    if (!faculty) {
+      report.errors.push('The faculty of this file (' + (txt(field('Faculty')) || facultyId) + ') is not in the system yet. Add it in University structure first.');
+      return { report };
+    }
+    const owner = new Map();
+    tree.faculties.forEach(f => (f.departments || []).forEach(d => { owner.set(d.id, f.id); (d.programmes || []).forEach(p => owner.set(p.id, f.id)); }));
+    let dept = deptName && faculty.departments.find(d => d.name.toLowerCase() === deptName.toLowerCase());
+    if (deptName && !dept) {
+      const id = slug(deptName);
+      if (owner.has(id) && owner.get(id) !== faculty.id) { report.errors.push('Section 1: a department called ' + deptName + ' already belongs to another faculty.'); }
+      else {
+        dept = faculty.departments.find(d => d.id === id) || null;
+        if (!dept) { dept = { id, name: deptName, programmes: [] }; faculty.departments.push(dept); report.notes.push('New department: ' + deptName + '.'); }
       }
-      if (!dept) { report.errors.push(where + ': ' + (deptId ? 'department ' + deptId + ' is not in sheet 2.' : 'say which department the programme belongs to.')); return; }
-      if (!name && !node) { report.errors.push(where + ': give the degree name.'); return; }
-      const campuses = txt(get(r, 'Campuses')).split(/[,;/]+/).map(s => s.trim()).filter(Boolean)
-        .map(s => CAMPUSES.find(k => k.toLowerCase() === s.toLowerCase()) || s);
-      campuses.filter(k => !CAMPUSES.includes(k)).forEach(k => report.warnings.push(where + ': "' + k + '" is not one of the four campuses.'));
+    }
+    const id = givenId || slug(name);
+    if (!givenId && id && owner.has(id) && owner.get(id) !== faculty.id) report.errors.push('Another faculty already has a programme with the ID ' + id + '. Change the name slightly.');
+    let node = null, from = null;
+    faculty.departments.forEach(d => (d.programmes || []).forEach(p => { if (p.id === id) { node = p; from = d; } }));
+    if (givenId && !node && owner.has(givenId)) report.errors.push('This file belongs to a programme that is now in another faculty. Ask for a new file.');
+    const isNew = !node;
+    if (dept && id && !report.errors.length) {
       if (!node) {
         node = { id, name };
         dept.programmes.push(node);
         report.notes.push('New programme: ' + name + ' in ' + dept.name + '.');
       } else {
-        if (from !== dept) {
-          from.programmes = from.programmes.filter(p => p !== node);
-          dept.programmes.push(node);
-          report.notes.push(node.name + ' moved from ' + from.name + ' to ' + dept.name + '.');
-        }
+        if (from !== dept) { from.programmes = from.programmes.filter(p => p !== node); dept.programmes.push(node); report.notes.push(node.name + ' moved to ' + dept.name + '.'); }
         if (name && node.name !== name) { report.notes.push(node.name + ' renamed to ' + name + '.'); node.name = name; }
       }
-      if (txt(get(r, 'Degree name (Arabic)'))) node.nameAr = txt(get(r, 'Degree name (Arabic)'));
+      const ar = txt(field('Programme name (Arabic)'));
+      if (ar) node.nameAr = ar;
+      const campuses = txt(field('Campuses')).split(/[,;/]+/).map(s => s.trim()).filter(Boolean)
+        .map(s => CAMPUSES.find(k => k.toLowerCase() === s.toLowerCase()) || s);
+      campuses.filter(k => !CAMPUSES.includes(k)).forEach(k => report.warnings.push('Section 1: "' + k + '" is not one of the four campuses.'));
       if (campuses.length) node.campuses = campuses;
-      programmes.push({ id, node, dept, row: r });
+    }
+
+    // 2. Blocks
+    const buckets = {};
+    parts[1].forEach(({ cells, row }) => {
+      const label = txt(cells[0]);
+      if (!label || /^total$/i.test(label)) return;
+      const key = blockKey(label);
+      const credits = num(cells[2]);
+      if (!key) { report.errors.push('Section 2, row ' + row + ': the block needs a name.'); return; }
+      if (buckets[key]) { report.errors.push('Section 2, row ' + row + ': ' + label + ' is listed twice.'); return; }
+      if (!Number.isFinite(credits)) { report.errors.push('Section 2, row ' + row + ': give the credits of ' + label + ' (0 if none).'); return; }
+      if (NON_DEGREE.includes(key)) return;              // the system already knows these, they count for nothing
+      buckets[key] = { label: txt(cells[3]) || label, credits };
     });
-    const progIds = new Set(programmes.map(p => p.id));
+    if (!Object.keys(buckets).length) report.errors.push('Section 2: list the requirement blocks and their credits.');
 
-    // 4 Blocks, 5 Courses, 6 Lists
-    const blocks = table(book, '4 Blocks', ['Programme ID', 'Block key', 'Block name as printed', 'Credits required', 'Counts toward the degree'], report);
-    const courses = table(book, '5 Courses', ['Programme ID', 'Course code', 'Course title (English)', 'Credits', 'Block key', 'Prerequisites'], report);
-    const listRows = table(book, '6 Lists and tracks', ['Programme ID', 'List key', 'List name', 'List type', 'Course code'], report);
-    const checkId = (id, where, allowAll) => {
-      if (allowAll && id === 'ALL') return true;
-      if (progIds.has(id)) return true;
-      report.errors.push(where + ': programme ' + (id || '(blank)') + ' is not in sheet 3.');
-      return false;
-    };
-    blocks.forEach(r => checkId(txt(get(r, 'Programme ID')), 'Sheet 4, row ' + r._row));
-    courses.forEach(r => checkId(txt(get(r, 'Programme ID')), 'Sheet 5, row ' + r._row, true));
-    listRows.forEach(r => checkId(txt(get(r, 'Programme ID')), 'Sheet 6, row ' + r._row));
-
-    const toCourse = r => {
-      const pre = prerequisites(get(r, 'Prerequisites'));
-      const co = prerequisites(get(r, 'Corequisites'));
-      const offered = OFFERED[txt(get(r, 'Usually offered')).toLowerCase()];
-      const out = {
-        code: code(get(r, 'Course code')),
-        title: txt(get(r, 'Course title (English)')),
-        cr: num(get(r, 'Credits')),
-        bucket: txt(get(r, 'Block key')).toUpperCase().replace(/[\s-]+/g, '_') || 'MAJOR_CORE',
-        pre: pre.all,
-        co: co.all.concat(...co.oneOf),
-        runsIn: offered || ['FALL', 'SPRING']
+    // 5. Courses
+    const byCode = new Map();
+    parts[4].forEach(({ cells, row }) => {
+      const cc = code(cells[0]);
+      if (!cc) { if (cells.slice(1, 9).some(v => txt(v))) report.errors.push('Section 5, row ' + row + ': the course has no code.'); return; }
+      const where = 'Section 5, row ' + row + ' (' + cc + ')';
+      if (byCode.has(cc)) { report.errors.push(where + ': listed twice.'); return; }
+      const pre = prerequisites(cells[5]), co = prerequisites(cells[6]);
+      const key = blockKey(cells[3] || 'Major requirements');
+      if (!buckets[key] && !NON_DEGREE.includes(key)) report.errors.push(where + ': the block "' + txt(cells[3]) + '" is not in section 2.');
+      const course = {
+        code: cc, title: txt(cells[1]), cr: num(cells[2]), bucket: key, pre: pre.all, co: co.all.concat(...co.oneOf),
+        runsIn: OFFERED[txt(cells[7]).toLowerCase()] || ['FALL', 'SPRING']
       };
-      if (pre.oneOf.length) out.preOneOf = pre.oneOf;
-      const sem = num(get(r, 'Plan semester'));
-      if (sem) out.planSem = sem;
-      const ar = txt(get(r, 'Course title (Arabic)'));
-      if (ar) out.titleAr = ar;
-      const earned = num(get(r, 'Credits earned before registering'));
-      if (earned) out.minEarned = earned;
-      const grade = txt(get(r, 'Lowest passing grade (if not D)')).toUpperCase();
-      if (grade && grade !== 'D') out.minGrade = grade;
-      if (no(get(r, 'Counts in GPA'))) out.noGpa = true;
-      const kind = txt(get(r, 'Course type'));
-      if (kind) out.kind = kind;
-      const note = txt(get(r, 'Notes'));
-      if (note) out.note = note;
-      return { course: out, row: r };
-    };
+      if (!Number.isFinite(course.cr)) report.errors.push(where + ': give the credits.');
+      const sem = num(cells[4]);
+      if (sem) course.planSem = sem;
+      if (pre.oneOf.length) {
+        course.preOneOf = pre.oneOf;
+        report.warnings.push(cc + ' needs one of ' + pre.oneOf.map(g => g.join(' or ')).join('; ') + '. Kept with the plan; advisors check it by hand for now.');
+      }
+      const note = txt(cells[8]);
+      if (note) {
+        course.note = note;
+        const earned = /(?:need|needs|after|earned|complet\w*|at least)\D{0,20}(\d{2,3})\s*(?:cr|credit)/i.exec(note) || /(\d{2,3})\s*(?:cr|credits?)\s*(?:earned|completed|first|before)/i.exec(note);
+        if (earned) course.minEarned = Number(earned[1]);
+        if (/pass\s*\/?\s*fail/i.test(note)) course.noGpa = true;
+        const grade = /(?:lowest|minimum|min\.?)\s+(?:passing\s+)?grade\s*(?:is|of|:)?\s*([A-D][+-]?)/i.exec(note);
+        if (grade && GRADES.includes(grade[1].toUpperCase())) course.minGrade = grade[1].toUpperCase();
+      }
+      byCode.set(cc, course);
+    });
 
-    // 7 Rules: ALL first, then each programme's own value on top
-    const ruleRows = table(book, '7 Rules', ['Applies to', 'Rule ID', 'Faculty value', 'Where it is written'], report)
-      .filter(r => txt(get(r, 'Faculty value')) !== '');
-    const rulesFor = {};
-    const recorded = {};
-    programmes.forEach(p => { rulesFor[p.id] = {}; recorded[p.id] = []; });
-    ruleRows.sort((a, b) => (txt(get(a, 'Applies to')) === 'ALL' ? 0 : 1) - (txt(get(b, 'Applies to')) === 'ALL' ? 0 : 1)).forEach(r => {
-      const where = 'Sheet 7, row ' + r._row;
-      const target = txt(get(r, 'Applies to')) || 'ALL';
-      if (!checkId(target, where, true)) return;
-      const id = txt(get(r, 'Rule ID')).toUpperCase();
-      const raw = txt(get(r, 'Faculty value'));
-      const source = txt(get(r, 'Where it is written'));
-      if (!source) report.warnings.push(where + ': ' + id + ' differs from the university but does not say where it is written.');
-      const ids = target === 'ALL' ? [...progIds] : [target];
-      const spec = RULES[id];
-      if (!spec) {
-        if (!RECORDED.includes(id)) { report.errors.push(where + ': unknown rule ID ' + (id || '(blank)') + '.'); return; }
-        if (/GRADE/.test(id) && !GRADES.includes(raw.toUpperCase())) { report.errors.push(where + ': ' + id + ' needs a letter grade such as C or C-.'); return; }
-        ids.forEach(pid => {
-          recorded[pid] = recorded[pid].filter(x => x.rule !== id || id === 'OTHER');
-          recorded[pid].push({ rule: id, value: raw, source, note: txt(get(r, 'Notes')) });
-        });
+    // 3. Rules that differ
+    const rules = {}, recorded = [];
+    parts[2].forEach(({ cells, row }) => {
+      const text = txt(cells[0]), raw = txt(cells[4]);
+      if (!text && !raw) return;
+      const where = 'Section 3, row ' + row;
+      const rule = SPEC.rules.find(r => r.text.toLowerCase() === text.toLowerCase());
+      if (!rule) { report.errors.push(where + ': pick the rule from the list.'); return; }
+      if (!raw) { report.errors.push(where + ': "' + rule.text + '" has no value for this programme.'); return; }
+      const source = txt(cells[5]);
+      if (!source) report.warnings.push(where + ': "' + rule.text + '" does not say where it is written.');
+      if (!rule.key) {
+        if (rule.type === 'grade' && !GRADES.includes(raw.toUpperCase())) { report.errors.push(where + ': give a letter grade such as C or C-.'); return; }
+        recorded.push({ rule: rule.id, text: rule.text, value: raw, source, note: txt(cells[8]) });
         return;
       }
       let value;
-      if (spec.type === 'list') {
+      if (rule.type === 'list') {
         value = raw.split(/[,;\s]+/).map(Number).filter(n => Number.isInteger(n) && n > 0);
-        if (!value.length) { report.errors.push(where + ': ' + id + ' needs semester numbers such as 4, 5, 6.'); return; }
+        if (!value.length) { report.errors.push(where + ': give semester numbers such as 4, 5, 6.'); return; }
       } else {
         value = num(raw);
-        if (!Number.isFinite(value) || value < spec.min || value > spec.max || (spec.type === 'int' && !Number.isInteger(value))) {
-          report.errors.push(where + ': ' + id + ' must be a ' + (spec.type === 'int' ? 'whole number' : 'number') + ' from ' + spec.min + ' to ' + spec.max + '.');
+        if (!Number.isFinite(value) || value < rule.min || value > rule.max || (rule.type === 'int' && !Number.isInteger(value))) {
+          report.errors.push(where + ': "' + rule.text + '" must be a ' + (rule.type === 'int' ? 'whole number' : 'number') + ' from ' + rule.min + ' to ' + rule.max + '.');
           return;
         }
       }
-      ids.forEach(pid => { rulesFor[pid][spec.key] = { value, rule: id, source }; });
+      rules[rule.key] = { value, rule: rule.id, source };
     });
+    if (recorded.length) report.notes.push(recorded.length + ' rule(s) kept with the plan for advisors to apply by hand: ' + recorded.map(r => r.text).join('; ') + '.');
 
-    // the study plans
-    const plans = {};
-    programmes.forEach(p => {
-      const mine = blocks.filter(r => txt(get(r, 'Programme ID')) === p.id);
-      const own = courses.filter(r => txt(get(r, 'Programme ID')) === p.id);
-      const shared = courses.filter(r => txt(get(r, 'Programme ID')) === 'ALL');
-      const untouched = !own.length && mine.every(b => txt(get(b, 'Credits required')) === '');
-      if (!mine.length && !own.length || untouched) {
-        report.warnings.push(p.node.name + ': not filled in yet (no credits or courses), so its study plan is left as it is.');
-        return;
-      }
-      const r = p.row;
-      const where = p.node.name;
-      const buckets = {};
-      mine.forEach(b => {
-        const key = txt(get(b, 'Block key')).toUpperCase().replace(/[\s-]+/g, '_');
-        const credits = num(get(b, 'Credits required'));
-        const counts = !no(get(b, 'Counts toward the degree'));
-        if (!key) { report.errors.push('Sheet 4, row ' + b._row + ': give a block key.'); return; }
-        if (buckets[key]) { report.errors.push('Sheet 4, row ' + b._row + ': ' + where + ' lists block ' + key + ' twice.'); return; }
-        if (!Number.isFinite(credits)) { report.errors.push('Sheet 4, row ' + b._row + ': give the credits of ' + key + ' (0 if none).'); return; }
-        if (!counts && credits > 0) report.warnings.push('Sheet 4, row ' + b._row + ': ' + key + ' does not count toward the degree but asks for ' + credits + ' credits.');
-        if (!counts && NON_DEGREE.includes(key)) return;      // the system already knows these
-        buckets[key] = { label: txt(get(b, 'Block name as printed')) || key, credits };
-        const how = txt(get(b, 'How courses are chosen'));
-        if (how) buckets[key].chosen = how;
-        const pass = num(get(b, 'Courses to pass (if a number)'));
-        if (pass) buckets[key].coursesRequired = pass;
-        if (!counts) buckets[key].countsTowardDegree = false;
-      });
-      const byCode = new Map();
-      shared.concat(own).map(toCourse).forEach(({ course, row }) => {
-        if (byCode.has(course.code) && txt(get(row, 'Programme ID')) !== 'ALL' && byCode.get(course.code).fromAll) byCode.delete(course.code);
-        else if (byCode.has(course.code)) { report.errors.push('Sheet 5, row ' + row._row + ': ' + course.code + ' is listed twice for ' + where + '.'); return; }
-        if (!Number.isFinite(course.cr)) report.errors.push('Sheet 5, row ' + row._row + ': ' + course.code + ' needs its credits.');
-        if (course.minGrade && !GRADES.includes(course.minGrade)) report.errors.push('Sheet 5, row ' + row._row + ': ' + course.minGrade + ' is not a grade.');
-        if (course.preOneOf) report.warnings.push(where + ': ' + course.code + ' needs one of ' + course.preOneOf.map(g => g.join(' or ')).join('; ') + '. Kept with the plan; advisors check this one by hand for now.');
-        byCode.set(course.code, Object.assign(course, { fromAll: txt(get(row, 'Programme ID')) === 'ALL' }));
-      });
-      const plannedCourses = [...byCode.values()].map(x => { const y = Object.assign({}, x); delete y.fromAll; return y; });
-      const tracks = {}, otherLists = {};
-      listRows.filter(x => txt(get(x, 'Programme ID')) === p.id).forEach(x => {
-        const key = txt(get(x, 'List key')).toUpperCase().replace(/[\s-]+/g, '_');
-        const type = txt(get(x, 'List type')) || 'Elective list';
-        if (!key) { report.errors.push('Sheet 6, row ' + x._row + ': give the list a key.'); return; }
-        const into = /^track$/i.test(type) ? tracks : otherLists;
-        const list = into[key] || (into[key] = { label: txt(get(x, 'List name')) || key, type, courses: [] });
-        const need = num(get(x, 'Courses to pass from the list'));
-        if (need) list.coursesRequired = need;
-        const credits = num(get(x, 'Credits to pass from the list'));
-        if (credits) list.creditsRequired = credits;
-        const cc = code(get(x, 'Course code'));
-        if (cc && !list.courses.includes(cc)) list.courses.push(cc);
-      });
-      Object.keys(tracks).forEach(k => { if (!tracks[k].coursesRequired) tracks[k].coursesRequired = Math.min(3, tracks[k].courses.length); });
-
-      const status = [r].concat(mine, own).filter(x => /^to check$/i.test(txt(get(x, 'Status')))).length;
-      const signoff = (book['11 Sign-off'] || []).slice(HEADER_ROW + 1, HEADER_ROW + 5).map(x => ({ step: txt((x || [])[0]), name: txt((x || [])[1]), email: txt((x || [])[2]), date: txt((x || [])[3]) }));
-      const plan = Programme.normalize({
-        catalogYear: num(get(r, 'Catalogue year')) || workbookYear || new Date(now).getFullYear(),
-        program: p.node.name,
-        faculty: faculty.name,
-        department: p.dept.name,
-        totalCredits: num(get(r, 'Total credits')),
-        standardSemesters: num(get(r, 'Standard semesters')),
-        maxSemesters: num(get(r, 'Maximum semesters')),
-        buckets,
-        tracks,
-        courses: plannedCourses,
-        genScienceElectives: [],
-        deptElectiveSlots: [],
-        setupStatus: 'draft',
-        needsReview: status > 0,
-        source: {
-          catalogue: 'Faculty set-up workbook',
-          file: txt(c.fileName),
-          importedAt: now,
-          note: status ? status + ' row(s) were still marked "To check" in the workbook.' : 'Every row was marked checked in the workbook.'
-        },
-        intake: {
-          format: FORMAT,
-          degreeType: txt(get(r, 'Degree type')),
-          language: txt(get(r, 'Language of teaching')),
-          studySystem: txt(get(r, 'Study system')),
-          admitsNewStudents: !no(get(r, 'Admits new students')),
-          contact: txt(get(r, 'Programme contact (email)')),
-          lists: otherLists,
-          rules: recorded[p.id],
-          signoff
-        }
-      });
-      if (!Object.keys(buckets).length) report.errors.push(where + ': sheet 4 has no blocks for it.');
-      const v = Programme.validate(plan, c.known || []);
-      v.errors.forEach(e => report.errors.push(where + ': ' + e));
-      v.warnings.forEach(w => report.warnings.push(where + ': ' + w));
-      if (status) report.warnings.push(where + ': ' + status + ' row(s) still say "To check". It loads, marked to check.');
-      plans[p.id] = plan;
-    });
-
-    // 8 People
+    // 4. People
     const known = new Set((c.people || []).map(x => txt(x.email).toLowerCase()));
-    const scopes = new Set([faculty.id].concat(faculty.departments.map(d => d.id), [...progIds]));
     const people = [];
-    table(book, '8 People', ['Full name', 'BAU email', 'Role', 'Scope'], report).forEach(r => {
-      const where = 'Sheet 8, row ' + r._row;
-      const email = txt(get(r, 'BAU email')).toLowerCase();
-      const name = txt(get(r, 'Full name'));
-      const role = ROLE_OF[txt(get(r, 'Role')).toLowerCase()];
-      const scope = txt(get(r, 'Scope')) || faculty.id;
-      const also = txt(get(r, 'Also advises students in'));
-      if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)) { report.errors.push(where + ': ' + (name || 'this person') + ' needs a @bau.edu.lb email.'); return; }
-      if (!name) { report.errors.push(where + ': give the full name.'); return; }
-      if (!role) { report.errors.push(where + ': pick a role from the list.'); return; }
-      if (!scopes.has(scope)) { report.errors.push(where + ': the scope ' + scope + ' is not this faculty, one of its departments or programmes.'); return; }
-      if (also && !progIds.has(also)) { report.errors.push(where + ': ' + also + ' is not a programme in sheet 3.'); return; }
-      if (people.some(x => x.person.email === email)) { report.errors.push(where + ': ' + email + ' is listed twice.'); return; }
-      const roles = [{ role, scopes: [scope] }];
-      if (also && role !== 'advisor') roles.push({ role: 'advisor', scopes: [also] });
-      const deptOf = faculty.departments.find(d => d.id === scope || (d.programmes || []).some(x => x.id === scope));
+    parts[3].forEach(({ cells, row }) => {
+      const full = txt(cells[1]), email = txt(cells[3]).toLowerCase(), roleText = txt(cells[5]);
+      if (!full && !email) return;
+      const where = 'Section 4, row ' + row;
+      const role = ROLE_OF[roleText.toLowerCase()];
+      if (!full) { report.errors.push(where + ': give the full name.'); return; }
+      if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)) { report.errors.push(where + ': ' + full + ' needs a @bau.edu.lb email.'); return; }
+      if (!role) { report.errors.push(where + ': pick Advisor or Programme editor for ' + full + '.'); return; }
+      if (people.some(p => p.person.email === email)) { report.errors.push(where + ': ' + email + ' is listed twice.'); return; }
       people.push({
-        person: { slug: email.split('@')[0].replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60), name, title: txt(get(r, 'Title')), email,
-          faculty: faculty.name, department: deptOf ? deptOf.name : '' },
-        roles,
+        person: { slug: email.split('@')[0].replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60), name: full, title: txt(cells[0]), email,
+          faculty: faculty.name, department: dept ? dept.name : '' },
+        roles: [{ role, scopes: [id] }],
         existing: known.has(email)
       });
     });
 
-    const approvals = table(book, '9 Approvals', ['Exception', 'Proposed by', 'Approved by'], report)
-      .filter(r => txt(get(r, 'Approved by')))
-      .map(r => ({ exception: txt(get(r, 'Exception')), proposedBy: txt(get(r, 'Proposed by')), approvedBy: txt(get(r, 'Approved by')),
-        deanSigns: yes(get(r, 'Dean also signs')), reasonRequired: yes(get(r, 'Reason required')), condition: txt(get(r, 'Limit or condition')),
-        source: txt(get(r, 'Where it is written')) }));
-    Object.values(plans).forEach(p => { p.intake.approvals = approvals; });
-    const questions = table(book, '10 Questions', ['Question or note', 'Answer'], report)
-      .map(r => ({ sheet: txt(get(r, 'Sheet')), about: txt(get(r, 'Row or course')), question: txt(get(r, 'Question or note')), answer: txt(get(r, 'Answer')) }))
-      .filter(q => q.question);
-    const open = questions.filter(q => !q.answer).length;
-    if (open) report.warnings.push(open + ' question(s) in sheet 10 have no answer yet.');
-    const signed = (book['11 Sign-off'] || [])[HEADER_ROW + 3] || [];
-    if (!txt(signed[1])) report.warnings.push('The dean has not signed sheet 11 yet.');
-
-    if (OrgTree && OrgTree.validateTree) {
+    const plan = Programme.normalize({
+      catalogYear: num(field('Catalogue year')) || new Date(now).getFullYear(),
+      program: name, faculty: faculty.name, department: dept ? dept.name : '',
+      totalCredits: total, standardSemesters: standard, maxSemesters: maximum,
+      buckets, tracks: {}, courses: [...byCode.values()],
+      setupStatus: 'draft', needsReview: !confirmed,
+      source: { catalogue: 'Study-plan file from the department', file: txt(c.fileName), importedAt: now,
+        filledBy: txt(field('Filled in by (name and email)')), checkedBy: txt(field('Checked by the chairperson (name)')) },
+      intake: { format: FORMAT, rules: recorded }
+    });
+    if (!report.errors.length) {
+      const v = Programme.validate(plan, c.known || []);
+      v.errors.forEach(e => report.errors.push(e));
+      v.warnings.forEach(w => report.warnings.push(w));
+    }
+    if (OrgTree && OrgTree.validateTree && !report.errors.length) {
       const ok = OrgTree.validateTree(tree);
       if (!ok.ok) report.errors.push('The structure would not be valid: ' + ok.error);
     }
+    return { report, facultyId, programmeId: id, programmeName: name, isNew, tree, plan, rules, people };
+  }
 
-    const rules = {};
-    Object.keys(rulesFor).forEach(id => {
-      if (Object.keys(rulesFor[id]).length) rules[id] = rulesFor[id];
-    });
-    return { report, facultyId, facultyName: faculty.name, facultyInfo, tree, plans, rules, people, approvals, questions };
+  /* The file covers what a department knows best. Tracks, minors and advising
+     settings already set up in the system are kept, not wiped. */
+  function keepFromExisting(plan, existing) {
+    const out = clone(plan);
+    if (existing && typeof existing === 'object') {
+      KEEP.forEach(k => { if (existing[k] !== undefined && (out[k] === undefined || (Array.isArray(out[k]) ? !out[k].length : !Object.keys(out[k] || {}).length))) out[k] = clone(existing[k]); });
+    }
+    return Programme.normalize(out);
   }
 
   /* Lays the imported rule values on top of a programme's saved rules config,
@@ -534,5 +380,5 @@
     return Object.assign({}, before, { values, history: [entry].concat(before.history || []).slice(0, 200) });
   }
 
-  return { FORMAT, RULES, RECORDED, unzip, readWorkbook, fromWorkbook, mergeRules, prerequisites };
+  return { FORMAT, SPEC, unzip, readWorkbook, fromWorkbook, keepFromExisting, mergeRules, prerequisites };
 });
