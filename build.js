@@ -24,7 +24,7 @@ const data = [
   'window.CATALOGUE_SEED=' + json('data/catalogue-2020.json') + ';'
 ].join('\n');
 
-const app = read('src/programme.js') + '\n' + read('src/app.js')
+const app = read('src/programme.js') + '\n' + read('src/intake.js') + '\n' + read('src/app.js')
   .replace('/*__ASKME__*/', () => read('src/askme.js'))
   .replace('/*__RULES__*/', () => read('src/rulesadmin.js') + '\n' + read('src/structure.js') + '\n' + read('src/exceptions.js') + '\n' + read('src/admin.js'))
   .replace('/*__I18N__*/', () => read('src/i18n.js'));

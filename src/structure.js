@@ -17,6 +17,7 @@ let planStatusLoading = false;
 let structEdit = null;        // the add/rename form that is open, if any
 let structMsg = '';
 let catalogueMsg = '';
+let intake = null;            // the faculty workbook being looked at: { name, result, pick, busy, log, invited }
 let planDraft = null;         // working copy on the Programme setup page
 let planFor = null;           // which programme the draft belongs to
 let planDirty = false;
@@ -245,6 +246,7 @@ function viewStructure() {
       <button class="btn sm primary" data-st-add="faculty:bau">Add faculty</button>
       ${window.CATALOGUE_SEED ? '<button class="btn sm" data-st-catalogue="1">Load BAU catalogue (2020–2021)</button>' : ''}</div>
       ${catalogueMsg ? `<p class="note">${esc(catalogueMsg)}</p>` : ''}` : `<div class="rbar"><span>You can add and rename departments and programmes inside your own faculty.</span></div>`}
+    ${intakeBar()}
     ${isOpen('faculty', 'bau', null) ? structForm('faculty', 'bau', null) : ''}
     ${faculties}
   </div>`;
@@ -319,6 +321,113 @@ async function loadCatalogue() {
       + (kept ? '; ' + kept + ' programmes already had a plan and were left as they are' : '') + '. Programmes without a readable plan stay "Not set up yet".';
     render(); toast('Catalogue loaded');
   } catch (e) { catalogueMsg = 'Not loaded: ' + e.message; render(); }
+}
+
+// ---- Faculty set-up workbook -----------------------------------------------------
+/* A faculty fills the workbook made by scripts/build-intake-workbooks.py.
+   Reading it changes nothing: the page shows what would be added, what is
+   wrong, and what someone should read. Loading then goes through the normal
+   routes (structure, study plans, rules), so the server checks each piece.
+   Staff are listed with an Invite button; nobody is invited by surprise. */
+function intakeBar() {
+  const pick = `<label class="btn sm">Load a faculty workbook<input type="file" id="fileIntake" accept=".xlsx" hidden></label>`;
+  if (!intake) return `<div class="rbar"><span>Faculties send back their set-up workbook here. You see everything it would change before anything is saved.</span>${pick}</div>`;
+  const r = intake.result, rep = r.report || { errors: [], warnings: [], notes: [] };
+  const ids = Object.keys(r.plans || {});
+  const list = (items, cls) => items.length ? `<ul class="${cls}" style="margin:6px 0 0 18px">${items.slice(0, 200).map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : '';
+  const planRow = id => {
+    const p = r.plans[id], rules = Object.keys((r.rules || {})[id] || {}).length, recorded = ((p.intake || {}).rules || []).length;
+    return `<label class="al" style="cursor:pointer;display:flex;align-items:flex-start;gap:12px"><input type="checkbox" style="width:auto;flex:none;margin-top:4px" data-intake-pick="${esc(id)}" ${intake.pick[id] ? 'checked' : ''} ${intake.busy || intake.loaded ? 'disabled' : ''}>
+      <span class="body" style="flex:1"><span class="t">${esc(p.program)}</span>
+      <span class="who-meta">${p.courses.length} courses · ${p.totalCredits} credits · ${Object.keys(p.buckets).filter(k => p.buckets[k].credits).length} blocks${rules ? ' · ' + rules + ' rule value(s)' : ''}${recorded ? ' · ' + recorded + ' rule(s) kept for advisors to apply by hand' : ''}${p.needsReview ? ' · <b>to check</b>' : ''}${findOrgNode(id) ? ' · replaces its current plan, if it has one' : ' · new programme'}</span></span></label>`;
+  };
+  const people = (r.people || []).map((x, i) => `<div class="al"><span class="body"><span class="t">${esc((x.person.title ? x.person.title + ' ' : '') + x.person.name)}</span>
+      <span class="who-meta">${esc(x.person.email)} · ${esc(x.roles.map(a => a.role + ' (' + a.scopes.join(', ') + ')').join(', '))}</span></span>
+      <span class="act">${x.existing ? '<span class="chip">already in the system</span>' : (intake.invited || {})[i] ? `<span class="chip ok">${esc(intake.invited[i])}</span>`
+        : intake.loaded ? `<button class="btn sm" data-intake-invite="${i}">Invite</button>` : '<span class="chip">after loading</span>'}</span></div>`).join('');
+  return `<section class="sec"><div class="sec-h" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <h2>Faculty workbook: ${esc(r.facultyName || intake.name)}</h2><span class="who-meta">${esc(intake.name)}</span>
+      <span style="margin-left:auto;display:flex;gap:6px">${pick}<button class="btn sm" data-intake-close="1">Close</button></span></div>
+    ${rep.errors.length ? `<div class="panel"><div class="hd">${rep.errors.length} problem(s) to fix in the workbook first</div><div class="bd">${list(rep.errors, '')}</div></div>` : ''}
+    ${rep.notes.length ? `<div class="panel"><div class="hd">Changes to the structure</div><div class="bd">${list(rep.notes, '')}</div></div>` : ''}
+    ${ids.length ? `<div class="panel"><div class="hd">Study plans (untick any you do not want to replace)</div><div class="alist">${ids.map(planRow).join('')}</div></div>` : ''}
+    ${rep.warnings.length ? `<div class="panel"><div class="hd">${rep.warnings.length} thing(s) to read</div><div class="bd">${list(rep.warnings, '')}</div></div>` : ''}
+    ${(r.questions || []).length ? `<div class="panel"><div class="hd">Questions from the faculty</div><div class="bd">${list(r.questions.map(q => (q.about ? q.about + ': ' : '') + q.question + (q.answer ? ' → ' + q.answer : ' (no answer yet)')), '')}</div></div>` : ''}
+    ${people ? `<div class="panel"><div class="hd">Staff in the workbook</div><div class="alist">${people}</div></div>` : ''}
+    <div class="rbar">${intake.loaded ? '<span>Loaded. Every study plan marked "to check" says so on its setup page.</span>'
+      : rep.errors.length ? '<span>Nothing can be loaded until the problems above are fixed in the workbook.</span>'
+      : `<span>Nothing has been saved yet.</span><button class="btn sm primary" data-intake-load="1" ${intake.busy ? 'disabled' : ''}>${intake.busy ? 'Loading…' : 'Load into the system'}</button>`}</div>
+    ${(intake.log || []).length ? `<div class="bd">${list(intake.log, '')}</div>` : ''}
+  </section>`;
+}
+
+async function readIntake(file) {
+  intake = { name: file.name, result: { report: { errors: [], warnings: [], notes: [] } }, pick: {}, log: [] };
+  try {
+    if (typeof DecompressionStream === 'undefined') throw new Error('This browser cannot open .xlsx files here. Use a recent Chrome, Edge, Firefox or Safari.');
+    const inflate = async bytes => new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer());
+    const book = await Intake.readWorkbook(new Uint8Array(await file.arrayBuffer()), inflate);
+    let people = [];
+    try { people = await Store.loadPeople(); } catch (e) { /* only used to mark people already in the system */ }
+    intake.result = Intake.fromWorkbook(book, { tree: state.orgTree, known: knownCodes(), people, fileName: file.name });
+    Object.keys(intake.result.plans || {}).forEach(id => { intake.pick[id] = true; });
+  } catch (e) { intake.result.report.errors.push(e.message); }
+  render();
+}
+
+async function loadIntake() {
+  const r = intake.result;
+  if (r.report.errors.length || intake.busy) return;
+  const ids = Object.keys(r.plans).filter(id => intake.pick[id]);
+  if (!window.confirm('Load ' + r.facultyName + ': the structure, ' + ids.length + ' study plan(s) and their rule values? Plans you left ticked replace the ones in the system.')) return;
+  intake.busy = true; render();
+  const log = intake.log = [];
+  try {
+    if (JSON.stringify(r.tree) !== JSON.stringify(state.orgTree)) { state.orgTree = await Store.saveOrgTree(r.tree); log.push('Structure saved.'); }
+    for (const id of ids) {
+      try {
+        await Store.saveProgramme(id, Programme.forStorage(r.plans[id]));
+        let note = 'Study plan saved: ' + r.plans[id].program + '.';
+        if ((r.rules || {})[id]) {
+          let cfg = null;
+          try { cfg = await Store.getConfig(id); } catch (e) { /* none yet */ }
+          const next = Intake.mergeRules(cfg, r.rules[id], fullName(state.me), 'Faculty set-up workbook: ' + intake.name);
+          if (next) { await Store.saveConfig(id, next); note += ' Rule values set: ' + next.history[0].changes.length + '.'; }
+          if (cfg && cfg.courses && Object.keys(cfg.courses).length) note += ' Note: ' + Object.keys(cfg.courses).length + ' course edit(s) made on the Rules page still apply on top.';
+        }
+        log.push(note);
+      } catch (e) { log.push('Not saved: ' + r.plans[id].program + ': ' + e.message); }
+    }
+    intake.loaded = true;
+    planStatus = {};
+    if (ids.includes(activeProgramme())) await useProgramme(activeProgramme());
+    toast('Faculty workbook loaded');
+  } catch (e) { log.push('Stopped: ' + e.message); }
+  intake.busy = false; render();
+}
+
+async function intakeInvite(i) {
+  const x = intake.result.people[i];
+  intake.invited = intake.invited || {};
+  try { await Store.invitePerson(x.person, x.roles); intake.invited[i] = 'invitation sent'; }
+  catch (e) { intake.invited[i] = 'not invited: ' + e.message; }
+  render();
+}
+
+async function intakeClick(t) {
+  if (!intake && !t.closest('#fileIntake')) return false;
+  if (t.closest('[data-intake-close]')) { intake = null; render(); return true; }
+  if (t.closest('[data-intake-load]')) { await loadIntake(); return true; }
+  const inv = t.closest('[data-intake-invite]');
+  if (inv) { await intakeInvite(+inv.dataset.intakeInvite); return true; }
+  return false;
+}
+
+// called from the page's change listener in app.js
+function intakeChange(el) {
+  if (el.id === 'fileIntake' && el.files[0]) { readIntake(el.files[0]); el.value = ''; return true; }
+  if (el.dataset && el.dataset.intakePick && intake) { intake.pick[el.dataset.intakePick] = el.checked; return true; }
+  return false;
 }
 
 function structRemove(id) {
@@ -545,6 +654,7 @@ function addBlockKey(label, map) {
 
 async function structureClick(t) {
   // University structure
+  if (state.view === 'structure' && await intakeClick(t)) return true;
   const add = t.closest('[data-st-add]');
   if (add) { const [kind, parent] = add.dataset.stAdd.split(':'); structEdit = { kind, parent }; structMsg = ''; render(); return true; }
   const ren = t.closest('[data-st-rename]');
