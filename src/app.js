@@ -5220,6 +5220,7 @@ document.addEventListener('change', e => {
   if (e.target.dataset && e.target.dataset.pl) { planInput(e.target, true); return; }
   if (e.target.id === 'progPick') { switchProgramme(e.target.value); return; }
   if (state.view === 'admin' && e.target.matches && e.target.matches('[data-adm-fac],[data-adm-act]') && adminInput(e.target)) return;
+  if (intakeChange(e.target)) return;
   if (e.target.id === 'peopleRole') { syncPeopleScopeOptions(); return; }
   if (e.target.id === 'sendTo') {
     const w = $('#sendOtherWrap');

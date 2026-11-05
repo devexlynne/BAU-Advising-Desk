@@ -30,3 +30,6 @@ private-demo/
 
 # local preview settings for Claude Code
 .claude/
+
+# set-up workbooks are generated: npm run intake:build
+intake/
