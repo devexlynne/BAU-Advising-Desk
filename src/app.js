@@ -335,7 +335,9 @@ async function trySignIn(ev) {
   const pass = $('#fPass').value;
   const err = $('#gateErr');
   const fail = m => { err.hidden = false; err.textContent = m; };
-  if (!/^[^@\s]+@bau\.edu\.lb$/i.test(email)) return fail('Use your BAU email address, ending in bau.edu.lb.');
+  // the server decides which addresses may sign in (BAU staff, plus the
+  // superadmin's own mailbox); the page only checks it looks like an address
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fail('Use your BAU email address, ending in bau.edu.lb.');
   const result = await Store.signIn(email, pass);
   if (!result.ok) {
     if (result.unverified) { gateStep = 'sent'; drawGate(); return; }
@@ -352,7 +354,7 @@ async function requestPasswordReset(ev) {
   const email = $('#resetEmail').value.trim().toLowerCase();
   const err = $('#gateErr'), note = $('#mailSent');
   err.hidden = true;
-  if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)) {
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     err.hidden = false;
     err.textContent = 'Use your BAU email address, ending in bau.edu.lb.';
     return;
@@ -360,7 +362,7 @@ async function requestPasswordReset(ev) {
   const result = await Store.requestResetEmail(email);
   note.hidden = false;
   note.textContent = result.ok
-    ? 'If this account exists, a reset link was sent to its BAU inbox.'
+    ? 'If this account exists, a link was sent to its inbox. Check Spam too.'
     : (result.error || 'That request could not be completed. Contact your administrator.');
 }
 
