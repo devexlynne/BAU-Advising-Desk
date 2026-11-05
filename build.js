@@ -26,7 +26,7 @@ const data = [
 
 const app = read('src/programme.js') + '\n' + read('src/app.js')
   .replace('/*__ASKME__*/', () => read('src/askme.js'))
-  .replace('/*__RULES__*/', () => read('src/rulesadmin.js') + '\n' + read('src/structure.js') + '\n' + read('src/exceptions.js'))
+  .replace('/*__RULES__*/', () => read('src/rulesadmin.js') + '\n' + read('src/structure.js') + '\n' + read('src/exceptions.js') + '\n' + read('src/admin.js'))
   .replace('/*__I18N__*/', () => read('src/i18n.js'));
 
 const PLACEHOLDER = /\/\*__[A-Z]+__\*\//;

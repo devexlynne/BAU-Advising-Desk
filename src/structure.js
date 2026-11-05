@@ -149,7 +149,7 @@ function programmePicker() {
     if (!byFaculty.has(row.faculty)) byFaculty.set(row.faculty, []);
     byFaculty.get(row.faculty).push(row);
   });
-  return `<div class="lab">Programme</div><div style="padding:0 12px 10px">
+  return `<div class="lab">Programme</div><div class="prog-wrap" style="padding:0 12px 10px">
     <select id="progPick" class="pin" aria-label="Programme you are working on">
       ${Array.from(byFaculty, ([faculty, rows]) => `<optgroup label="${esc(faculty)}">${rows.map(row =>
         `<option value="${esc(row.id)}"${row.id === activeProgramme() ? ' selected' : ''}>${esc(programmeName(row.id))}</option>`).join('')}</optgroup>`).join('')}

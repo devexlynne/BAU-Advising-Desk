@@ -467,7 +467,9 @@ async function signedIn(person, silent) {
   syncTerm();
   $('#gate').hidden = true;
   $('#app').hidden = false;
-  state.view = state.me.admin ? 'everyone' : (state.students.length ? 'students' : 'import');
+  if (Store.isServer()) { try { await Store.whoAmI(); } catch (e) { /* banner only */ } }
+  state.view = state.me.superadmin ? 'admin' : state.me.admin ? 'everyone' : (state.students.length ? 'students' : 'import');
+  adminUi.data = null; adminUi.events = null; adminUi.err = ''; adminUi.tab = 'overview';
   render();
   watchForChanges();
   if (!silent) toast(welcomeLine(person));
@@ -1119,6 +1121,7 @@ function render() {
   const admin = !!state.me.admin;
   const items = admin
     ? [
+        ...(state.me.superadmin ? [['admin', 'Admin dashboard', '', '']] : []),
         ['everyone', 'Everyone', state.everyone ? String(allStudentCount()) : '', ''],
         ...(state.me.peopleManager ? [['people', 'People', String(state.people.length), '']] : []),
         ...(canEditStructure() ? [['structure', 'University structure', '', '']] : []),
@@ -1141,7 +1144,7 @@ function render() {
         ['ideas', 'Portal suggestions', state.ideas.length ? String(state.ideas.length) : '', '']
       ];
 
-  $('#rail').innerHTML = programmePicker() + `<div class="lab">${admin ? 'Department' : 'Advising'}</div>`
+  $('#rail').innerHTML = programmePicker() + `<div class="lab">${state.me.superadmin ? 'University' : admin ? 'Faculty' : 'Advising'}</div>`
     + items.map(([k, label, n, cls]) =>
       `<button data-view="${k}" aria-current="${state.view === k
         || (k === 'students' && state.view === 'student')
@@ -1150,7 +1153,7 @@ function render() {
     + `<div class="sep railinfo"></div><div class="lab railinfo">This term</div>
        <div class="railinfo railfacts">
          <div>${admin ? (state.everyone ? allStudentCount() + ' students' : 'loading') : c.total + ' advisees'}</div>
-         <div>${admin ? Object.keys(state.everyone || {}).length + ' advisors' : c.unreg + ' not registered'}</div>
+         <div>${admin ? (n => n + (n === 1 ? ' advisor' : ' advisors'))(Object.keys(state.everyone || {}).length) : c.unreg + ' not registered'}</div>
          <div>${state.offering.sections.length} sections synced</div>
        </div>`;
 
@@ -1177,6 +1180,9 @@ function render() {
   else if (state.view === 'people') v.innerHTML = viewPeople();
   else if (state.view === 'structure') v.innerHTML = viewStructure();
   else if (state.view === 'programme') v.innerHTML = viewProgrammeSetup();
+  else if (state.view === 'admin') v.innerHTML = viewAdmin();
+  const banner = portalBanner();
+  if (banner) v.insertAdjacentHTML('afterbegin', banner);
   drawFloat();
   drawBell();
   syncHistory();
@@ -2778,9 +2784,9 @@ ${ctx.plan.length ? 'Based on your transcript, these are the courses to take nex
 Please come and see me, or reply to this email, so we can settle your schedule.
 
 Best regards,
-Dr. ${state.me.name}
+${fullName(state.me)}
 ${progDeptLine()}
-Beirut Arab University`
+${(state.orgTree && state.orgTree.name) || 'Beirut Arab University'}`
   },
   fix: {
     label: 'Registration problem',
@@ -2796,9 +2802,9 @@ ${ctx.problems.map((p, i) => (i + 1) + '. ' + p).join('\n')}
 Please make the change before the add and drop period closes. Come to my office hours if you would like help choosing an alternative.
 
 Best regards,
-Dr. ${state.me.name}
+${fullName(state.me)}
 ${progDeptLine()}
-Beirut Arab University`
+${(state.orgTree && state.orgTree.name) || 'Beirut Arab University'}`
   },
   progress: {
     label: 'Falling behind',
@@ -2815,9 +2821,9 @@ ${ctx.repeats.length ? 'These courses have to be repeated:\n' + ctx.repeats.map(
 This is recoverable, but it needs a plan. Please book a meeting with me this week so we can look at your load for the coming semester together.
 
 Best regards,
-Dr. ${state.me.name}
+${fullName(state.me)}
 ${progDeptLine()}
-Beirut Arab University`
+${(state.orgTree && state.orgTree.name) || 'Beirut Arab University'}`
   },
   meeting: {
     label: 'Ask them to come in',
@@ -2830,9 +2836,9 @@ Please come and see me during my office hours this week so we can go through you
 Bring your contract sheet if you have it with you.
 
 Best regards,
-Dr. ${state.me.name}
+${fullName(state.me)}
 ${progDeptLine()}
-Beirut Arab University`
+${(state.orgTree && state.orgTree.name) || 'Beirut Arab University'}`
   },
   ok: {
     label: 'All good',
@@ -2849,9 +2855,9 @@ ${ctx.courses.length ? 'You are registered for ' + ctx.regCredits + ' credits:\n
   + ctx.courses.map(c => '  - ' + c.code + '  ' + nice((MAP[c.code] || {}).title || c.title || '')).join('\n') + '\n\n' : ''}Good luck this semester.
 
 Best regards,
-Dr. ${state.me.name}
+${fullName(state.me)}
 ${progDeptLine()}
-Beirut Arab University`
+${(state.orgTree && state.orgTree.name) || 'Beirut Arab University'}`
   }
 };
 
@@ -4685,6 +4691,7 @@ async function onClick(e) {
   if (state.me && state.view === 'rules' && await rulesClick(t)) return;
   if (state.me && (state.view === 'structure' || state.view === 'programme') && await structureClick(t)) return;
   if (state.me && state.view === 'student' && await exceptionsClick(t)) return;
+  if (state.me && state.view === 'admin' && await adminClick(t)) return;
   if (t.closest('[data-person-add]')) { openPeopleForm('invite'); return; }
   const personEdit = t.closest('[data-person-edit]');
   if (personEdit) {
@@ -5190,6 +5197,7 @@ document.addEventListener('submit', e => {
 document.addEventListener('input', e => {
   if (e.target.dataset && (e.target.dataset.rf || e.target.dataset.pc || e.target.dataset.cal)) { rulesInput(e.target); return; }
   if (e.target.dataset && e.target.dataset.pl) { planInput(e.target); return; }
+  if (state.view === 'admin' && e.target.matches && e.target.matches('[data-adm-peopleq]') && adminInput(e.target)) return;
   if (e.target.id === 'peopleSearch') {
     peopleQuery = e.target.value;
     const pos = e.target.selectionStart;
@@ -5209,6 +5217,7 @@ document.addEventListener('change', e => {
   if (e.target.dataset && (e.target.dataset.rf || e.target.dataset.pc || e.target.dataset.cal)) { rulesInput(e.target); return; }
   if (e.target.dataset && e.target.dataset.pl) { planInput(e.target, true); return; }
   if (e.target.id === 'progPick') { switchProgramme(e.target.value); return; }
+  if (state.view === 'admin' && e.target.matches && e.target.matches('[data-adm-fac],[data-adm-act]') && adminInput(e.target)) return;
   if (e.target.id === 'peopleRole') { syncPeopleScopeOptions(); return; }
   if (e.target.id === 'sendTo') {
     const w = $('#sendOtherWrap');

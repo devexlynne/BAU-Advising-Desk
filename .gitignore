@@ -27,3 +27,6 @@ tmp/
 
 # renamed copies of real records, never committed
 private-demo/
+
+# local preview settings for Claude Code
+.claude/
