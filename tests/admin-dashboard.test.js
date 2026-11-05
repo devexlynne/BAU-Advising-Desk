@@ -158,6 +158,7 @@ async function run() {
         const sock = net.connect(PORT, '127.0.0.1', () => sock.write('GET / HTTP/1.1\r\nHost: x\r\n'));
         sock.on('data', d => { if (/^HTTP\/1\.1 408/.test(String(d))) resolve(true); });
         sock.on('close', () => resolve(true));
+        sock.on('error', () => resolve(true));      // a reset also means the server cut it off
         setTimeout(() => { sock.destroy(); resolve(false); }, 40000);
       });
       assert.ok(closed);
