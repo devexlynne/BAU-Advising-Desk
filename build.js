@@ -21,7 +21,9 @@ const data = [
   'window.OFFERING=' + json('data/offering.json') + ';',
   'window.BRAND=' + json('data/brand.json') + ';',
   // faculties, programmes and study plans read from the 2020-2021 catalogue, loaded on request by a superadmin
-  'window.CATALOGUE_SEED=' + json('data/catalogue-2020.json') + ';'
+  'window.CATALOGUE_SEED=' + json('data/catalogue-2020.json') + ';',
+  // what the study-plan files sent to departments contain (scripts/build-intake-workbooks.py)
+  'window.INTAKE_SPEC=' + json('data/intake-rules.json') + ';'
 ].join('\n');
 
 const app = read('src/programme.js') + '\n' + read('src/intake.js') + '\n' + read('src/app.js')
