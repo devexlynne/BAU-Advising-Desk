@@ -119,7 +119,11 @@ async function useProgramme(id, opts) {
   rulesDraft = null; rulesEffect = null;
   await loadRulesConfig();
   if (opts && opts.reloadStudents) {
-    if (state.me.admin) { state.everyone = await loadEveryone(); state.students = everyoneFlat(); }
+    if (state.me.admin) {
+      try { state.everyone = await loadEveryone(); state.everyoneErr = ''; }
+      catch (e) { state.everyone = {}; state.everyoneErr = 'Could not reach the lists just now.'; }
+      state.students = everyoneFlat();
+    }
     else state.students = inActiveProgramme(await Store.loadStudents(state.me.slug, []), state.me.slug);
   }
 }
@@ -127,9 +131,11 @@ async function switchProgramme(id) {
   if (!programmesFor().includes(id) || id === activeProgramme()) return;
   await useProgramme(id, { reloadStudents: true });
   planDraft = null; planFor = null; planDirty = false; planMsg = ''; planPreview = '';
-  state.sel = null;
-  if (state.view === 'student') state.view = state.me.admin ? 'everyone' : 'students';
-  render();
+  state.sel = null; state.filter = 'all'; state.advisorFilter = 'all';
+  // pages about one programme stay where they are; any other page goes to the programme's student list
+  const PROGRAMME_PAGES = ['everyone', 'students', 'programme', 'rules', 'import', 'freshmen', 'decide'];
+  if (!PROGRAMME_PAGES.includes(state.view)) state.view = state.me.admin ? 'everyone' : 'students';
+  render(); window.scrollTo(0, 0);
   toast('Now working on ' + programmeName(id) + (state.programmeReady ? '.' : '. Its study plan is not set up yet.'));
 }
 
@@ -143,7 +149,7 @@ function programmePicker() {
     if (!byFaculty.has(row.faculty)) byFaculty.set(row.faculty, []);
     byFaculty.get(row.faculty).push(row);
   });
-  return `<div class="lab">Programme</div><div style="padding:0 12px 10px">
+  return `<div class="lab">Programme</div><div class="prog-wrap" style="padding:0 12px 10px">
     <select id="progPick" class="pin" aria-label="Programme you are working on">
       ${Array.from(byFaculty, ([faculty, rows]) => `<optgroup label="${esc(faculty)}">${rows.map(row =>
         `<option value="${esc(row.id)}"${row.id === activeProgramme() ? ' selected' : ''}>${esc(programmeName(row.id))}</option>`).join('')}</optgroup>`).join('')}
@@ -647,4 +653,19 @@ function elsewhereHtml(moved) {
   return `<p style="margin-top:5px"><b>${moved.length} student${moved.length === 1 ? ' is' : 's are'} in another programme</b> according to the transcript and ${moved.length === 1 ? 'was' : 'were'} filed there:
     ${moved.slice(0, 8).map(m => esc(m.name) + ' (' + esc(programmeName(m.programme)) + ')').join(', ')}${moved.length > 8 ? ' and ' + (moved.length - 8) + ' more' : ''}.
     Switch the programme menu to see them.</p>`;
+}
+
+// heading line under a student list: which programme this is
+function programmeLine() {
+  const row = programmeRow(activeProgramme()) || {};
+  return esc(programmeName(activeProgramme())) + (row.faculty ? ' · ' + esc(row.faculty) : '');
+}
+function emptyProgrammeHtml() {
+  return `<div class="panel"><div class="bd stack">
+    <p><b>No students in ${esc(programmeName(activeProgramme()))} yet.</b></p>
+    <p class="note">Import this programme's transcripts and schedules${state.programmeReady ? '' : ', and set up its study plan first so they can be checked'}.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn sm primary" data-view="import">Import</button>
+      ${canEditPlan(activeProgramme()) ? '<button class="btn sm" data-view="programme">Programme setup</button>' : ''}
+    </div></div></div>`;
 }

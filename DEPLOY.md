@@ -116,6 +116,10 @@ Optional (defaults in brackets):
 | `DATABASE_SSL_SERVER_NAME` | certificate DNS name to verify when it differs from the database URL hostname |
 | `DATABASE_MIGRATION_URL` | one-off migration environment only; never set on the running app service |
 | `ADMIN_SLUGS` | bootstrap superadmin slugs, comma-separated; retain this setting to preserve emergency admin access |
+| `SUPERADMIN_EMAIL` | the dedicated superadmin account, created at start-up (`bau.advisingdesk@gmail.com`; `none` turns it off) |
+| `ADVISOR_ONLY_EMAILS` | one-time correction at the next start-up: these people keep only their advisor roles (`j.budaher@bau.edu.lb`) |
+| `STAFF_EMAIL_DOMAINS` | email domains staff may sign in and be invited with (`bau.edu.lb`) |
+| `API_PER_MINUTE` | API requests allowed per address per minute, on top of the sign-in limits (`600`) |
 | `IDEAS_TO` | where suggestions are emailed (the admins' addresses) |
 | `ENABLE_STUDENT_IMPORTS` | keep `false` until storage and prior-data checks are complete |
 | `SESSION_HOURS` / `SESSION_IDLE_MINUTES` | session lifetime and idle timeout (`12` / `120`) |

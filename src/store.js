@@ -20,6 +20,7 @@
 
   let mailOn = false;
   let amAdmin = false;
+  let notice = { banner: '', tone: 'info', readOnly: false };
 
   async function init() {
     if (ready) return db;
@@ -286,6 +287,7 @@
       const body = await r.json();
       amAdmin = !!body.admin;
       mailOn = !!body.mail;
+      notice = { banner: String(body.banner || ''), tone: body.bannerTone === 'warn' ? 'warn' : 'info', readOnly: !!body.readOnly };
       return body.slug || null;
     } catch (e) { return null; }
   }
@@ -318,6 +320,10 @@
 
   async function updatePerson(slug, person, roles) {
     return post('/api/people/update', { slug, person, roles });
+  }
+
+  async function reinvitePerson(slug) {
+    return post('/api/people/reinvite', { slug });
   }
 
   async function deactivatePerson(slug) {
@@ -421,6 +427,11 @@
     if (!api) throw new Error('Reset links need the department server.');
     return post('/api/admin/reset-link', { slug });
   }
+  // superadmin dashboard: overview, activity, sessions, settings
+  async function adminCall(name, payload) {
+    if (!api) throw new Error('The admin dashboard needs the portal server.');
+    return post('/api/admin/' + name, payload || {});
+  }
   async function postIdea(kind, text, by) {
     if (api) {
       const r = await post('/api/idea', { kind, text, by });
@@ -465,8 +476,8 @@
     getConfig, saveConfig, getProgramme, saveProgramme, saveOrgTree,
     init, isShared: () => api || !!db, isServer: () => api,
     whoAmI, signOutServer, lastError: () => lastError,
-    isAdmin: () => amAdmin, mailReady: () => mailOn, allStudents, loadPeople, loadOrgTree,
-    invitePerson, updatePerson, deactivatePerson, sendMail, adminResetLink, adminClearPassword,
+    isAdmin: () => amAdmin, notice: () => notice, adminCall, mailReady: () => mailOn, allStudents, loadPeople, loadOrgTree,
+    invitePerson, updatePerson, deactivatePerson, reinvitePerson, sendMail, adminResetLink, adminClearPassword,
     mailReset: () => mailOn, requestResetEmail, resetWithLink,
     verifyAccount, resendVerify, signIn, lastUnverified: () => lastUnverified,
     getAccount, createAccount, checkPassword, accountsThatExist,

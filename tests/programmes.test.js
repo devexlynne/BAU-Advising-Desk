@@ -87,6 +87,8 @@ async function serverChecks() {
   const store = defaultStore();
   store['people/synthetic-shared'] = person('synthetic-shared', 'test.shared@bau.edu.lb',
     [{ role: 'advisor', scopes: ['cs', 'bba-accounting'] }]);
+  // on the staff list from the start, never created an account
+  store['people/synthetic-listed'] = person('synthetic-listed', 'listed.doctor@bau.edu.lb', [{ role: 'advisor', scopes: ['cs'] }]);
   writeStore(DATA, store);
   const server = spawn(process.execPath, [path.join(ROOT, 'server.js')], {
     cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'],
@@ -117,6 +119,22 @@ async function serverChecks() {
     ok(r.status === 403, 'once nothing of theirs is left in Business, the Business admin cannot touch them');
     r = await post('/api/people/deactivate', { slug: 'synthetic-shared' }, admin);
     ok(r.status === 200 && shared().active === false, 'a superadmin can deactivate them completely');
+
+    // someone on the staff list without an account gets a fresh invitation
+    r = await post('/api/people/reinvite', { slug: 'synthetic-listed' }, business);
+    ok(r.status === 403, 'a Business admin cannot invite a Computer Science doctor');
+    r = await post('/api/people/reinvite', { slug: 'synthetic-cs-advisor' }, admin);
+    ok(r.status === 409, 'someone who already has an account is not re-invited');
+    r = await post('/api/people/reinvite', { slug: 'synthetic-listed' }, admin);
+    const inv = await r.json();
+    ok(r.status === 200 && /\?verify=[a-f0-9]{64}$/.test(inv.link || ''), 'a superadmin can invite a listed doctor who never signed up, and gets the link');
+    const token = inv.link.split('verify=')[1];
+    r = await post('/api/verify', { token, password: 'Synthetic-listed-pass-2026' });
+    ok(r.status === 200, 'the invitation sets the password and activates the account');
+    r = await post('/api/verify', { token, password: 'Synthetic-listed-pass-2026' });
+    ok(r.status !== 200, 'the invitation link works only once');
+    r = await post('/api/signin', { email: 'listed.doctor@bau.edu.lb', password: 'Synthetic-listed-pass-2026' });
+    ok(r.status === 200, 'the invited doctor can then sign in with that password');
 
     // study plans, one per programme
     const planPath = id => 'programmes/' + id + '/catalog';

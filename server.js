@@ -79,6 +79,33 @@ const BOOTSTRAP_SUPERADMINS = String(process.env.ADMIN_SLUGS || '')
 const MIGRATION_ADMIN_SLUGS = BOOTSTRAP_SUPERADMINS.length
   ? BOOTSTRAP_SUPERADMINS : LEGACY_ADMIN_SLUGS;
 const IDEAS_TO = process.env.IDEAS_TO || '';
+// Load BAU's faculties, programmes and catalogue study plans once at start-up
+// (on by default on the deployed server, off for local development and tests).
+const SEED_CATALOGUE = boolEnv('SEED_CATALOGUE', PRODUCTION);
+/* A dedicated superadmin account that is nobody's personal account. Its
+   address may be outside bau.edu.lb (for example the project's own mailbox);
+   it is the only such address the server accepts.
+   It defaults to the advising desk's own mailbox; SUPERADMIN_EMAIL=none turns
+   the account off. */
+const SUPERADMIN_EMAIL = (raw => (raw === 'none' || raw === 'off' ? '' : raw))(
+  String(process.env.SUPERADMIN_EMAIL || 'bau.advisingdesk@gmail.com').trim().toLowerCase());
+/* Staff sign in with a university address. STAFF_EMAIL_DOMAINS lets another
+   university (or a second domain) use the portal without code changes. */
+const STAFF_EMAIL_DOMAINS = String(process.env.STAFF_EMAIL_DOMAINS || 'bau.edu.lb')
+  .split(',').map(d => d.trim().toLowerCase()).filter(d => /^[a-z0-9.-]+\.[a-z]{2,}$/.test(d));
+const universityEmail = email => {
+  const m = /^[^@\s]+@([^@\s]+)$/.exec(String(email || '').trim().toLowerCase());
+  return !!m && STAFF_EMAIL_DOMAINS.includes(m[1]);
+};
+const staffEmailOk = email => {
+  const e = String(email || '').trim().toLowerCase();
+  return universityEmail(e) || (!!SUPERADMIN_EMAIL && e === SUPERADMIN_EMAIL);
+};
+/* People who must hold only advising roles after the next start-up (a
+   one-time correction; later changes made on the People page are kept). */
+const ADVISOR_ONLY_EMAILS = String(process.env.ADVISOR_ONLY_EMAILS || 'j.budaher@bau.edu.lb')
+  .split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
+const STARTED_AT = Date.now();
 
 // ---- storage --------------------------------------------------------------
 function loadStore() {
@@ -248,7 +275,7 @@ function inviteProfile(body) {
   if (!source || typeof source !== 'object' || Array.isArray(source)) return null;
   const slug = String(source.slug || '').trim().toLowerCase();
   const email = String(source.email || '').trim().toLowerCase();
-  if (!SLUG.test(slug) || !/^[^@\s]+@bau\.edu\.lb$/.test(email)) return null;
+  if (!SLUG.test(slug) || !universityEmail(email)) return null;
   const text = value => String(value || '').trim();
   return {
     slug,
@@ -351,7 +378,35 @@ function audit(actor, action, details) {
     details: details || {}
   };
   pendingAudits.push(entry);
+  rememberActivity(entry);
   save();
+}
+
+/* The full audit log is append-only (the database role cannot even read it
+   back), so the admin dashboard reads a short summary kept in the store: the
+   last ACTIVITY_KEEP events, without record contents. */
+const ACTIVITY_KEEP = 600;
+const QUIET_ACTIONS = new Set(['read-all-students']);
+function rememberActivity(entry) {
+  if (QUIET_ACTIONS.has(entry.action)) return;
+  const d = entry.details || {};
+  const list = Array.isArray(store._activity) ? store._activity : (store._activity = []);
+  list.push({
+    at: entry.at, actor: entry.actor, action: entry.action,
+    target: typeof d.target === 'string' ? d.target : typeof d.advisor === 'string' ? d.advisor : undefined,
+    key: typeof d.key === 'string' ? d.key.slice(0, 120) : undefined,
+    count: Number.isFinite(d.count) ? d.count : undefined,
+    ip: typeof d.ip === 'string' ? d.ip : undefined
+  });
+  if (list.length > ACTIVITY_KEEP) list.splice(0, list.length - ACTIVITY_KEEP);
+}
+
+/* Runtime switches a superadmin changes from the dashboard, without a deploy:
+   a banner shown to everyone, and read-only mode (only superadmins can change
+   anything, for example while the semester is being set up). */
+function settings() {
+  const s = store._settings && typeof store._settings === 'object' ? store._settings : {};
+  return { banner: String(s.banner || ''), bannerTone: s.bannerTone === 'warn' ? 'warn' : 'info', readOnly: !!s.readOnly };
 }
 
 // ---- passwords -------------------------------------------------------------
@@ -648,6 +703,8 @@ function mayTouch(slug, key, operation) {
   const ownerMatch = /^advisors\/([a-z0-9-]+)\//.exec(key);
   if (ownerMatch) {
     const owner = ownerMatch[1];
+    // only the keys the portal uses: an advisor cannot create arbitrary records
+    if (!/^advisors\/[a-z0-9-]+\/(students(\/[^/]+)?|meta|settings)$/.test(key)) return false;
     if (/^advisors\/[a-z0-9-]+\/students\//.test(key)) {
       return canForOwner(slug, owner, write ? 'students:write' : 'students:read');
     }
@@ -681,9 +738,11 @@ async function api(req, res, url) {
       save();
       s = null;
     }
+    const conf = settings();
     return json(res, 200, {
       slug: s ? s.slug : null, admin: !!(s && isSuperadmin(s.slug)),
-      signupAllowed: ALLOW_SIGNUP, mail: mail.configured()
+      signupAllowed: ALLOW_SIGNUP, mail: mail.configured(),
+      banner: s ? conf.banner : '', bannerTone: conf.bannerTone, readOnly: !!s && conf.readOnly
     });
   }
 
@@ -722,7 +781,7 @@ async function api(req, res, url) {
     const person = findPersonByEmail(email);
     const slug = person && person.slug;
     const key = 'in:' + (email || 'missing-email') + ':' + ip;
-    if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)) {
+    if (!staffEmailOk(email)) {
       await hash(String(body.password || '').slice(0, PASSWORD_MAX), 'no-account');
       failed(key);
       return json(res, 401, { error: 'that email and password do not match' });
@@ -832,6 +891,20 @@ async function api(req, res, url) {
     if (tooMany(key) || (slug && tooMany('req-acct:' + slug))) return json(res, 429, { error: 'too many tries, wait a few minutes' });
     failed(key); if (slug) failed('req-acct:' + slug);
     const acct = store[acctKey(slug)];
+    /* Someone on the staff list who has no working account yet (the original
+       doctors never finished sign-up) gets a set-up link instead of a reset
+       link. It goes only to the BAU address on file, so it proves the same
+       thing an invitation does: they can read that mailbox. */
+    if (person && person.active !== false && (!acct || !isVerified(acct)) && canVerify()
+        && staffEmailOk(person.email)) {
+      if (acct) delete store[acctKey(slug)];      // an old sign-up that was never confirmed
+      const link = invitationLink(req, slug, 'invite');
+      sendInviteEmail(person, link)
+        .catch(e => console.error('could not send the set-up email:', e.message));
+      save();
+      audit(slug, 'setup-link-requested', { ip });
+      return json(res, 200, { ok: true, mail: true });
+    }
     // emailed links always use PUBLIC_URL, never the request's Host header
     if (person && person.active !== false && acct && acct.email && mail.configured() && PUBLIC_URL) {
       const link = PUBLIC_URL + '/?reset=' + newResetToken(slug);
@@ -890,6 +963,19 @@ async function api(req, res, url) {
   if (!personOf(me.slug) || personOf(me.slug).active === false) {
     endSession(req);
     return json(res, 401, { error: 'this account is no longer active' });
+  }
+
+  // Read-only mode: only superadmins may change anything.
+  if (settings().readOnly && !isSuperadmin(me.slug)) {
+    const changes = p === '/api/set' || p === '/api/delete' || p === '/api/students/save'
+      || p === '/api/students/clear' || p.indexOf('/api/people/') === 0 && p !== '/api/people/list'
+      || (p === '/api/org/tree' && body.tree !== undefined);
+    if (changes) return json(res, 423, { error: 'the portal is read-only for now while it is being set up. Try again later' });
+  }
+
+  if (p.indexOf('/api/admin/') === 0 && !['/api/admin/reset-link', '/api/admin/clear-password'].includes(p)) {
+    if (!isSuperadmin(me.slug)) return json(res, 403, { error: 'only a superadmin can open the admin dashboard' });
+    return adminApi(p, body, req, res, me, ip);
   }
 
   if (p === '/api/org/tree') {
@@ -997,6 +1083,36 @@ async function api(req, res, url) {
     return json(res, 200, { ok: true, slug: person.slug, inviteLink: isTestAddress(person.email) ? link : undefined });
   }
 
+  /* Invite someone who is already on the staff list but has no working
+     account yet (for example a doctor from the original list who never signed
+     up). A new single-use link is emailed to their BAU address. A superadmin
+     also gets the link back, to hand over when email is not set up. */
+  if (p === '/api/people/reinvite') {
+    const slug = String(body.slug || '');
+    const target = SLUG.test(slug) ? personOf(slug) : null;
+    if (!target || !store['people/' + slug] || !canManagePerson(me.slug, target) || me.slug === slug) {
+      return json(res, 403, { error: 'you cannot manage this person' });
+    }
+    if (target.active === false) return json(res, 409, { error: 'this person is deactivated' });
+    if (!staffEmailOk(target.email)) return json(res, 400, { error: 'this person has no BAU email address on file' });
+    const acct = store[acctKey(slug)];
+    if (acct && isVerified(acct)) return json(res, 409, { error: 'this person already has an account; use a password reset instead' });
+    if (acct) delete store[acctKey(slug)];        // an old sign-up that was never confirmed
+    const link = invitationLink(req, slug, 'invite');
+    let emailed = false;
+    if (!isTestAddress(target.email) && canVerify()) {
+      try { await sendInviteEmail(target, link); emailed = true; }
+      catch (e) { console.error('could not send the invitation email:', e.message); }
+    } else if (isTestAddress(target.email) || !PRODUCTION) {
+      console.log('Invitation for ' + target.email + ': ' + link);
+    }
+    save();
+    audit(me.slug, 'person-reinvited', { target: slug, emailed, ip });
+    const showLink = isSuperadmin(me.slug) || isTestAddress(target.email);
+    if (!emailed && !showLink) return json(res, 502, { error: 'the invitation email could not be sent' });
+    return json(res, 200, { ok: true, emailed, email: target.email, link: showLink ? link : undefined, hours: VERIFY_HOURS });
+  }
+
   if (p === '/api/people/update') {
     const slug = String(body.slug || '');
     const current = SLUG.test(slug) ? personOf(slug) : null;
@@ -1038,7 +1154,7 @@ async function api(req, res, url) {
     }
     if (profile.email !== undefined) {
       const email = String(profile.email).trim().toLowerCase();
-      if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)
+      if (!staffEmailOk(email)
         || allPeople().some(person => person.slug !== slug && String(person.email || '').toLowerCase() === email)) {
         return json(res, 400, { error: 'use a unique BAU email address' });
       }
@@ -1181,11 +1297,14 @@ async function api(req, res, url) {
      For when mail is not set up. The admin forwards the link from their own
      mailbox; it is the same single-use, time-limited link the email carries. */
   if (p === '/api/admin/reset-link') {
-    if (!canUser(me.slug, 'people:manage', scopesOf(personOf(String(body.slug || '')))[0])) {
+    // A reset link hands over the account, so the caller must manage every
+    // role this person holds, not just one of them.
+    const slug = String(body.slug || '');
+    const target = SLUG.test(slug) ? personOf(slug) : null;
+    if (!target || slug === me.slug || !managesAllOf(me.slug, target)) {
       return json(res, 403, { error: 'you cannot manage this person' });
     }
-    const slug = String(body.slug || '');
-    if (!SLUG.test(slug) || isSuperadmin(slug)) return json(res, 400, { error: 'unknown advisor' });
+    if (isSuperadmin(slug)) return json(res, 400, { error: 'unknown advisor' });
     if (!store[acctKey(slug)]) return json(res, 404, { error: 'this advisor has not created an account yet' });
     audit(me.slug, 'admin-reset-link', { advisor: slug, ip });
     return json(res, 200, { ok: true, link: resetLink(req, newResetToken(slug)), minutes: RESET_MINUTES });
@@ -1196,7 +1315,7 @@ async function api(req, res, url) {
   if (p === '/api/admin/clear-password') {
     const slug = String(body.slug || '');
     const target = SLUG.test(slug) ? personOf(slug) : null;
-    if (!target || !canManagePerson(me.slug, target) || isSuperadmin(slug)) {
+    if (!target || slug === me.slug || !managesAllOf(me.slug, target) || isSuperadmin(slug)) {
       return json(res, 403, { error: 'you cannot manage this person' });
     }
     const had = !!store[acctKey(slug)];
@@ -1390,6 +1509,13 @@ async function api(req, res, url) {
       }
     }
     if (p === '/api/set') {
+      // size caps per kind of record, so one account cannot fill the database
+      const size = JSON.stringify(body.value === undefined ? null : body.value).length;
+      const cap = key.indexOf('offering/') === 0 ? 20 * 1024 * 1024
+        : /^(brand\/|programmes\/|config\/)/.test(key) ? 6 * 1024 * 1024
+        : /\/students\/\d+$/.test(key) ? 4 * 1024 * 1024
+        : 512 * 1024;
+      if (size > cap) return json(res, 413, { error: 'that record is too large' });
       if (/^advisors\/[a-z0-9-]+\/students\//.test(key)) {
         cleanStudent(body.value);
         body.value.updatedAt = Date.now(); body.value.updatedBy = me.slug;
@@ -1405,6 +1531,154 @@ async function api(req, res, url) {
     const student = /^advisors\/([a-z0-9-]+)\/students\/\d+$/.exec(key);
     audit(me.slug, 'delete', student ? { advisor: student[1], recordType: 'student' } : { key });
     return json(res, 200, { ok: true });
+  }
+
+  return json(res, 404, { error: 'not found' });
+}
+
+// ---- admin dashboard (superadmin only; checked by the caller) --------------
+function studentCounts() {
+  const byAdvisor = {};
+  Object.keys(store).forEach(k => {
+    const m = /^advisors\/([a-z0-9-]+)\/students\/[^/]+$/.exec(k);
+    if (m) byAdvisor[m[1]] = (byAdvisor[m[1]] || 0) + 1;
+  });
+  return byAdvisor;
+}
+
+function adminOverview() {
+  const tree = store['org/tree'] || OrgTree.DEFAULT_TREE;
+  const people = allPeople();
+  const byAdvisor = studentCounts();
+  const roleCounts = {};
+  people.forEach(person => (person.roles || []).forEach(r => {
+    if (r && r.role) roleCounts[r.role] = (roleCounts[r.role] || 0) + 1;
+  }));
+  const accountOf = person => store[acctKey(person.slug)];
+  const sessionList = Object.values(sessions()).filter(rec => rec && !sessionExpired(rec));
+  const onlineBy = {};
+  sessionList.forEach(rec => {
+    const cur = onlineBy[rec.slug];
+    if (!cur || (rec.seen || rec.at) > cur.seen) onlineBy[rec.slug] = { seen: rec.seen || rec.at, at: rec.at, n: (cur ? cur.n : 0) + 1 };
+    else cur.n += 1;
+  });
+
+  // one row per programme: who advises it, how many students, is it set up
+  const programmes = [];
+  (tree.faculties || []).forEach(faculty => (faculty.departments || []).forEach(department =>
+    (department.programmes || []).forEach(programme => {
+      const advisors = people.filter(person => person.active !== false && (person.roles || [])
+        .some(r => r && r.role === 'advisor' && (r.scopes || []).includes(programme.id)));
+      const plan = store['programmes/' + programme.id + '/catalog'];
+      const hasRules = !!store['config/' + programme.id + '/rules'];
+      programmes.push({
+        id: programme.id, name: programme.name, faculty: faculty.name, department: department.name,
+        campuses: Array.isArray(programme.campuses) ? programme.campuses : [],
+        advisors: advisors.length,
+        students: advisors.reduce((n, person) => n + (byAdvisor[person.slug] || 0), 0),
+        plan: programme.id === 'cs' && !plan ? 'built-in' : !plan ? 'missing'
+          : plan.setupStatus === 'ready' ? 'ready' : 'to check',
+        rules: hasRules ? 'own' : 'university'
+      });
+    })));
+
+  const day = Date.now() - 24 * 3600e3, week = Date.now() - 7 * 24 * 3600e3;
+  const activity = Array.isArray(store._activity) ? store._activity : [];
+  const since = (t, action) => activity.filter(a => a.action === action && Date.parse(a.at) >= t).length;
+  const mem = process.memoryUsage();
+  let approxBytes = 0;
+  try { approxBytes = Buffer.byteLength(JSON.stringify(store)); } catch (e) { /* too big to measure */ }
+
+  return {
+    generatedAt: new Date().toISOString(),
+    people: {
+      total: people.length,
+      active: people.filter(person => person.active !== false).length,
+      deactivated: people.filter(person => person.active === false).length,
+      withAccount: people.filter(person => accountOf(person) && isVerified(accountOf(person))).length,
+      invitePending: people.filter(person => person.active !== false && !(accountOf(person) && isVerified(accountOf(person)))).length,
+      roles: roleCounts,
+      list: people.map(person => ({
+        slug: person.slug, name: person.name, email: person.email, active: person.active !== false,
+        roles: (person.roles || []).map(r => ({ role: r.role, scopes: r.scopes || [] })),
+        verified: !!(accountOf(person) && isVerified(accountOf(person))),
+        lastSignIn: (accountOf(person) || {}).lastSignIn || null,
+        students: byAdvisor[person.slug] || 0,
+        online: onlineBy[person.slug] || null
+      }))
+    },
+    students: { total: Object.values(byAdvisor).reduce((a, b) => a + b, 0), advisorsWithStudents: Object.keys(byAdvisor).length },
+    structure: {
+      faculties: (tree.faculties || []).length,
+      departments: (tree.faculties || []).reduce((n, f) => n + (f.departments || []).length, 0),
+      programmes: programmes.length,
+      list: programmes
+    },
+    security: {
+      signinsToday: since(day, 'signin'),
+      failedToday: since(day, 'signin-failed'),
+      failedWeek: since(week, 'signin-failed'),
+      lockedOut: Array.from(attempts.values()).filter(a => a.until > Date.now()).length,
+      activeSessions: sessionList.length,
+      passwordResetsWeek: since(week, 'password-reset')
+    },
+    system: {
+      storage: databaseStore ? 'PostgreSQL' : STORE_KEY ? 'Encrypted files' : 'Local files (development)',
+      storageOk: !storageFailure,
+      mail: mail.configured(), publicUrl: !!PUBLIC_URL, production: PRODUCTION,
+      imports: ENABLE_STUDENT_IMPORTS,
+      uptimeSeconds: Math.round((Date.now() - STARTED_AT) / 1000),
+      node: process.version,
+      memoryMb: Math.round(mem.rss / 1048576), heapMb: Math.round(mem.heapUsed / 1048576),
+      records: Object.keys(store).length, dataMb: Math.round(approxBytes / 104857.6) / 10,
+      sessionHours: SESSION_HOURS, idleMinutes: SESSION_IDLE_MINUTES,
+      staffDomains: STAFF_EMAIL_DOMAINS, superadminEmail: SUPERADMIN_EMAIL || null
+    },
+    settings: settings()
+  };
+}
+
+async function adminApi(p, body, req, res, me, ip) {
+  if (p === '/api/admin/overview') return json(res, 200, adminOverview());
+
+  if (p === '/api/admin/activity') {
+    const limit = Math.max(1, Math.min(ACTIVITY_KEEP, Number(body.limit) || 200));
+    const action = typeof body.action === 'string' ? body.action : '';
+    const actor = typeof body.actor === 'string' ? body.actor : '';
+    const list = (Array.isArray(store._activity) ? store._activity : [])
+      .filter(a => (!action || a.action === action) && (!actor || a.actor === actor || a.target === actor))
+      .slice(-limit).reverse();
+    return json(res, 200, { events: list });
+  }
+
+  if (p === '/api/admin/sessions/end') {
+    const all = body.all === true;
+    const slug = String(body.slug || '');
+    if (!all && !SLUG.test(slug)) return json(res, 400, { error: 'say whose sessions to end' });
+    const s = sessions();
+    const mine = sessionOf(req);
+    let ended = 0;
+    Object.keys(s).forEach(k => {
+      if (!s[k] || (mine && k === mine.id)) return;      // never your own current session
+      if (all || s[k].slug === slug) { delete s[k]; ended++; }
+    });
+    save();
+    audit(me.slug, all ? 'sessions-ended-all' : 'sessions-ended', { target: all ? undefined : slug, count: ended, ip });
+    return json(res, 200, { ok: true, ended });
+  }
+
+  if (p === '/api/admin/settings') {
+    const cur = settings();
+    if (body.banner === undefined && body.readOnly === undefined && body.bannerTone === undefined) return json(res, 200, cur);
+    const next = {
+      banner: body.banner === undefined ? cur.banner : String(body.banner).trim().slice(0, 300),
+      bannerTone: body.bannerTone === undefined ? cur.bannerTone : body.bannerTone === 'warn' ? 'warn' : 'info',
+      readOnly: body.readOnly === undefined ? cur.readOnly : body.readOnly === true
+    };
+    store._settings = next;
+    save();
+    audit(me.slug, 'settings-changed', { before: cur, after: next, ip });
+    return json(res, 200, next);
   }
 
   return json(res, 404, { error: 'not found' });
@@ -1447,7 +1721,12 @@ function tooManyFrom(req) {
   rec.hits = rec.hits.filter(t => now - t < window);
   rec.hits.push(now);
   byAddress.set(ip, rec);
-  if (byAddress.size > 5000) byAddress.clear();     // crude cap so the map can't grow forever
+  // cap the map without wiping everyone's counters (a full clear would let an
+  // attacker reset their own limit by spraying addresses): drop stale ones first
+  if (byAddress.size > 5000) {
+    byAddress.forEach((r, k) => { if (!r.hits.some(t => now - t < window)) byAddress.delete(k); });
+    if (byAddress.size > 5000) Array.from(byAddress.keys()).slice(0, 1000).forEach(k => byAddress.delete(k));
+  }
   return rec.hits.length > 60;
 }
 
@@ -1492,7 +1771,7 @@ async function healthy() {
   } catch (e) { return false; }
 }
 
-const server = http.createServer(async (req, res) => {
+const server = http.createServer({ headersTimeout: 20e3, requestTimeout: 120e3, connectionsCheckingInterval: 5e3 }, async (req, res) => {
   let url;
   try { url = new URL(req.url, 'http://localhost'); } catch (e) { res.writeHead(400).end(); return; }
   const p = url.pathname;
@@ -1503,6 +1782,9 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (p.startsWith('/api/')) {
+    if (apiFlood(clientIp(req))) {
+      return json(res, 429, { error: 'too many requests from this connection; wait a minute' }, { 'retry-after': '60' });
+    }
     try { return await api(req, res, url); }
     catch (e) { console.error('api error:', e.message); return json(res, 500, { error: 'something went wrong' }); }
   }
@@ -1524,6 +1806,125 @@ const server = http.createServer(async (req, res) => {
   }
   json(res, 405, { error: 'method not allowed' });
 });
+
+/* Slow or stuck clients must not hold connections open for ever (slowloris).
+   keepAliveTimeout stays above the proxy's idle timeout so the proxy never
+   reuses a connection we just closed. */
+server.headersTimeout = 20e3;
+server.requestTimeout = 120e3;      // a 40 MB import over a slow connection still fits
+server.keepAliveTimeout = 65e3;
+server.maxHeadersCount = 100;
+
+/* General API limit per address, on top of the sign-in limits: a fixed
+   one-minute window. Generous for people, stops scripts hammering the API. */
+const API_PER_MINUTE = numberEnv('API_PER_MINUTE', 600, 30, 100000);
+const apiHits = new Map();
+function apiFlood(ip) {
+  const minute = Math.floor(Date.now() / 60e3);
+  const rec = apiHits.get(ip);
+  if (!rec || rec.minute !== minute) { apiHits.set(ip, { minute, n: 1 }); return false; }
+  rec.n += 1;
+  return rec.n > API_PER_MINUTE;
+}
+setInterval(() => {
+  const minute = Math.floor(Date.now() / 60e3);
+  apiHits.forEach((rec, ip) => { if (rec.minute < minute) apiHits.delete(ip); });
+}, 60e3).unref();
+
+// Creates the dedicated superadmin's staff record once, from SUPERADMIN_EMAIL.
+// Its password is set through "first time here?" on the sign-in page, which
+// emails a set-up link to that address.
+function ensureSuperadminAccount() {
+  if (!SUPERADMIN_EMAIL) return;
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(SUPERADMIN_EMAIL)) { console.warn('SUPERADMIN_EMAIL is not an email address; ignored'); return; }
+  const have = findPersonByEmail(SUPERADMIN_EMAIL);
+  if (have) {
+    if (!isSuperadmin(have.slug)) console.warn('SUPERADMIN_EMAIL belongs to ' + have.slug + ', who is not a superadmin; left unchanged');
+    return;
+  }
+  let slug = 'system-admin', n = 2;
+  while (store['people/' + slug]) slug = 'system-admin-' + n++;
+  store['people/' + slug] = {
+    slug, name: 'Superadmin', honorific: '', title: 'System administrator', email: SUPERADMIN_EMAIL,
+    photo: '', faculty: '', department: '', short: 'Superadmin', rank: '',
+    active: true, verified: false, roles: [{ role: 'superadmin', scopes: ['bau'] }]
+  };
+  save();
+  audit('system', 'superadmin-account-created', { target: slug });
+  console.log('  created the superadmin staff record ' + slug + ' for ' + SUPERADMIN_EMAIL);
+}
+
+/* One-time role correction: each ADVISOR_ONLY_EMAILS person keeps only their
+   advising roles (superadmin and other admin roles are removed). Runs only
+   when the dedicated superadmin account exists and is active, so the portal is
+   never left without a superadmin, and only once, so later People-page
+   changes are kept. */
+function applyAdvisorOnlyOnce() {
+  const marks = store._seeds || (store._seeds = {});
+  if (marks['advisor-only-2026-11']) return;
+  const keeper = SUPERADMIN_EMAIL && findPersonByEmail(SUPERADMIN_EMAIL);
+  if (!keeper || keeper.active === false || !isSuperadmin(keeper.slug)) return;
+  const changed = [];
+  ADVISOR_ONLY_EMAILS.forEach(email => {
+    const person = findPersonByEmail(email);
+    if (!person || person.slug === keeper.slug) return;
+    const before = JSON.parse(JSON.stringify(person));
+    let roles = (person.roles || []).filter(r => r && r.role === 'advisor');
+    if (!roles.length) {
+      const tree = store['org/tree'] || OrgTree.DEFAULT_TREE;
+      const scope = OrgTree.findNode(tree, 'cs') ? 'cs' : null;
+      if (!scope) return;
+      roles = [{ role: 'advisor', scopes: [scope] }];
+    }
+    if (JSON.stringify(roles) === JSON.stringify(person.roles)) return;
+    person.roles = roles;
+    changed.push(person.slug);
+    audit('system', 'person-role-changed', { target: person.slug, before, after: person, reason: 'advisor only' });
+  });
+  marks['advisor-only-2026-11'] = { at: Date.now(), changed };
+  save();
+  if (changed.length) console.log('  advisor only from now on: ' + changed.join(', '));
+}
+
+/* Adds the faculties, departments and programmes of data/catalogue-2020.json
+   that are not in the structure yet, and gives each programme without a study
+   plan the plan read from the catalogue (marked "to check"). Runs once: a
+   marker in the store stops it from bringing back anything removed later.
+   Nothing that already exists is renamed, moved or replaced. */
+function seedCatalogueOnce() {
+  if (!SEED_CATALOGUE) return;
+  const marks = store._seeds || (store._seeds = {});
+  if (marks['catalogue-2020']) return;
+  let seed;
+  try { seed = require('./data/catalogue-2020.json'); } catch (e) { console.warn('catalogue seed missing; skipped'); return; }
+  const tree = JSON.parse(JSON.stringify(store['org/tree'] || OrgTree.DEFAULT_TREE));
+  const ids = new Set(OrgTree.allNodes(tree).map(n => n.id));
+  let added = 0;
+  const merge = (into, from, key, childKey) => (from[key] || []).forEach(child => {
+    let have = (into[key] || []).find(x => x.id === child.id);
+    if (!have) {
+      if (ids.has(child.id)) return;            // that id is used elsewhere: leave it alone
+      have = JSON.parse(JSON.stringify(childKey ? Object.assign({}, child, { [childKey]: [] }) : child));
+      into[key].push(have); ids.add(child.id); added++;
+    }
+    if (childKey) merge(have, child, childKey, childKey === 'departments' ? 'programmes' : null);
+  });
+  merge(tree, seed.tree, 'faculties', 'departments');
+  const check = OrgTree.validateTree(tree);
+  if (!check.ok) { console.warn('catalogue seed not applied: ' + check.error); return; }
+  const before = store['org/tree'] || null;
+  store['org/tree'] = tree;
+  const plans = [];
+  Object.keys(seed.plans || {}).forEach(id => {
+    if (id === 'cs' || !OrgTree.findNode(tree, id) || store['programmes/' + id + '/catalog']) return;
+    store['programmes/' + id + '/catalog'] = Object.assign({}, seed.plans[id], { updatedAt: Date.now(), updatedBy: 'catalogue-2020' });
+    plans.push(id);
+  });
+  marks['catalogue-2020'] = { at: Date.now(), added, plans };
+  save();
+  audit('system', 'catalogue-seeded', { before: before ? { faculties: (before.faculties || []).length } : null, added, plans });
+  console.log('  catalogue 2020-2021: ' + added + ' faculties, departments and programmes added, ' + plans.length + ' study plans to check');
+}
 
 async function startServer() {
   if (PRODUCTION && ALLOW_UNVERIFIED_SIGNUP) {
@@ -1563,7 +1964,11 @@ async function startServer() {
     await flushStore();
   }
 
+  ensureSuperadminAccount();
+  seedCatalogueOnce();
+  applyAdvisorOnlyOnce();
   sweepSessions();
+  await flushStore();
   server.listen(PORT, () => {
     console.log('Online Advising System on port ' + PORT);
     console.log('  storage: ' + (databaseStore ? 'PostgreSQL' : STORE_KEY ? 'encrypted files (AES-256-GCM)' : 'local development files'));
@@ -1609,4 +2014,10 @@ process.on('unhandledRejection', e => {
   console.error('unhandled rejection:', e && e.stack ? e.stack : e);
   process.exitCode = 1;
   shutdown('unhandled rejection');
+});
+// A crash still saves what is pending and exits non-zero so Railway restarts it.
+process.on('uncaughtException', e => {
+  console.error('uncaught exception:', e && e.stack ? e.stack : e);
+  process.exitCode = 1;
+  shutdown('uncaught exception');
 });

@@ -304,7 +304,7 @@ function drawGate() {
           </label>
           <p class="err" id="gateErr" hidden></p>
           <button class="btn primary" type="submit" style="justify-content:center">Sign in</button>
-          <button class="linkbtn" type="button" data-reset="1">I forgot my password</button>
+          <button class="linkbtn" type="button" data-reset="1">Forgot your password, or first time here?</button>
           <p class="note" style="text-align:center">Staff accounts are created by invitation. Use your BAU email address.</p>
         </form>
       </div>
@@ -314,14 +314,14 @@ function drawGate() {
 
   if (gateStep === 'reset') {
     g.innerHTML = `<div class="gate-inner"><div class="card">
-      <div class="pic"><div><b>Forgot your password?</b><span>Reset using your BAU email</span></div></div>
+      <div class="pic"><div><b>Forgot your password, or first time here?</b><span>We email a link to your BAU address to set a password</span></div></div>
       <form class="stack" id="resetRequestForm">
         <label class="f" for="resetEmail">BAU email
           <input id="resetEmail" type="email" value="${esc(resetEmail)}" autocomplete="username" required>
         </label>
         <p class="err" id="gateErr" hidden></p>
         <p class="okmsg" id="mailSent" hidden></p>
-        <button class="btn primary" type="submit" style="justify-content:center">Email me a reset link</button>
+        <button class="btn primary" type="submit" style="justify-content:center">Email me a link</button>
         <button class="btn ghost" type="button" data-back="1" style="justify-content:center">Back</button>
       </form>
     </div></div>`;
@@ -335,7 +335,9 @@ async function trySignIn(ev) {
   const pass = $('#fPass').value;
   const err = $('#gateErr');
   const fail = m => { err.hidden = false; err.textContent = m; };
-  if (!/^[^@\s]+@bau\.edu\.lb$/i.test(email)) return fail('Use your BAU email address, ending in bau.edu.lb.');
+  // the server decides which addresses may sign in (BAU staff, plus the
+  // superadmin's own mailbox); the page only checks it looks like an address
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fail('Use your BAU email address, ending in bau.edu.lb.');
   const result = await Store.signIn(email, pass);
   if (!result.ok) {
     if (result.unverified) { gateStep = 'sent'; drawGate(); return; }
@@ -352,7 +354,7 @@ async function requestPasswordReset(ev) {
   const email = $('#resetEmail').value.trim().toLowerCase();
   const err = $('#gateErr'), note = $('#mailSent');
   err.hidden = true;
-  if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)) {
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     err.hidden = false;
     err.textContent = 'Use your BAU email address, ending in bau.edu.lb.';
     return;
@@ -360,7 +362,7 @@ async function requestPasswordReset(ev) {
   const result = await Store.requestResetEmail(email);
   note.hidden = false;
   note.textContent = result.ok
-    ? 'If this account exists, a reset link was sent to its BAU inbox.'
+    ? 'If this account exists, a link was sent to its inbox. Check Spam too.'
     : (result.error || 'That request could not be completed. Contact your administrator.');
 }
 
@@ -441,7 +443,7 @@ async function signedIn(person, silent) {
            then it's just a normal list (same pages, rules, arithmetic). */
     try {
       state.everyone = await loadEveryone();
-      state.everyoneErr = Object.keys(state.everyone).length ? '' : 'No advisor has imported a list yet.';
+      state.everyoneErr = '';   // an empty programme gets its own empty page
     } catch (e) {
       state.everyone = {}; state.everyoneErr = 'Could not reach the department lists just now.';
     }
@@ -467,7 +469,9 @@ async function signedIn(person, silent) {
   syncTerm();
   $('#gate').hidden = true;
   $('#app').hidden = false;
-  state.view = state.me.admin ? 'everyone' : (state.students.length ? 'students' : 'import');
+  if (Store.isServer()) { try { await Store.whoAmI(); } catch (e) { /* banner only */ } }
+  state.view = state.me.superadmin ? 'admin' : state.me.admin ? 'everyone' : (state.students.length ? 'students' : 'import');
+  adminUi.data = null; adminUi.events = null; adminUi.err = ''; adminUi.tab = 'overview';
   render();
   watchForChanges();
   if (!silent) toast(welcomeLine(person));
@@ -1119,6 +1123,7 @@ function render() {
   const admin = !!state.me.admin;
   const items = admin
     ? [
+        ...(state.me.superadmin ? [['admin', 'Admin dashboard', '', '']] : []),
         ['everyone', 'Everyone', state.everyone ? String(allStudentCount()) : '', ''],
         ...(state.me.peopleManager ? [['people', 'People', String(state.people.length), '']] : []),
         ...(canEditStructure() ? [['structure', 'University structure', '', '']] : []),
@@ -1141,7 +1146,7 @@ function render() {
         ['ideas', 'Portal suggestions', state.ideas.length ? String(state.ideas.length) : '', '']
       ];
 
-  $('#rail').innerHTML = programmePicker() + `<div class="lab">${admin ? 'Department' : 'Advising'}</div>`
+  $('#rail').innerHTML = programmePicker() + `<div class="lab">${state.me.superadmin ? 'University' : admin ? 'Faculty' : 'Advising'}</div>`
     + items.map(([k, label, n, cls]) =>
       `<button data-view="${k}" aria-current="${state.view === k
         || (k === 'students' && state.view === 'student')
@@ -1150,7 +1155,7 @@ function render() {
     + `<div class="sep railinfo"></div><div class="lab railinfo">This term</div>
        <div class="railinfo railfacts">
          <div>${admin ? (state.everyone ? allStudentCount() + ' students' : 'loading') : c.total + ' advisees'}</div>
-         <div>${admin ? Object.keys(state.everyone || {}).length + ' advisors' : c.unreg + ' not registered'}</div>
+         <div>${admin ? (n => n + (n === 1 ? ' advisor' : ' advisors'))(Object.keys(state.everyone || {}).length) : c.unreg + ' not registered'}</div>
          <div>${state.offering.sections.length} sections synced</div>
        </div>`;
 
@@ -1177,6 +1182,9 @@ function render() {
   else if (state.view === 'people') v.innerHTML = viewPeople();
   else if (state.view === 'structure') v.innerHTML = viewStructure();
   else if (state.view === 'programme') v.innerHTML = viewProgrammeSetup();
+  else if (state.view === 'admin') v.innerHTML = viewAdmin();
+  const banner = portalBanner();
+  if (banner) v.insertAdjacentHTML('afterbegin', banner);
   drawFloat();
   drawBell();
   syncHistory();
@@ -1409,7 +1417,8 @@ function viewStudents() {
                ['under', 'Under ' + R.load['REG-LOAD-01'].min + ' credits', advisees().filter(underLoad).length],
                ['over', 'Over ' + R.load['REG-LOAD-01'].max + ' credits', advisees().filter(overLoad).length]];
   return `<div class="wrap">
-    <div class="page-h"><h1>All students</h1><p>${esc(shortTerm(state.term))}</p></div>
+    <div class="page-h"><h1>All students</h1><p>${programmeLine()} · ${esc(shortTerm(state.term))}</p></div>
+    ${!state.students.length ? emptyProgrammeHtml() : ''}
     <div class="filters">
       <div class="search"><input id="q" placeholder="Search by name or ID" value="${esc(state.q)}" autocomplete="off"></div>
       <div class="seg">${seg.map(([k, l, n]) => `<button data-filter="${k}" aria-pressed="${state.filter === k}">${l}<span class="segn">${n}</span></button>`).join('')}</div>
@@ -2777,9 +2786,9 @@ ${ctx.plan.length ? 'Based on your transcript, these are the courses to take nex
 Please come and see me, or reply to this email, so we can settle your schedule.
 
 Best regards,
-Dr. ${state.me.name}
+${fullName(state.me)}
 ${progDeptLine()}
-Beirut Arab University`
+${(state.orgTree && state.orgTree.name) || 'Beirut Arab University'}`
   },
   fix: {
     label: 'Registration problem',
@@ -2795,9 +2804,9 @@ ${ctx.problems.map((p, i) => (i + 1) + '. ' + p).join('\n')}
 Please make the change before the add and drop period closes. Come to my office hours if you would like help choosing an alternative.
 
 Best regards,
-Dr. ${state.me.name}
+${fullName(state.me)}
 ${progDeptLine()}
-Beirut Arab University`
+${(state.orgTree && state.orgTree.name) || 'Beirut Arab University'}`
   },
   progress: {
     label: 'Falling behind',
@@ -2814,9 +2823,9 @@ ${ctx.repeats.length ? 'These courses have to be repeated:\n' + ctx.repeats.map(
 This is recoverable, but it needs a plan. Please book a meeting with me this week so we can look at your load for the coming semester together.
 
 Best regards,
-Dr. ${state.me.name}
+${fullName(state.me)}
 ${progDeptLine()}
-Beirut Arab University`
+${(state.orgTree && state.orgTree.name) || 'Beirut Arab University'}`
   },
   meeting: {
     label: 'Ask them to come in',
@@ -2829,9 +2838,9 @@ Please come and see me during my office hours this week so we can go through you
 Bring your contract sheet if you have it with you.
 
 Best regards,
-Dr. ${state.me.name}
+${fullName(state.me)}
 ${progDeptLine()}
-Beirut Arab University`
+${(state.orgTree && state.orgTree.name) || 'Beirut Arab University'}`
   },
   ok: {
     label: 'All good',
@@ -2848,9 +2857,9 @@ ${ctx.courses.length ? 'You are registered for ' + ctx.regCredits + ' credits:\n
   + ctx.courses.map(c => '  - ' + c.code + '  ' + nice((MAP[c.code] || {}).title || c.title || '')).join('\n') + '\n\n' : ''}Good luck this semester.
 
 Best regards,
-Dr. ${state.me.name}
+${fullName(state.me)}
 ${progDeptLine()}
-Beirut Arab University`
+${(state.orgTree && state.orgTree.name) || 'Beirut Arab University'}`
   }
 };
 
@@ -3990,6 +3999,7 @@ function viewIdeas() {
    advisor's name, filters work across everyone. */
 
 let peopleQuery = '', peopleForm = null, peopleMessage = '';
+let reinviteResult = null;   // the last invitation sent from People, shown once
 
 function orgScopeRows() {
   const rows = [];
@@ -4090,6 +4100,10 @@ function viewPeople() {
   const allowedScopeKinds = new Set(scopeKindsForRole(selectedRole));
   const scopeOptions = manageableScopeRows();
   const selectedScopes = editing && currentRole ? currentRole.scopes || [] : [];
+  // a second, advisor role next to an admin role (an admin with their own advisees)
+  const advisingOptions = scopeOptions.filter(row => row.kind === 'programme');
+  const extraAdvisor = editing && editing.person && (editing.person.roles || []).slice(1).find(r => r && r.role === 'advisor');
+  const alsoAdvises = extraAdvisor && (extraAdvisor.scopes || [])[0] || '';
   const form = editing ? `<div class="panel"><div class="hd">${editing.mode === 'invite' ? 'Invite a staff member' : 'Edit staff member'}</div>
     <form class="bd stack" id="peopleForm">
       <label class="f">Staff ID (slug)
@@ -4107,6 +4121,10 @@ function viewPeople() {
           ${scopeOptions.map(row => `<option value="${esc(row.id)}" data-kind="${row.kind}" ${allowedScopeKinds.has(row.kind) ? '' : 'hidden'} ${selectedScopes.includes(row.id) ? 'selected' : ''}>${esc(row.label)}</option>`).join('')}
         </select>
       </label>
+      ${advisingOptions.length ? `<label class="f">Also advises students in (optional)
+        <select name="alsoAdvises"><option value="">No own advisees</option>${advisingOptions.map(row => `<option value="${esc(row.id)}" ${alsoAdvises === row.id ? 'selected' : ''}>${esc(row.label)}</option>`).join('')}</select>
+      </label>
+      <p class="note">For an admin who also has their own advisees: they keep their admin role and get their own student list in that programme.</p>` : ''}
       <p class="note">Use Ctrl or Command to select more than one programme scope. Only BAU email addresses can be invited.</p>
       ${peopleMessage ? `<p class="note">${esc(peopleMessage)}</p>` : ''}
       <div style="display:flex;gap:8px"><button class="btn primary" type="submit">${editing.mode === 'invite' ? 'Send invitation' : 'Save changes'}</button>
@@ -4122,6 +4140,7 @@ function viewPeople() {
             <span class="who-meta">${esc(person.email || '')}<i class="sep-dot" aria-hidden="true"></i>${esc((person.roles || []).map(role => role.role).join(', '))}
               <i class="sep-dot" aria-hidden="true"></i>${esc(personRoleScope(person))}</span></span>
           </span><span class="act" style="display:flex;gap:6px">
+            ${person.verified === false && person.active !== false && person.slug !== state.me.slug ? `<button class="btn sm" data-person-reinvite="${esc(person.slug)}">Send invitation</button>` : ''}
             <button class="btn sm" data-person-edit="${esc(person.slug)}">Edit</button>
             ${person.active !== false ? `<button class="btn sm danger" data-person-deactivate="${esc(person.slug)}">Deactivate</button>` : ''}
           </span>
@@ -4134,6 +4153,12 @@ function viewPeople() {
       <button class="btn primary" data-person-add="1">Invite staff</button>
     </div>
     ${form}
+    ${reinviteResult ? `<div class="chk info"><span class="ic">&check;</span><span class="tx">
+      <p><b>Invitation for ${esc(reinviteResult.name)}</b>${reinviteResult.emailed ? ' sent to ' + esc(reinviteResult.email) + '.' : ' created. The email could not be sent, so hand over the link yourself.'}</p>
+      ${reinviteResult.link ? `<p style="margin-top:6px">Link (works once, for ${esc(reinviteResult.hours)} hours). Whoever opens it sets this person's password:</p>
+        <input class="pin mono" readonly value="${esc(reinviteResult.link)}" style="width:100%;margin-top:4px">
+        <p class="note" style="margin-top:4px">If you open it yourself in this browser you will be signed in as them; use a private window, then sign out.</p>` : ''}
+    </span></div>` : ''}
     ${sections || '<p class="note">No people match this search.</p>'}
   </div>`;
 }
@@ -4166,6 +4191,8 @@ async function savePersonForm(ev) {
   };
   const mode = peopleForm.mode;
   const roles = [{ role, scopes }];
+  const alsoAdvises = String(values.get('alsoAdvises') || '');
+  if (alsoAdvises && !(role === 'advisor' && scopes.includes(alsoAdvises))) roles.push({ role: 'advisor', scopes: [alsoAdvises] });
   peopleForm = { mode, person: Object.assign({}, profile, { roles }) };
   peopleMessage = '';
   try {
@@ -4292,7 +4319,7 @@ function resetLinkPanel() {
 
 function viewEveryone() {
   if (state.everyoneErr) {
-    return `<div class="wrap"><div class="page-h"><h1>Everyone</h1></div>
+    return `<div class="wrap"><div class="page-h"><h1>Everyone</h1><p>${programmeLine()}</p></div>
       <div class="panel"><p class="empty">${esc(state.everyoneErr)}</p></div></div>`;
   }
   if (!state.everyone) {
@@ -4321,7 +4348,9 @@ function viewEveryone() {
 
   return `<div class="wrap">
     <div class="page-h"><h1>Everyone</h1>
+      <p>${programmeLine()}</p>
       <p>${allStudentCount()} students · ${tally.urgent} urgent · ${tally.watch} to plan · ${tally.ok} on track</p></div>
+    ${!departmentList().length ? emptyProgrammeHtml() : ''}
 
     ${(() => {
       const crit = departmentList().filter(isCritical);
@@ -4664,6 +4693,7 @@ async function onClick(e) {
   if (state.me && state.view === 'rules' && await rulesClick(t)) return;
   if (state.me && (state.view === 'structure' || state.view === 'programme') && await structureClick(t)) return;
   if (state.me && state.view === 'student' && await exceptionsClick(t)) return;
+  if (state.me && state.view === 'admin' && await adminClick(t)) return;
   if (t.closest('[data-person-add]')) { openPeopleForm('invite'); return; }
   const personEdit = t.closest('[data-person-edit]');
   if (personEdit) {
@@ -4672,6 +4702,16 @@ async function onClick(e) {
     return;
   }
   if (t.closest('[data-people-cancel]')) { peopleForm = null; peopleMessage = ''; render(); return; }
+  const personReinvite = t.closest('[data-person-reinvite]');
+  if (personReinvite) {
+    const person = state.people.find(member => member.slug === personReinvite.dataset.personReinvite);
+    if (!person) return;
+    const r = await Store.reinvitePerson(person.slug);
+    reinviteResult = { name: fullName(person), emailed: !!r.emailed, email: r.email, link: r.link || '', hours: r.hours };
+    render(); window.scrollTo(0, 0);
+    toast(r.emailed ? 'Invitation sent to ' + r.email : 'Invitation link created');
+    return;
+  }
   const personDeactivate = t.closest('[data-person-deactivate]');
   if (personDeactivate) {
     const person = state.people.find(member => member.slug === personDeactivate.dataset.personDeactivate);
@@ -5159,6 +5199,7 @@ document.addEventListener('submit', e => {
 document.addEventListener('input', e => {
   if (e.target.dataset && (e.target.dataset.rf || e.target.dataset.pc || e.target.dataset.cal)) { rulesInput(e.target); return; }
   if (e.target.dataset && e.target.dataset.pl) { planInput(e.target); return; }
+  if (state.view === 'admin' && e.target.matches && e.target.matches('[data-adm-peopleq]') && adminInput(e.target)) return;
   if (e.target.id === 'peopleSearch') {
     peopleQuery = e.target.value;
     const pos = e.target.selectionStart;
@@ -5178,6 +5219,7 @@ document.addEventListener('change', e => {
   if (e.target.dataset && (e.target.dataset.rf || e.target.dataset.pc || e.target.dataset.cal)) { rulesInput(e.target); return; }
   if (e.target.dataset && e.target.dataset.pl) { planInput(e.target, true); return; }
   if (e.target.id === 'progPick') { switchProgramme(e.target.value); return; }
+  if (state.view === 'admin' && e.target.matches && e.target.matches('[data-adm-fac],[data-adm-act]') && adminInput(e.target)) return;
   if (e.target.id === 'peopleRole') { syncPeopleScopeOptions(); return; }
   if (e.target.id === 'sendTo') {
     const w = $('#sendOtherWrap');
