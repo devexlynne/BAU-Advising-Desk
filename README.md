@@ -8,11 +8,10 @@ prints from the student system: the transcript and the schedule. Nothing is type
 
 ## Data
 
-- **Student records** are imported by authenticated advisors and stored server-side. Railway
-  deployments require PostgreSQL; local JSON files are only for development and isolated tests.
-  This repository contains no student records or registrar documents. Do not import real records
-  until the existing Railway data is inventoried, the database schema is installed, and backups,
-  TLS, permissions and restore procedures are verified.
+- **Student records** are imported by authenticated advisors and stored server-side, in one
+  AES-256-GCM encrypted file on the Railway volume (`/data/store.json`, key in `STORE_KEY`).
+  PostgreSQL storage and a one-time move from the volume are built but not switched on; run the
+  move against a test database before using it (see DEPLOY.md). This repository contains no student records or registrar documents.
 - **Course sections** across Beirut and Debbieh, merged from the offering and from the sections
   supplied in the current course offering.
 - **Staff directory** is stored as `people/<slug>` records with scoped role assignments.

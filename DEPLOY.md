@@ -17,9 +17,15 @@ Do not create another public service or copy data yet. Choose a university-appro
 then provision an empty target database and test the application with no real records. The
 Railway inventory and backup process below comes before any decision to move existing data.
 
-> **Do not import real student records yet.** Production now requires PostgreSQL, but your
+> **Where the data is today.** The live service keeps everything in one AES-256-GCM encrypted
+> file on its Railway volume (`/data/store.json`, unlocked with `STORE_KEY`). That is a supported
+> production setup: the server refuses to start in production without either `STORE_KEY` or
+> PostgreSQL. Sections 3 and "Moving the Railway volume into PostgreSQL" only apply on the day the
+> portal moves to a database.
+
+> **Do not import real student records yet.** If you move to PostgreSQL, note that your
 > existing Railway database and volume have not been inspected from this checkout. Preserve both.
-> This version does not automatically import old JSON files or adopt an unknown existing schema.
+> Old JSON files are copied only when `MIGRATE_FROM_VOLUME=true` is set, and an unknown existing schema is never adopted.
 > Inventory and back up both sources, verify the new schema and restore process, and reconcile
 > existing data before opening imports to advisors.
 
@@ -29,6 +35,39 @@ URL referenced privately. The PostgreSQL command prints only table names, estima
 and sizes—never student names, IDs, transcripts, or row values. Estimates can be stale. Never
 paste connection strings, student records, raw store files, or screenshots containing them into
 GitHub or chat.
+
+## Moving the Railway volume into PostgreSQL (one time, later)
+
+The live service started on encrypted files on the `/data` volume (`STORE_KEY`). These steps move
+everything (people, accounts, students, settings and the activity log) into PostgreSQL. The
+volume files are only set aside after every record has been copied and read back identically;
+if anything fails, the server stops and the volume is left as it was.
+
+1. **Deploy this version first** (`railway up`). It still runs on the volume.
+2. **Add PostgreSQL** to the same project: *+ New → Database → PostgreSQL*. Wait until it is
+   running. Do not attach the app's volume to it.
+3. **Prepare the database.** Copy `DATABASE_URL` from the PostgreSQL service's *Variables* tab
+   (it starts with `postgresql://postgres:`). Then, on your computer, in the project folder:
+
+   ```
+   railway ssh
+   DATABASE_MIGRATION_URL='paste-it-here' npm run db:setup
+   exit
+   ```
+
+   It installs the tables, creates the limited `advising_app` account, checks that account the way
+   the server will, and prints the variables for step 4, including the database's root
+   certificate. Running it again gives `advising_app` a new password.
+4. **Pick a quiet moment** (nobody signed in), then set on the **app** service: `DATABASE_URL`,
+   `DATABASE_SSL_CA`, `DATABASE_SSL_SERVER_NAME` and `MIGRATE_FROM_VOLUME=true`, exactly as printed.
+   Keep `STORE_KEY`. Railway redeploys; the start-up log shows
+   `moved the volume store into PostgreSQL: … keys … student records` and the names the old files
+   were kept under (`store.json.migrated-…`).
+5. **Check:** sign in as superadmin. *Admin dashboard → System health → Storage* says **PostgreSQL**.
+   Then remove `MIGRATE_FROM_VOLUME` (it does nothing once the volume store is set aside).
+
+If the database certificate is renewed by Railway (about every 820 days), run
+`npm run db:setup -- --ca-only` the same way and replace `DATABASE_SSL_CA`.
 
 ## 1. Put the folder in a Git repository
 
