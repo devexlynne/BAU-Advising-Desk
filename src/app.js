@@ -15,6 +15,7 @@ const personName = p => (honorificOf(p) ? honorificOf(p) + ' ' : '') + String(p 
 
 const $ = s => document.querySelector(s);
 /*__I18N__*/
+/*__DIRECTORY__*/
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const nice = s => String(s || '')
   .replace(/\b([A-Z])([A-Z']+)\b/g, (m, a, b) => a + b.toLowerCase())
@@ -158,7 +159,7 @@ const avatar = n => `--h:${hue(n)}`;
 // no photo on the dept page -> initials, tinted from the name
 function faceOf(p, cls) {
   const c = 'face' + (cls ? ' ' + cls : '');
-  if (p && p.photo) return `<img class="${c}" src="${esc(p.photo)}" alt="">`;
+  if (p && (p.photo || p.dirPhoto)) return `<img class="${c}" src="${esc(p.photo || p.dirPhoto)}" alt="" referrerpolicy="no-referrer">`;
   return `<span class="${c} drawn" style="${avatar(p ? p.name : '')}">${initials(p ? p.name : '')}</span>`;
 }
 const shortTerm = t => String(t || '').replace(/(\d{4})\/(\d{4})/, (m, a, b) => a.slice(2) + '/' + b.slice(2))
@@ -208,7 +209,7 @@ async function boot() {
   const who = Store.isServer() ? await Store.whoAmI() : sessionStorage.getItem('bau.session');
   if (who) {
     if (Store.isServer()) {
-      FACULTY = await Store.loadPeople();
+      FACULTY = withDirectoryPhotos(await Store.loadPeople());
       state.people = FACULTY;
       state.orgTree = await Store.loadOrgTree();
     } else if (window.OFFLINE_DEMO) {
@@ -291,26 +292,10 @@ function drawGate() {
     </div></div>`;
     return;
   }
-  if (gateStep === 'pick') {
-    g.innerHTML = `<div class="gate-inner">
-      ${coverBanner()}
-      <div class="card">
-        <form class="stack" id="signForm" autocomplete="on">
-          <label class="f" for="fEmail">BAU email
-            <input id="fEmail" type="email" autocomplete="username" required>
-          </label>
-          <label class="f" for="fPass">Password
-            <input id="fPass" type="password" autocomplete="current-password" required>
-          </label>
-          <p class="err" id="gateErr" hidden></p>
-          <button class="btn primary" type="submit" style="justify-content:center">Sign in</button>
-          <button class="linkbtn" type="button" data-reset="1">Forgot your password, or first time here?</button>
-          <p class="note" style="text-align:center">Staff accounts are created by invitation. Use your BAU email address.</p>
-        </form>
-      </div>
-    </div>`;
-    return;
-  }
+  // the staff directory: faculty -> department -> your card -> password
+  if (gateStep === 'pick') { drawDirectory(g); return; }
+  // plain email + password, for anyone not on the directory (and the superadmin's own mailbox)
+  if (gateStep === 'email') { drawEmailSignIn(g); return; }
 
   if (gateStep === 'reset') {
     g.innerHTML = `<div class="gate-inner"><div class="card">
@@ -406,7 +391,7 @@ async function tryVerify(ev) {
 
 async function loadSignedInDirectory() {
   if (Store.isServer()) {
-    FACULTY = await Store.loadPeople();
+    FACULTY = withDirectoryPhotos(await Store.loadPeople());
     state.people = FACULTY;
     state.orgTree = await Store.loadOrgTree();
   }
@@ -892,7 +877,7 @@ async function signOut() {
   await Store.signOutServer();
   sessionStorage.removeItem('bau.session');
   state.me = null; state.students = []; state.people = []; state.orgTree = null; state.programme = null;
-  FACULTY = []; gateStep = 'pick'; gatePerson = null; resetEmail = '';
+  FACULTY = []; gateStep = 'pick'; gatePerson = null; resetEmail = ''; dirPerson = null;
   drawGate();
 }
 
@@ -4690,6 +4675,7 @@ async function ask(text) {
 async function onClick(e) {
   const t = e.target;
   if (t.closest('[data-lang-toggle]')) { setLang(LANG === 'ar' ? 'en' : 'ar'); return; }
+  if (!state.me && directoryClick(t)) return;
   if (state.me && state.view === 'rules' && await rulesClick(t)) return;
   if (state.me && (state.view === 'structure' || state.view === 'programme') && await structureClick(t)) return;
   if (state.me && state.view === 'student' && await exceptionsClick(t)) return;
@@ -4728,7 +4714,7 @@ async function onClick(e) {
   }
   if (t.closest('[data-account]')) { drawAccount(''); return; }
   if (t.closest('[data-reset]')) {
-    resetEmail = ($('#fEmail') && $('#fEmail').value.trim()) || '';
+    resetEmail = ($('#fEmail') && $('#fEmail').value.trim()) || resetEmail || '';
     gateStep = 'reset'; drawGate(); return;
   }
   if (t.id === 'signOut') { await signOut(); return; }
@@ -5199,6 +5185,7 @@ document.addEventListener('submit', e => {
 document.addEventListener('input', e => {
   if (e.target.dataset && (e.target.dataset.rf || e.target.dataset.pc || e.target.dataset.cal)) { rulesInput(e.target); return; }
   if (e.target.dataset && e.target.dataset.pl) { planInput(e.target); return; }
+  if (!state.me && directoryInput(e.target)) return;
   if (state.view === 'admin' && e.target.matches && e.target.matches('[data-adm-peopleq]') && adminInput(e.target)) return;
   if (e.target.id === 'peopleSearch') {
     peopleQuery = e.target.value;
@@ -5237,6 +5224,7 @@ document.addEventListener('change', e => {
 });
 
 document.addEventListener('keydown', e => {
+  if (!state.me && directoryKey(e)) return;
   if (e.key === 'Enter' && !e.shiftKey && e.target.id === 'askBox') {
     e.preventDefault();
     const v = e.target.value; e.target.value = ''; ask(v);

@@ -20,6 +20,8 @@ const data = [
   'window.RULES=' + json('data/rules.json') + ';',
   'window.OFFERING=' + json('data/offering.json') + ';',
   'window.BRAND=' + json('data/brand.json') + ';',
+  // public sign-in directory: faculties, departments and academic staff as listed on www.bau.edu.lb
+  'window.BAU_DIRECTORY=' + json('data/directory.json') + ';',
   // faculties, programmes and study plans read from the 2020-2021 catalogue, loaded on request by a superadmin
   'window.CATALOGUE_SEED=' + json('data/catalogue-2020.json') + ';',
   // what the study-plan files sent to departments contain (scripts/build-intake-workbooks.py)
@@ -27,6 +29,7 @@ const data = [
 ].join('\n');
 
 const app = read('src/programme.js') + '\n' + read('src/intake.js') + '\n' + read('src/app.js')
+  .replace('/*__DIRECTORY__*/', () => read('src/directory.js'))
   .replace('/*__ASKME__*/', () => read('src/askme.js'))
   .replace('/*__RULES__*/', () => read('src/rulesadmin.js') + '\n' + read('src/structure.js') + '\n' + read('src/exceptions.js') + '\n' + read('src/admin.js'))
   .replace('/*__I18N__*/', () => read('src/i18n.js'));
