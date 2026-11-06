@@ -90,6 +90,15 @@ class PostgresStore {
     }
   }
 
+  // every key as stored now, used to verify a copy
+  async readAll() {
+    this.assertAvailable();
+    const result = await this.pool.query('SELECT key, value FROM public.advising_app_data ORDER BY key');
+    const state = {};
+    result.rows.forEach(row => { state[row.key] = row.value; });
+    return state;
+  }
+
   async check() {
     this.assertAvailable();
     const tables = await this.pool.query(

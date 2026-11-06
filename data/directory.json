@@ -23,7 +23,7 @@
     {
      "id": "mathematics-and-computer-science",
      "name": "Mathematics and Computer Science",
-     "count": 17
+     "count": 16
     },
     {
      "id": "physics",
@@ -32,7 +32,7 @@
     }
    ],
    "dean": "Ghassan Younes",
-   "count": 32
+   "count": 31
   },
   {
    "id": "engineering",
@@ -462,14 +462,6 @@
    "department": "mathematics-and-computer-science",
    "email": "m.dalla@bau.edu.lb",
    "photo": "Science/Malak_Dally_514.jpeg"
-  },
-  {
-   "name": "Lynn El Arwadi",
-   "title": "Department administrator",
-   "faculty": "science",
-   "department": "mathematics-and-computer-science",
-   "email": "l.arwadi@bau.edu.lb",
-   "photo": ""
   },
   {
    "name": "Mahmoud Khalil",

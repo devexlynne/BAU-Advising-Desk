@@ -17,6 +17,7 @@ const crypto = require('crypto');
 const mail = require('./mail');
 const { PostgresStore, createPool } = require('./src/postgres-store');
 const sealed = require('./src/encrypted-file');
+const VolumeMigration = require('./src/volume-migration');
 const OrgTree = require('./src/org-tree');
 const Permissions = require('./src/permissions');
 const Programme = require('./src/programme');
@@ -51,6 +52,8 @@ const AUDIT_FILE = path.join(DATA_DIR, 'audit.log');
 // STORE_KEY switches on encrypted file storage (store, backups and audit log
 // written with AES-256-GCM). It is the only file storage allowed in production.
 const STORE_KEY = process.env.STORE_KEY ? sealed.parseKey(process.env.STORE_KEY) : null;
+// one-time move of the volume store into PostgreSQL (src/volume-migration.js)
+const MIGRATE_FROM_VOLUME = /^(1|true|yes)$/i.test(String(process.env.MIGRATE_FROM_VOLUME || ''));
 const PAGE = path.join(__dirname, 'build', 'index.html');
 const SESSION_HOURS = numberEnv('SESSION_HOURS', 12, 1, 168);
 const SESSION_IDLE_MINUTES = numberEnv('SESSION_IDLE_MINUTES', 120, 5, 10080);
@@ -104,6 +107,13 @@ const staffEmailOk = email => {
 /* People who must hold only advising roles after the next start-up (a
    one-time correction; later changes made on the People page are kept). */
 const ADVISOR_ONLY_EMAILS = String(process.env.ADVISOR_ONLY_EMAILS || 'j.budaher@bau.edu.lb')
+  .split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
+/* The whole system is administered by one account, "BAU Superadmin"
+   (SUPERADMIN_EMAIL). Staff listed in RETIRE_STAFF_EMAILS are deactivated
+   once, at start-up, as soon as that account is activated: their records are
+   kept, their sign-in and sessions end. */
+const SUPERADMIN_NAME = 'BAU Superadmin';
+const RETIRE_STAFF_EMAILS = String(process.env.RETIRE_STAFF_EMAILS == null ? 'l.arwadi@bau.edu.lb' : process.env.RETIRE_STAFF_EMAILS)
   .split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
 const STARTED_AT = Date.now();
 
@@ -1846,13 +1856,53 @@ function ensureSuperadminAccount() {
   let slug = 'system-admin', n = 2;
   while (store['people/' + slug]) slug = 'system-admin-' + n++;
   store['people/' + slug] = {
-    slug, name: 'Superadmin', honorific: '', title: 'System administrator', email: SUPERADMIN_EMAIL,
-    photo: '', faculty: '', department: '', short: 'Superadmin', rank: '',
+    slug, name: SUPERADMIN_NAME, honorific: '', title: 'System administrator', email: SUPERADMIN_EMAIL,
+    photo: '', faculty: '', department: '', short: SUPERADMIN_NAME, rank: '',
     active: true, verified: false, roles: [{ role: 'superadmin', scopes: ['bau'] }]
   };
   save();
   audit('system', 'superadmin-account-created', { target: slug });
   console.log('  created the superadmin staff record ' + slug + ' for ' + SUPERADMIN_EMAIL);
+}
+
+/* One-time hand-over to the BAU Superadmin account: the account created as
+   "Superadmin" takes its full name, and the RETIRE_STAFF_EMAILS people are
+   deactivated. The hand-over waits until the account has a password, so the
+   portal is never left without someone who can sign in as superadmin. */
+function applyBauSuperadminOnce() {
+  const marks = store._seeds || (store._seeds = {});
+  const keeper = SUPERADMIN_EMAIL && findPersonByEmail(SUPERADMIN_EMAIL);
+  if (!keeper || keeper.active === false || !isSuperadmin(keeper.slug)) return;
+  if (!marks['bau-superadmin-name-2026-11']) {
+    if (!keeper.name || keeper.name === 'Superadmin') {
+      const before = JSON.parse(JSON.stringify(keeper));
+      keeper.name = SUPERADMIN_NAME; keeper.short = SUPERADMIN_NAME;
+      audit('system', 'person-updated', { target: keeper.slug, before, after: keeper, reason: 'superadmin account name' });
+    }
+    marks['bau-superadmin-name-2026-11'] = { at: Date.now() };
+    save();
+  }
+  if (marks['retire-staff-2026-11']) return;
+  const account = store[acctKey(keeper.slug)];
+  if (!account || !account.hash) {
+    if (RETIRE_STAFF_EMAILS.length) console.warn('  ' + SUPERADMIN_NAME + ' has not set a password yet; other admin accounts stay active until it does');
+    return;
+  }
+  const retired = [];
+  RETIRE_STAFF_EMAILS.forEach(email => {
+    const person = findPersonByEmail(email);
+    if (!person || person.slug === keeper.slug || person.active === false) return;
+    const before = JSON.parse(JSON.stringify(person));
+    person.active = false;
+    [store._sessions, store._resets, store._verifies].forEach(bag => {
+      if (bag) Object.keys(bag).forEach(key => { if (bag[key] && bag[key].slug === person.slug) delete bag[key]; });
+    });
+    retired.push(person.slug);
+    audit('system', 'person-deactivated', { target: person.slug, before, after: person, reason: 'replaced by ' + SUPERADMIN_NAME });
+  });
+  marks['retire-staff-2026-11'] = { at: Date.now(), retired };
+  save();
+  if (retired.length) console.log('  deactivated, replaced by ' + SUPERADMIN_NAME + ': ' + retired.join(', '));
 }
 
 /* One-time role correction: each ADVISOR_ONLY_EMAILS person keeps only their
@@ -1945,8 +1995,24 @@ async function startServer() {
     });
     store = await databaseStore.load();
     await databaseStore.check();
-    if (fs.existsSync(DATA_FILE) && Object.keys(loadStore()).length) {
-      throw new Error('A legacy JSON store exists on the mounted volume; preserve it and complete a verified migration before starting');
+    const legacy = fs.existsSync(DATA_FILE) ? loadStore() : {};
+    if (Object.keys(legacy).length) {
+      if (!MIGRATE_FROM_VOLUME) {
+        throw new Error('A legacy JSON store exists on the mounted volume; set MIGRATE_FROM_VOLUME=true to move it into PostgreSQL (see DEPLOY.md)');
+      }
+      const decryptLine = raw => {
+        const parsed = JSON.parse(raw);
+        if (sealed.isEnvelope(parsed)) {
+          if (!STORE_KEY) throw new Error('the activity log is encrypted and STORE_KEY is not set');
+          return sealed.decrypt(STORE_KEY, parsed);
+        }
+        return raw;
+      };
+      store = await VolumeMigration.migrateVolume({
+        databaseStore, current: store, legacy,
+        auditEntries: VolumeMigration.readLegacyAudit(AUDIT_FILE, decryptLine),
+        files: { store: DATA_FILE, audit: AUDIT_FILE }
+      });
     }
   } else {
     if (PRODUCTION && !STORE_KEY) throw new Error('PostgreSQL or encrypted file storage is required in production');
@@ -1968,6 +2034,7 @@ async function startServer() {
   ensureSuperadminAccount();
   seedCatalogueOnce();
   applyAdvisorOnlyOnce();
+  applyBauSuperadminOnce();
   sweepSessions();
   await flushStore();
   server.listen(PORT, () => {
