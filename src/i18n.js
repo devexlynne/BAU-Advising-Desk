@@ -197,6 +197,33 @@ const AR_DICT = {
   'Under # credits': 'أقل من # ساعة', 'Add a course or confirm the exception.': 'أضف مقررًا أو أكّد الاستثناء.',
   'The freshman year has its own rules. Computer Science degree checks do not apply.': 'للسنة التحضيرية قواعدها الخاصة، ولا تطبق عليها تحققات شهادة علوم الحاسوب.'
 };
+// sign-in directory (src/directory.js)
+Object.assign(AR_DICT, {
+  'Beirut Arab University': 'جامعة بيروت العربية', 'Choose your faculty': 'اختر كليتك',
+  'Ten faculties across the Beirut, Debbieh, Tripoli and Bekaa campuses.': 'عشر كليات في حرم بيروت والدبية وطرابلس والبقاع.',
+  'Choose your department': 'اختر قسمك', 'Choose your account': 'اختر حسابك',
+  'Search results': 'نتائج البحث', 'Choose your card to sign in.': 'اختر بطاقتك لتسجيل الدخول.',
+  'Search your name or BAU email': 'ابحث عن اسمك أو بريدك الجامعي', 'Search staff': 'البحث عن أعضاء الهيئة',
+  'Faculty of': 'كلية', 'One department': 'قسم واحد', '# departments': '# أقسام', '# staff': '# من أعضاء الهيئة',
+  '# members of staff': '# من أعضاء الهيئة', '# member of staff': 'عضو واحد من الهيئة',
+  '# people found': 'عُثر على # أشخاص', '# person found': 'عُثر على شخص واحد',
+  'Welcome back': 'أهلًا بعودتك', 'Not you? Choose another account': 'لست أنت؟ اختر حسابًا آخر',
+  'No portal account yet? Your faculty administrator sends you an invitation to your BAU email.': 'ليس لديك حساب بعد؟ يرسل لك مسؤول الكلية دعوة إلى بريدك الجامعي.',
+  'Not on the list? Sign in with your BAU email': 'لست في القائمة؟ سجّل الدخول ببريدك الجامعي',
+  'Staff accounts are created by invitation. Names, titles and photos come from the BAU website.': 'تُنشأ حسابات أعضاء الهيئة بدعوة. الأسماء والألقاب والصور مأخوذة من موقع الجامعة.',
+  'Sign in with your email': 'تسجيل الدخول بالبريد الإلكتروني', 'Use your BAU email address': 'استخدم بريدك الجامعي',
+  'Back to the staff list': 'العودة إلى قائمة أعضاء الهيئة', 'Dean’s office': 'مكتب العميد', 'Where you are': 'موقعك',
+  'Science': 'العلوم', 'Engineering': 'الهندسة', 'Business Administration': 'إدارة الأعمال',
+  'Architecture, Design and Built Environment': 'العمارة - التصميم والبيئة العمرانية', 'Pharmacy': 'الصيدلة',
+  'Medicine': 'الطب', 'Dentistry': 'طب الأسنان', 'Health Sciences': 'العلوم الصحية', 'Human Sciences': 'العلوم الإنسانية',
+  'Law and Political Science': 'الحقوق والعلوم السياسية',
+  'Faculty of Engineering': 'كلية الهندسة', 'Faculty of Business Administration': 'كلية إدارة الأعمال',
+  'Faculty of Architecture, Design and Built Environment': 'كلية العمارة - التصميم والبيئة العمرانية',
+  'Faculty of Pharmacy': 'كلية الصيدلة', 'Faculty of Medicine': 'كلية الطب', 'Faculty of Dentistry': 'كلية طب الأسنان',
+  'Faculty of Health Sciences': 'كلية العلوم الصحية', 'Faculty of Human Sciences': 'كلية العلوم الإنسانية',
+  'Faculty of Law and Political Science': 'كلية الحقوق والعلوم السياسية',
+  'Biological Sciences': 'العلوم البيولوجية', 'Chemistry': 'الكيمياء', 'Physics': 'الفيزياء'
+});
 
 // phrases with a variable part (a name, free text), done by regex instead
 const AR_PATTERNS = [

@@ -21,6 +21,21 @@ prints from the student system: the transcript and the schedule. Nothing is type
   the public page and is no longer an account allowlist.
 - **Automated tests** cover synthetic academic cases, rendering and server security safeguards.
 
+## Signing in
+
+The sign-in page opens on the university. Staff choose their faculty, then their department,
+then their own card (photo, name, title and BAU email), and type their password. A search box
+finds anyone by name or email from any step, and "Sign in with your BAU email" is there for
+anyone not on the list, including the superadmin's own mailbox.
+
+The list is `data/directory.json`: all ten faculties, their departments and their academic
+staff as published on the staff pages of www.bau.edu.lb (read on 6 November 2026). It holds
+only what BAU already publishes. Photos load from bau.edu.lb, except the Computer Science
+advisors' photos, which are embedded. A card does not create an account: staff still need an
+invitation and their own password, and the server decides who may sign in. When the BAU
+website changes, edit the file and rebuild. `tests/client-phase1.test.js` checks that it
+carries no account, role or student data.
+
 ## This semester and the one being advised for
 
 The department is in the first week of **Fall 2026/2027**. So:

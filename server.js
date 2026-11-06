@@ -1691,7 +1691,8 @@ const CSP = [
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
-  "img-src 'self' data: blob:",
+  // staff photos on the sign-in directory are the ones published on www.bau.edu.lb
+  "img-src 'self' data: blob: https://www.bau.edu.lb",
   "connect-src 'self'",
   "frame-ancestors 'none'",
   "base-uri 'none'",
