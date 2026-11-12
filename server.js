@@ -284,7 +284,8 @@ function writeStoreFile() {
   backupIfDue();
 }
 
-// Local development snapshots only; production backups belong to PostgreSQL.
+// Hourly copies of the (encrypted) store, newest BACKUP_KEEP kept. A superadmin can
+// download the newest one; scripts/restore-backup.js puts one back.
 let lastBackup = 0;
 function backupIfDue() {
   if (Date.now() - lastBackup < 3600e3) return;
@@ -365,6 +366,7 @@ function audit(actor, action, details) {
 // See server/passwords.js: PBKDF2-SHA256 at 600,000 iterations, old 310,000 hashes
 // still verify and are upgraded at the next sign-in. Plain passwords are never stored or logged.
 const Passwords = require('./server/passwords');
+const BackupFiles = require('./server/backup-files');
 const { PASSWORD_MAX, passwordProblem, sameSecret } = Passwords;
 // ---- sessions --------------------------------------------------------------
 // Kept in the store (so a redeploy does not sign everyone out) under the SHA-256
@@ -1215,13 +1217,37 @@ async function api(req, res, url) {
     return json(res, 200, { ok: true, had });
   }
 
+  /* ---- superadmin: backups ----
+     Status of the hourly copies, and a download of the newest one so it can be
+     kept somewhere other than the server's own disk. The file is the encrypted
+     envelope exactly as it sits on disk: without STORE_KEY it cannot be read. */
+  if (p === '/api/admin/backup-status' || p === '/api/admin/backup-download') {
+    if (!isSuperadmin(me.slug)) return json(res, 403, { error: 'only a superadmin can see backups' });
+    const latest = BackupFiles.latestBackup(DATA_DIR);
+    const exported = store._backup || null;
+    if (p === '/api/admin/backup-status') {
+      return json(res, 200, {
+        encrypted: !!STORE_KEY,
+        keep: BACKUP_KEEP,
+        count: latest ? latest.count : 0,
+        latest: latest ? { name: latest.name, at: new Date(latest.at).toISOString(), bytes: latest.bytes } : null,
+        lastDownload: exported
+      });
+    }
+    if (!STORE_KEY) return json(res, 409, { error: 'backups can only be downloaded when the store is encrypted' });
+    if (!latest) return json(res, 404, { error: 'there is no backup yet' });
+    const text = fs.readFileSync(latest.file, 'utf8');
+    store._backup = { at: new Date().toISOString(), by: me.slug, name: latest.name };
+    audit(me.slug, 'backup-downloaded', { name: latest.name, bytes: latest.bytes, ip });
+    return json(res, 200, { name: latest.name, file: text });
+  }
+
   /* ---- admin: all students ----
      Every advisor's stored list, keyed by slug. */
   if (p === '/api/all-students') {
     if (!canUser(me.slug, 'students:read', scopesOf(personOf(me.slug))[0])) {
       return json(res, 403, { error: 'not yours to read' });
     }
-    audit(me.slug, 'read-all-students', { ip });
     const slugs = new Set();
     Object.keys(store).forEach(k => {
       const m = /^advisors\/([a-z0-9-]+)\//.exec(k);
@@ -1240,6 +1266,10 @@ async function api(req, res, url) {
       const list = Object.values(saved);
       if (list.length) out[slug] = list;
     });
+    // one line for the whole read: which advisors' lists and how many records each
+    const counts = {};
+    Object.keys(out).forEach(slug => { counts[slug] = out[slug].length; });
+    audit(me.slug, 'read-all-students', { ip, advisors: counts });
     return json(res, 200, { advisors: out });
   }
 
@@ -1321,8 +1351,18 @@ async function api(req, res, url) {
         return json(res, 400, { error: 'invalid student record path' });
       }
     }
+    // Reading another advisor's student records is allowed inside your scope,
+    // but it is written to the audit log (who, whose list, how many, from where).
+    const otherOwner = (/^advisors\/([a-z0-9-]+)\/students(\/|$)/.exec(key) || [])[1];
+    const logOtherRead = count => {
+      if (otherOwner && otherOwner !== me.slug && count > 0) {
+        audit(me.slug, 'read-other-students', { owner: otherOwner, count, ip });
+      }
+    };
     if (p === '/api/get') {
-      return json(res, 200, { data: Object.prototype.hasOwnProperty.call(store, key) ? store[key] : null });
+      const found = Object.prototype.hasOwnProperty.call(store, key);
+      logOtherRead(found ? 1 : 0);
+      return json(res, 200, { data: found ? store[key] : null });
     }
     if (p === '/api/list') {
       const prefix = key.replace(/\/+$/, '') + '/';
@@ -1332,6 +1372,7 @@ async function api(req, res, url) {
           out[k.slice(prefix.length)] = store[k];
         }
       });
+      logOtherRead(Object.keys(out).length);
       return json(res, 200, { data: out });
     }
     // The sign-in cover is superadmin-only and must be an image.
