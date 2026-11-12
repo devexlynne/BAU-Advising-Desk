@@ -266,7 +266,8 @@ ad816f3 Backups you can take off the server, restore and re-key; audit reads of 
 7f7ecbf Interface: plan save and override, sessions, activity page; phone and Arabic fixes
 de64650 Remove the browser-side password code; document backups, restore, key change and new settings
 63f8b7f Mark the shared-list access rule as a decision for the department
-        Advisors see only their own students
+18cb687 Add the improvements report
+9d349c5 Advisors see only their own students
 ```
 
 ## Sources
