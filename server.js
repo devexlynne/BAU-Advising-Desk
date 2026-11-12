@@ -367,15 +367,16 @@ function audit(actor, action, details) {
 // still verify and are upgraded at the next sign-in. Plain passwords are never stored or logged.
 const Passwords = require('./server/passwords');
 const BackupFiles = require('./server/backup-files');
+const SavedPlan = require('./server/saved-plan');
 const { PASSWORD_MAX, passwordProblem, sameSecret } = Passwords;
 // ---- sessions --------------------------------------------------------------
 // Kept in the store (so a redeploy does not sign everyone out) under the SHA-256
 // of the cookie value: a copy of the store does not contain usable sessions.
 const tokenHash = t => crypto.createHash('sha256').update(String(t)).digest('hex');
 function sessions() { return store['_sessions'] || (store['_sessions'] = {}); }
-function newSession(slug) {
+function newSession(slug, req) {
   const id = crypto.randomBytes(32).toString('hex');
-  sessions()[tokenHash(id)] = { slug, at: Date.now(), seen: Date.now() };
+  sessions()[tokenHash(id)] = { slug, at: Date.now(), seen: Date.now(), device: deviceLabel(req) };
   sweepSessions();
   save();
   return id;
@@ -406,6 +407,19 @@ function endSessionsOf(slug, exceptId) {
   const s = sessions();
   Object.keys(s).forEach(k => { if (s[k] && s[k].slug === slug && k !== exceptId) delete s[k]; });
 }
+/* A coarse label for the "where you are signed in" list, e.g. "Firefox on Windows".
+   Only the browser family and the system are kept, never the full user-agent string. */
+function deviceLabel(req) {
+  const ua = String((req && req.headers && req.headers['user-agent']) || '');
+  const browser = /Edg\//.test(ua) ? 'Edge' : /OPR\//.test(ua) ? 'Opera' : /Firefox\//.test(ua) ? 'Firefox'
+    : /Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : 'A browser';
+  const system = /Windows/.test(ua) ? 'Windows' : /iPhone|iPad/.test(ua) ? 'iPhone or iPad' : /Android/.test(ua) ? 'Android'
+    : /Mac OS X/.test(ua) ? 'macOS' : /Linux/.test(ua) ? 'Linux' : 'an unknown system';
+  return browser + ' on ' + system;
+}
+// The list shows a handle derived from the stored key, never the key itself.
+const sessionHandle = key => crypto.createHash('sha256').update('handle:' + key).digest('hex').slice(0, 16);
+
 // HttpOnly + SameSite=Lax always; Secure over https (or when PUBLIC_URL is https)
 const cookieFor = (id, secure) =>
   'sid=' + id + '; HttpOnly; Path=/; SameSite=Lax; Max-Age=' + SESSION_HOURS * 3600 + (secure ? '; Secure' : '');
@@ -755,7 +769,7 @@ async function api(req, res, url) {
     acct.lastSignIn = Date.now(); save();
     audit(slug, 'signin', { ip });
     return json(res, 200, { ok: true, slug, admin: isSuperadmin(slug) },
-      { 'set-cookie': cookieFor(newSession(slug), secure) });
+      { 'set-cookie': cookieFor(newSession(slug, req), secure) });
   }
 
   if (p === '/api/signout') {
@@ -787,7 +801,7 @@ async function api(req, res, url) {
       save();
       audit(rec.slug, 'invite-accepted', { ip, before: null, after: { active: true, verified: true } });
       return json(res, 200, { ok: true, slug: rec.slug, admin: isSuperadmin(rec.slug) },
-        { 'set-cookie': cookieFor(newSession(rec.slug), secure) });
+        { 'set-cookie': cookieFor(newSession(rec.slug, req), secure) });
     }
     const acct = store[acctKey(rec.slug)];
     if (!acct) return json(res, 404, { error: 'that account no longer exists. Create it again' });
@@ -805,7 +819,7 @@ async function api(req, res, url) {
     save();
     audit(rec.slug, 'account-verified', { ip });
     return json(res, 200, { ok: true, slug: rec.slug, admin: isSuperadmin(rec.slug) },
-      { 'set-cookie': cookieFor(newSession(rec.slug), secure) });
+      { 'set-cookie': cookieFor(newSession(rec.slug, req), secure) });
   }
 
   // "Send the link again", for an account that is waiting. Needs the password,
@@ -889,7 +903,7 @@ async function api(req, res, url) {
     save();
     audit(slug, 'password-reset', { ip });
     return json(res, 200, { ok: true, slug, admin: isSuperadmin(slug) },
-      { 'set-cookie': cookieFor(newSession(slug), secure) });
+      { 'set-cookie': cookieFor(newSession(slug, req), secure) });
   }
 
   // ---- everything below needs a session ----
@@ -898,6 +912,29 @@ async function api(req, res, url) {
   if (!personOf(me.slug) || personOf(me.slug).active === false) {
     endSession(req);
     return json(res, 401, { error: 'this account is no longer active' });
+  }
+
+  /* ---- your own sessions ----
+     Where this account is signed in, and a way to end the others (a lost laptop,
+     a lab computer someone forgot to sign out of). */
+  if (p === '/api/sessions' || p === '/api/sessions/end') {
+    const all = sessions();
+    const mine = Object.keys(all).filter(k => all[k] && all[k].slug === me.slug && !sessionExpired(all[k]));
+    if (p === '/api/sessions/end') {
+      const which = String(body.handle || '');
+      const targets = which === 'others' ? mine.filter(k => k !== me.id)
+        : mine.filter(k => k !== me.id && sessionHandle(k) === which);
+      if (which !== 'others' && !targets.length) return json(res, 404, { error: 'that session has already ended' });
+      targets.forEach(k => { delete all[k]; });
+      save();
+      audit(me.slug, 'sessions-ended', { count: targets.length, ip });
+      return json(res, 200, { ok: true, ended: targets.length });
+    }
+    const list = mine.map(k => ({
+      handle: sessionHandle(k), current: k === me.id, device: all[k].device || 'Unknown device',
+      started: new Date(all[k].at).toISOString(), lastSeen: new Date(all[k].seen || all[k].at).toISOString()
+    })).sort((a, b) => (b.current - a.current) || b.lastSeen.localeCompare(a.lastSeen));
+    return json(res, 200, { sessions: list });
   }
 
   if (p === '/api/org/tree') {
@@ -1217,6 +1254,41 @@ async function api(req, res, url) {
     return json(res, 200, { ok: true, had });
   }
 
+  /* ---- superadmin: the activity log ----
+     Read and decrypted here, newest first, 50 at a time. Filter by action or by
+     who did it. The log file itself never leaves the server. */
+  if (p === '/api/admin/audit') {
+    if (!isSuperadmin(me.slug)) return json(res, 403, { error: 'only a superadmin can read the activity log' });
+    if (databaseStore) return json(res, 501, { error: 'with PostgreSQL storage, read the audit table in the database' });
+    await flushStore().catch(() => {});
+    const PAGE = 50;
+    const page = Math.max(0, Math.min(10000, Number.parseInt(body.page, 10) || 0));
+    const action = String(body.action || '').slice(0, 60);
+    const actor = String(body.actor || '').slice(0, 80);
+    let lines = [];
+    try { lines = fs.readFileSync(AUDIT_FILE, 'utf8').split('\n').filter(Boolean); } catch (e) { /* no log yet */ }
+    const entries = [];
+    const actions = new Set();
+    let matched = 0, unreadable = 0;
+    for (let i = lines.length - 1; i >= 0; i--) {
+      let entry;
+      try {
+        const text = STORE_KEY ? sealed.decrypt(STORE_KEY, JSON.parse(lines[i])) : lines[i];
+        entry = JSON.parse(text);
+      } catch (e) { unreadable++; continue; }
+      actions.add(entry.action);
+      if (action && entry.action !== action) continue;
+      if (actor && entry.actor !== actor) continue;
+      if (matched >= page * PAGE && matched < (page + 1) * PAGE) {
+        entries.push({ at: entry.at, actor: entry.actor, action: entry.action, details: entry.details || {} });
+      }
+      matched++;
+    }
+    audit(me.slug, 'audit-log-read', { page, filterAction: action || null, filterActor: actor || null, ip });
+    return json(res, 200, { entries, page, pages: Math.ceil(matched / PAGE), total: matched, unreadable,
+      actions: Array.from(actions).sort() });
+  }
+
   /* ---- superadmin: backups ----
      Status of the hourly copies, and a download of the newest one so it can be
      kept somewhere other than the server's own disk. The file is the encrypted
@@ -1435,12 +1507,25 @@ async function api(req, res, url) {
         return json(res, 400, { error: 'invalid student record' });
       }
     }
+    let newOverrides = [];
     if (p === '/api/set') {
       if (/^advisors\/[a-z0-9-]+\/students\//.test(key)) {
         cleanStudent(body.value);
         body.value.updatedAt = Date.now(); body.value.updatedBy = me.slug;
+        // a saved term plan: shape checked, overrides stamped here (see server/saved-plan.js)
+        const previous = store[key] && store[key].plan;
+        const same = previous && body.value.plan && JSON.stringify(previous) === JSON.stringify(body.value.plan);
+        if (!same) {
+          const checked = SavedPlan.checkPlan(body.value.plan, previous, me.slug, Date.now());
+          if (checked.error) return json(res, 400, { error: checked.error });
+          if (checked.plan) body.value.plan = checked.plan; else delete body.value.plan;
+          newOverrides = checked.added;
+        }
       }
       store[key] = body.value; save();
+      newOverrides.forEach(o => audit(me.slug, 'block-overridden', {
+        advisor: key.split('/')[1], student: body.value.id, term: body.value.plan.term,
+        ruleId: o.ruleId, course: o.course, reason: o.reason, ip }));
       if (!key.startsWith('advisors/' + me.slug + '/') || /\/students\//.test(key) || !key.startsWith('advisors/')) {
         const student = /^advisors\/([a-z0-9-]+)\/students\/\d+$/.exec(key);
         audit(me.slug, 'set', student ? { advisor: student[1], recordType: 'student' } : { key });
@@ -1525,6 +1610,12 @@ function pageForWire() {
     .replace('<head>', '<head><script>window.SERVED=true;</script>');
   scriptHashes = [];
   html.replace(/<script>([\s\S]*?)<\/script>/g, (all, code) => {
+    scriptHashes.push(crypto.createHash('sha256').update(code, 'utf8').digest('base64'));
+    return all;
+  });
+  // Print windows are about:blank pages written by the app, and they inherit this policy.
+  // Their small auto-print script sits in the app as a string ending in <\/script>.
+  html.replace(/<script>([^<]*?)<\\\/script>/g, (all, code) => {
     scriptHashes.push(crypto.createHash('sha256').update(code, 'utf8').digest('base64'));
     return all;
   });

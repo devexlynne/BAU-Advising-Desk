@@ -458,6 +458,13 @@
     return (await post('/api/org/tree', { tree })).tree;
   }
 
+  // ---- sessions, activity log and backups (server only) ----
+  async function listSessions() { return api ? (await post('/api/sessions', {})).sessions : []; }
+  async function endSessions(handle) { return (await post('/api/sessions/end', { handle })).ended; }
+  async function auditLog(query) { return await post('/api/admin/audit', query || {}); }
+  async function backupStatus() { return await post('/api/admin/backup-status', {}); }
+  async function downloadBackup() { return await post('/api/admin/backup-download', {}); }
+
   async function getConfig(dept) { return await docGet('config/' + dept + '/rules', null); }
   async function saveConfig(dept, cfg) { return await docSet('config/' + dept + '/rules', cfg); }
 
@@ -473,6 +480,7 @@
     changePassword,
     loadStudents, saveStudent, saveStudents, removeStudent, clearStudents,
     loadOffering, saveOffering, getSettings, saveSettings, getCover, saveCover,
-    loadIdeas, postIdea, saveIdea, removeIdea
+    loadIdeas, postIdea, saveIdea, removeIdea,
+    listSessions, endSessions, auditLog, backupStatus, downloadBackup
   };
 });
