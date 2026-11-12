@@ -79,7 +79,7 @@ function start(port, extra) {
 
   const prodDir = DATA + '-prod';
   fs.rmSync(prodDir, { recursive: true, force: true });
-  srv = start(3294, { NODE_ENV: 'production', DATA_DIR: prodDir });
+  srv = start(3294, { NODE_ENV: 'production', DATA_DIR: prodDir, PUBLIC_URL: 'https://advising.example.test' });
   try {
     await waitFor('http://127.0.0.1:3294');
     check('production starts with encrypted file storage', true);

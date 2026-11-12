@@ -20,6 +20,7 @@ const sealed = require('./src/encrypted-file');
 const OrgTree = require('./src/org-tree');
 const Permissions = require('./src/permissions');
 const Programme = require('./src/programme');
+const { parseJsonSafe, applyTimeouts } = require('./server/http-guards');
 const SHARED_CATALOG = require('./data/catalog.json');
 
 // ---- configuration -----------------------------------------------------------
@@ -58,6 +59,12 @@ const RESET_MINUTES = numberEnv('RESET_MINUTES', 30, 5, 1440);
 const VERIFY_HOURS = numberEnv('VERIFY_HOURS', 24, 1, 168);
 const BACKUP_KEEP = numberEnv('BACKUP_KEEP', 72, 1, 10000);
 const MAIL_PER_DAY = numberEnv('MAIL_PER_DAY', 200, 1, 10000);
+// HTTP time limits (Node.js security guide, CWE-400). Imports can be large, so the
+// whole-request limit is generous; the header limit is what stops slow-loris clients.
+const HEADERS_TIMEOUT_MS = numberEnv('HEADERS_TIMEOUT_MS', 20000, 1000, 120000);
+const REQUEST_TIMEOUT_MS = numberEnv('REQUEST_TIMEOUT_MS', 120000, 2000, 600000);
+const KEEP_ALIVE_TIMEOUT_MS = numberEnv('KEEP_ALIVE_TIMEOUT_MS', 5000, 1000, 120000);
+const MAX_REQUESTS_PER_SOCKET = numberEnv('MAX_REQUESTS_PER_SOCKET', 1000, 1, 100000);
 const ENABLE_STUDENT_IMPORTS = boolEnv('ENABLE_STUDENT_IMPORTS', !PRODUCTION);
 const ALLOW_SIGNUP = boolEnv('ALLOW_SIGNUP', true);
 // Development only: lets accounts open without the email check when no mail
@@ -355,21 +362,10 @@ function audit(actor, action, details) {
 }
 
 // ---- passwords -------------------------------------------------------------
-// PBKDF2-SHA256 with a per-account salt, run off the event loop so a sign-in
-// does not stall other requests. The plain password is never stored or logged.
-const ITERATIONS = 310000;
-const PASSWORD_MIN = 10, PASSWORD_MAX = 200;
-const hash = (password, salt) => new Promise((resolve, reject) =>
-  crypto.pbkdf2(String(password), 'bau:' + salt, ITERATIONS, 32, 'sha256',
-    (e, key) => (e ? reject(e) : resolve(key.toString('hex')))));
-const passwordProblem = pw => (pw.length < PASSWORD_MIN ? 'make the password at least ' + PASSWORD_MIN + ' characters'
-  : pw.length > PASSWORD_MAX ? 'make the password at most ' + PASSWORD_MAX + ' characters' : '');
-const newSalt = () => crypto.randomBytes(16).toString('hex');
-// constant-time compare for hashes/codes
-const sameSecret = (a, b) => {
-  const x = Buffer.from(String(a)), y = Buffer.from(String(b));
-  return x.length === y.length && crypto.timingSafeEqual(x, y);
-};
+// See server/passwords.js: PBKDF2-SHA256 at 600,000 iterations, old 310,000 hashes
+// still verify and are upgraded at the next sign-in. Plain passwords are never stored or logged.
+const Passwords = require('./server/passwords');
+const { PASSWORD_MAX, passwordProblem, sameSecret } = Passwords;
 // ---- sessions --------------------------------------------------------------
 // Kept in the store (so a redeploy does not sign everyone out) under the SHA-256
 // of the cookie value: a copy of the store does not contain usable sessions.
@@ -512,9 +508,17 @@ function sendVerifyEmail(acct) {
 }
 
 const isTestAddress = email => /^test\.[^@\s]+@bau\.edu\.lb$/i.test(String(email || '').trim());
+/* Base of every emailed link. In production it must come from PUBLIC_URL (checked at
+   start-up); the Host header is client-controlled and is only used on a developer machine. */
+function linkBase(req) {
+  if (PUBLIC_URL) return PUBLIC_URL;
+  if (PRODUCTION) throw new Error('PUBLIC_URL is not set');
+  return (isHttps(req) ? 'https://' : 'http://') + (req.headers.host || 'localhost');
+}
+
 function invitationLink(req, slug, purpose) {
   const token = newVerifyToken(slug, purpose || 'invite');
-  const base = PUBLIC_URL || ((isHttps(req) ? 'https://' : 'http://') + (req.headers.host || 'localhost'));
+  const base = linkBase(req);
   return base + '/?verify=' + token;
 }
 function sendInviteEmail(person, link) {
@@ -541,7 +545,7 @@ function dropResets(slug) {
   Object.keys(r).forEach(k => { if (r[k] && r[k].slug === slug) delete r[k]; });
 }
 function resetLink(req, token) {
-  const base = PUBLIC_URL || ((isHttps(req) ? 'https://' : 'http://') + (req.headers.host || 'localhost'));
+  const base = linkBase(req);
   return base + '/?reset=' + token;
 }
 
@@ -605,7 +609,7 @@ function readBody(req, forPath) {
       parts.push(c);
     });
     req.on('end', () => {
-      try { resolve(parts.length ? JSON.parse(Buffer.concat(parts).toString('utf8')) : {}); }
+      try { resolve(parts.length ? parseJsonSafe(Buffer.concat(parts).toString('utf8')) : {}); }
       catch (e) { reject(new Error('bad request body')); }
     });
     req.on('error', reject);
@@ -723,7 +727,7 @@ async function api(req, res, url) {
     const slug = person && person.slug;
     const key = 'in:' + (email || 'missing-email') + ':' + ip;
     if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)) {
-      await hash(String(body.password || '').slice(0, PASSWORD_MAX), 'no-account');
+      await Passwords.verify(null, body.password);
       failed(key);
       return json(res, 401, { error: 'that email and password do not match' });
     }
@@ -731,9 +735,9 @@ async function api(req, res, url) {
     const acctTries = 'in-acct:' + (slug || email);      // per account, whatever address it comes from
     if (tooMany(key) || tooMany(acctTries)) return json(res, 429, { error: 'too many tries, wait a few minutes' });
     const password = String(body.password || '').slice(0, PASSWORD_MAX);
-    // hash even for an unknown name, so response time does not reveal which accounts exist
-    const given = await hash(password, acct ? acct.salt : 'no-account');
-    if (!acct || !sameSecret(given, acct.hash) || !person || person.active === false) {
+    // verify() hashes even for an unknown name, so response time does not reveal which accounts exist
+    const matches = await Passwords.verify(acct, password);
+    if (!acct || !matches || !person || person.active === false) {
       failed(key); if (acct) failed(acctTries);
       audit(slug || null, 'signin-failed', { ip });
       return json(res, 401, { error: 'that email and password do not match' });
@@ -741,6 +745,10 @@ async function api(req, res, url) {
     cleared(key); cleared(acctTries);
     if (!isVerified(acct)) {
       return json(res, 403, { error: 'this account is not active yet. Open the invitation link sent to your BAU email', unverified: true });
+    }
+    if (Passwords.needsRehash(acct)) {
+      Object.assign(acct, await Passwords.freshHash(password));   // quiet upgrade to the current work factor
+      audit(slug, 'password-rehashed', { iterations: Passwords.ITERATIONS });
     }
     acct.lastSignIn = Date.now(); save();
     audit(slug, 'signin', { ip });
@@ -768,12 +776,11 @@ async function api(req, res, url) {
       const password = String(body.password || '');
       const pwBad = passwordProblem(password);
       if (pwBad) return json(res, 400, { error: pwBad });
-      const salt = newSalt();
-      store[acctKey(rec.slug)] = {
-        slug: rec.slug, email: invitedPerson.email, salt,
-        hash: await hash(password, salt),
+      store[acctKey(rec.slug)] = Object.assign({
+        slug: rec.slug, email: invitedPerson.email
+      }, await Passwords.freshHash(password), {
         createdAt: Date.now(), lastSignIn: Date.now(), verified: true, verifiedAt: Date.now()
-      };
+      });
       dropVerifies(rec.slug);
       save();
       audit(rec.slug, 'invite-accepted', { ip, before: null, after: { active: true, verified: true } });
@@ -786,7 +793,7 @@ async function api(req, res, url) {
       return json(res, 403, { error: 'this account is no longer active; contact your administrator' });
     }
     if (tooMany('ver-acct:' + rec.slug)) return json(res, 429, { error: 'too many tries, wait a few minutes' });
-    if (!sameSecret(await hash(String(body.password || '').slice(0, PASSWORD_MAX), acct.salt), acct.hash)) {
+    if (!(await Passwords.verify(acct, body.password))) {
       failed(key); failed('ver-acct:' + rec.slug);
       return json(res, 401, { error: 'that is not the password chosen when this account was created' });
     }
@@ -809,7 +816,7 @@ async function api(req, res, url) {
     failed(key);
     const acct = store[acctKey(slug)];
     if (!acct || isVerified(acct) || !canVerify()) return json(res, 200, { ok: true });
-    if (!sameSecret(await hash(String(body.password || '').slice(0, PASSWORD_MAX), acct.salt), acct.hash)) {
+    if (!(await Passwords.verify(acct, body.password))) {
       return json(res, 401, { error: 'that name and password do not match' });
     }
     try { await sendVerifyEmail(acct); }
@@ -871,8 +878,7 @@ async function api(req, res, url) {
     if (!acct || !personOf(slug) || personOf(slug).active === false) {
       return json(res, 404, { error: 'no active account' });
     }
-    acct.salt = newSalt();
-    acct.hash = await hash(next, acct.salt);
+    Object.assign(acct, await Passwords.freshHash(next));
     acct.changedAt = Date.now();
     acct.verified = true;                  // the link came through their BAU inbox
     dropVerifies(slug);
@@ -1089,7 +1095,7 @@ async function api(req, res, url) {
     if (!acct) return json(res, 404, { error: 'no account' });
     const key = 'pw:' + me.slug + ':' + ip;
     if (tooMany(key)) return json(res, 429, { error: 'too many tries, wait a few minutes' });
-    if (!sameSecret(await hash(String(body.current || '').slice(0, PASSWORD_MAX), acct.salt), acct.hash)) {
+    if (!(await Passwords.verify(acct, body.current))) {
       failed(key);
       return json(res, 401, { error: 'that is not your current password' });
     }
@@ -1097,8 +1103,7 @@ async function api(req, res, url) {
     const pwBad = passwordProblem(next);
     if (pwBad) return json(res, 400, { error: pwBad });
     cleared(key);
-    acct.salt = newSalt();
-    acct.hash = await hash(next, acct.salt);
+    Object.assign(acct, await Passwords.freshHash(next));
     acct.changedAt = Date.now();
     dropResets(me.slug);
     endSessionsOf(me.slug, me.id);         // keep this session, sign out everywhere else
@@ -1411,14 +1416,19 @@ async function api(req, res, url) {
 }
 
 // ---- serving the page ------------------------------------------------------
-const CSP = [
+/* Content Security Policy. Every script is inlined into the one page, so instead of
+   'unsafe-inline' the policy lists the SHA-256 of each inline script in the page we serve
+   (computed in pageForWire). An injected <script> has a different hash and does not run.
+   Styles keep 'unsafe-inline': the interface sets many style attributes, and CSS cannot run code. */
+let scriptHashes = [];
+const cspHeader = () => [
   "default-src 'self'",
-  // scripts are inlined into the page (pdf.js included), nothing loads from a CDN
-  "script-src 'self' 'unsafe-inline'",
+  "script-src 'self'" + scriptHashes.map(h => " 'sha256-" + h + "'").join(''),
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob:",
   "connect-src 'self'",
+  "object-src 'none'",
   "frame-ancestors 'none'",
   "base-uri 'none'",
   "form-action 'self'"
@@ -1453,7 +1463,7 @@ function tooManyFrom(req) {
 
 function securityHeaders(req) {
   const h = {
-    'content-security-policy': CSP,
+    'content-security-policy': cspHeader(),
     'x-content-type-options': 'nosniff',
     'referrer-policy': 'no-referrer',
     'x-frame-options': 'DENY',
@@ -1472,6 +1482,11 @@ function pageForWire() {
   if (servedPage && servedFrom === stat.mtimeMs) return servedPage;
   const html = fs.readFileSync(PAGE, 'utf8')
     .replace('<head>', '<head><script>window.SERVED=true;</script>');
+  scriptHashes = [];
+  html.replace(/<script>([\s\S]*?)<\/script>/g, (all, code) => {
+    scriptHashes.push(crypto.createHash('sha256').update(code, 'utf8').digest('base64'));
+    return all;
+  });
   servedPage = Buffer.from(html, 'utf8');
   servedFrom = stat.mtimeMs;
   return servedPage;
@@ -1492,7 +1507,10 @@ async function healthy() {
   } catch (e) { return false; }
 }
 
-const server = http.createServer(async (req, res) => {
+const server = applyTimeouts(http.createServer({
+  // how often Node looks for connections past their time limit (default is 30 s)
+  connectionsCheckingInterval: Math.min(5000, HEADERS_TIMEOUT_MS)
+}, async (req, res) => {
   let url;
   try { url = new URL(req.url, 'http://localhost'); } catch (e) { res.writeHead(400).end(); return; }
   const p = url.pathname;
@@ -1523,6 +1541,9 @@ const server = http.createServer(async (req, res) => {
     return;
   }
   json(res, 405, { error: 'method not allowed' });
+}), {
+  headersMs: HEADERS_TIMEOUT_MS, requestMs: REQUEST_TIMEOUT_MS,
+  keepAliveMs: KEEP_ALIVE_TIMEOUT_MS, maxRequestsPerSocket: MAX_REQUESTS_PER_SOCKET
 });
 
 async function startServer() {
@@ -1531,6 +1552,9 @@ async function startServer() {
   }
   if (PRODUCTION && !process.env.DATABASE_URL && !STORE_KEY) {
     throw new Error('DATABASE_URL or STORE_KEY is required in production; refusing to start with unencrypted file storage');
+  }
+  if (PRODUCTION && !/^https:\/\/[a-z0-9.-]+(:\d+)?$/i.test(PUBLIC_URL)) {
+    throw new Error('PUBLIC_URL (https://your-domain) is required in production; emailed links must not be built from the Host header');
   }
   if (process.env.DATABASE_URL) {
     databaseStore = new PostgresStore(createPool(), error => {
@@ -1605,6 +1629,13 @@ function shutdown(signal) {
   });
 }
 ['SIGTERM', 'SIGINT'].forEach(sig => process.on(sig, () => shutdown(sig)));
+/* An exception nobody caught leaves the process in an unknown state (OWASP A10:2025).
+   Log it and stop at once without writing the in-memory store: anything not yet written
+   was never confirmed to a user, and Railway restarts the service from the last good file. */
+process.on('uncaughtException', e => {
+  console.error('uncaught exception, stopping:', e && e.stack ? e.stack : e);
+  process.exit(1);
+});
 process.on('unhandledRejection', e => {
   console.error('unhandled rejection:', e && e.stack ? e.stack : e);
   process.exitCode = 1;
