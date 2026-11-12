@@ -119,9 +119,24 @@ const addressOf = from => {
   return m ? m[1] : from;
 };
 
-// dot-stuffing: a line starting with "." would otherwise end DATA early
-// (including the very first line), and bare CR or LF become CRLF
-const stuff = s => ('\n' + s).replace(/\r\n|\r|\n/g, '\r\n').replace(/\r\n\./g, '\r\n..').slice(2);
+
+/* Headers must be 7-bit. A subject with Arabic (or any non-ASCII) text is sent as
+   RFC 2047 encoded-words, split so no word passes the 75-character limit. */
+function encodeHeader(value) {
+  const s = String(value);
+  if (/^[\x20-\x7e]*$/.test(s)) return s;
+  const words = [];
+  let chunk = '';
+  for (const ch of s) {                       // by code point: never split a UTF-8 sequence
+    if (Buffer.byteLength(chunk + ch) > 39) { words.push(chunk); chunk = ''; }
+    chunk += ch;
+  }
+  if (chunk) words.push(chunk);
+  return words.map(w => '=?UTF-8?B?' + Buffer.from(w, 'utf8').toString('base64') + '?=').join('\r\n ');
+}
+
+// bodies go as base64 in 76-character lines: safe through any SMTP server, any language
+const base64Body = s => Buffer.from(String(s), 'utf8').toString('base64').replace(/.{1,76}/g, '$&\r\n').replace(/\r\n$/, '');
 
 function message(to, subject, text, replyTo, html) {
   const head = [
@@ -129,17 +144,18 @@ function message(to, subject, text, replyTo, html) {
     'To: <' + to + '>',
     // replies go to the advisor who sent it, not no-reply
     ...(replyTo ? ['Reply-To: <' + replyTo + '>'] : []),
-    'Subject: ' + subject,
+    'Subject: ' + encodeHeader(subject),
     'MIME-Version: 1.0',
     'Date: ' + new Date().toUTCString()
   ];
-  if (!html) return head.concat(['Content-Type: text/plain; charset=utf-8', '', stuff(text)]).join('\r\n');
+  const part = (type, body) => ['Content-Type: ' + type + '; charset=utf-8', 'Content-Transfer-Encoding: base64', '', base64Body(body)];
+  if (!html) return head.concat(part('text/plain', text)).join('\r\n');
   // plain text and HTML in one message; the mail app shows the HTML one
   const b = 'adv-' + Date.now().toString(36) + Math.random().toString(36).slice(2);
   return head.concat([
     'Content-Type: multipart/alternative; boundary="' + b + '"', '',
-    '--' + b, 'Content-Type: text/plain; charset=utf-8', '', stuff(text), '',
-    '--' + b, 'Content-Type: text/html; charset=utf-8', '', stuff(html), '',
+    '--' + b, ...part('text/plain', text), '',
+    '--' + b, ...part('text/html', html), '',
     '--' + b + '--'
   ]).join('\r\n');
 }
@@ -200,4 +216,4 @@ async function send(to, subject, text, replyTo, html) {
   return await apiSend(to, subject, text, replyTo, html);
 }
 
-module.exports = { send, configured };
+module.exports = { send, configured, _message: message, _encodeHeader: encodeHeader };
