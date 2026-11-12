@@ -239,8 +239,10 @@ old key until you have signed in and checked the data.
   Under *Your account* each person sees where they are signed in and can end the others.
 - **Every record is checked against who is asking.** An advisor can read and write only
   `advisors/<their own slug>/…`, plus the shared course offering and cover photo. Another
-  advisor's students come back 403. Account records are never served to any page. Portal admins
-  can manage every advisor's list (to import on their behalf or move a student).
+  advisor's students come back 403, even inside the same programme, and so do they for programme
+  editors, approvers and viewers. Account records are never served to any page. Superadmins, and
+  faculty admins within their scope, can manage an advisor's list (to import on their behalf or
+  move a student); each such read is logged.
 - **Security-relevant activity is audited.** Sign-ins (and failed ones), account changes,
   imports, record changes, admin actions and portal email sends go to the encrypted audit log.
   Reading another advisor's student records is logged too, with whose list and how many records,

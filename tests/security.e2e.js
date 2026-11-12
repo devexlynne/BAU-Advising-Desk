@@ -60,9 +60,16 @@ const OTHER_PASS = 'Synthetic-other-advisor-2026';
     const p2 = await ctx2.newPage();
     await signIn(p2, base, 'test.advisor2@bau.edu.lb', OTHER_PASS);
     const api2 = apiFrom(p2);
-    // advisors of the same programme share the list by design (students move between advisors on import)
+    // an advisor sees only their own students, even in the same programme
     const shared = await api2('/api/list', { path: 'advisors/synthetic-cs-advisor/students' });
-    step('an advisor in the same programme can see the shared list (by design)', shared.status === 200, 'status ' + shared.status);
+    step('another advisor in the same programme cannot list them', shared.status === 403, 'status ' + shared.status);
+    const peek = await api2('/api/get', { path: 'advisors/synthetic-cs-advisor/students/' + mine.id });
+    step('or open one of them', peek.status === 403, 'status ' + peek.status);
+    const change = await api2('/api/set', { path: 'advisors/synthetic-cs-advisor/students/' + mine.id, value: Object.assign({}, mine, { name: 'Changed' }) });
+    step('or change one of them', change.status === 403, 'status ' + change.status);
+    const everyone2 = await api2('/api/all-students', {});
+    step('and the all-students view gives an advisor nothing of anyone else\'s',
+      everyone2.status === 403 || !Object.keys((everyone2.json || {}).advisors || {}).some(k => k !== 'synthetic-cs-advisor-2'), 'status ' + everyone2.status);
 
     // someone outside the scope cannot
     const ctx3 = await b.newContext(); await localOnly(ctx3);

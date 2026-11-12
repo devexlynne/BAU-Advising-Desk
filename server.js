@@ -136,17 +136,25 @@ function scopesOf(person) {
   return Array.from(scopes);
 }
 
-/* TODO(decision): access is by scope, so two advisors in the same programme can read
-   (and, with students:write, change) each other's student lists. Imports rely on this to
-   move a student between advisors. If the department wants "my advisees only", this is the
-   one place to change: require actorSlug === ownerSlug for the advisor role. Reads of another
-   advisor's records are audited either way (read-other-students). */
+/* Whose student records can this person reach?
+   An advisor reaches only their own list. Another person's list is open only to a
+   superadmin or to a faculty admin whose scope covers that advisor (the Everyone page,
+   importing on an advisor's behalf). Programme editors, approvers and viewers do not
+   reach student records at all. Admin reads of someone else's list are audited
+   (read-other-students). Decided by the department, November 2026. */
+const OTHER_LIST_ROLES = ['superadmin', 'faculty-admin'];
 function canForOwner(actorSlug, ownerSlug, action) {
   if (actorSlug === ownerSlug) {
-    const scopes = scopesOf(personOf(ownerSlug));
-    return scopes.some(scope => canUser(actorSlug, action, scope));
+    return scopesOf(personOf(ownerSlug)).some(scope => canUser(actorSlug, action, scope));
   }
-  return scopesOf(personOf(ownerSlug)).some(scope => canUser(actorSlug, action, scope));
+  const actor = personOf(actorSlug);
+  if (!actor) return false;
+  const adminOnly = Object.assign({}, actor, {
+    roles: (actor.roles || []).filter(r => r && OTHER_LIST_ROLES.includes(r.role))
+  });
+  const tree = store['org/tree'] || OrgTree.DEFAULT_TREE;
+  return scopesOf(personOf(ownerSlug)).some(scope =>
+    Permissions.can(adminOnly, action, scope, tree, BOOTSTRAP_SUPERADMINS));
 }
 
 function findPersonByEmail(email) {

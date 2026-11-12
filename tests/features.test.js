@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const { spawn } = require('child_process');
-const { PASSWORDS, defaultStore, writeStore } = require('./helpers/auth-fixture');
+const { PASSWORDS, defaultStore, writeStore, person, account } = require('./helpers/auth-fixture');
 const { checkPlan } = require('../server/saved-plan');
 
 const ROOT = path.join(__dirname, '..');
@@ -48,6 +48,11 @@ const STUDENT = 'advisors/synthetic-cs-advisor/students/999900031';
   fs.rmSync(DATA, { recursive: true, force: true });
   const store = defaultStore();
   store[STUDENT] = { id: '999900031', name: 'Synthetic Plan Student' };
+  // a second advisor and a viewer, both in the same programme as the student's advisor
+  store['people/synthetic-cs-advisor-2'] = person('synthetic-cs-advisor-2', 'test.advisor2@bau.edu.lb', [{ role: 'advisor', scopes: ['cs'] }]);
+  store['advisors/synthetic-cs-advisor-2/account'] = account('synthetic-cs-advisor-2', 'test.advisor2@bau.edu.lb', 'Synthetic-advisor-two-2026');
+  store['people/synthetic-cs-viewer'] = person('synthetic-cs-viewer', 'test.viewer@bau.edu.lb', [{ role: 'viewer', scopes: ['cs'] }]);
+  store['advisors/synthetic-cs-viewer/account'] = account('synthetic-cs-viewer', 'test.viewer@bau.edu.lb', 'Synthetic-viewer-2026');
   writeStore(DATA, store);
   const proc = spawn(process.execPath, ['server.js'], { cwd: ROOT, stdio: 'ignore', env: Object.assign({}, process.env, {
     PORT: String(PORT), DATA_DIR: DATA, STORE_KEY: '', ENABLE_STUDENT_IMPORTS: 'true',
@@ -101,6 +106,20 @@ const STUDENT = 'advisors/synthetic-cs-advisor/students/999900031';
     const editor = await signIn('test.business.editor@bau.edu.lb', PASSWORDS.editor);
     check('someone outside the scope cannot save a plan',
       (await post('/api/set', { path: STUDENT, value: Object.assign({}, rec.data, { plan }) }, editor)).status === 403);
+
+    // only the advisor (and admins) reach a student list
+    const other = await signIn('test.advisor2@bau.edu.lb', 'Synthetic-advisor-two-2026');
+    const viewer = await signIn('test.viewer@bau.edu.lb', 'Synthetic-viewer-2026');
+    check('another advisor in the same programme cannot list the students',
+      (await post('/api/list', { path: 'advisors/synthetic-cs-advisor/students' }, other)).status === 403);
+    check('or open one', (await post('/api/get', { path: STUDENT }, other)).status === 403);
+    check('or change one', (await post('/api/set', { path: STUDENT, value: rec.data }, other)).status === 403);
+    const otherAll = await (await post('/api/all-students', {}, other)).json();
+    check('the all-students view shows another advisor nothing of anyone else',
+      !Object.keys(otherAll.advisors || {}).some(k => k !== 'synthetic-cs-advisor-2'));
+    check('a viewer in the same programme cannot open the record', (await post('/api/get', { path: STUDENT }, viewer)).status === 403);
+    check('the advisor still opens their own', (await post('/api/get', { path: STUDENT }, a1)).status === 200);
+    check('a superadmin can still open it', (await post('/api/get', { path: STUDENT }, admin)).status === 200);
 
     // activity log viewer
     check('an advisor cannot read the activity log', (await post('/api/admin/audit', {}, a1)).status === 403);

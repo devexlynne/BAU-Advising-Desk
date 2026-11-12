@@ -26,6 +26,7 @@ PostgreSQL support is in the code but stays switched off, as agreed.
 | 10 | Reads of another advisor's students are audited | We could not say who looked at whose list | OWASP Logging cheat sheet | Medium | `server.js` |
 | 11 | Browser-side password code removed | Dead code with a 32-bit fallback hash | | Low | `src/store.js` |
 | 12 | Browser tests rewritten for invite-only accounts | Three suites were broken and hung | | Medium | `tests/*.e2e.js` |
+| 13 | Advisors see only their own students; admins keep scoped access | Same-programme advisors could read and change each other's students | OWASP A01:2025 | High | `server.js` |
 
 Features: saved term plans with a print view, overriding a blocked check with a reason, a list of
 your own sessions with "sign out everywhere else", and an Activity and backups page for
@@ -124,10 +125,10 @@ new key and reads a record back.
 
 ### 10. Auditing reads
 
-Writes were audited, reads were not. Because of how scope works (see the decision under "Not
-done"), an advisor can read the list of another advisor in the same programme. Now `/api/get` and
-`/api/list` write `read-other-students` with whose list and how many records, and the all-students
-view records the count per advisor. Names and records never go into the log. Reading your own list
+Writes were audited, reads were not. Superadmins and faculty admins can still open any advisor's
+list in their scope (section 13), so those reads are now logged: `/api/get` and `/api/list` write
+`read-other-students` with whose list and how many records, and the all-students view records the
+count per advisor. Names and records never go into the log. Reading your own list
 is not logged, since it happens on every page load.
 
 I left the sign-in rate limits in memory on purpose and wrote down why in `DEPLOY.md`: storing the
@@ -148,6 +149,23 @@ hung. They now share `tests/helpers/e2e.js`, which starts the server on a seeded
 through the real form and always stops what it started. The email test covers the whole
 invitation and reset path against a stand-in mail server and decodes the base64 bodies to find the
 links. The verification test was folded into it.
+
+### 13. Each advisor sees only their own students
+
+Access used to follow the programme: any advisor in Computer Science could open, and even change,
+the students of every other Computer Science advisor, and so could viewers and approvers in that
+programme. The department decided that only the advisor should see their students. Now:
+
+- An advisor reaches their own list and nothing else, whatever programme they share.
+- A superadmin, or a faculty admin whose scope covers the advisor, can still open the list. They
+  need it for the Everyone page and for importing on an advisor's behalf, and every such read is
+  logged.
+- Programme editors, approvers and viewers no longer reach student records at all.
+
+The rule lives in one function, `canForOwner()` in `server.js`. Moving a student from one advisor
+to another during an import was already an admin-only path, so imports still work. The browser
+security test and `tests/features.test.js` check that a second advisor and a viewer in the same
+programme get 403 on list, open and change, and that the advisor and a superadmin still get in.
 
 ## New features
 
@@ -212,11 +230,6 @@ still passes, and I had to adjust a few of my own sizes and labels to keep it pa
 
 ## Not done, and why
 
-- **TODO(decision): advisors in the same programme can read each other's lists.** Access is by
-  scope, and imports depend on it to move a student from one advisor to another. Whether an
-  advisor should see only their own advisees is a department decision, not a bug fix. The rule is
-  in one place, `canForOwner()` in `server.js`, with a comment saying what to change. Until then,
-  these reads are audited.
 - **University single sign-on and two-factor sign-in.** Both need the university's identity
   service. Passwords, rate limits and session controls are as strong as I could make them without it.
 - **PostgreSQL** stays off. The code and its tests are still there.
@@ -235,8 +248,8 @@ All run on Node 22.
 
 | Command | Result |
 |---|---|
-| `npm test` | 24 suites, all passing. New: `hardening.test.js` 21, `backup-tools.test.js` 22, `features.test.js` 28 |
-| `npm run test:security` | 19 passed, 0 failed |
+| `npm test` | 24 suites, all passing. New: `hardening.test.js` 21, `backup-tools.test.js` 22, `features.test.js` 35 |
+| `npm run test:security` | 22 passed, 0 failed |
 | `npm run test:email` | 19 passed, 0 failed |
 | `npm run test:full` | 30 passed, 0 failed, no JavaScript errors |
 | `npm audit` | 0 vulnerabilities |
@@ -253,6 +266,7 @@ ad816f3 Backups you can take off the server, restore and re-key; audit reads of 
 7f7ecbf Interface: plan save and override, sessions, activity page; phone and Arabic fixes
 de64650 Remove the browser-side password code; document backups, restore, key change and new settings
 63f8b7f Mark the shared-list access rule as a decision for the department
+        Advisors see only their own students
 ```
 
 ## Sources
