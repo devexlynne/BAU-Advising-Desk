@@ -257,17 +257,17 @@ All run on Node 22.
 ## Commits
 
 ```
-46d8bd6 Rewrite the browser security test for invite-only sign-in
-e5ca485 Security hardening: password cost, emailed links, time limits, JSON guard, mail encoding, CSP hashes
-0cc0e34 Supply chain: no install scripts, exact versions, Node 22, CI with npm audit
-ad816f3 Backups you can take off the server, restore and re-key; audit reads of other advisors' students
-65ae9c5 Rewrite the email and full browser tests for invite-only accounts
-7b011ae Sessions page, activity log viewer, saved term plans with overrides
-7f7ecbf Interface: plan save and override, sessions, activity page; phone and Arabic fixes
-de64650 Remove the browser-side password code; document backups, restore, key change and new settings
-63f8b7f Mark the shared-list access rule as a decision for the department
-18cb687 Add the improvements report
-9d349c5 Advisors see only their own students
+4f27525 Rewrite the browser security test for invite-only sign-in
+2af0bc6 Security hardening: password cost, emailed links, time limits, JSON guard, mail encoding, CSP hashes
+d9bd880 Supply chain: no install scripts, exact versions, Node 22, CI with npm audit
+c0385ef Backups you can take off the server, restore and re-key; audit reads of other advisors' students
+b64bc17 Rewrite the email and full browser tests for invite-only accounts
+a8792ea Sessions page, activity log viewer, saved term plans with overrides
+dbee34e Interface: plan save and override, sessions, activity page; phone and Arabic fixes
+ccaba20 Remove the browser-side password code; document backups, restore, key change and new settings
+5cfc099 Mark the shared-list access rule as a decision for the department
+e1a1b09 Add the improvements report
+2cbbdc2 Advisors see only their own students
 ```
 
 ## Sources
