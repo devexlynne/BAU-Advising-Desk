@@ -124,6 +124,14 @@ Optional (defaults in brackets):
 | `MAIL_PER_DAY` | messages one advisor may send per day (`200`) |
 | `TRUST_PROXY` | `false` when the server is reached directly, not behind a proxy (`true`) |
 | `ALLOW_UNVERIFIED_SIGNUP` | development-only email-verification escape; never allows uninvited sign-up (`false`) |
+| `STORE_KEY` | 32-byte key (hex or base64) that turns on encrypted file storage; see "Encrypted file storage" |
+| `BACKUP_KEEP` | how many hourly encrypted backups to keep in `/data/backups` (`72`) |
+| `HEADERS_TIMEOUT_MS` | time a client gets to send its request headers (`20000`) |
+| `REQUEST_TIMEOUT_MS` | time a client gets to send the whole request (`120000`) |
+| `KEEP_ALIVE_TIMEOUT_MS` / `MAX_REQUESTS_PER_SOCKET` | idle keep-alive time and requests per connection (`5000` / `1000`) |
+
+In production the server refuses to start unless `PUBLIC_URL` is set to an `https://` address.
+Emailed links are always built from it, never from the request's Host header.
 
 For a fresh Railway deployment, provision a separate PostgreSQL service first. The existing
 app-only project and its `/data` volume are not a database. Keep the old volume intact and do not
@@ -182,22 +190,63 @@ How it behaves:
 > least ten characters. If you forget it, ask the portal to email a one-time reset link to your
 > BAU inbox. Your students are yours; no other advisor can see them.
 
+## Encrypted file storage (the current setup)
+
+The running deployment keeps everything in one encrypted file on the mounted volume,
+`/data/store.json`, with `DATABASE_URL` unset and `STORE_KEY` set. PostgreSQL stays switched off.
+
+- `store.json` is one AES-256-GCM envelope. Every line of `audit.log` is its own envelope.
+  Hourly copies go to `/data/backups/store-<time>.json` (also encrypted), newest `BACKUP_KEEP` kept.
+- Make a key once and keep it in Railway's variables and in the university's password safe:
+  `node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"`.
+  Without the key nothing on the volume can be read, including by us.
+
+**Taking a copy off the server.** The hourly backups sit on the same volume as the data, so a lost
+volume loses both. A superadmin opens *Activity and backups* and presses *Download the newest
+backup*. The file stays encrypted. The page warns when no copy has been downloaded for a week.
+The download is recorded in the activity log.
+
+**Restoring.** Stop the service, then in a shell with the same volume:
+
+```bash
+STORE_KEY=... node scripts/restore-backup.js /data/backups/store-2026-11-12T09-00-00-000Z.json
+# checks the file and prints how many people and student records it holds; changes nothing
+STORE_KEY=... node scripts/restore-backup.js /data/backups/store-2026-11-12T09-00-00-000Z.json --yes
+```
+
+The store it replaces is kept as `store.json.before-restore-<time>`. A wrong key or a damaged file
+stops the script before anything is touched.
+
+**Changing the key** (a person who had it leaves, or it may have leaked). Stop the service, then:
+
+```bash
+STORE_KEY=<old> NEW_STORE_KEY=<new> node scripts/rotate-store-key.js --yes
+```
+
+It decrypts the store, every backup and every audit line with the old key first, and only then
+writes them back under the new key. Start the service with `STORE_KEY` set to the new key. Keep the
+old key until you have signed in and checked the data.
+
 ## What is protected, and how
 
 - **Passwords never leave the server.** The browser sends the password once over HTTPS; the
-  server checks it with PBKDF2-SHA256, 310,000 rounds, a fresh salt per account, and a
-  constant-time comparison. Nothing reversible is stored.
+  server checks it with PBKDF2-SHA256, 600,000 rounds (the OWASP figure), a fresh salt per account,
+  and a constant-time comparison. Older hashes at 310,000 rounds still work and are upgraded the
+  next time that person signs in. Nothing reversible is stored.
 - **Sessions are cookies the page cannot read**: HttpOnly, SameSite=Lax, Secure over HTTPS,
   twelve hours by default with a two-hour idle timeout. Only a hash of each session is stored. Signing out ends the session on the server, not just in the browser.
   Changing a password ends every other session for that advisor; resetting one ends all of them.
+  Under *Your account* each person sees where they are signed in and can end the others.
 - **Every record is checked against who is asking.** An advisor can read and write only
   `advisors/<their own slug>/…`, plus the shared course offering and cover photo. Another
   advisor's students come back 403. Account records are never served to any page. Portal admins
   can manage every advisor's list (to import on their behalf or move a student).
 - **Security-relevant activity is audited.** Sign-ins (and failed ones), account changes,
-  imports, record changes, admin actions and portal email sends are stored transactionally in
-  PostgreSQL. Audit entries do not include student names, transcript contents or student IDs.
-  Reads of individual student records are not currently logged.
+  imports, record changes, admin actions and portal email sends go to the encrypted audit log.
+  Reading another advisor's student records is logged too, with whose list and how many records,
+  never the records themselves. An override of a blocked registration check is logged with the
+  student ID and the reason, because that is a decision someone may need to account for later.
+  A superadmin reads the log on the *Activity and backups* page.
 - **Database transport is verified.** PostgreSQL connections use TLS certificate validation;
   the application does not encrypt individual student fields. Confirm Railway's at-rest and
   backup encryption and access controls meet university policy before import.
@@ -207,9 +256,15 @@ How it behaves:
   offline demo; the local preview server is loopback-only and refuses to start on Railway or in
   production.
 - **Guessing is slowed down.** Five tries, then a wait that doubles up to fifteen minutes, per
-  account and per address.
-- **Headers**: a content security policy, `nosniff`, `frame-ancestors 'none'`, no referrer, and
-  HSTS when the connection is HTTPS. Railway terminates TLS, so it is.
+  account and per address. The counters live in memory, so a restart clears them. That is a choice:
+  writing them to the store would mean a full encrypted write for every wrong password, which
+  would turn a guessing attack into a disk-load attack.
+- **Slow or broken clients are cut off.** Header, request and keep-alive timeouts are set
+  (see the variables above), and JSON bodies with `__proto__`, `constructor` or `prototype`
+  keys are refused before they reach any code.
+- **Headers**: a content security policy that lists the hash of each inline script instead of
+  allowing any inline script, `object-src 'none'`, `nosniff`, `frame-ancestors 'none'`, no
+  referrer, and HSTS when the connection is HTTPS. Railway terminates TLS, so it is.
 
 ## Where the advisors' suggestions go
 
