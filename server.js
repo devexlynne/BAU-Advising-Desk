@@ -136,6 +136,11 @@ function scopesOf(person) {
   return Array.from(scopes);
 }
 
+/* TODO(decision): access is by scope, so two advisors in the same programme can read
+   (and, with students:write, change) each other's student lists. Imports rely on this to
+   move a student between advisors. If the department wants "my advisees only", this is the
+   one place to change: require actorSlug === ownerSlug for the advisor role. Reads of another
+   advisor's records are audited either way (read-other-students). */
 function canForOwner(actorSlug, ownerSlug, action) {
   if (actorSlug === ownerSlug) {
     const scopes = scopesOf(personOf(ownerSlug));
