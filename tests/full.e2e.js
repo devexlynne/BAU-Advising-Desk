@@ -69,6 +69,34 @@ function readMail() {
       step('the ' + tab + ' tab draws', len > 200, len + ' characters');
     }
 
+    // ---- save a term plan, override a blocked check with a reason ----
+    await p.click('[data-tab="plan"]');
+    const addCount = await p.locator('.pick [data-toggle]').count();
+    for (let i = 0; i < addCount; i++) { await p.locator('.pick [data-toggle]').nth(i).click(); await p.waitForTimeout(30); }
+    step('an over-limit plan shows a blocked check that can be overridden', await p.locator('[data-override]').count() > 0);
+    await p.locator('[data-override]').first().click();
+    await p.waitForSelector('#ovReason');
+    await p.fill('#ovReason', 'short');
+    await p.click('[data-override-save]');
+    step('a reason that is too short is refused in the dialog', await p.locator('#ovErr:not([hidden])').count() === 1);
+    await p.fill('#ovReason', 'Graduating this year, approved by the dean in writing.');
+    await p.click('[data-override-save]');
+    await p.waitForSelector('.chk.overridden', { timeout: 5000 }).catch(() => {});
+    step('the check now shows as overridden with the reason', /approved by the dean/.test(await p.locator('.chk.overridden').first().innerText().catch(() => '')));
+    step('the plan reads as saved', /^Saved /.test(await p.locator('.plan-actions .note').innerText()));
+    const studentId = await p.locator('[data-plan-print]').getAttribute('data-plan-print');
+    const savedRec = await api('/api/get', { path: 'advisors/synthetic-cs-advisor/students/' + studentId });
+    step('the plan is on the student record', savedRec.json.data.plan && savedRec.json.data.plan.courses.length === addCount
+      && savedRec.json.data.plan.overrides[0].by === 'synthetic-cs-advisor');
+    await p.reload({ waitUntil: 'domcontentloaded' });
+    await p.waitForFunction(() => !document.getElementById('app').hidden, null, { timeout: 10000 });
+    await p.click('[data-view="students"]');
+    await p.click('[data-open="' + studentId + '"]');
+    await p.click('[data-tab="plan"]');
+    await p.waitForTimeout(300);
+    step('after a reload the saved plan comes back', await p.locator('.basket .bitem').count() === addCount
+      && await p.locator('.chk.overridden').count() > 0);
+
     // ---- a note survives a reload ----
     await p.click('[data-tab="progress"]');
     if (await p.locator('#noteText').count()) {
@@ -114,7 +142,9 @@ function readMail() {
     await p.click('#pwForm button[type=submit]');
     await p.waitForSelector('.okmsg', { timeout: 5000 }).catch(() => {});
     step('the password changes', await p.locator('.okmsg').count() > 0);
-    await p.click('[data-close]').catch(() => {});
+    await p.waitForSelector('.sess-list li', { timeout: 5000 }).catch(() => {});
+    step('the account panel lists where you are signed in', /this browser/.test(await p.locator('#sessBox').innerText()));
+    await p.locator('#dlg [data-close]').last().click().catch(() => {});
 
     // ---- an out-of-scope read is refused ----
     const leak = await api('/api/list', { path: 'advisors/synthetic-business-editor/students' });
@@ -132,6 +162,22 @@ function readMail() {
     await p.click('#signForm button[type=submit]');
     await p.waitForFunction(() => !document.getElementById('app').hidden, null, { timeout: 10000 });
     step('the new one does', true);
+
+    // ---- superadmin: activity log and backups ----
+    const ctx2 = await browser.newContext();
+    await localOnly(ctx2);
+    const a = await ctx2.newPage();
+    a.on('pageerror', e => errs.push('JS (admin): ' + e.message));
+    await signIn(a, server.base, 'test.superadmin@bau.edu.lb', PASSWORDS.admin);
+    await a.click('[data-view="activity"]');
+    await a.waitForSelector('table.t.act', { timeout: 8000 });
+    const actText = await a.locator('#view').innerText();
+    step('the superadmin sees the activity log', /Overrode a registration check/.test(actText) && /Signed in/.test(actText));
+    step('and the backup status', /Newest backup/.test(actText) && /Last taken off the server/.test(actText));
+    await a.selectOption('#actAction', 'block-overridden');
+    await a.click('[data-act-filter]');
+    await a.waitForTimeout(500);
+    step('filtering by action leaves only that action', await a.locator('table.t.act tbody tr').count() === 1);
 
     step('no JavaScript errors', errs.length === 0, errs.join(' | '));
   } catch (e) {

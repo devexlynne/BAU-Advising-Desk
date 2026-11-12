@@ -1113,9 +1113,9 @@ function render() {
   const c = counts();
   // logo already says BAU, so just one word next to it; semester kept apart
   $('#mark').innerHTML = logoWhite(30) + '<span class="bar"></span><span class="word">Online Advising System</span>';
-  $('#termChip').innerHTML = `<b>${esc(shortTerm(state.term))}</b><i class="sep-dot" aria-hidden="true"></i>${phaseLine()}`;
+  $('#termChip').innerHTML = `<b>${esc(shortTerm(state.term))}</b><span class="phase"><i class="sep-dot" aria-hidden="true"></i>${phaseLine()}</span>`;
   $('#meBox').innerHTML = `<button class="meBtn" data-account="1" title="Your account">
-    ${faceOf(state.me)}<span>${esc(fullName(state.me))}</span></button>`;
+    ${faceOf(state.me)}<span class="me-name">${esc(fullName(state.me))}</span></button>`;
   const admin = !!state.me.admin;
   const items = admin
     ? [
@@ -1125,6 +1125,7 @@ function render() {
         ['programme', 'Programme setup', state.programmeReady ? '' : 'new', state.programmeReady ? '' : 'hot'],
         ['rules', 'Rules and study plan', '', ''],
         ['ideas', 'Portal suggestions', state.ideas.length ? String(state.ideas.length) : '', ''],
+        ...(state.me.superadmin && Store.isServer() ? [['activity', 'Activity and backups', '', '']] : []),
         ['ask', 'Ask Me', '', ''],
         ['import', 'Import', '', '']
       ]
@@ -1150,7 +1151,7 @@ function render() {
     + `<div class="sep railinfo"></div><div class="lab railinfo">This term</div>
        <div class="railinfo railfacts">
          <div>${admin ? (state.everyone ? allStudentCount() + ' students' : 'loading') : c.total + ' advisees'}</div>
-         <div>${admin ? Object.keys(state.everyone || {}).length + ' advisors' : c.unreg + ' not registered'}</div>
+         <div>${admin ? (n => n + (n === 1 ? ' advisor' : ' advisors'))(Object.keys(state.everyone || {}).length) : c.unreg + ' not registered'}</div>
          <div>${state.offering.sections.length} sections synced</div>
        </div>`;
 
@@ -1177,6 +1178,7 @@ function render() {
   else if (state.view === 'people') v.innerHTML = viewPeople();
   else if (state.view === 'structure') v.innerHTML = viewStructure();
   else if (state.view === 'programme') v.innerHTML = viewProgrammeSetup();
+  else if (state.view === 'activity') v.innerHTML = viewActivity();
   drawFloat();
   drawBell();
   syncHistory();
@@ -1430,7 +1432,7 @@ function viewStudents() {
           <span class="num" title="${studied(s).transfer ? 'and ' + studied(s).transfer + ' credits of freshman equivalency' : ''}${
             studied(s).transfer ? '. ' : ''}${snap.earned} credits completed toward the ${C.totalCredits}-credit degree">${snap.earned}<small>degree credits</small></span>
         </button>`;
-      }).join('') : '<p class="empty">Nobody matches that.</p>'}
+      }).join('') : noMatch()}
     </div></div>
   </div>`;
 }
@@ -2024,6 +2026,137 @@ function sectionsFor(code, term) {
   return forTerm;
 }
 
+/* ---- saved term plans and overrides ----
+   An advisor can save the trial schedule on the student's record, so it is there
+   next time (and for a colleague covering). A BLOCK finding can be overridden with a
+   written reason; the server stamps who and when and writes it to the audit log. */
+let planLoadedFor = '';
+const overrideKey = f => f.ruleId + '|' + f.message;
+const savedPlanFor = s => (s.plan && s.plan.term === state.planTerm ? s.plan : null);
+const canEditStudents = () => !state.me.admin;
+
+function restoreSavedPlan(s) {
+  const k = s.id + '|' + state.planTerm;
+  if (planLoadedFor === k) return;
+  planLoadedFor = k;
+  const saved = savedPlanFor(s);
+  if (!saved || Object.keys(basket).length) return;
+  basket = {};
+  saved.courses.forEach(c => {
+    const sec = c.crn ? state.offering.sections.find(x => x.crn === c.crn) : null;
+    basket[c.code] = sec
+      ? { code: c.code, crn: sec.crn, section: sec.section, cr: sec.cr || (MAP[c.code] || {}).cr || 0, campus: sec.campus, meetings: sec.meetings }
+      : { code: c.code, crn: null, section: c.section || '', cr: (MAP[c.code] || {}).cr || 0, campus: null, meetings: [] };
+  });
+}
+
+function basketMatchesSaved(s) {
+  const saved = savedPlanFor(s);
+  if (!saved) return false;
+  const now = Object.keys(basket).sort().map(code => code + ':' + (basket[code].crn || '')).join(',');
+  const then = saved.courses.map(c => c.code + ':' + (c.crn || '')).sort().join(',');
+  return now === then;
+}
+
+function planActions(s, picks) {
+  const saved = savedPlanFor(s);
+  const when = saved ? new Date(saved.savedAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short' }) : '';
+  const who = saved ? ((FACULTY.find(f => f.slug === saved.savedBy) || {}).name || 'a colleague') : '';
+  const status = !saved ? (picks.length ? 'Not saved yet.' : '')
+    : basketMatchesSaved(s) ? `Saved ${esc(when)} by ${esc(who)}.`
+    : `Changed since it was saved ${esc(when)}.`;
+  if (!picks.length && !saved) return '';
+  return `<div class="plan-actions no-print">
+    ${status ? `<p class="note" role="status">${status}</p>` : ''}
+    <div class="row-btns">
+      ${canEditStudents() && picks.length ? `<button class="btn sm primary" data-plan-save="${esc(s.id)}"${saved && basketMatchesSaved(s) ? ' disabled' : ''}>Save plan</button>` : ''}
+      ${picks.length ? `<button class="btn sm" data-plan-print="${esc(s.id)}">Print plan</button>` : ''}
+    </div></div>`;
+}
+
+function findingRow(s, f) {
+  const saved = savedPlanFor(s);
+  const ov = f.severity === 'BLOCK' && saved && basketMatchesSaved(s)
+    ? (saved.overrides || []).find(o => o.key === overrideKey(f)) : null;
+  const cls = ov ? 'overridden' : f.severity === 'BLOCK' ? 'block' : f.severity === 'WARN' ? 'warn' : 'info';
+  const by = ov ? ((FACULTY.find(p => p.slug === ov.by) || {}).name || 'an advisor') : '';
+  return `<div class="chk ${cls}">
+    <span class="ic">${f.severity === 'INFO' ? 'i' : ov ? '&check;' : '!'}</span>
+    <span class="tx"><p>${esc(f.message)}</p>
+      ${ov ? `<p class="ov-note">Overridden by ${esc(by)}: ${esc(ov.reason)}</p>` : ''}
+      ${!ov && f.severity === 'BLOCK' && f.overridable && canEditStudents()
+        ? `<button class="linkbtn" data-override="${esc(s.id)}" data-override-key="${esc(overrideKey(f))}">Override with a reason</button>` : ''}
+    </span></div>`;
+}
+
+function planToSave(s, extraOverride) {
+  const before = savedPlanFor(s);
+  const keep = before && basketMatchesSaved(s) ? (before.overrides || []) : [];
+  const overrides = keep.filter(o => !extraOverride || o.key !== extraOverride.key).concat(extraOverride ? [extraOverride] : []);
+  return {
+    term: state.planTerm,
+    courses: Object.keys(basket).map(code => ({ code, crn: basket[code].crn || null, section: basket[code].section || '' })),
+    overrides
+  };
+}
+
+async function saveTermPlan(s, extraOverride) {
+  const before = s.plan;
+  s.plan = planToSave(s, extraOverride);
+  try { await Store.saveStudent(state.me.slug, s); }
+  catch (err) { s.plan = before; toast(err.message || 'The plan could not be saved.'); render(); return false; }
+  s.plan.savedAt = Date.now(); s.plan.savedBy = state.me.slug;
+  (s.plan.overrides || []).forEach(o => { if (!o.by) { o.by = state.me.slug; o.at = Date.now(); } });
+  flush(); render();
+  return true;
+}
+
+let overrideFor = null;
+function drawOverride(s, key) {
+  overrideFor = { id: s.id, key };
+  const message = key.split('|').slice(1).join('|');
+  $('#dlgBody').innerHTML = `
+    <div class="dlg-h"><h3>Override this check</h3>
+      <p class="note">The plan is saved with your reason. It is recorded with your name in the activity log.</p></div>
+    <div class="dlg-b">
+      <div class="chk block"><span class="ic">!</span><span class="tx"><p>${esc(message)}</p></span></div>
+      <label class="f" for="ovReason">Why it is acceptable for this student
+        <textarea id="ovReason" rows="3" maxlength="500" placeholder="For example: approved by the chair on 3 Nov, prerequisite taken abroad."></textarea></label>
+      <p class="err" id="ovErr" hidden></p>
+    </div>
+    <div class="dlg-f"><button class="btn" data-close="1">Cancel</button>
+      <button class="btn primary" data-override-save="1">Override and save plan</button></div>`;
+  $('#dlg').showModal();
+  setTimeout(() => { const el = $('#ovReason'); if (el) el.focus(); }, 60);
+}
+
+function planDocument(s) {
+  const picks = Object.keys(basket).map(code => basket[code]);
+  const chk = E.checkPlan(R, C, s, picks, state.planTerm, state.offering.sections);
+  const saved = savedPlanFor(s);
+  const ovs = saved && basketMatchesSaved(s) ? (saved.overrides || []) : [];
+  const rows = picks.map(p => `<tr><td>${esc(p.code)}</td><td>${esc(nice((MAP[p.code] || {}).title || ''))}</td>
+    <td>${esc(p.cr)}</td><td>${esc(p.section || '-')}</td><td>${esc(p.campus || '')}</td>
+    <td>${esc((p.meetings || []).map(m => m.day + ' ' + m.start + (m.end ? '-' + m.end : '')).join(', '))}</td></tr>`).join('');
+  const checks = chk.findings.map(f => {
+    const ov = ovs.find(o => o.key === overrideKey(f));
+    return `<li><b>${f.severity === 'BLOCK' ? (ov ? 'Overridden' : 'Blocked') : f.severity === 'WARN' ? 'Warning' : 'Note'}:</b> ${esc(f.message)}${ov ? ` <i>Reason: ${esc(ov.reason)}</i>` : ''}</li>`;
+  }).join('');
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Term plan - ${esc(s.name)}</title>
+    <style>body{font:13px/1.45 system-ui,sans-serif;color:#111;margin:28px}h1{font-size:19px;margin:0 0 2px}
+    .sub{color:#555;margin:0 0 16px}table{border-collapse:collapse;width:100%;margin:10px 0 14px}
+    th,td{border:1px solid #bbb;padding:5px 7px;text-align:left;vertical-align:top}th{background:#f1f1f1}
+    ul{padding-left:18px}.sign{display:flex;gap:40px;margin-top:40px}.sign div{flex:1;border-top:1px solid #333;padding-top:4px;color:#555}</style>
+    </head><body>
+    <h1>Term plan: ${esc(shortTerm(state.planTerm))}</h1>
+    <p class="sub">${esc(s.name)}, ${esc(s.id)}${s.program ? ', ' + esc(s.program) : ''}${saved ? '. Saved ' + esc(new Date(saved.savedAt).toLocaleDateString()) : ''}</p>
+    <table><thead><tr><th>Course</th><th>Title</th><th>Cr</th><th>Section</th><th>Campus</th><th>Times</th></tr></thead>
+    <tbody>${rows}</tbody><tfoot><tr><th colspan="2">Total</th><th>${chk.credits}</th><th colspan="3">limit ${chk.limits.max}</th></tr></tfoot></table>
+    ${checks ? `<h2 style="font-size:14px">Checks</h2><ul>${checks}</ul>` : '<p>All plan checks passed.</p>'}
+    <div class="sign"><div>Advisor</div><div>Student</div><div>Date</div></div>
+    </body></html>`;
+}
+
 function tabPlan(s) {
   const { snap } = look(s);
   /* no schedule for the running term -> can still register, so allow
@@ -2031,6 +2164,7 @@ function tabPlan(s) {
   // the calendar decides: this term while they can still register, else next
   const target = planTargetFor(s);
   if (state.planTerm !== target) { state.planTerm = target; basket = {}; }
+  restoreSavedPlan(s);
   const termSwitch = '';
   const plan = E.planNextTerm(R, C, s, state.planTerm, state.offering.sections);
   const picks = Object.keys(basket).map(code => basket[code]);
@@ -2110,11 +2244,10 @@ ${plan.hasOfferingForTerm ? '' : `<div class="bd" style="padding-bottom:6px"><p 
           </div>`).join('')}
           <button class="btn sm" data-clear-basket="1" style="align-self:flex-start;margin-top:4px">Clear all</button>
         </div>` : ''}
+        ${planActions(s, picks)}
       </div></div>
       ${picks.length ? `<div class="panel"><div class="hd">Checks on this plan</div><div class="bd"><div class="checks">
-        ${chk.findings.length ? chk.findings.map(f => `<div class="chk ${f.severity === 'BLOCK' ? 'block' : f.severity === 'WARN' ? 'warn' : 'info'}">
-          <span class="ic">${f.severity === 'INFO' ? 'i' : '!'}</span>
-          <span class="tx"><p>${esc(f.message)}</p></span></div>`).join('')
+        ${chk.findings.length ? chk.findings.map(f => findingRow(s, f)).join('')
           : '<div class="chk info"><span class="ic">&check;</span><span class="tx"><p>Plan checks passed.</p></span></div>'}
         ${chk.lookAhead && chk.lookAhead.opens.length ? `<div class="chk info"><span class="ic">i</span>
           <span class="tx"><p>Passing these opens ${chk.lookAhead.opens.slice(0, 6).join(', ')} the term after.</p></span></div>` : ''}
@@ -2973,9 +3106,39 @@ async function drawAccount(msg) {
         <p class="err" id="pwErr" hidden></p>
         <button class="btn primary" type="submit" style="align-self:flex-start">Change password</button>
       </form>
+      ${Store.isServer() ? `<div class="hr"></div>
+      <div class="stack" id="sessBox">
+        <h4 style="font-size:14px">Where you are signed in</h4>
+        <p class="note">Loading&hellip;</p>
+      </div>` : ''}
     </div>
     <div class="dlg-f"><button class="btn" data-close="1">Close</button></div>`;
   if (!$('#dlg').open) $('#dlg').showModal();
+  if (Store.isServer()) drawSessions();
+}
+
+const ago = iso => {
+  const min = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+  if (min < 2) return 'just now';
+  if (min < 60) return min + ' minutes ago';
+  const h = Math.round(min / 60);
+  return h < 24 ? h + (h === 1 ? ' hour ago' : ' hours ago') : new Date(iso).toLocaleDateString();
+};
+async function drawSessions() {
+  const box = $('#sessBox');
+  if (!box) return;
+  let list = [];
+  try { list = await Store.listSessions(); }
+  catch (e) { box.innerHTML = '<h4 style="font-size:14px">Where you are signed in</h4><p class="err">The list could not be loaded.</p>'; return; }
+  const others = list.filter(x => !x.current);
+  box.innerHTML = `<h4 style="font-size:14px">Where you are signed in</h4>
+    <ul class="sess-list">${list.map(x => `<li>
+      <div><b>${esc(x.device)}</b>${x.current ? ' <span class="chip ok">this browser</span>' : ''}
+        <span class="note">signed in ${esc(ago(x.started))}<i class="sep-dot" aria-hidden="true"></i>last active ${esc(ago(x.lastSeen))}</span></div>
+      ${x.current ? '' : `<button class="btn sm" data-sess-end="${esc(x.handle)}">Sign out</button>`}
+    </li>`).join('')}</ul>
+    ${others.length > 1 ? '<button class="btn sm" data-sess-end="others" style="align-self:flex-start">Sign out everywhere else</button>' : ''}
+    ${!others.length ? '<p class="note">Only this browser.</p>' : ''}`;
 }
 
 // export of the advisor's own records
@@ -3939,6 +4102,106 @@ function viewAsk() {
 
 /* suggestion board for the portal. Whole dept sees it so ideas don't get lost
    and nobody posts the same request twice. */
+/* ---- superadmin: activity log and backups ----
+   The log is decrypted on the server and sent 50 lines at a time. */
+const activity = { page: 0, action: '', actor: '', data: null, backup: null, loading: false, error: '' };
+const ACTION_WORDS = {
+  'signin': 'Signed in', 'signin-failed': 'Failed sign-in', 'password-rehashed': 'Password hash upgraded',
+  'password-changed': 'Changed password', 'password-reset': 'Reset password', 'reset-requested': 'Asked for a reset link',
+  'invite-accepted': 'Accepted invitation', 'person-invited': 'Invited someone', 'read-other-students': 'Read another advisor’s students',
+  'read-all-students': 'Read every advisor’s students', 'block-overridden': 'Overrode a registration check',
+  'backup-downloaded': 'Downloaded a backup', 'sessions-ended': 'Signed out other sessions', 'audit-log-read': 'Read the activity log',
+  'account-verified': 'Activated account', 'admin-clear-password': 'Cleared someone\u2019s password', 'admin-reset-link': 'Made a reset link',
+  'delete': 'Deleted a record', 'set': 'Changed a record', 'mail-sent': 'Sent an email', 'org-migration': 'Organisation data migrated',
+  'org-tree-changed': 'Changed the university structure', 'person-deactivated': 'Deactivated someone', 'person-role-changed': 'Changed someone\u2019s role',
+  'students-clear': 'Cleared a student list', 'students-save': 'Imported students', 'study-plan-saved': 'Saved a study plan'
+};
+async function loadActivity() {
+  activity.loading = true; activity.error = '';
+  try {
+    const [log, backup] = await Promise.all([
+      Store.auditLog({ page: activity.page, action: activity.action, actor: activity.actor }),
+      Store.backupStatus()
+    ]);
+    activity.data = log; activity.backup = backup;
+  } catch (e) { activity.error = e.message; }
+  activity.loading = false;
+  if (state.view === 'activity') render();
+}
+function activityDetails(e) {
+  const d = Object.assign({}, e.details || {});
+  const nameOf = slug => ((FACULTY.find(f => f.slug === slug) || {}).name) || slug;
+  ['owner', 'advisor', 'target', 'by'].forEach(k => { if (typeof d[k] === 'string') d[k] = nameOf(d[k]); });
+  if (d.advisors && typeof d.advisors === 'object') {
+    const named = {};
+    Object.keys(d.advisors).forEach(a => { named[nameOf(a)] = d.advisors[a]; });
+    d.advisors = named;
+  }
+  const skip = new Set(['ip', 'before', 'after']);
+  const parts = Object.keys(d).filter(k => !skip.has(k) && d[k] != null && typeof d[k] !== 'object').map(k => k + ': ' + d[k]);
+  if (d.advisors && typeof d.advisors === 'object') parts.push(Object.keys(d.advisors).map(a => a + ' (' + d.advisors[a] + ')').join(', '));
+  return parts.join(' · ');
+}
+function viewActivity() {
+  if (!state.me.superadmin) return '<div class="wrap"><p class="note">Only a superadmin can see this page.</p></div>';
+  if (!activity.data && !activity.loading && !activity.error) loadActivity();
+  const b = activity.backup;
+  const log = activity.data;
+  const nameOf = slug => ((FACULTY.find(f => f.slug === slug) || {}).name) || slug || 'system';
+  const backupPanel = !b ? '<p class="note">Loading&hellip;</p>' : `
+    <div class="bk-facts">
+      <div><span>Storage</span><b>${b.encrypted ? 'Encrypted (AES-256-GCM)' : 'Not encrypted (development)'}</b></div>
+      <div><span>Newest backup</span><b>${b.latest ? esc(new Date(b.latest.at).toLocaleString()) : 'none yet'}</b></div>
+      <div><span>Backups kept</span><b>${b.count} of ${b.keep}</b></div>
+      <div><span>Last taken off the server</span><b>${b.lastDownload ? esc(new Date(b.lastDownload.at).toLocaleString()) + ' by ' + esc(nameOf(b.lastDownload.by)) : 'never'}</b></div>
+    </div>
+    ${!b.encrypted ? '<p class="note">Downloads are switched on when the store is encrypted (STORE_KEY is set), so a copy never leaves the server readable.</p>'
+      : b.lastDownload && Date.now() - new Date(b.lastDownload.at).getTime() < 8 * 864e5 ? ''
+      : '<p class="note warn-note">No copy has been downloaded in the last week. The hourly backups live on the same disk as the data, so keep one somewhere else too.</p>'}
+    ${b.encrypted ? `<div class="bk-actions"><button class="btn sm primary" data-backup-download="1"${b.latest ? '' : ' disabled'}>Download the newest backup</button>
+      <span class="note">The file stays encrypted. It can only be restored with the store key.</span></div>` : ''}`;
+  const rows = log ? log.entries.map(e => `<tr>
+      <td class="c">${esc(new Date(e.at).toLocaleString(undefined, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }))}</td>
+      <td>${esc(nameOf(e.actor))}</td>
+      <td>${esc(ACTION_WORDS[e.action] || e.action)}</td>
+      <td class="det">${esc(activityDetails(e))}</td></tr>`).join('') : '';
+  return `<div class="wrap">
+    <div class="page-h"><h1>Activity and backups</h1>
+      <p>Who did what, newest first, and the state of the backups.</p></div>
+    <div class="panel"><div class="hd">Backups</div><div class="bd stack">${backupPanel}</div></div>
+    <div class="panel"><div class="hd">Activity log</div><div class="bd stack">
+      <div class="act-filters">
+        <label class="f" for="actAction">What
+          <select id="actAction"><option value="">Everything</option>
+            ${((log && log.actions) || []).map(a => `<option value="${esc(a)}"${a === activity.action ? ' selected' : ''}>${esc(ACTION_WORDS[a] || a)}</option>`).join('')}
+          </select></label>
+        <label class="f" for="actActor">Who
+          <select id="actActor"><option value="">Anyone</option>
+            ${state.people.map(p => `<option value="${esc(p.slug)}"${p.slug === activity.actor ? ' selected' : ''}>${esc(p.name)}</option>`).join('')}
+          </select></label>
+        <button class="btn sm" data-act-filter="1">Show</button>
+      </div>
+      ${activity.error ? `<p class="err">${esc(activity.error)}</p>` : ''}
+      ${!log ? '<p class="note">Loading&hellip;</p>' : !log.entries.length ? '<p class="note">Nothing matches.</p>' : `
+      <div class="tscroll"><table class="t act"><thead><tr><th>When</th><th>Who</th><th>What</th><th>Details</th></tr></thead>
+        <tbody>${rows}</tbody></table></div>
+      <div class="pager">
+        <button class="btn sm" data-act-page="${log.page - 1}"${log.page > 0 ? '' : ' disabled'}>Newer</button>
+        <span class="note">Page ${log.page + 1} of ${Math.max(1, log.pages)}<i class="sep-dot" aria-hidden="true"></i>${log.total} entries</span>
+        <button class="btn sm" data-act-page="${log.page + 1}"${log.page + 1 < log.pages ? '' : ' disabled'}>Older</button>
+      </div>`}
+      ${log && log.unreadable ? `<p class="note">${log.unreadable} lines could not be read with the current key.</p>` : ''}
+    </div></div>
+  </div>`;
+}
+
+/* What a filtered list says when nothing is left, with a way back out. */
+function noMatch() {
+  const narrowed = state.q.trim() || (state.filter && state.filter !== 'all');
+  return `<div class="empty" role="status"><p>${state.q.trim() ? 'Nobody matches \u201c' + esc(state.q.trim()) + '\u201d.' : 'Nobody is in this group right now.'}</p>
+    ${narrowed ? '<button class="btn sm" data-clear-search="1">Show everyone</button>' : ''}</div>`;
+}
+
 function viewIdeas() {
   const mine = st => st.by === state.me.name;
   const kindLabel = { idea: 'Idea', problem: 'Something is wrong', question: 'Question' };
@@ -4386,7 +4649,7 @@ function viewEveryone() {
           <span class="num" title="${studied(s).transfer ? 'and ' + studied(s).transfer + ' credits of freshman equivalency' : ''}${
             studied(s).transfer ? '. ' : ''}${snap.earned} of ${C.totalCredits} toward the degree">${studied(s).credits}<small>credits</small></span>
         </button>`;
-      }).join('') : '<p class="empty">Nobody matches that.</p>'}
+      }).join('') : noMatch()}
     </div></div>
   </div>`;
 }
@@ -4508,7 +4771,7 @@ function viewFreshmen() {
           <span class="num hide-s">${s.officialCgpa != null ? s.officialCgpa.toFixed(2) : '&mdash;'}<small>CGPA</small></span>
           <span class="num">${s.officialCredits != null ? studied(s).credits : '&mdash;'}<small>credits</small></span>
         </button>`;
-      }).join('') : '<p class="empty">Nobody matches that.</p>'}
+      }).join('') : noMatch()}
     </div></div>
   </div>`;
 }
@@ -4687,6 +4950,34 @@ async function onClick(e) {
     gateStep = 'pick'; drawGate(); return;
   }
   if (t.closest('[data-account]')) { drawAccount(''); return; }
+  if (t.closest('[data-clear-search]')) { state.q = ''; state.filter = 'all'; render(); const q = $('#q'); if (q) q.focus(); return; }
+  const actPage = t.closest('[data-act-page]');
+  if (actPage) { activity.page = Math.max(0, Number(actPage.dataset.actPage) || 0); activity.data = null; loadActivity(); render(); return; }
+  if (t.closest('[data-act-filter]')) {
+    activity.action = $('#actAction').value; activity.actor = $('#actActor').value; activity.page = 0;
+    activity.data = null; loadActivity(); render(); return;
+  }
+  if (t.closest('[data-backup-download]')) {
+    try {
+      const got = await Store.downloadBackup();
+      const url = URL.createObjectURL(new Blob([got.file], { type: 'application/json' }));
+      const a = document.createElement('a');
+      a.href = url; a.download = got.name; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+      toast('Backup downloaded. Keep it somewhere other than the server.');
+      activity.backup = await Store.backupStatus(); render();
+    } catch (e) { toast(e.message); }
+    return;
+  }
+  const sessEnd = t.closest('[data-sess-end]');
+  if (sessEnd) {
+    try {
+      const n = await Store.endSessions(sessEnd.dataset.sessEnd);
+      toast(n === 1 ? 'Signed out of 1 other session' : 'Signed out of ' + n + ' other sessions');
+    } catch (e) { toast(e.message); }
+    drawSessions();
+    return;
+  }
   if (t.closest('[data-reset]')) {
     resetEmail = ($('#fEmail') && $('#fEmail').value.trim()) || '';
     gateStep = 'reset'; drawGate(); return;
@@ -4764,7 +5055,7 @@ async function onClick(e) {
     return;
   }
   const open = t.closest('[data-open]');
-  if (open) { state.sel = open.dataset.open; state.view = 'student'; state.tab = 'progress'; state.planTerm = state.nextTerm; basket = {}; chainFocus = null; render(); return; }
+  if (open) { state.sel = open.dataset.open; state.view = 'student'; state.tab = 'progress'; state.planTerm = state.nextTerm; basket = {}; planLoadedFor = ''; chainFocus = null; render(); return; }
   const tab = t.closest('[data-tab]');
   if (tab) { state.tab = tab.dataset.tab; render(); return; }
   const ex = t.closest('[data-export]');
@@ -5112,6 +5403,37 @@ async function onClick(e) {
   const dropIt = t.closest('[data-drop]');
   if (dropIt) { delete basket[dropIt.dataset.drop]; render(); return; }
   if (t.closest('[data-clear-basket]')) { basket = {}; render(); return; }
+  const psave = t.closest('[data-plan-save]');
+  if (psave) {
+    const st = state.students.find(x => x.id === psave.dataset.planSave);
+    if (st && await saveTermPlan(st)) toast('Plan saved on the student record');
+    return;
+  }
+  const pprint = t.closest('[data-plan-print]');
+  if (pprint) {
+    const st = state.students.find(x => x.id === pprint.dataset.planPrint);
+    if (st) printDocument(planDocument(st));
+    return;
+  }
+  const ovOpen = t.closest('[data-override]');
+  if (ovOpen) {
+    const st = state.students.find(x => x.id === ovOpen.dataset.override);
+    if (st) drawOverride(st, ovOpen.dataset.overrideKey);
+    return;
+  }
+  if (t.closest('[data-override-save]') && overrideFor) {
+    const st = state.students.find(x => x.id === overrideFor.id);
+    const reason = ($('#ovReason') ? $('#ovReason').value : '').trim();
+    const err = $('#ovErr');
+    if (reason.length < 10) { err.hidden = false; err.textContent = 'Write a reason of at least 10 characters.'; return; }
+    const ruleId = overrideFor.key.split('|')[0];
+    const course = ((overrideFor.key.split('|')[1] || '').match(/[A-Z]{2,5}\d{3}[A-Z]?/) || [''])[0];
+    if (st && await saveTermPlan(st, { key: overrideFor.key, ruleId, course, reason })) {
+      $('#dlg').close(); overrideFor = null;
+      toast('Override saved with your reason');
+    }
+    return;
+  }
 
   const drop = t.closest('.drop');
   if (drop) { const inp = drop.querySelector('input[type=file]'); if (inp) inp.click(); return; }
