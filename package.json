@@ -18,10 +18,13 @@
     "seed-demo-org": "node scripts/seed-demo-org.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "dependencies": {
     "esbuild": "0.25.5",
-    "pg": "^8.23.1"
+    "pg": "8.23.1"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
   }
 }
