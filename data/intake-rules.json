@@ -1,34 +1,297 @@
 {
-  "format": "BAU-STUDY-PLAN-1",
-  "blocks": [
-    { "key": "UNIV_MANDATORY", "label": "University requirements" },
-    { "key": "UNIV_ELECTIVE", "label": "University electives" },
-    { "key": "FACULTY_CORE", "label": "Faculty requirements" },
-    { "key": "MAJOR_CORE", "label": "Major requirements" },
-    { "key": "DEPT_ELECTIVE", "label": "Major electives" },
-    { "key": "GEN_SCI_ELECTIVE", "label": "Free electives" },
-    { "key": "INTERNSHIP", "label": "Internship or project" },
-    { "key": "REMEDIAL", "label": "Remedial (not counted)" },
-    { "key": "INTENSIVE", "label": "Intensive English (not counted)" },
-    { "key": "NON_CREDIT", "label": "Non-credit (e.g. ICDL)" }
-  ],
-  "rules": [
-    { "id": "LOAD_MIN", "text": "Minimum credits in fall or spring", "key": "R.load.REG-LOAD-01.min", "type": "int", "min": 0, "max": 30 },
-    { "id": "LOAD_MAX", "text": "Maximum credits in fall or spring", "key": "R.load.REG-LOAD-01.max", "type": "int", "min": 1, "max": 30 },
-    { "id": "SUMMER_MAX", "text": "Maximum credits in summer", "key": "R.load.REG-LOAD-05.max", "type": "int", "min": 0, "max": 18 },
-    { "id": "HIGH_LOAD_CGPA", "text": "CGPA needed for an overload", "key": "R.load.REG-LOAD-02.requiresCgpa", "type": "num", "min": 0, "max": 4 },
-    { "id": "HIGH_LOAD_MAX", "text": "Maximum credits with an overload", "key": "R.load.REG-LOAD-02.max", "type": "int", "min": 1, "max": 30 },
-    { "id": "PROBATION_GPA", "text": "GPA below which a student gets an academic warning", "key": "R.probation.warningThresholdCgpa", "type": "num", "min": 0, "max": 4 },
-    { "id": "PROBATION_CAP", "text": "Maximum credits after a warning", "key": "R.probation.warningLoadCap", "type": "int", "min": 0, "max": 30 },
-    { "id": "DISMISS_CGPA", "text": "CGPA below which a student on probation is dismissed", "key": "R.probation.dismissCgpaBelow", "type": "num", "min": 0, "max": 4 },
-    { "id": "GRAD_CGPA", "text": "Minimum CGPA to graduate", "key": "R.graduation.minCgpa", "type": "num", "min": 0, "max": 4 },
-    { "id": "IC3_DUE", "text": "Semester by which ICDL/IC3 is due", "key": "R.nonCredit.REG-UE-06.dueBySemester", "type": "int", "min": 1, "max": 16 },
-    { "id": "UE_TOTAL", "text": "University elective credits", "key": "R.universityElectives.REG-UE-03.totalCredits", "type": "int", "min": 0, "max": 40 },
-    { "id": "ELECTIVE_SLOTS", "text": "Semesters where the plan puts a major elective", "key": "C.deptElectiveSlots", "type": "list" },
-    { "id": "MIN_GRADE_MAJOR", "text": "Lowest grade accepted in major courses", "type": "grade" },
-    { "id": "YEAR_PROGRESSION", "text": "A whole year must be passed before the next", "type": "text" },
-    { "id": "INTERNSHIP", "text": "Internship or training requirement", "type": "text" },
-    { "id": "EXIT_EXAM", "text": "Exit, licensing or comprehensive exam", "type": "text" },
-    { "id": "OTHER", "text": "Other rule (describe it)", "type": "text" }
-  ]
+ "format": "BAU-STUDY-PLAN-2",
+ "blocks": [
+  {
+   "key": "UNIV_MANDATORY",
+   "label": "University requirements"
+  },
+  {
+   "key": "UNIV_ELECTIVE",
+   "label": "University electives"
+  },
+  {
+   "key": "FACULTY_CORE",
+   "label": "Faculty requirements"
+  },
+  {
+   "key": "MAJOR_CORE",
+   "label": "Major requirements"
+  },
+  {
+   "key": "DEPT_ELECTIVE",
+   "label": "Major electives"
+  },
+  {
+   "key": "GEN_SCI_ELECTIVE",
+   "label": "Free electives"
+  },
+  {
+   "key": "INTERNSHIP",
+   "label": "Internship or project"
+  },
+  {
+   "key": "REMEDIAL",
+   "label": "Remedial (not counted)"
+  },
+  {
+   "key": "INTENSIVE",
+   "label": "Intensive English (not counted)"
+  },
+  {
+   "key": "NON_CREDIT",
+   "label": "Non-credit (e.g. ICDL)"
+  }
+ ],
+ "rules": [
+  {
+   "id": "LOAD_MIN",
+   "text": "Minimum credits in fall or spring",
+   "key": "R.load.REG-LOAD-01.min",
+   "type": "int",
+   "min": 0,
+   "max": 30,
+   "group": "Credit load"
+  },
+  {
+   "id": "LOAD_MAX",
+   "text": "Maximum credits in fall or spring",
+   "key": "R.load.REG-LOAD-01.max",
+   "type": "int",
+   "min": 1,
+   "max": 30,
+   "group": "Credit load"
+  },
+  {
+   "id": "HIGH_LOAD_MAX",
+   "text": "Maximum credits with an overload",
+   "key": "R.load.REG-LOAD-02.max",
+   "type": "int",
+   "min": 1,
+   "max": 30,
+   "group": "Credit load"
+  },
+  {
+   "id": "HIGH_LOAD_CGPA",
+   "text": "CGPA needed for an overload",
+   "key": "R.load.REG-LOAD-02.requiresCgpa",
+   "type": "num",
+   "min": 0,
+   "max": 4,
+   "group": "Credit load"
+  },
+  {
+   "id": "HIGH_LOAD_EARNED",
+   "text": "Credits earned before an overload is allowed",
+   "key": "R.load.REG-LOAD-02.requiresEarned",
+   "type": "int",
+   "min": 0,
+   "max": 250,
+   "group": "Credit load"
+  },
+  {
+   "id": "GRAD_LOAD_MAX",
+   "text": "Maximum credits in the graduating semester",
+   "key": "R.load.REG-LOAD-03.max",
+   "type": "int",
+   "min": 1,
+   "max": 30,
+   "group": "Credit load"
+  },
+  {
+   "id": "SUMMER_MAX",
+   "text": "Maximum credits in summer",
+   "key": "R.load.REG-LOAD-05.max",
+   "type": "int",
+   "min": 0,
+   "max": 18,
+   "group": "Credit load"
+  },
+  {
+   "id": "PROBATION_GPA",
+   "text": "GPA below which a student gets an academic warning",
+   "key": "R.probation.warningThresholdCgpa",
+   "type": "num",
+   "min": 0,
+   "max": 4,
+   "group": "Academic standing"
+  },
+  {
+   "id": "PROBATION_CAP",
+   "text": "Maximum credits after a warning",
+   "key": "R.probation.warningLoadCap",
+   "type": "int",
+   "min": 0,
+   "max": 30,
+   "group": "Academic standing"
+  },
+  {
+   "id": "REMEDIAL_CAP",
+   "text": "Maximum credits in the remedial stage",
+   "key": "R.probation.remedialFallSpringCap",
+   "type": "int",
+   "min": 0,
+   "max": 30,
+   "group": "Academic standing"
+  },
+  {
+   "id": "DISMISS_CGPA",
+   "text": "CGPA below which a student on probation is dismissed",
+   "key": "R.probation.dismissCgpaBelow",
+   "type": "num",
+   "min": 0,
+   "max": 4,
+   "group": "Academic standing"
+  },
+  {
+   "id": "MIN_GRADE_MAJOR",
+   "text": "Lowest grade accepted in major courses",
+   "type": "grade",
+   "univ": "D",
+   "help": "If higher than D, every major course gets this grade as its minimum.",
+   "group": "Grades and repeating"
+  },
+  {
+   "id": "MIN_GRADE_PREREQ",
+   "text": "Lowest grade in a course before the next one can be taken",
+   "type": "grade",
+   "univ": "D",
+   "group": "Grades and repeating"
+  },
+  {
+   "id": "REPEAT",
+   "text": "Special rules for repeating a course",
+   "type": "text",
+   "univ": "None",
+   "help": "For example: a major course may be repeated only twice.",
+   "group": "Grades and repeating"
+  },
+  {
+   "id": "YEAR_PROGRESSION",
+   "text": "A whole year must be passed before the next",
+   "type": "text",
+   "univ": "No",
+   "help": "Write Yes and how it works, if the faculty promotes students year by year.",
+   "group": "Progress through the plan"
+  },
+  {
+   "id": "ELECTIVE_SLOTS",
+   "text": "Semesters where the plan puts a major elective",
+   "key": "C.deptElectiveSlots",
+   "type": "list",
+   "univ": "None",
+   "help": "Semester numbers, e.g. 6, 7, 8.",
+   "group": "Progress through the plan"
+  },
+  {
+   "id": "INTERNSHIP",
+   "text": "Internship or practical training",
+   "type": "text",
+   "univ": "None",
+   "help": "Length, when it is done, and the credits needed before it.",
+   "group": "Progress through the plan"
+  },
+  {
+   "id": "PROJECT",
+   "text": "Credits needed before the final-year project",
+   "type": "int",
+   "min": 0,
+   "max": 250,
+   "univ": "None",
+   "group": "Progress through the plan"
+  },
+  {
+   "id": "CORE_AHEAD",
+   "group": "Progress through the plan",
+   "text": "How many semesters ahead of the plan a student may take a course",
+   "key": "C.coreAheadSemesters",
+   "type": "int",
+   "min": 0,
+   "max": 6,
+   "univ": "1"
+  },
+  {
+   "id": "APPROVAL",
+   "group": "Progress through the plan",
+   "text": "Courses that need the chairperson's or dean's approval",
+   "type": "text",
+   "univ": "None"
+  },
+  {
+   "id": "GRAD_CGPA",
+   "text": "Minimum CGPA to graduate",
+   "key": "R.graduation.minCgpa",
+   "type": "num",
+   "min": 0,
+   "max": 4,
+   "group": "Graduation"
+  },
+  {
+   "id": "MAJOR_GPA",
+   "text": "Minimum GPA in the major courses to graduate",
+   "type": "num",
+   "min": 0,
+   "max": 4,
+   "univ": "None",
+   "group": "Graduation"
+  },
+  {
+   "id": "UE_TOTAL",
+   "text": "University elective credits",
+   "key": "R.universityElectives.REG-UE-03.totalCredits",
+   "type": "int",
+   "min": 0,
+   "max": 40,
+   "group": "Graduation"
+  },
+  {
+   "id": "UE_OWN",
+   "group": "Graduation",
+   "text": "University electives may not come from the student's own",
+   "key": "R.universityElectives.REG-UE-04.blockOwnFacultyElectivesScope",
+   "type": "choice",
+   "options": [
+    "major",
+    "faculty"
+   ],
+   "univ": "major",
+   "help": "Write major or faculty."
+  },
+  {
+   "id": "IC3_DUE",
+   "text": "Semester by which ICDL/IC3 is due",
+   "key": "R.nonCredit.REG-UE-06.dueBySemester",
+   "type": "int",
+   "min": 1,
+   "max": 16,
+   "group": "Graduation"
+  },
+  {
+   "id": "EXIT_EXAM",
+   "text": "Exit, licensing or comprehensive exam",
+   "type": "text",
+   "univ": "None",
+   "group": "Graduation"
+  },
+  {
+   "id": "OTHER",
+   "text": "Other rule advisors must know",
+   "type": "text",
+   "help": "Clinical hours, lab safety course, language test, anything not above.",
+   "repeat": 2,
+   "group": "Anything else",
+   "optional": true
+  }
+ ],
+ "notes": [
+  "Questions students in this programme ask advisors most",
+  "Mistakes students often make when they register",
+  "Courses that are often full, closed, or not offered every year",
+  "Something the system should do for this programme that it does not do now",
+  "Anything else you want us to know"
+ ],
+ "trackTypes": [
+  "Track",
+  "Concentration",
+  "Minor"
+ ]
 }

@@ -17,8 +17,8 @@
 
   const FORMAT = SPEC.format;
   const SHEET = 'Study plan';
-  const SECTIONS = ['1. Programme', '2. Requirement blocks', '3. Rules that are different for this programme',
-    '4. People who advise or edit this programme', '5. Courses'];
+  const SECTIONS = ['1. Programme', '2. Requirement blocks', '3. Advising rules', '4. Tracks, concentrations and minors',
+    '5. People who advise or edit this programme', '6. Anything else advisors should know', '7. Courses'];
   const CAMPUSES = ['Beirut', 'Debbieh', 'Tripoli', 'Bekaa'];
   const NON_DEGREE = ['REMEDIAL', 'INTENSIVE', 'NON_CREDIT'];
   const GRADES = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-'];
@@ -164,7 +164,7 @@
     }
     const facultyId = txt((lists[1] || [])[25]);
     const givenId = txt((lists[2] || [])[25]);
-    const parts = SECTIONS.map((s, i) => sectionRows(rows, i, [0, 1, 1, 1, 2][i]));
+    const parts = SECTIONS.map((s, i) => sectionRows(rows, i, [0, 1, 1, 1, 1, 0, 2][i]));
     const missing = SECTIONS.filter((s, i) => !parts[i]);
     if (missing.length) {
       report.errors.push('These section titles were changed or removed: ' + missing.join(', ') + '. Put them back as they were.');
@@ -186,7 +186,7 @@
     if (!(total > 0)) report.errors.push('Section 1: give the total credits to graduate.');
     if (!(standard > 0)) report.errors.push('Section 1: give the standard length in semesters.');
     if (!(maximum > 0)) report.errors.push('Section 1: give the maximum length in semesters.');
-    else if (standard > 0 && maximum > 2 * standard) report.warnings.push('Section 1: the maximum length is more than double the standard length (R&R VIII.1).');
+    else if (standard > 0 && maximum > 2 * standard) report.warnings.push('Section 1: the maximum length is more than double the standard length.');
     if (!confirmed) report.warnings.push('The file does not say "Yes" to "Everything on this sheet is correct", so the plan loads marked "to check".');
 
     // where it sits in the structure
@@ -247,10 +247,10 @@
 
     // 5. Courses
     const byCode = new Map();
-    parts[4].forEach(({ cells, row }) => {
+    parts[6].forEach(({ cells, row }) => {
       const cc = code(cells[0]);
-      if (!cc) { if (cells.slice(1, 9).some(v => txt(v))) report.errors.push('Section 5, row ' + row + ': the course has no code.'); return; }
-      const where = 'Section 5, row ' + row + ' (' + cc + ')';
+      if (!cc) { if (cells.slice(1, 9).some(v => txt(v))) report.errors.push('Section 7, row ' + row + ': the course has no code.'); return; }
+      const where = 'Section 7, row ' + row + ' (' + cc + ')';
       if (byCode.has(cc)) { report.errors.push(where + ': listed twice.'); return; }
       const pre = prerequisites(cells[5]), co = prerequisites(cells[6]);
       const key = blockKey(cells[3] || 'Major requirements');
@@ -278,44 +278,86 @@
       byCode.set(cc, course);
     });
 
-    // 3. Rules that differ
-    const rules = {}, recorded = [];
+    // 3. Advising rules: each programme states its own value (pre-filled, corrected
+    // by the department) and may add notes; notes are kept for advisors.
+    const rules = {}, recorded = [], unanswered = [];
+    const groups = new Set(SPEC.rules.map(r => r.group.toLowerCase()));
+    const NOTHING = /^(none|no|n\/?a|-+|—)$/i;
     parts[2].forEach(({ cells, row }) => {
-      const text = txt(cells[0]), raw = txt(cells[4]);
-      if (!text && !raw) return;
+      const text = txt(cells[0]), raw = txt(cells[3]), extra = txt(cells[5]);
+      if (!text || groups.has(text.toLowerCase())) return;
       const where = 'Section 3, row ' + row;
       const rule = SPEC.rules.find(r => r.text.toLowerCase() === text.toLowerCase());
-      if (!rule) { report.errors.push(where + ': pick the rule from the list.'); return; }
-      if (!raw) { report.errors.push(where + ': "' + rule.text + '" has no value for this programme.'); return; }
-      const source = txt(cells[5]);
-      if (!source) report.warnings.push(where + ': "' + rule.text + '" does not say where it is written.');
-      if (!rule.key) {
-        if (rule.type === 'grade' && !GRADES.includes(raw.toUpperCase())) { report.errors.push(where + ': give a letter grade such as C or C-.'); return; }
-        recorded.push({ rule: rule.id, text: rule.text, value: raw, source, note: txt(cells[8]) });
-        return;
-      }
-      let value;
-      if (rule.type === 'list') {
-        value = raw.split(/[,;\s]+/).map(Number).filter(n => Number.isInteger(n) && n > 0);
-        if (!value.length) { report.errors.push(where + ': give semester numbers such as 4, 5, 6.'); return; }
-      } else {
+      if (!rule) { if (raw || extra) report.errors.push(where + ': "' + text + '" is not one of the rules. Do not change the rule names.'); return; }
+      const keep = (value, kind) => recorded.push({ rule: rule.id, text: rule.text, value, kind });
+      if (extra) keep(extra, 'addition');
+      if (!raw) { if (!rule.optional) unanswered.push(rule.text); return; }
+      if (rule.optional || rule.type === 'text') { if (!NOTHING.test(raw) && raw.toLowerCase() !== String(rule.univ || '').toLowerCase()) keep(raw, 'rule'); return; }
+      if (NOTHING.test(raw) && (rule.type === 'list' || !rule.key)) return;
+      let value = raw, bad = '';
+      if (rule.type === 'grade') {
+        value = raw.toUpperCase();
+        if (!GRADES.includes(value)) bad = 'a letter grade such as C or C-';
+      } else if (rule.type === 'list') {
+        value = raw.split(/[,;\s]+/).map(Number);
+        if (!value.length || !value.every(n => Number.isInteger(n) && n > 0)) bad = 'semester numbers such as 4, 5, 6';
+      } else if (rule.type === 'choice') {
+        value = rule.options.find(o => raw.toLowerCase().includes(o));
+        if (!value) bad = 'one of: ' + rule.options.join(', ');
+      } else if (rule.type === 'int' || rule.type === 'num') {
         value = num(raw);
-        if (!Number.isFinite(value) || value < rule.min || value > rule.max || (rule.type === 'int' && !Number.isInteger(value))) {
+        if (!Number.isFinite(value)) bad = 'a number';
+        else if (value < rule.min || value > rule.max || (rule.type === 'int' && !Number.isInteger(value))) {
           report.errors.push(where + ': "' + rule.text + '" must be a ' + (rule.type === 'int' ? 'whole number' : 'number') + ' from ' + rule.min + ' to ' + rule.max + '.');
           return;
         }
       }
-      rules[rule.key] = { value, rule: rule.id, source };
+      if (bad) {        // written in words: keep it for advisors rather than refuse the file
+        report.warnings.push(where + ': "' + rule.text + '" is not ' + bad + ', so it is kept as written for advisors and not applied.');
+        keep(raw, 'rule');
+        return;
+      }
+      if (rule.key) rules[rule.key] = { value, rule: rule.id, source: 'Study-plan file' };
+      else if (String(value).toLowerCase() !== String(rule.univ || '').toLowerCase()) keep(value, 'rule');
     });
-    if (recorded.length) report.notes.push(recorded.length + ' rule(s) kept with the plan for advisors to apply by hand: ' + recorded.map(r => r.text).join('; ') + '.');
+    if (unanswered.length) report.warnings.push('Section 3: ' + unanswered.length + ' rule line(s) were left empty, so the current value is kept: ' + unanswered.join('; ') + '.');
+    const majorGrade = recorded.find(r => r.rule === 'MIN_GRADE_MAJOR' && GRADES.includes(r.value));
+    if (majorGrade) byCode.forEach(course => { if (course.bucket === 'MAJOR_CORE' && !course.minGrade) course.minGrade = majorGrade.value; });
+    if (recorded.length) report.notes.push(recorded.length + ' rule(s) or addition(s) kept with the plan for advisors: ' + recorded.map(r => r.text).join('; ') + '.');
 
-    // 4. People
+    // 4. Tracks, concentrations and minors
+    const tracks = {}, minors = [];
+    parts[3].forEach(({ cells, row }) => {
+      const type = txt(cells[0]), label = txt(cells[1]), list = txt(cells[3]), need = txt(cells[6]), note = txt(cells[7]);
+      if (!label && !list) return;
+      const where = 'Section 4, row ' + row;
+      if (!label) { report.errors.push(where + ': give the name.'); return; }
+      if (/minor/i.test(type)) { minors.push({ label, courses: list, needed: need, note }); return; }
+      const courses = list.split(/[,;\s]+/).map(code).filter(Boolean);
+      const n = num(need);
+      if (!courses.length) { report.errors.push(where + ': list the courses of ' + label + '.'); return; }
+      if (!(Number.isInteger(n) && n > 0)) { report.errors.push(where + ': say how many courses of ' + label + ' a student takes.'); return; }
+      let key = label.toUpperCase().replace(/[^A-Z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 30) || 'TRACK';
+      while (tracks[key]) key += '_2';
+      tracks[key] = { label, courses, coursesRequired: n, note: note || undefined, kind: /concentration/i.test(type) ? 'concentration' : 'track' };
+    });
+    if (minors.length) report.notes.push(minors.length + ' minor(s) kept with the plan for advisors: ' + minors.map(m => m.label).join(', ') + '.');
+
+    // 6. Anything else (free answers)
+    const answers = [];
+    parts[5].forEach(({ cells }) => {
+      const q = txt(cells[0]), a = txt(cells[3]);
+      if (q && a) answers.push({ question: q, answer: a });
+    });
+    if (answers.length) report.notes.push(answers.length + ' free answer(s) in section 6 kept with the plan.');
+
+    // 5. People
     const known = new Set((c.people || []).map(x => txt(x.email).toLowerCase()));
     const people = [];
-    parts[3].forEach(({ cells, row }) => {
+    parts[4].forEach(({ cells, row }) => {
       const full = txt(cells[1]), email = txt(cells[3]).toLowerCase(), roleText = txt(cells[5]);
       if (!full && !email) return;
-      const where = 'Section 4, row ' + row;
+      const where = 'Section 5, row ' + row;
       const role = ROLE_OF[roleText.toLowerCase()];
       if (!full) { report.errors.push(where + ': give the full name.'); return; }
       if (!/^[^@\s]+@bau\.edu\.lb$/.test(email)) { report.errors.push(where + ': ' + full + ' needs a @bau.edu.lb email.'); return; }
@@ -333,11 +375,11 @@
       catalogYear: num(field('Catalogue year')) || new Date(now).getFullYear(),
       program: name, faculty: faculty.name, department: dept ? dept.name : '',
       totalCredits: total, standardSemesters: standard, maxSemesters: maximum,
-      buckets, tracks: {}, courses: [...byCode.values()],
+      buckets, tracks, courses: [...byCode.values()],
       setupStatus: 'draft', needsReview: !confirmed,
       source: { catalogue: 'Study-plan file from the department', file: txt(c.fileName), importedAt: now,
         filledBy: txt(field('Filled in by (name and email)')), checkedBy: txt(field('Checked by the chairperson (name)')) },
-      intake: { format: FORMAT, rules: recorded }
+      intake: { format: FORMAT, rules: recorded, minors, answers }
     });
     if (!report.errors.length) {
       const v = Programme.validate(plan, c.known || []);

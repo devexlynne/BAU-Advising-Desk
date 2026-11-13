@@ -36,8 +36,14 @@ async function moduleChecks(tree) {
     'blocks keep the name the study plan prints');
   ok(!got.plan.needsReview && got.plan.source.checkedBy === 'Synthetic Chair', '"Everything is correct: Yes" loads it as checked, with who checked it');
   ok(OrgTree.findNode(got.tree, 'bba-accounting').nameAr === 'بكالوريوس المحاسبة', 'the Arabic name goes into the structure');
-  ok(got.rules['R.graduation.minCgpa'].value === 2.2 && got.plan.intake.rules[0].value === 'C',
+  ok(got.rules['R.graduation.minCgpa'].value === 2.2 && got.plan.intake.rules.find(r => r.rule === 'MIN_GRADE_MAJOR').value === 'C',
     'a different rule is applied, and one the system cannot apply yet is kept with its source');
+  ok(got.rules['R.load.REG-LOAD-01.max'].value === 18 && got.rules['R.probation.dismissCgpaBelow'].value === 1.6,
+    'every pre-filled value becomes the programme\'s own rule, independent of the others');
+  ok(got.plan.intake.rules.some(r => r.rule === 'SUMMER_MAX' && r.kind === 'addition' && /probation/.test(r.value)),
+    'a note is kept as an addition for advisors, not applied');
+  ok(got.plan.intake.answers.length === 1 && /out of order/.test(got.plan.intake.answers[0].answer), 'free answers in section 6 are kept with the plan');
+  ok(got.plan.courses.filter(c => c.bucket === 'MAJOR_CORE').every(c => c.minGrade === 'C'), 'a higher lowest grade for major courses is put on every major course');
   ok(got.people.length === 2 && got.people[1].roles[0].role === 'programme-editor' && got.people[1].roles[0].scopes[0] === 'bba-accounting',
     'staff come with their role on this programme');
 
@@ -51,25 +57,34 @@ async function moduleChecks(tree) {
   ok(c490.minEarned === 90 && c490.noGpa && got.plan.courses.find(c => c.code === 'BDIG302').minGrade === 'C',
     'plain notes like "pass/fail, needs 90 credits first" and "lowest grade C" are understood');
   ok(got.rules['R.load.REG-LOAD-01.max'].value === 17, 'a programme rule value is read');
+  ok(!got.rules['R.load.REG-LOAD-01.min'] && got.plan.intake.rules.some(r => r.rule === 'LOAD_MIN' && /last semester/.test(r.value))
+    && got.report.warnings.some(w => /kept as written/.test(w)), 'a rule written in words is kept for advisors with a warning, not refused');
+  ok(got.plan.tracks.DATA && got.plan.tracks.DATA.coursesRequired === 1 && got.plan.tracks.DATA.courses.join() === 'BDIG301,BDIG302',
+    'a track from section 4 becomes a track the advising page follows');
+  ok(got.plan.intake.minors.length === 1 && got.plan.intake.minors[0].label === 'Minor in Economics', 'a minor is kept with the plan for advisors');
+  ok(got.report.warnings.some(w => /were left empty, so the current value is kept/.test(w)), 'rule lines left empty are pointed out, and the university rule is used');
 
-  const kept = Intake.keepFromExisting(got.plan, { tracks: { SEC: { label: 'Security', courses: ['BDIG301'], coursesRequired: 1 } }, deptElectiveSlots: [4, 5] });
-  ok(kept.tracks.SEC && kept.deptElectiveSlots.join() === '4,5', 'tracks and settings already in the system are kept, not wiped');
+  const kept = Intake.keepFromExisting(Object.assign({}, got.plan, { tracks: {} }), { tracks: { SEC: { label: 'Security', courses: ['BDIG301'], coursesRequired: 1 } }, deptElectiveSlots: [4, 5] });
+  ok(kept.tracks.SEC && kept.deptElectiveSlots.join() === '4,5', 'when the file has no tracks, the tracks and settings already in the system are kept, not wiped');
 
   // what must stop a load
   let bad = copy(acc);
   bad.Lists[1][24] = 'something else';
   ok(Intake.fromWorkbook(bad, { tree }).report.errors.length === 1, 'a spreadsheet that is not a study-plan file is refused');
   bad = copy(acc);
-  bad['Study plan'][rowOf(bad, '5. Courses')][0] = 'Courses';
-  ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /5\. Courses/.test(e)), 'a renamed section is reported, not guessed');
+  bad['Study plan'][rowOf(bad, '7. Courses')][0] = 'Courses';
+  ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /7\. Courses/.test(e)), 'a renamed section is reported, not guessed');
   bad = copy(acc);
-  bad['Study plan'][rowOf(bad, '3. Rules that are different for this programme') + 2][4] = 7;
+  bad['Study plan'][rowOf(bad, 'Minimum CGPA to graduate')][3] = 7;
   ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /from 0 to 4/.test(e)), 'a rule value out of range is refused');
   bad = copy(acc);
-  bad['Study plan'][rowOf(bad, '4. People who advise or edit this programme') + 2][3] = 'someone@gmail.com';
+  bad['Study plan'][rowOf(bad, 'Maximum credits in summer')][0] = 'Summer credits';
+  ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /Do not change the rule names/.test(e)), 'a renamed rule line is refused, not guessed');
+  bad = copy(acc);
+  bad['Study plan'][rowOf(bad, '5. People who advise or edit this programme') + 2][3] = 'someone@gmail.com';
   ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /@bau\.edu\.lb/.test(e)), 'staff must have a BAU email');
   bad = copy(acc);
-  const first = rowOf(bad, '5. Courses') + 3;
+  const first = rowOf(bad, '7. Courses') + 3;
   bad['Study plan'][first + 1][0] = bad['Study plan'][first][0];
   ok(Intake.fromWorkbook(bad, { tree }).report.errors.some(e => /listed twice/.test(e)), 'a course listed twice is refused');
   bad = copy(acc);

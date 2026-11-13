@@ -1468,6 +1468,20 @@ function trackEvidencePanel(s, snap) {
   </div></div>`;
 }
 
+/* What the department wrote in its study-plan file that the system does not
+   apply by itself: its own rules, additions, minors and free answers. */
+function programmeNotesPanel() {
+  const k = (C && C.intake) || {};
+  const rules = k.rules || [], minors = k.minors || [], answers = k.answers || [];
+  if (!rules.length && !minors.length && !answers.length) return '';
+  const item = (title, text) => `<div class="chk info"><span class="tx"><p><b>${esc(title)}</b> <span class="gdet">${esc(text)}</span></p></span></div>`;
+  return `<div class="panel"><div class="hd">From the programme</div><div class="bd"><div class="checks">
+    ${rules.map(r => item(r.text + (r.kind === 'addition' ? ' (addition)' : ''), Array.isArray(r.value) ? r.value.join(', ') : String(r.value))).join('')}
+    ${minors.map(m => item(m.label, [m.courses, m.needed && ('take ' + m.needed), m.note].filter(Boolean).join(' · '))).join('')}
+    ${answers.map(a => item(a.question, a.answer)).join('')}
+  </div></div></div>`;
+}
+
 function simpleEmailUrl(s) {
   const first = String(s.name || '').trim().split(/\s+/)[0] || 'Student';
   return composeUrl('outlook', s.email || '', '', 'Dear ' + first + ',\n\n');
@@ -1624,6 +1638,7 @@ function tabProgress(s) {
       </div></div>
       ${notePanel(s)}
       ${exceptionsPanel(s)}
+      ${programmeNotesPanel()}
       <div class="panel"><div class="hd">Contact</div><div class="bd">${contact}</div></div>
     </div>
   </div>`;
