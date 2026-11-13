@@ -21,6 +21,7 @@ const VolumeMigration = require('./src/volume-migration');
 const OrgTree = require('./src/org-tree');
 const Permissions = require('./src/permissions');
 const Programme = require('./src/programme');
+const { parseJsonSafe, applyTimeouts } = require('./server/http-guards');
 const SHARED_CATALOG = require('./data/catalog.json');
 
 // ---- configuration -----------------------------------------------------------
@@ -61,6 +62,12 @@ const RESET_MINUTES = numberEnv('RESET_MINUTES', 30, 5, 1440);
 const VERIFY_HOURS = numberEnv('VERIFY_HOURS', 24, 1, 168);
 const BACKUP_KEEP = numberEnv('BACKUP_KEEP', 72, 1, 10000);
 const MAIL_PER_DAY = numberEnv('MAIL_PER_DAY', 200, 1, 10000);
+// HTTP time limits (Node.js security guide, CWE-400). Imports can be large, so the
+// whole-request limit is generous; the header limit is what stops slow-loris clients.
+const HEADERS_TIMEOUT_MS = numberEnv('HEADERS_TIMEOUT_MS', 20000, 1000, 120000);
+const REQUEST_TIMEOUT_MS = numberEnv('REQUEST_TIMEOUT_MS', 120000, 2000, 600000);
+const KEEP_ALIVE_TIMEOUT_MS = numberEnv('KEEP_ALIVE_TIMEOUT_MS', 65000, 1000, 120000);
+const MAX_REQUESTS_PER_SOCKET = numberEnv('MAX_REQUESTS_PER_SOCKET', 1000, 1, 100000);
 const ENABLE_STUDENT_IMPORTS = boolEnv('ENABLE_STUDENT_IMPORTS', !PRODUCTION);
 const ALLOW_SIGNUP = boolEnv('ALLOW_SIGNUP', true);
 // Development only: lets accounts open without the email check when no mail
@@ -166,12 +173,25 @@ function scopesOf(person) {
   return Array.from(scopes);
 }
 
+/* Whose student records can this person reach?
+   An advisor reaches only their own list. Another person's list is open only to a
+   superadmin or to a faculty admin whose scope covers that advisor (the Everyone page,
+   importing on an advisor's behalf). Programme editors, approvers and viewers do not
+   reach student records at all. Admin reads of someone else's list are audited
+   (read-other-students). Decided by the department, November 2026. */
+const OTHER_LIST_ROLES = ['superadmin', 'faculty-admin'];
 function canForOwner(actorSlug, ownerSlug, action) {
   if (actorSlug === ownerSlug) {
-    const scopes = scopesOf(personOf(ownerSlug));
-    return scopes.some(scope => canUser(actorSlug, action, scope));
+    return scopesOf(personOf(ownerSlug)).some(scope => canUser(actorSlug, action, scope));
   }
-  return scopesOf(personOf(ownerSlug)).some(scope => canUser(actorSlug, action, scope));
+  const actor = personOf(actorSlug);
+  if (!actor) return false;
+  const adminOnly = Object.assign({}, actor, {
+    roles: (actor.roles || []).filter(r => r && OTHER_LIST_ROLES.includes(r.role))
+  });
+  const tree = store['org/tree'] || OrgTree.DEFAULT_TREE;
+  return scopesOf(personOf(ownerSlug)).some(scope =>
+    Permissions.can(adminOnly, action, scope, tree, BOOTSTRAP_SUPERADMINS));
 }
 
 function findPersonByEmail(email) {
@@ -314,7 +334,8 @@ function writeStoreFile() {
   backupIfDue();
 }
 
-// Local development snapshots only; production backups belong to PostgreSQL.
+// Hourly copies of the (encrypted) store, newest BACKUP_KEEP kept. A superadmin can
+// download the newest one; scripts/restore-backup.js puts one back.
 let lastBackup = 0;
 function backupIfDue() {
   if (Date.now() - lastBackup < 3600e3) return;
@@ -420,29 +441,20 @@ function settings() {
 }
 
 // ---- passwords -------------------------------------------------------------
-// PBKDF2-SHA256 with a per-account salt, run off the event loop so a sign-in
-// does not stall other requests. The plain password is never stored or logged.
-const ITERATIONS = 310000;
-const PASSWORD_MIN = 10, PASSWORD_MAX = 200;
-const hash = (password, salt) => new Promise((resolve, reject) =>
-  crypto.pbkdf2(String(password), 'bau:' + salt, ITERATIONS, 32, 'sha256',
-    (e, key) => (e ? reject(e) : resolve(key.toString('hex')))));
-const passwordProblem = pw => (pw.length < PASSWORD_MIN ? 'make the password at least ' + PASSWORD_MIN + ' characters'
-  : pw.length > PASSWORD_MAX ? 'make the password at most ' + PASSWORD_MAX + ' characters' : '');
-const newSalt = () => crypto.randomBytes(16).toString('hex');
-// constant-time compare for hashes/codes
-const sameSecret = (a, b) => {
-  const x = Buffer.from(String(a)), y = Buffer.from(String(b));
-  return x.length === y.length && crypto.timingSafeEqual(x, y);
-};
+// See server/passwords.js: PBKDF2-SHA256 at 600,000 iterations, old 310,000 hashes
+// still verify and are upgraded at the next sign-in. Plain passwords are never stored or logged.
+const Passwords = require('./server/passwords');
+const BackupFiles = require('./server/backup-files');
+const SavedPlan = require('./server/saved-plan');
+const { PASSWORD_MAX, passwordProblem, sameSecret } = Passwords;
 // ---- sessions --------------------------------------------------------------
 // Kept in the store (so a redeploy does not sign everyone out) under the SHA-256
 // of the cookie value: a copy of the store does not contain usable sessions.
 const tokenHash = t => crypto.createHash('sha256').update(String(t)).digest('hex');
 function sessions() { return store['_sessions'] || (store['_sessions'] = {}); }
-function newSession(slug) {
+function newSession(slug, req) {
   const id = crypto.randomBytes(32).toString('hex');
-  sessions()[tokenHash(id)] = { slug, at: Date.now(), seen: Date.now() };
+  sessions()[tokenHash(id)] = { slug, at: Date.now(), seen: Date.now(), device: deviceLabel(req) };
   sweepSessions();
   save();
   return id;
@@ -473,6 +485,19 @@ function endSessionsOf(slug, exceptId) {
   const s = sessions();
   Object.keys(s).forEach(k => { if (s[k] && s[k].slug === slug && k !== exceptId) delete s[k]; });
 }
+/* A coarse label for the "where you are signed in" list, e.g. "Firefox on Windows".
+   Only the browser family and the system are kept, never the full user-agent string. */
+function deviceLabel(req) {
+  const ua = String((req && req.headers && req.headers['user-agent']) || '');
+  const browser = /Edg\//.test(ua) ? 'Edge' : /OPR\//.test(ua) ? 'Opera' : /Firefox\//.test(ua) ? 'Firefox'
+    : /Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : 'A browser';
+  const system = /Windows/.test(ua) ? 'Windows' : /iPhone|iPad/.test(ua) ? 'iPhone or iPad' : /Android/.test(ua) ? 'Android'
+    : /Mac OS X/.test(ua) ? 'macOS' : /Linux/.test(ua) ? 'Linux' : 'an unknown system';
+  return browser + ' on ' + system;
+}
+// The list shows a handle derived from the stored key, never the key itself.
+const sessionHandle = key => crypto.createHash('sha256').update('handle:' + key).digest('hex').slice(0, 16);
+
 // HttpOnly + SameSite=Lax always; Secure over https (or when PUBLIC_URL is https)
 const cookieFor = (id, secure) =>
   'sid=' + id + '; HttpOnly; Path=/; SameSite=Lax; Max-Age=' + SESSION_HOURS * 3600 + (secure ? '; Secure' : '');
@@ -577,9 +602,17 @@ function sendVerifyEmail(acct) {
 }
 
 const isTestAddress = email => /^test\.[^@\s]+@bau\.edu\.lb$/i.test(String(email || '').trim());
+/* Base of every emailed link. In production it must come from PUBLIC_URL (checked at
+   start-up); the Host header is client-controlled and is only used on a developer machine. */
+function linkBase(req) {
+  if (PUBLIC_URL) return PUBLIC_URL;
+  if (PRODUCTION) throw new Error('PUBLIC_URL is not set');
+  return (isHttps(req) ? 'https://' : 'http://') + (req.headers.host || 'localhost');
+}
+
 function invitationLink(req, slug, purpose) {
   const token = newVerifyToken(slug, purpose || 'invite');
-  const base = PUBLIC_URL || ((isHttps(req) ? 'https://' : 'http://') + (req.headers.host || 'localhost'));
+  const base = linkBase(req);
   return base + '/?verify=' + token;
 }
 function sendInviteEmail(person, link) {
@@ -606,7 +639,7 @@ function dropResets(slug) {
   Object.keys(r).forEach(k => { if (r[k] && r[k].slug === slug) delete r[k]; });
 }
 function resetLink(req, token) {
-  const base = PUBLIC_URL || ((isHttps(req) ? 'https://' : 'http://') + (req.headers.host || 'localhost'));
+  const base = linkBase(req);
   return base + '/?reset=' + token;
 }
 
@@ -670,7 +703,7 @@ function readBody(req, forPath) {
       parts.push(c);
     });
     req.on('end', () => {
-      try { resolve(parts.length ? JSON.parse(Buffer.concat(parts).toString('utf8')) : {}); }
+      try { resolve(parts.length ? parseJsonSafe(Buffer.concat(parts).toString('utf8')) : {}); }
       catch (e) { reject(new Error('bad request body')); }
     });
     req.on('error', reject);
@@ -792,7 +825,7 @@ async function api(req, res, url) {
     const slug = person && person.slug;
     const key = 'in:' + (email || 'missing-email') + ':' + ip;
     if (!staffEmailOk(email)) {
-      await hash(String(body.password || '').slice(0, PASSWORD_MAX), 'no-account');
+      await Passwords.verify(null, body.password);
       failed(key);
       return json(res, 401, { error: 'that email and password do not match' });
     }
@@ -800,9 +833,9 @@ async function api(req, res, url) {
     const acctTries = 'in-acct:' + (slug || email);      // per account, whatever address it comes from
     if (tooMany(key) || tooMany(acctTries)) return json(res, 429, { error: 'too many tries, wait a few minutes' });
     const password = String(body.password || '').slice(0, PASSWORD_MAX);
-    // hash even for an unknown name, so response time does not reveal which accounts exist
-    const given = await hash(password, acct ? acct.salt : 'no-account');
-    if (!acct || !sameSecret(given, acct.hash) || !person || person.active === false) {
+    // verify() hashes even for an unknown name, so response time does not reveal which accounts exist
+    const matches = await Passwords.verify(acct, password);
+    if (!acct || !matches || !person || person.active === false) {
       failed(key); if (acct) failed(acctTries);
       audit(slug || null, 'signin-failed', { ip });
       return json(res, 401, { error: 'that email and password do not match' });
@@ -811,10 +844,14 @@ async function api(req, res, url) {
     if (!isVerified(acct)) {
       return json(res, 403, { error: 'this account is not active yet. Open the invitation link sent to your BAU email', unverified: true });
     }
+    if (Passwords.needsRehash(acct)) {
+      Object.assign(acct, await Passwords.freshHash(password));   // quiet upgrade to the current work factor
+      audit(slug, 'password-rehashed', { iterations: Passwords.ITERATIONS });
+    }
     acct.lastSignIn = Date.now(); save();
     audit(slug, 'signin', { ip });
     return json(res, 200, { ok: true, slug, admin: isSuperadmin(slug) },
-      { 'set-cookie': cookieFor(newSession(slug), secure) });
+      { 'set-cookie': cookieFor(newSession(slug, req), secure) });
   }
 
   if (p === '/api/signout') {
@@ -837,17 +874,16 @@ async function api(req, res, url) {
       const password = String(body.password || '');
       const pwBad = passwordProblem(password);
       if (pwBad) return json(res, 400, { error: pwBad });
-      const salt = newSalt();
-      store[acctKey(rec.slug)] = {
-        slug: rec.slug, email: invitedPerson.email, salt,
-        hash: await hash(password, salt),
+      store[acctKey(rec.slug)] = Object.assign({
+        slug: rec.slug, email: invitedPerson.email
+      }, await Passwords.freshHash(password), {
         createdAt: Date.now(), lastSignIn: Date.now(), verified: true, verifiedAt: Date.now()
-      };
+      });
       dropVerifies(rec.slug);
       save();
       audit(rec.slug, 'invite-accepted', { ip, before: null, after: { active: true, verified: true } });
       return json(res, 200, { ok: true, slug: rec.slug, admin: isSuperadmin(rec.slug) },
-        { 'set-cookie': cookieFor(newSession(rec.slug), secure) });
+        { 'set-cookie': cookieFor(newSession(rec.slug, req), secure) });
     }
     const acct = store[acctKey(rec.slug)];
     if (!acct) return json(res, 404, { error: 'that account no longer exists. Create it again' });
@@ -855,7 +891,7 @@ async function api(req, res, url) {
       return json(res, 403, { error: 'this account is no longer active; contact your administrator' });
     }
     if (tooMany('ver-acct:' + rec.slug)) return json(res, 429, { error: 'too many tries, wait a few minutes' });
-    if (!sameSecret(await hash(String(body.password || '').slice(0, PASSWORD_MAX), acct.salt), acct.hash)) {
+    if (!(await Passwords.verify(acct, body.password))) {
       failed(key); failed('ver-acct:' + rec.slug);
       return json(res, 401, { error: 'that is not the password chosen when this account was created' });
     }
@@ -865,7 +901,7 @@ async function api(req, res, url) {
     save();
     audit(rec.slug, 'account-verified', { ip });
     return json(res, 200, { ok: true, slug: rec.slug, admin: isSuperadmin(rec.slug) },
-      { 'set-cookie': cookieFor(newSession(rec.slug), secure) });
+      { 'set-cookie': cookieFor(newSession(rec.slug, req), secure) });
   }
 
   // "Send the link again", for an account that is waiting. Needs the password,
@@ -878,7 +914,7 @@ async function api(req, res, url) {
     failed(key);
     const acct = store[acctKey(slug)];
     if (!acct || isVerified(acct) || !canVerify()) return json(res, 200, { ok: true });
-    if (!sameSecret(await hash(String(body.password || '').slice(0, PASSWORD_MAX), acct.salt), acct.hash)) {
+    if (!(await Passwords.verify(acct, body.password))) {
       return json(res, 401, { error: 'that name and password do not match' });
     }
     try { await sendVerifyEmail(acct); }
@@ -954,8 +990,7 @@ async function api(req, res, url) {
     if (!acct || !personOf(slug) || personOf(slug).active === false) {
       return json(res, 404, { error: 'no active account' });
     }
-    acct.salt = newSalt();
-    acct.hash = await hash(next, acct.salt);
+    Object.assign(acct, await Passwords.freshHash(next));
     acct.changedAt = Date.now();
     acct.verified = true;                  // the link came through their BAU inbox
     dropVerifies(slug);
@@ -964,7 +999,7 @@ async function api(req, res, url) {
     save();
     audit(slug, 'password-reset', { ip });
     return json(res, 200, { ok: true, slug, admin: isSuperadmin(slug) },
-      { 'set-cookie': cookieFor(newSession(slug), secure) });
+      { 'set-cookie': cookieFor(newSession(slug, req), secure) });
   }
 
   // ---- everything below needs a session ----
@@ -983,9 +1018,33 @@ async function api(req, res, url) {
     if (changes) return json(res, 423, { error: 'the portal is read-only for now while it is being set up. Try again later' });
   }
 
-  if (p.indexOf('/api/admin/') === 0 && !['/api/admin/reset-link', '/api/admin/clear-password'].includes(p)) {
+  if (p.indexOf('/api/admin/') === 0 && !['/api/admin/reset-link', '/api/admin/clear-password',
+    '/api/admin/audit', '/api/admin/backup-status', '/api/admin/backup-download'].includes(p)) {
     if (!isSuperadmin(me.slug)) return json(res, 403, { error: 'only a superadmin can open the admin dashboard' });
     return adminApi(p, body, req, res, me, ip);
+  }
+
+  /* ---- your own sessions ----
+     Where this account is signed in, and a way to end the others (a lost laptop,
+     a lab computer someone forgot to sign out of). */
+  if (p === '/api/sessions' || p === '/api/sessions/end') {
+    const all = sessions();
+    const mine = Object.keys(all).filter(k => all[k] && all[k].slug === me.slug && !sessionExpired(all[k]));
+    if (p === '/api/sessions/end') {
+      const which = String(body.handle || '');
+      const targets = which === 'others' ? mine.filter(k => k !== me.id)
+        : mine.filter(k => k !== me.id && sessionHandle(k) === which);
+      if (which !== 'others' && !targets.length) return json(res, 404, { error: 'that session has already ended' });
+      targets.forEach(k => { delete all[k]; });
+      save();
+      audit(me.slug, 'sessions-ended', { count: targets.length, ip });
+      return json(res, 200, { ok: true, ended: targets.length });
+    }
+    const list = mine.map(k => ({
+      handle: sessionHandle(k), current: k === me.id, device: all[k].device || 'Unknown device',
+      started: new Date(all[k].at).toISOString(), lastSeen: new Date(all[k].seen || all[k].at).toISOString()
+    })).sort((a, b) => (b.current - a.current) || b.lastSeen.localeCompare(a.lastSeen));
+    return json(res, 200, { sessions: list });
   }
 
   if (p === '/api/org/tree') {
@@ -1215,7 +1274,7 @@ async function api(req, res, url) {
     if (!acct) return json(res, 404, { error: 'no account' });
     const key = 'pw:' + me.slug + ':' + ip;
     if (tooMany(key)) return json(res, 429, { error: 'too many tries, wait a few minutes' });
-    if (!sameSecret(await hash(String(body.current || '').slice(0, PASSWORD_MAX), acct.salt), acct.hash)) {
+    if (!(await Passwords.verify(acct, body.current))) {
       failed(key);
       return json(res, 401, { error: 'that is not your current password' });
     }
@@ -1223,8 +1282,7 @@ async function api(req, res, url) {
     const pwBad = passwordProblem(next);
     if (pwBad) return json(res, 400, { error: pwBad });
     cleared(key);
-    acct.salt = newSalt();
-    acct.hash = await hash(next, acct.salt);
+    Object.assign(acct, await Passwords.freshHash(next));
     acct.changedAt = Date.now();
     dropResets(me.slug);
     endSessionsOf(me.slug, me.id);         // keep this session, sign out everywhere else
@@ -1339,13 +1397,72 @@ async function api(req, res, url) {
     return json(res, 200, { ok: true, had });
   }
 
+  /* ---- superadmin: the activity log ----
+     Read and decrypted here, newest first, 50 at a time. Filter by action or by
+     who did it. The log file itself never leaves the server. */
+  if (p === '/api/admin/audit') {
+    if (!isSuperadmin(me.slug)) return json(res, 403, { error: 'only a superadmin can read the activity log' });
+    if (databaseStore) return json(res, 501, { error: 'with PostgreSQL storage, read the audit table in the database' });
+    await flushStore().catch(() => {});
+    const PAGE = 50;
+    const page = Math.max(0, Math.min(10000, Number.parseInt(body.page, 10) || 0));
+    const action = String(body.action || '').slice(0, 60);
+    const actor = String(body.actor || '').slice(0, 80);
+    let lines = [];
+    try { lines = fs.readFileSync(AUDIT_FILE, 'utf8').split('\n').filter(Boolean); } catch (e) { /* no log yet */ }
+    const entries = [];
+    const actions = new Set();
+    let matched = 0, unreadable = 0;
+    for (let i = lines.length - 1; i >= 0; i--) {
+      let entry;
+      try {
+        const text = STORE_KEY ? sealed.decrypt(STORE_KEY, JSON.parse(lines[i])) : lines[i];
+        entry = JSON.parse(text);
+      } catch (e) { unreadable++; continue; }
+      actions.add(entry.action);
+      if (action && entry.action !== action) continue;
+      if (actor && entry.actor !== actor) continue;
+      if (matched >= page * PAGE && matched < (page + 1) * PAGE) {
+        entries.push({ at: entry.at, actor: entry.actor, action: entry.action, details: entry.details || {} });
+      }
+      matched++;
+    }
+    audit(me.slug, 'audit-log-read', { page, filterAction: action || null, filterActor: actor || null, ip });
+    return json(res, 200, { entries, page, pages: Math.ceil(matched / PAGE), total: matched, unreadable,
+      actions: Array.from(actions).sort() });
+  }
+
+  /* ---- superadmin: backups ----
+     Status of the hourly copies, and a download of the newest one so it can be
+     kept somewhere other than the server's own disk. The file is the encrypted
+     envelope exactly as it sits on disk: without STORE_KEY it cannot be read. */
+  if (p === '/api/admin/backup-status' || p === '/api/admin/backup-download') {
+    if (!isSuperadmin(me.slug)) return json(res, 403, { error: 'only a superadmin can see backups' });
+    const latest = BackupFiles.latestBackup(DATA_DIR);
+    const exported = store._backup || null;
+    if (p === '/api/admin/backup-status') {
+      return json(res, 200, {
+        encrypted: !!STORE_KEY,
+        keep: BACKUP_KEEP,
+        count: latest ? latest.count : 0,
+        latest: latest ? { name: latest.name, at: new Date(latest.at).toISOString(), bytes: latest.bytes } : null,
+        lastDownload: exported
+      });
+    }
+    if (!STORE_KEY) return json(res, 409, { error: 'backups can only be downloaded when the store is encrypted' });
+    if (!latest) return json(res, 404, { error: 'there is no backup yet' });
+    const text = fs.readFileSync(latest.file, 'utf8');
+    store._backup = { at: new Date().toISOString(), by: me.slug, name: latest.name };
+    audit(me.slug, 'backup-downloaded', { name: latest.name, bytes: latest.bytes, ip });
+    return json(res, 200, { name: latest.name, file: text });
+  }
+
   /* ---- admin: all students ----
      Every advisor's stored list, keyed by slug. */
   if (p === '/api/all-students') {
     if (!canUser(me.slug, 'students:read', scopesOf(personOf(me.slug))[0])) {
       return json(res, 403, { error: 'not yours to read' });
     }
-    audit(me.slug, 'read-all-students', { ip });
     const slugs = new Set();
     Object.keys(store).forEach(k => {
       const m = /^advisors\/([a-z0-9-]+)\//.exec(k);
@@ -1364,6 +1481,10 @@ async function api(req, res, url) {
       const list = Object.values(saved);
       if (list.length) out[slug] = list;
     });
+    // one line for the whole read: which advisors' lists and how many records each
+    const counts = {};
+    Object.keys(out).forEach(slug => { counts[slug] = out[slug].length; });
+    audit(me.slug, 'read-all-students', { ip, advisors: counts });
     return json(res, 200, { advisors: out });
   }
 
@@ -1445,8 +1566,18 @@ async function api(req, res, url) {
         return json(res, 400, { error: 'invalid student record path' });
       }
     }
+    // Reading another advisor's student records is allowed inside your scope,
+    // but it is written to the audit log (who, whose list, how many, from where).
+    const otherOwner = (/^advisors\/([a-z0-9-]+)\/students(\/|$)/.exec(key) || [])[1];
+    const logOtherRead = count => {
+      if (otherOwner && otherOwner !== me.slug && count > 0) {
+        audit(me.slug, 'read-other-students', { owner: otherOwner, count, ip });
+      }
+    };
     if (p === '/api/get') {
-      return json(res, 200, { data: Object.prototype.hasOwnProperty.call(store, key) ? store[key] : null });
+      const found = Object.prototype.hasOwnProperty.call(store, key);
+      logOtherRead(found ? 1 : 0);
+      return json(res, 200, { data: found ? store[key] : null });
     }
     if (p === '/api/list') {
       const prefix = key.replace(/\/+$/, '') + '/';
@@ -1456,6 +1587,7 @@ async function api(req, res, url) {
           out[k.slice(prefix.length)] = store[k];
         }
       });
+      logOtherRead(Object.keys(out).length);
       return json(res, 200, { data: out });
     }
     // The sign-in cover is superadmin-only and must be an image.
@@ -1518,6 +1650,7 @@ async function api(req, res, url) {
         return json(res, 400, { error: 'invalid student record' });
       }
     }
+    let newOverrides = [];
     if (p === '/api/set') {
       // size caps per kind of record, so one account cannot fill the database
       const size = JSON.stringify(body.value === undefined ? null : body.value).length;
@@ -1529,8 +1662,20 @@ async function api(req, res, url) {
       if (/^advisors\/[a-z0-9-]+\/students\//.test(key)) {
         cleanStudent(body.value);
         body.value.updatedAt = Date.now(); body.value.updatedBy = me.slug;
+        // a saved term plan: shape checked, overrides stamped here (see server/saved-plan.js)
+        const previous = store[key] && store[key].plan;
+        const same = previous && body.value.plan && JSON.stringify(previous) === JSON.stringify(body.value.plan);
+        if (!same) {
+          const checked = SavedPlan.checkPlan(body.value.plan, previous, me.slug, Date.now());
+          if (checked.error) return json(res, 400, { error: checked.error });
+          if (checked.plan) body.value.plan = checked.plan; else delete body.value.plan;
+          newOverrides = checked.added;
+        }
       }
       store[key] = body.value; save();
+      newOverrides.forEach(o => audit(me.slug, 'block-overridden', {
+        advisor: key.split('/')[1], student: body.value.id, term: body.value.plan.term,
+        ruleId: o.ruleId, course: o.course, reason: o.reason, ip }));
       if (!key.startsWith('advisors/' + me.slug + '/') || /\/students\//.test(key) || !key.startsWith('advisors/')) {
         const student = /^advisors\/([a-z0-9-]+)\/students\/\d+$/.exec(key);
         audit(me.slug, 'set', student ? { advisor: student[1], recordType: 'student' } : { key });
@@ -1695,15 +1840,20 @@ async function adminApi(p, body, req, res, me, ip) {
 }
 
 // ---- serving the page ------------------------------------------------------
-const CSP = [
+/* Content Security Policy. Every script is inlined into the one page, so instead of
+   'unsafe-inline' the policy lists the SHA-256 of each inline script in the page we serve
+   (computed in pageForWire). An injected <script> has a different hash and does not run.
+   Styles keep 'unsafe-inline': the interface sets many style attributes, and CSS cannot run code. */
+let scriptHashes = [];
+const cspHeader = () => [
   "default-src 'self'",
-  // scripts are inlined into the page (pdf.js included), nothing loads from a CDN
-  "script-src 'self' 'unsafe-inline'",
+  "script-src 'self'" + scriptHashes.map(h => " 'sha256-" + h + "'").join(''),
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   // staff photos on the sign-in directory are the ones published on www.bau.edu.lb
   "img-src 'self' data: blob: https://www.bau.edu.lb",
   "connect-src 'self'",
+  "object-src 'none'",
   "frame-ancestors 'none'",
   "base-uri 'none'",
   "form-action 'self'"
@@ -1743,7 +1893,7 @@ function tooManyFrom(req) {
 
 function securityHeaders(req) {
   const h = {
-    'content-security-policy': CSP,
+    'content-security-policy': cspHeader(),
     'x-content-type-options': 'nosniff',
     'referrer-policy': 'no-referrer',
     'x-frame-options': 'DENY',
@@ -1762,6 +1912,17 @@ function pageForWire() {
   if (servedPage && servedFrom === stat.mtimeMs) return servedPage;
   const html = fs.readFileSync(PAGE, 'utf8')
     .replace('<head>', '<head><script>window.SERVED=true;</script>');
+  scriptHashes = [];
+  html.replace(/<script>([\s\S]*?)<\/script>/g, (all, code) => {
+    scriptHashes.push(crypto.createHash('sha256').update(code, 'utf8').digest('base64'));
+    return all;
+  });
+  // Print windows are about:blank pages written by the app, and they inherit this policy.
+  // Their small auto-print script sits in the app as a string ending in <\/script>.
+  html.replace(/<script>([^<]*?)<\\\/script>/g, (all, code) => {
+    scriptHashes.push(crypto.createHash('sha256').update(code, 'utf8').digest('base64'));
+    return all;
+  });
   servedPage = Buffer.from(html, 'utf8');
   servedFrom = stat.mtimeMs;
   return servedPage;
@@ -1782,7 +1943,10 @@ async function healthy() {
   } catch (e) { return false; }
 }
 
-const server = http.createServer({ headersTimeout: 20e3, requestTimeout: 120e3, connectionsCheckingInterval: 5e3 }, async (req, res) => {
+const server = applyTimeouts(http.createServer({
+  // how often Node looks for connections past their time limit (default is 30 s)
+  connectionsCheckingInterval: Math.min(5000, HEADERS_TIMEOUT_MS)
+}, async (req, res) => {
   let url;
   try { url = new URL(req.url, 'http://localhost'); } catch (e) { res.writeHead(400).end(); return; }
   const p = url.pathname;
@@ -1816,14 +1980,16 @@ const server = http.createServer({ headersTimeout: 20e3, requestTimeout: 120e3, 
     return;
   }
   json(res, 405, { error: 'method not allowed' });
+}), {
+  headersMs: HEADERS_TIMEOUT_MS, requestMs: REQUEST_TIMEOUT_MS,
+  keepAliveMs: KEEP_ALIVE_TIMEOUT_MS, maxRequestsPerSocket: MAX_REQUESTS_PER_SOCKET
 });
 
 /* Slow or stuck clients must not hold connections open for ever (slowloris).
-   keepAliveTimeout stays above the proxy's idle timeout so the proxy never
-   reuses a connection we just closed. */
-server.headersTimeout = 20e3;
-server.requestTimeout = 120e3;      // a 40 MB import over a slow connection still fits
-server.keepAliveTimeout = 65e3;
+   The time limits are set by applyTimeouts() above from HEADERS_TIMEOUT_MS,
+   REQUEST_TIMEOUT_MS (120 s, so a 40 MB import over a slow line still fits) and
+   KEEP_ALIVE_TIMEOUT_MS, which defaults to 65 s so it stays above the proxy's idle
+   timeout and the proxy never reuses a connection we just closed. */
 server.maxHeadersCount = 100;
 
 /* General API limit per address, on top of the sign-in limits: a fixed
@@ -1984,6 +2150,9 @@ async function startServer() {
   if (PRODUCTION && !process.env.DATABASE_URL && !STORE_KEY) {
     throw new Error('DATABASE_URL or STORE_KEY is required in production; refusing to start with unencrypted file storage');
   }
+  if (PRODUCTION && !/^https:\/\/[a-z0-9.-]+(:\d+)?$/i.test(PUBLIC_URL)) {
+    throw new Error('PUBLIC_URL (https://your-domain) is required in production; emailed links must not be built from the Host header');
+  }
   if (process.env.DATABASE_URL) {
     databaseStore = new PostgresStore(createPool(), error => {
       storageFailure = error;
@@ -2078,6 +2247,13 @@ function shutdown(signal) {
   });
 }
 ['SIGTERM', 'SIGINT'].forEach(sig => process.on(sig, () => shutdown(sig)));
+/* An exception nobody caught leaves the process in an unknown state (OWASP A10:2025).
+   Log it and stop at once without writing the in-memory store: anything not yet written
+   was never confirmed to a user, and Railway restarts the service from the last good file. */
+process.on('uncaughtException', e => {
+  console.error('uncaught exception, stopping:', e && e.stack ? e.stack : e);
+  process.exit(1);
+});
 process.on('unhandledRejection', e => {
   console.error('unhandled rejection:', e && e.stack ? e.stack : e);
   process.exitCode = 1;

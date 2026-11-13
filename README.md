@@ -76,6 +76,11 @@ and it drops onto a week grid. Credits count up against the student's limit, cla
 a Debbieh section next to a Beirut one raises the campus warning, and prerequisites are checked
 against what the student will have passed by then. Nothing is registered: it is a trial.
 
+*Save plan* keeps the trial on the student's record, so it is there next time and for a colleague
+covering. *Print plan* gives a one-page copy with signature lines. A blocked check (over the
+credit limit, a missing prerequisite) can be overridden, but only with a written reason; the
+server records who did it and when, and the activity log keeps the reason.
+
 ## The course chain
 
 Every faculty and major core course laid out in its study-plan semester, with an arrow from each
@@ -247,6 +252,10 @@ Import tests use isolated test-only data and do not seed production storage.
 
 ```
 server.js           HTTP server: sign-in, sessions, email verification, per-advisor storage
+server/             pieces split out of server.js: passwords, HTTP guards (timeouts, JSON),
+                    backup files, saved term plans
+scripts/restore-backup.js, scripts/rotate-store-key.js   backup restore and key change (see DEPLOY.md)
+scripts/ui-tour.js  screenshots of the main screens for design review
 src/postgres-store.js PostgreSQL persistence for application data and audit events
 db/migrations/      explicit PostgreSQL schema migrations
 mail.js             outgoing mail over SMTP or an HTTPS mail API
@@ -275,6 +284,8 @@ npm install                                   # build and PostgreSQL dependencie
 npm start                                     # local only: http://localhost:3000
 npm test                                      # unit, rendering and server tests
 npm run test:security                         # browser end-to-end checks (Playwright)
+npm run test:email                            # invitation and password-reset emails, end to end
+npm run test:full                             # one full advisor session plus the superadmin pages
 ```
 
 On Windows (Command Prompt) set variables first, then `npm start`. Public sign-up is disabled;
@@ -302,8 +313,8 @@ the wrong page. If a browser blocks it, the sheet opens in a new tab instead.
 
 ## Known limits
 
-- **Opened as a file, the page has no server**: records stay in that browser and sign-in is
-  only a local check. Use it for demonstrations, never for real records.
+- **Opened as a file, the page has no server**: records stay in memory and there is no sign-in or
+  password at all. Use it for demonstrations, never for real records.
 - **The offering is partial.** It covers the pages that were shared plus every section a student
   is registered in. A course missing from it is reported as "not in the synced list", never as
   "not offered". Upload a full CSV to replace it.

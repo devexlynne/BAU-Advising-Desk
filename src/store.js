@@ -135,34 +135,6 @@
     if (db) { try { await db.doc(path + '/' + id).delete(); } catch (e) { /* kept locally */ } }
   }
 
-  // ---- passwords ----------------------------------------------------------
-  function toHex(buf) {
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-  }
-  function randomSalt() {
-    const a = new Uint8Array(16);
-    (window.crypto || {}).getRandomValues ? window.crypto.getRandomValues(a) : a.fill(7);
-    return toHex(a.buffer);
-  }
-  async function hashPassword(password, salt) {
-    const enc = new TextEncoder();
-    try {
-      const key = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveBits']);
-      const bits = await crypto.subtle.deriveBits(
-        { name: 'PBKDF2', salt: enc.encode('bau:' + salt), iterations: 150000, hash: 'SHA-256' }, key, 256);
-      return 'pbkdf2$' + toHex(bits);
-    } catch (e) {
-      try {
-        const d = await crypto.subtle.digest('SHA-256', enc.encode('bau:' + salt + ':' + password));
-        return 'sha256$' + toHex(d);
-      } catch (e2) {
-        let h = 0; const s = salt + password;
-        for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
-        return 'weak$' + h;
-      }
-    }
-  }
-
   // ---- accounts -----------------------------------------------------------
   const acctPath = slug => 'advisors/' + slug + '/account';
 
@@ -170,34 +142,6 @@
   async function getAccount(slug) {
     if (api) return null;
     return await docGet(acctPath(slug), null);
-  }
-
-  async function createAccount(slug, email, password) {
-    if (api) {
-      const r = await post('/api/signup', { slug, email, password });
-      return { account: { slug, email }, verify: !!r.verify, email: r.email || email };
-    }
-    const salt = randomSalt();
-    const hash = await hashPassword(password, salt);
-    const rec = { slug, email, salt, hash, createdAt: Date.now(), lastSignIn: Date.now() };
-    await docSet(acctPath(slug), rec);
-    return { account: rec };
-  }
-
-  async function checkPassword(slug, password) {
-    if (api) {
-      lastUnverified = false;
-      try { const r = await post('/api/signin', { slug, password }); amAdmin = !!r.admin; return true; }
-      catch (e) { lastError = e.message; lastUnverified = e.status === 403; return false; }
-    }
-
-    const acct = await getAccount(slug);
-    if (!acct) return false;
-    const hash = await hashPassword(password, acct.salt);
-    if (hash !== acct.hash) return false;
-    acct.lastSignIn = Date.now();
-    await docSet(acctPath(slug), acct);
-    return true;
   }
 
   async function signIn(email, password) {
@@ -214,40 +158,15 @@
     }
   }
 
-  async function setPassword(acct, password) {
-    const salt = randomSalt();
-    acct.salt = salt;
-    acct.hash = await hashPassword(password, salt);
-    acct.changedAt = Date.now();
-    await docSet(acctPath(acct.slug), acct);
-    return true;
-  }
-
   // needs the current password
   async function changePassword(slug, current, next) {
     if (api) {
       try { await post('/api/password', { current, next }); return 'ok'; }
       catch (e) { lastError = e.message; return e.status === 401 ? 'wrong-password' : 'failed'; }
     }
-    const acct = await getAccount(slug);
-    if (!acct) return 'no-account';
-    const hash = await hashPassword(current, acct.salt);
-    if (hash !== acct.hash) return 'wrong-password';
-    await setPassword(acct, next);
-    return 'ok';
-  }
-
-  async function accountsThatExist(slugs) {
-    if (api) {
-      const r = await fetch('/api/accounts', { credentials: 'same-origin', cache: 'no-store' });
-      const body = await r.json();
-      const out = {};
-      slugs.forEach(s => { out[s] = !!(body.accounts || {})[s]; });
-      return out;
-    }
-    const out = {};
-    for (const s of slugs) out[s] = !!(await getAccount(s));
-    return out;
+    // Passwords exist only on the portal server; the offline demo has no accounts.
+    lastError = 'Password changes need the portal server.';
+    return 'failed';
   }
 
   // ---- email reset + session ----------------------------------------------
@@ -274,11 +193,6 @@
     try { const r = await post('/api/verify', { token, password }); amAdmin = !!r.admin; return r; }
     catch (e) { lastError = e.message; return { ok: false, error: e.message }; }
   }
-  async function resendVerify(slug, password) {
-    try { return await post('/api/verify-resend', { slug, password }); }
-    catch (e) { lastError = e.message; return { ok: false, error: e.message }; }
-  }
-
   // who's signed in, per the server
   async function whoAmI() {
     if (!api) return null;
@@ -469,6 +383,13 @@
     return (await post('/api/org/tree', { tree })).tree;
   }
 
+  // ---- sessions, activity log and backups (server only) ----
+  async function listSessions() { return api ? (await post('/api/sessions', {})).sessions : []; }
+  async function endSessions(handle) { return (await post('/api/sessions/end', { handle })).ended; }
+  async function auditLog(query) { return await post('/api/admin/audit', query || {}); }
+  async function backupStatus() { return await post('/api/admin/backup-status', {}); }
+  async function downloadBackup() { return await post('/api/admin/backup-download', {}); }
+
   async function getConfig(dept) { return await docGet('config/' + dept + '/rules', null); }
   async function saveConfig(dept, cfg) { return await docSet('config/' + dept + '/rules', cfg); }
 
@@ -479,11 +400,12 @@
     isAdmin: () => amAdmin, notice: () => notice, adminCall, mailReady: () => mailOn, allStudents, loadPeople, loadOrgTree,
     invitePerson, updatePerson, deactivatePerson, reinvitePerson, sendMail, adminResetLink, adminClearPassword,
     mailReset: () => mailOn, requestResetEmail, resetWithLink,
-    verifyAccount, resendVerify, signIn, lastUnverified: () => lastUnverified,
-    getAccount, createAccount, checkPassword, accountsThatExist,
+    verifyAccount, signIn, lastUnverified: () => lastUnverified,
+    getAccount,
     changePassword,
     loadStudents, saveStudent, saveStudents, removeStudent, clearStudents,
     loadOffering, saveOffering, getSettings, saveSettings, getCover, saveCover,
-    loadIdeas, postIdea, saveIdea, removeIdea
+    loadIdeas, postIdea, saveIdea, removeIdea,
+    listSessions, endSessions, auditLog, backupStatus, downloadBackup
   };
 });
